@@ -5,6 +5,10 @@ from analib import PhysObj, Event
 from info import trainVars, allVars, cutVars, cutDict, weightDict
 from data_manager import processData
 import collections
+import matplotlib.pyplot as plt
+
+
+print('neural network')
 
 ## prepare testdata for prediction 
 fileName = 'GGH_HPT'
@@ -23,3 +27,9 @@ loaded_model = pickle.load(open('XGB_classifier_8Var.pkl', 'rb'))
 ## make predictions for test data
 prediction = loaded_model.predict(data.iloc[:,:-2])
 count = collections.Counter(prediction)
+
+## am i also making plots of how many signal and background we found 
+## for each region of bin? 
+## what is my bin even??????? 
+## uh this feels wrong. 
+hist = plt.hist(prediction, 2)
