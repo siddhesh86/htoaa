@@ -4,7 +4,8 @@ import pandas as pd
 from analib import PhysObj, Event
 from info import BGenFileNames, bEnrFileNames
 
-import dataVsMC_DataManager as DM #import processData, jetVars, muonVars, PVVars, allVars, dataPath, ggHPath, bEnrPaths, BGenPaths, TTJetsPaths,
+#import dataVsMC_DataManager as DM #import processData, jetVars, muonVars, PVVars, allVars, dataPath, ggHPath, bEnrPaths, BGenPaths, TTJetsPaths,
+import datamanager_fixed as DM
 from dataManager import trainVars # this is so we can run our thing through the BDT XML correctly
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
@@ -22,7 +23,13 @@ plt.style.use(hep.style.CMS)
 root = True
 
 ## function to add a BDTScore column to each of the background/signal/data DF
-loadedModel = pickle.load(open('Htoaa_BDThigh disc.pkl', 'rb'))
+if DM.disc == 'b':
+    bdtpickle = 'Htoaa_BDT.pkl'
+elif DM.disc == 'h':
+    bdtpickle = 'Htoaa_BDThigh disc.pkl'
+elif DM.disc == 'm':
+    bdtpickle = 'Htoaa_BDThigh+medium disc.pkl'
+loadedModel = pickle.load(open(bdtpickle, 'rb'))
 def analyze(dataDf):
     prediction = loadedModel.predict_proba(dataDf[trainVars])
     dataDf = dataDf.assign(BDTScore=prediction[:,1])
@@ -30,12 +37,12 @@ def analyze(dataDf):
 
 if root:
     ## monte carlo ggH signal
-    ggHDf = DM.processData(DM.ggHPaths, 'ggH')
+    ggHDf = DM.processData(DM.ggHPaths, 'ggH', False)
 
     ############## BGen ##############
     BGenDf = pd.DataFrame()
     for fileName in DM.BGenPaths:
-        tmpDf = DM.processData(fileName, 'BGen')
+        tmpDf = DM.processData(fileName, 'BGen', False)
         BGenDf = BGenDf.append(tmpDf, ignore_index=True, sort=False)
     ## calculate Xsec weights for each event
     #LHE_QCD_corrections = BGenDf.LHE_weights * BGenDf.QCD_correction
@@ -47,7 +54,7 @@ if root:
     ## uncommend below if using multiple bg MC files
     bEnrDf = pd.DataFrame()
     for fileName in DM.bEnrPaths:
-        tmpDf = DM.processData(fileName, 'bEnr')
+        tmpDf = DM.processData(fileName, 'bEnr', False)
         bEnrDf = bEnrDf.append(tmpDf, ignore_index=True, sort=False)
     #LHE_QCD_corrections = bEnrDf.LHE_weights * bEnrDf.QCD_correction
     #bEnrDf['final_weights'] = LHE_QCD_corrections * 8.20/np.sum(LHE_QCD_corrections)
@@ -56,7 +63,7 @@ if root:
     ############## TTJets ##############
     TTJetsDf = pd.DataFrame()
     for fileName in DM.TTJetsPaths:
-        tmpdf = DM.processData(fileName, 'TTJets')
+        tmpdf = DM.processData(fileName, 'TTJets', False)
         TTJetsDf = TTJetsDf.append(tmpdf, ignore_index=True, sort=False)
 
     #length = len(TTJetsDf)
@@ -66,7 +73,7 @@ if root:
     ############## ZJets ##############
     ZJetsDf = pd.DataFrame()
     for fileName in DM.ZJetsPaths:
-        tmpdf = DM.processData(fileName, 'ZJets')
+        tmpdf = DM.processData(fileName, 'ZJets', False)
         ZJetsDf = ZJetsDf.append(tmpdf, ignore_index=True, sort=False)
 
     # length = len(ZJetsDf.loc[(ZJetsDf['LHE_HT']>=400) & (ZJetsDf['LHE_HT']<600)])
@@ -87,7 +94,7 @@ if root:
     ############## WJets ##############
     WJetsDf = pd.DataFrame()
     for fileName in DM.WJetsPaths:
-        tmpdf = DM.processData(fileName, 'WJets')
+        tmpdf = DM.processData(fileName, 'WJets', False)
         WJetsDf = WJetsDf.append(tmpdf, ignore_index=True, sort=False)
 
     # length = len(WJetsDf.loc[(WJetsDf['LHE_HT']>=400) & (WJetsDf['LHE_HT']<600)])
@@ -109,14 +116,14 @@ if root:
 
     # datafile
     if not DM.JetHT:
-        dataDf = DM.processData(DM.ParkedDataPaths[0], 'data')
+        dataDf = DM.processData(DM.ParkedDataPaths[0], 'data', False)
         pickle.dump(dataDf, open('dataVsMC/dataDf.pkl', 'wb'))
 
 
     if DM.JetHT:
         JetHTDf = pd.DataFrame()
         for fileName in DM.JetHTPaths:
-            tmpdf = DM.processData(fileName, 'JetHT')
+            tmpdf = DM.processData(fileName, 'JetHT', False)
             JetHTDf = JetHTDf.append(tmpdf, ignore_index=True, sort=False)
         JetHTDf['final_weights'] = 1
         pickle.dump(JetHTDf, open('dataVsMC/JetHTDf.pkl', 'wb'))
@@ -169,12 +176,10 @@ if DM.JetHT:
 else:
     cols = list(dataDf.columns)
 
-cols.remove('final_weights')
-cols.remove('LHE_HT')
-cols.remove('QCD_corrections')
-cols.remove('lumi_weights')
-cols.remove('PU_weights')
-cols.remove('LHE_weights')
+toremove = ['final_weights', 'LHE_HT', 'QCD_corrections', 'lumi_weights',
+            'PU_weights', 'LHE_weights']
+for i in toremove:
+    if i in cols: cols.remove(i)
 
 for var in cols:
     if 'pt' in var:
