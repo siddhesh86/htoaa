@@ -2,14 +2,14 @@
 
 
 Dir_sourceCodes=$(pwd)
-Dir_production='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration_tmp1' # without '/' in the end
+Dir_production='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration_tmp3' # without '/' in the end
 #Dir_production='/home/siddhesh/Work/CMS/htoaa/htoaa/tmp'
 Dir_store=${Dir_production}
-NEvents=10
+NEvents=100
 GENLevelEfficiency=$(bc -l <<< '0.0250' )
 sampleName='SUSY_GluGluH_01J_HToAATo4B_Pt150_$SAMPLETAG_TuneCP5_13TeV_madgraph_pythia8'
 ERA='RunIISummer20UL18'
-FileNumber=0
+FileNumber=1
 
 echo "Dir_sourceCodes: ${Dir_sourceCodes} "
 echo "Dir_production: ${Dir_production} "
