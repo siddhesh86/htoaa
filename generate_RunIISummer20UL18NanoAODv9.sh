@@ -67,7 +67,10 @@ fi
 # cmsDriver command
 # cmsDriver.py  --python_filename HIG-RunIISummer20UL18NanoAODv9-02157_1_cfg.py --eventcontent NANOEDMAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier NANOAODSIM --fileout file:HIG-RunIISummer20UL18NanoAODv9-02157.root --conditions 106X_upgrade2018_realistic_v16_L1v1 --step NANO --filein "dbs:/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM" --era Run2_2018,run2_nanoAOD_106Xv2 --no_exec --mc -n $EVENTS || exit $? ;
 
-cmsDriver.py  --python_filename ${jobName}_1_cfg.py --eventcontent NANOEDMAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier NANOAODSIM --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v16_L1v1 --step NANO --filein file:${inputFile}  --era Run2_2018,run2_nanoAOD_106Xv2 --no_exec --mc -n $EVENTS || exit $? ;
+#cmsDriver.py  --python_filename ${jobName}_1_cfg.py --eventcontent NANOEDMAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier NANOAODSIM --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v16_L1v1 --step NANO --filein file:${inputFile}  --era Run2_2018,run2_nanoAOD_106Xv2 --no_exec --mc -n $EVENTS || exit $? ;
+
+# "NANOEDMAODSIM --> NANOAODSIM" for private NanoAODv9 production [https://cms-talk.web.cern.ch/t/private-nanoaod-v9-recipe/17335/2] 
+cmsDriver.py  --python_filename ${jobName}_1_cfg.py --eventcontent NANOAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier NANOAODSIM --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v16_L1v1 --step NANO --filein file:${inputFile}  --era Run2_2018,run2_nanoAOD_106Xv2 --no_exec --mc -n $EVENTS || exit $? ;
 
 # Run generated config
 REPORT_NAME=${jobName}_report.xml
