@@ -19,7 +19,7 @@ jobName="SUSY_GluGluH_01J_HToAATo4B_${jobID}_RunIISummer20UL18wmLHEGEN"
 outputDir=$(echo ${outputFile} | sed 's|\(.*\)/.*|\1|')
 
 printf "\n\ngenerate_RunIISummer20ULwmLHEGEN.sh:: \nArguments: $@ \n"
-echo "inputFile: ${inputFile} "
+printf "\ninputFile: ${inputFile} "
 echo "outputDir: ${outputDir} "
 echo "outputFile: ${outputFile}"
 echo "nEvents: ${nEvents}"
@@ -79,6 +79,12 @@ mkdir -p Configuration/GenProduction/python/
 # Copy fragment
 #cp ${pwd_}/GENFragment_SUSY_GluGluH_01J_HToAATo4B.py Configuration/GenProduction/python/${jobName}-fragment.py
 cp ${sourceCodeDir}/GENFragment_SUSY_GluGluH_01J_HToAATo4B.py Configuration/GenProduction/python/${jobName}-fragment.py
+
+# replace input Gridpack file
+#sed -i 's/INPUTGRIDPACK=""/INPUTGRIDPACK=\"${inputFile}\"/g' Configuration/GenProduction/python/${jobName}-fragment.py
+#sed -i "s/INPUTGRIDPACK=''/INPUTGRIDPACK='${inputFile}'/g" Configuration/GenProduction/python/${jobName}-fragment.py
+sed -i "s|INPUTGRIDPACK=''|INPUTGRIDPACK='$inputFile'|g" Configuration/GenProduction/python/${jobName}-fragment.py
+
 
 # Check if fragment contais gridpack path ant that it is in cvmfs
 if grep -q "gridpacks" Configuration/GenProduction/python/${jobName}-fragment.py; then
