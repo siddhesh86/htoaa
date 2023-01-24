@@ -2,14 +2,15 @@
 
 
 Dir_sourceCodes=$(pwd)
-Dir_production='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration_tmp3' # without '/' in the end
+Dir_production='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration_tmp4p1' # without '/' in the end
 #Dir_production='/home/siddhesh/Work/CMS/htoaa/htoaa/tmp'
 Dir_store=${Dir_production}
 NEvents=100
 GENLevelEfficiency=$(bc -l <<< '0.0250' )
 sampleName='SUSY_GluGluH_01J_HToAATo4B_Pt150_$SAMPLETAG_TuneCP5_13TeV_madgraph_pythia8'
 ERA='RunIISummer20UL18'
-FileNumber=1
+FileNumber=0
+InputGridpackFile='/cvmfs/cms.cern.ch/phys_generator/gridpacks/UL/13TeV/madgraph/V5_2.6.5/SUSY_GluGluH_01J_HToAATo4B_M-50/v1/SUSY_GluGluH_01J_HToAATo4B_M-50_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz'
 
 echo "Dir_sourceCodes: ${Dir_sourceCodes} "
 echo "Dir_production: ${Dir_production} "
@@ -23,7 +24,7 @@ fi
 for i in 1
 do
     echo "i: ${i}"
-    jobID="H_M125_a01_M25"
+    jobID="H_M125_a01_M50"
 
     sampleName_toUse=${sampleName//\$SAMPLETAG/$jobID}
 
@@ -40,7 +41,7 @@ do
 
     # wmLHEGEN -------------------------------------------------------------------------
     DatasetType='wmLHEGEN'
-    inputFile='input.root'
+    inputFile=${InputGridpackFile} # 'input.root'
     #outputDir=${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}
     outputFile=${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${FileNumber}.root
     #NEvents_toUse=$((NEvents / GENLevelEfficiency))
