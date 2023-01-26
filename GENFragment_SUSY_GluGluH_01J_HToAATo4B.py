@@ -3,7 +3,7 @@ import FWCore.ParameterSet.Config as cms
 # link to cards:
 # https://github.com/cms-sw/genproductions/pull/2891
 
-INPUTGRIDPACK=''
+INPUTGRIDPACK=""
 
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     #args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/UL/13TeV/madgraph/V5_2.6.5/SUSY_GluGluH_01J_HToAATo4B_M-12/v1/SUSY_GluGluH_01J_HToAATo4B_M-12_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz'),

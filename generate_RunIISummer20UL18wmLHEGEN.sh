@@ -81,7 +81,8 @@ mkdir -p Configuration/GenProduction/python/
 cp ${sourceCodeDir}/GENFragment_SUSY_GluGluH_01J_HToAATo4B.py Configuration/GenProduction/python/${jobName}-fragment.py
 
 # replace input Gridpack file
-psed -i "s|INPUTGRIDPACK=''|INPUTGRIDPACK='$inputFile'|g" Configuration/GenProduction/python/${jobName}-fragment.py
+#psed -i "s|INPUTGRIDPACK=''|INPUTGRIDPACK='$inputFile'|g" Configuration/GenProduction/python/${jobName}-fragment.py
+sed -i "s|INPUTGRIDPACK=\"\"|INPUTGRIDPACK=\"${inputFile}\"|g" Configuration/GenProduction/python/${jobName}-fragment.py
 
 
 # Check if fragment contais gridpack path ant that it is in cvmfs
