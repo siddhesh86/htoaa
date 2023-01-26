@@ -29,7 +29,7 @@ echo "sourceCodeDir: ${sourceCodeDir} "
 
 pwd_=$(pwd)
 
-echo 'pwd: '
+echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 0: '
 pwd
 
 
@@ -70,10 +70,14 @@ eval `scram runtime -sh`
 #curl -s -k https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/${jobName} --retry 3 --create-dirs -o Configuration/GenProduction/python/${jobName}-fragment.py
 #[ -s Configuration/GenProduction/python/${jobName}-fragment.py ] || exit $?;
 
-echo 'pwd: '
+echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 1: '
 pwd
+echo 'ls (generate_RunIISummer20UL18wmLHEGEN.sh) 1: '
+ls
 
-mkdir -p Configuration/GenProduction/python/
+if [ ! -d Configuration/GenProduction/python/ ]; then
+    mkdir -p Configuration/GenProduction/python/
+fi
 
 
 # Copy fragment
@@ -83,6 +87,14 @@ cp ${sourceCodeDir}/GENFragment_SUSY_GluGluH_01J_HToAATo4B.py Configuration/GenP
 # replace input Gridpack file
 #psed -i "s|INPUTGRIDPACK=''|INPUTGRIDPACK='$inputFile'|g" Configuration/GenProduction/python/${jobName}-fragment.py
 sed -i "s|INPUTGRIDPACK=\"\"|INPUTGRIDPACK=\"${inputFile}\"|g" Configuration/GenProduction/python/${jobName}-fragment.py
+
+echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 2: '
+pwd
+echo 'ls (generate_RunIISummer20UL18wmLHEGEN.sh) 2: '
+ls
+echo 'ls Configuration/GenProduction/python/ (generate_RunIISummer20UL18wmLHEGEN.sh) 2'
+ls Configuration/GenProduction/python/
+
 
 
 # Check if fragment contais gridpack path ant that it is in cvmfs
@@ -116,15 +128,33 @@ then
    mkdir -p ${outputDir}
 fi
 
+echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 3: '
+pwd
+echo 'ls (generate_RunIISummer20UL18wmLHEGEN.sh) 3: '
+ls
+
+
 # cmsDriver command
 #cmsDriver.py Configuration/GenProduction/python/HIG-RunIISummer20UL18wmLHEGEN-02511-fragment.py --python_filename HIG-RunIISummer20UL18wmLHEGEN-02511_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:HIG-RunIISummer20UL18wmLHEGEN-02511.root --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(4000)" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
 
 cmsDriver.py Configuration/GenProduction/python/${jobName}-fragment.py --python_filename ${jobName}_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(4000)" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
 
+
+echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 4: '
+pwd
+echo 'ls (generate_RunIISummer20UL18wmLHEGEN.sh) 4: '
+ls
+
 # Run generated config
 REPORT_NAME=${jobName}_report.xml
 # Run the cmsRun
 cmsRun -e -j $REPORT_NAME ${jobName}_1_cfg.py || exit $? ;
+
+
+echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 5: '
+pwd
+echo 'ls (generate_RunIISummer20UL18wmLHEGEN.sh) 5: '
+ls
 
 # Parse values from ${jobName}_report.xml report
 processedEvents=$(grep -Po "(?<=<Metric Name=\"NumberEvents\" Value=\")(.*)(?=\"/>)" $REPORT_NAME | tail -n 1)
