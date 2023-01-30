@@ -12,7 +12,7 @@
 
 ## Settings: Change as per need ------------------------------------------------------------------------
 Dir_sourceCodes=$(pwd)
-Dir_production='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp3' # without '/' in the end
+Dir_production='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp4' # without '/' in the end
 Dir_store='/eos/cms/store/user/ssawant/mc'  # ${Dir_production}
 NEvents=100
 GENLevelEfficiency=$(bc -l <<< '0.0250' )
@@ -29,13 +29,14 @@ gridpackFile=${Dir_MadgraphPkg}/
 
 #FileNumber=0
 
-SampleNumber_First=5
-SampleNumber_Last=7 # 55
+SampleNumber_First=200 #64 #5
+SampleNumber_Last=299 #68 #163 #7 # 55
 
 RunningMode="Condor"
 
 MinFileSize=1000000 # 1 MB
 ##--------------------------------------------------------------------------------------------------------
+NEventsAll=-1
 
 # run Madgraph: /afs/cern.ch/work/s/ssawant/private/htoaa/MCproduction/HToAATo4B/MCGridpacks/genproductions/bin/MadGraph5_aMCatNLO
 # 
@@ -43,6 +44,7 @@ MinFileSize=1000000 # 1 MB
 echo "Dir_sourceCodes: ${Dir_sourceCodes} "
 echo "Dir_production: ${Dir_production} "
 
+Dir_production_0=${Dir_production}
 
 if [ ! -d ${Dir_production} ]
 then
@@ -61,14 +63,24 @@ do
     echo "iSample: ${iSample}"
     #break
     #continue
-    
+
 
     jobID=${MadgraphCardName}_${iSample}
 
     MadgraphCardName_toUse=${MadgraphCardName}_${iSample}
     #sampleName_toUse=${sampleName//\$SAMPLETAG/$jobID}
     sampleName_toUse=${sampleName}
+
+    Dir_production=${Dir_production_0}/${jobID}
     
+    if [ ! -d ${Dir_production} ]; then
+	mkdir -p ${Dir_production}
+    fi
+    
+
+    cd ${Dir_sourceCodes}
+    echo "pwd (MCGeneration_wrapper.sh) 0, iSample ${iSample}"
+    pwd
 
     echo "jobID: ${jobID} "
     echo "MadgraphCardName_toUse: ${MadgraphCardName_toUse} "
@@ -104,7 +116,8 @@ do
 	printf "cp ${Dir_sourceCodes}/madgraphCards/${MadgraphCardName}_run_card.dat        ${Dir_MadgraphCards}/${MadgraphCardName_toUse}/${MadgraphCardName_toUse}_run_card.dat       \n" >> ${MCGenerationScript}
 	# Rename MadgraphCard output name
 	printf "sed -i \"s/${MadgraphCardName}/${MadgraphCardName_toUse}/g\"   ${Dir_MadgraphCards}/${MadgraphCardName_toUse}/${MadgraphCardName_toUse}_proc_card.dat \n\n" >> ${MCGenerationScript}
-    
+
+	printf "printf \"\\\n ***Run gridpack_generation.sh ${MadgraphCardName_toUse} \\\n \" \n" >> ${MCGenerationScript}
 	#printf "time ./gridpack_generation.sh ${MadgraphCardName_toUse} ${Dir_MadgraphCards}/${MadgraphCardName_toUse}  \n\n" >> ${MCGenerationScript}
 	printf "time . gridpack_generation.sh ${MadgraphCardName_toUse} ${Dir_MadgraphCards}/${MadgraphCardName_toUse}  \n\n" >> ${MCGenerationScript}
 
@@ -115,9 +128,14 @@ do
 	printf "    exit 1 \n" >> ${MCGenerationScript}
 	printf "fi \n" >> ${MCGenerationScript}
 
+	printf "printf \"\\\n ***Done gridpack_generation.sh ${MadgraphCardName_toUse} \\\n \" \n" >> ${MCGenerationScript}
+	
 	# mv gridpackFile_0 to gridpackFile
-	printf "printf \"mv ${gridpackFile_0} ${gridpackFile} \\n \" \n" >> ${MCGenerationScript}
+	printf "printf \"mv ${gridpackFile_0} ${gridpackFile} \\\n \" \n" >> ${MCGenerationScript}
 	printf "mv ${gridpackFile_0} ${gridpackFile} \n" >> ${MCGenerationScript}
+	
+	printf "printf \"rm -rf ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}/  ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}.log \\\n \" \n" >> ${MCGenerationScript}
+	printf "rm -rf ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}/  ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}.log \n" >> ${MCGenerationScript}
     fi
 
 
@@ -136,12 +154,16 @@ do
     #NEvents_toUse=$((NEvents / GENLevelEfficiency))
     NEvents_toUse=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
 
-    printf "\nprintf '\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  '  \n" >> ${MCGenerationScript}
+    printf "\nprintf \"\\\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes} \\\n \"  \n" >> ${MCGenerationScript}
     if [ -f ${outputFile} ] && [ $(stat -c%s ${outputFile}) -gt ${MinFileSize} ]; then
 	printf "printf '\nOutput: ${outputFile} already exists!!! ' \n" >> ${MCGenerationScript}
     else
 	#printf "time source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}   \n" >> ${MCGenerationScript}
 	printf "time . ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}   \n" >> ${MCGenerationScript}
+
+	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  \"  \n" >> ${MCGenerationScript}
+	printf "printf \"rm -rf ${Dir_production}/CMSSW*  ${Dir_production}/lheevent \\\n \" \n" >> ${MCGenerationScript}
+	printf "rm -rf ${Dir_production}/CMSSW*  ${Dir_production}/lheevent \n" >> ${MCGenerationScript}	
     fi
     
 
@@ -149,14 +171,19 @@ do
     DatasetType='SIM'
     inputFile=${outputFile}
     outputFile=${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${iSample}.root
-    NEvents_toUse=${NEvents} 
+    #NEvents_toUse=${NEvents}
+    NEvents_toUse=${NEventsAll} 
 
-    printf "\nprintf '\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}    '  \n" >> ${MCGenerationScript}
+    printf "\nprintf \"\\\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}    \"  \n" >> ${MCGenerationScript}
     if [ -f ${outputFile} ] && [ $(stat -c%s ${outputFile}) -gt ${MinFileSize} ]; then
 	printf "printf '\nOutput: ${outputFile} already exists!!! ' \n" >> ${MCGenerationScript}
     else
 	#printf "time source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}     \n" >> ${MCGenerationScript}
 	printf "time . ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}     \n" >> ${MCGenerationScript}
+
+	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  \"  \n" >> ${MCGenerationScript}
+	printf "printf \"rm -rf ${Dir_production}/CMSSW*   \\\n \" \n" >> ${MCGenerationScript}
+	printf "rm -rf ${Dir_production}/CMSSW*   \n" >> ${MCGenerationScript}	
     fi
     
 
@@ -164,14 +191,19 @@ do
     DatasetType='DIGIPremix'
     inputFile=${outputFile}
     outputFile=${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${iSample}.root
-    NEvents_toUse=${NEvents} 
+    #NEvents_toUse=${NEvents} 
+    NEvents_toUse=${NEventsAll} 
 
-    printf "\nprintf '\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}    '  \n" >> ${MCGenerationScript}
+    printf "\nprintf \"\\\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}    \"  \n" >> ${MCGenerationScript}
     if [ -f ${outputFile} ] && [ $(stat -c%s ${outputFile}) -gt ${MinFileSize} ]; then
 	printf "printf '\nOutput: ${outputFile} already exists!!! ' \n" >> ${MCGenerationScript}
     else
 	#printf "time source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}     \n" >> ${MCGenerationScript}
 	printf "time . ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}     \n" >> ${MCGenerationScript}
+
+	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  \"  \n" >> ${MCGenerationScript}
+	printf "printf \"rm -rf ${Dir_production}/CMSSW*   \\\n \" \n" >> ${MCGenerationScript}
+	printf "rm -rf ${Dir_production}/CMSSW*   \n" >> ${MCGenerationScript}	
     fi
     
 	
@@ -179,14 +211,19 @@ do
     DatasetType='HLT'
     inputFile=${outputFile}
     outputFile=${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${iSample}.root
-    NEvents_toUse=${NEvents} 
+    #NEvents_toUse=${NEvents} 
+    NEvents_toUse=${NEventsAll} 
 
-    printf "\nprintf '\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}    '  \n" >> ${MCGenerationScript}
+    printf "\nprintf \"\\\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}    \"  \n" >> ${MCGenerationScript}
     if [ -f ${outputFile} ] && [ $(stat -c%s ${outputFile}) -gt ${MinFileSize} ]; then
 	printf "printf '\nOutput: ${outputFile} already exists!!! ' \n" >> ${MCGenerationScript}
     else
 	#printf "time source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}     \n" >> ${MCGenerationScript}
 	printf "time . ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}     \n" >> ${MCGenerationScript}
+
+	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  \"  \n" >> ${MCGenerationScript}
+	printf "printf \"rm -rf ${Dir_production}/CMSSW*   \\\n \" \n" >> ${MCGenerationScript}
+	printf "rm -rf ${Dir_production}/CMSSW*   \n" >> ${MCGenerationScript}	
     fi
 
     
@@ -194,14 +231,19 @@ do
     DatasetType='RECO'
     inputFile=${outputFile}
     outputFile=${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${iSample}.root
-    NEvents_toUse=${NEvents} 
+    #NEvents_toUse=${NEvents} 
+    NEvents_toUse=${NEventsAll} 
 
-    printf "\nprintf '\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}    '  \n" >> ${MCGenerationScript}
+    printf "\nprintf \"\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}    \"  \n" >> ${MCGenerationScript}
     if [ -f ${outputFile} ] && [ $(stat -c%s ${outputFile}) -gt ${MinFileSize} ]; then
 	printf "printf '\nOutput: ${outputFile} already exists!!! ' \n" >> ${MCGenerationScript}
     else
 	#printf "time source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}     \n" >> ${MCGenerationScript}
 	printf "time . ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}     \n" >> ${MCGenerationScript}
+
+	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  \"  \n" >> ${MCGenerationScript}
+	printf "printf \"rm -rf ${Dir_production}/CMSSW*   \\\n \" \n" >> ${MCGenerationScript}
+	printf "rm -rf ${Dir_production}/CMSSW*   \n" >> ${MCGenerationScript}	
     fi
 
     
@@ -209,14 +251,19 @@ do
     DatasetType='MiniAODv2'
     inputFile=${outputFile}
     outputFile=${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${iSample}.root
-    NEvents_toUse=${NEvents} 
+    #NEvents_toUse=${NEvents} 
+    NEvents_toUse=${NEventsAll} 
 
-    printf "\nprintf '\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}    '  \n" >> ${MCGenerationScript}
+    printf "\nprintf \"\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}    \"  \n" >> ${MCGenerationScript}
     if [ -f ${outputFile} ] && [ $(stat -c%s ${outputFile}) -gt ${MinFileSize} ]; then
 	printf "printf '\nOutput: ${outputFile} already exists!!! ' \n" >> ${MCGenerationScript}
     else
 	#printf "time source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}     \n" >> ${MCGenerationScript}
 	printf "time . ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}     \n" >> ${MCGenerationScript}
+
+	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  \"  \n" >> ${MCGenerationScript}
+	printf "printf \"rm -rf ${Dir_production}/CMSSW*   \\\n \" \n" >> ${MCGenerationScript}
+	printf "rm -rf ${Dir_production}/CMSSW*   \n" >> ${MCGenerationScript}	
     fi
 
     
@@ -224,14 +271,19 @@ do
     DatasetType='NanoAODv9'
     inputFile=${outputFile}
     outputFile=${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${iSample}.root
-    NEvents_toUse=${NEvents} 
+    #NEvents_toUse=${NEvents} 
+    NEvents_toUse=${NEventsAll} 
 
-    printf "\nprintf '\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}    '  \n" >> ${MCGenerationScript}
+    printf "\nprintf \"\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}    \"  \n" >> ${MCGenerationScript}
     if [ -f ${outputFile} ] && [ $(stat -c%s ${outputFile}) -gt ${MinFileSize} ]; then
 	printf "printf '\nOutput: ${outputFile} already exists!!! ' \n" >> ${MCGenerationScript}
     else
 	#printf "time source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}     \n" >> ${MCGenerationScript}
 	printf "time . ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}     \n" >> ${MCGenerationScript}
+
+	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  \"  \n" >> ${MCGenerationScript}
+	printf "printf \"rm -rf ${Dir_production}/CMSSW*   \\\n \" \n" >> ${MCGenerationScript}
+	printf "rm -rf ${Dir_production}/CMSSW*   \n" >> ${MCGenerationScript}	
     fi
 
     printf "\nls \n" >> ${MCGenerationScript}
@@ -262,7 +314,7 @@ do
 	printf "eval \n" >> ${CondorExecScript}
 	#printf "time source ${MCGenerationScript} \n\n" >> ${CondorExecScript}
 	printf "time . ${MCGenerationScript} \n\n" >> ${CondorExecScript}
-	printf "printf \"\n\n${MCGenerationScript} execution completed... \" \n" >> ${CondorExecScript}
+	printf "printf \"\\n\\n${MCGenerationScript} execution completed... \" \n" >> ${CondorExecScript}
 	chmod a+x ${CondorExecScript}
 
 	printf "\nCondorSubmitScript: ${CondorSubmitScript}"
