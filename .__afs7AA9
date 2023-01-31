@@ -1,0 +1,1453 @@
+Dir_sourceCodes: /afs/cern.ch/work/s/ssawant/private/htoaa/htoaa 
+Dir_production: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5 
+iSample: 1
+pwd (MCGeneration_wrapper.sh) 0, iSample 1
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_1 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_1 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+-bash: ${MCGenerationScript}: ambiguous redirect
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_1.root already exists!!!iSample: 2
+pwd (MCGeneration_wrapper.sh) 0, iSample 2
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_2 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_2 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+-bash: ${MCGenerationScript}: ambiguous redirect
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_2.root already exists!!!iSample: 3
+pwd (MCGeneration_wrapper.sh) 0, iSample 3
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_3 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_3 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_3/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_3.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_3/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_3.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_3/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_3.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_3/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_3.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_3/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_3.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586180.
+iSample: 4
+pwd (MCGeneration_wrapper.sh) 0, iSample 4
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_4 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_4 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_4.root already exists!!!iSample: 5
+pwd (MCGeneration_wrapper.sh) 0, iSample 5
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_5 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_5 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_5.root already exists!!!iSample: 6
+pwd (MCGeneration_wrapper.sh) 0, iSample 6
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_6 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_6 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_6.root already exists!!!iSample: 7
+pwd (MCGeneration_wrapper.sh) 0, iSample 7
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_7 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_7 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_7/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_7.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_7/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_7.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_7/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_7.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_7/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_7.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_7/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_7.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586181.
+iSample: 8
+pwd (MCGeneration_wrapper.sh) 0, iSample 8
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_8 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_8 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_8/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_8.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_8/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_8.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_8/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_8.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_8/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_8.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_8/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_8.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586182.
+iSample: 9
+pwd (MCGeneration_wrapper.sh) 0, iSample 9
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_9 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_9 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_9.root already exists!!!iSample: 10
+pwd (MCGeneration_wrapper.sh) 0, iSample 10
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_10 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_10 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_10/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_10.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_10/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_10.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_10/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_10.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_10/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_10.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_10/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_10.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586183.
+iSample: 11
+pwd (MCGeneration_wrapper.sh) 0, iSample 11
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_11 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_11 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_11.root already exists!!!iSample: 12
+pwd (MCGeneration_wrapper.sh) 0, iSample 12
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_12 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_12 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_12.root already exists!!!iSample: 13
+pwd (MCGeneration_wrapper.sh) 0, iSample 13
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_13 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_13 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_13/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_13.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_13/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_13.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_13/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_13.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_13/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_13.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_13/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_13.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586184.
+iSample: 14
+pwd (MCGeneration_wrapper.sh) 0, iSample 14
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_14 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_14 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_14.root already exists!!!iSample: 15
+pwd (MCGeneration_wrapper.sh) 0, iSample 15
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_15 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_15 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_15.root already exists!!!iSample: 16
+pwd (MCGeneration_wrapper.sh) 0, iSample 16
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_16 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_16 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_16.root already exists!!!iSample: 17
+pwd (MCGeneration_wrapper.sh) 0, iSample 17
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_17 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_17 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_17.root already exists!!!iSample: 18
+pwd (MCGeneration_wrapper.sh) 0, iSample 18
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_18 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_18 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_18/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_18.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_18/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_18.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_18/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_18.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_18/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_18.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_18/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_18.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586185.
+iSample: 19
+pwd (MCGeneration_wrapper.sh) 0, iSample 19
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_19 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_19 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_19.root already exists!!!iSample: 20
+pwd (MCGeneration_wrapper.sh) 0, iSample 20
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_20 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_20 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_20/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_20.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_20/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_20.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_20/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_20.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_20/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_20.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_20/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_20.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586186.
+iSample: 21
+pwd (MCGeneration_wrapper.sh) 0, iSample 21
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_21 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_21 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_21.root already exists!!!iSample: 22
+pwd (MCGeneration_wrapper.sh) 0, iSample 22
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_22 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_22 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_22/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_22.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_22/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_22.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_22/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_22.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_22/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_22.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_22/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_22.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586187.
+iSample: 23
+pwd (MCGeneration_wrapper.sh) 0, iSample 23
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_23 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_23 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_23.root already exists!!!iSample: 24
+pwd (MCGeneration_wrapper.sh) 0, iSample 24
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_24 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_24 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_24.root already exists!!!iSample: 25
+pwd (MCGeneration_wrapper.sh) 0, iSample 25
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_25 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_25 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_25/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_25.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_25/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_25.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_25/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_25.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_25/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_25.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_25/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_25.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586188.
+iSample: 26
+pwd (MCGeneration_wrapper.sh) 0, iSample 26
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_26 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_26 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_26.root already exists!!!iSample: 27
+pwd (MCGeneration_wrapper.sh) 0, iSample 27
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_27 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_27 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_27.root already exists!!!iSample: 28
+pwd (MCGeneration_wrapper.sh) 0, iSample 28
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_28 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_28 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_28.root already exists!!!iSample: 29
+pwd (MCGeneration_wrapper.sh) 0, iSample 29
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_29 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_29 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_29/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_29.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_29/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_29.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_29/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_29.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_29/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_29.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_29/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_29.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586189.
+iSample: 30
+pwd (MCGeneration_wrapper.sh) 0, iSample 30
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_30 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_30 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_30.root already exists!!!iSample: 31
+pwd (MCGeneration_wrapper.sh) 0, iSample 31
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_31 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_31 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_31.root already exists!!!iSample: 32
+pwd (MCGeneration_wrapper.sh) 0, iSample 32
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_32 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_32 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_32.root already exists!!!iSample: 33
+pwd (MCGeneration_wrapper.sh) 0, iSample 33
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_33 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_33 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_33/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_33.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_33/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_33.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_33/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_33.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_33/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_33.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_33/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_33.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586190.
+iSample: 34
+pwd (MCGeneration_wrapper.sh) 0, iSample 34
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_34 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_34 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_34.root already exists!!!iSample: 35
+pwd (MCGeneration_wrapper.sh) 0, iSample 35
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_35 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_35 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_35/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_35.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_35/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_35.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_35/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_35.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_35/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_35.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_35/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_35.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586191.
+iSample: 36
+pwd (MCGeneration_wrapper.sh) 0, iSample 36
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_36 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_36 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_36/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_36.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_36/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_36.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_36/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_36.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_36/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_36.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_36/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_36.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586192.
+iSample: 37
+pwd (MCGeneration_wrapper.sh) 0, iSample 37
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_37 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_37 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_37.root already exists!!!iSample: 38
+pwd (MCGeneration_wrapper.sh) 0, iSample 38
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_38 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_38 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_38.root already exists!!!iSample: 39
+pwd (MCGeneration_wrapper.sh) 0, iSample 39
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_39 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_39 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_39/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_39.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_39/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_39.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_39/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_39.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_39/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_39.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_39/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_39.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586193.
+iSample: 40
+pwd (MCGeneration_wrapper.sh) 0, iSample 40
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_40 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_40 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_40.root already exists!!!iSample: 41
+pwd (MCGeneration_wrapper.sh) 0, iSample 41
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_41 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_41 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_41.root already exists!!!iSample: 42
+pwd (MCGeneration_wrapper.sh) 0, iSample 42
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_42 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_42 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_42/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_42.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_42/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_42.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_42/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_42.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_42/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_42.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_42/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_42.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586194.
+iSample: 43
+pwd (MCGeneration_wrapper.sh) 0, iSample 43
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_43 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_43 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_43/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_43.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_43/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_43.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_43/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_43.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_43/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_43.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_43/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_43.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586195.
+iSample: 44
+pwd (MCGeneration_wrapper.sh) 0, iSample 44
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_44 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_44 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_44.root already exists!!!iSample: 45
+pwd (MCGeneration_wrapper.sh) 0, iSample 45
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_45 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_45 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_45.root already exists!!!iSample: 46
+pwd (MCGeneration_wrapper.sh) 0, iSample 46
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_46 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_46 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_46/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_46.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_46/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_46.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_46/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_46.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_46/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_46.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_46/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_46.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586196.
+iSample: 47
+pwd (MCGeneration_wrapper.sh) 0, iSample 47
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_47 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_47 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_47.root already exists!!!iSample: 48
+pwd (MCGeneration_wrapper.sh) 0, iSample 48
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_48 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_48 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_48.root already exists!!!iSample: 49
+pwd (MCGeneration_wrapper.sh) 0, iSample 49
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_49 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_49 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_49.root already exists!!!iSample: 50
+pwd (MCGeneration_wrapper.sh) 0, iSample 50
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_50 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_50 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_50/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_50.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_50/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_50.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_50/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_50.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_50/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_50.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_50/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_50.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586197.
+iSample: 51
+pwd (MCGeneration_wrapper.sh) 0, iSample 51
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_51 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_51 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_51/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_51.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_51/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_51.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_51/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_51.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_51/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_51.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_51/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_51.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586198.
+iSample: 52
+pwd (MCGeneration_wrapper.sh) 0, iSample 52
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_52 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_52 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_52.root already exists!!!iSample: 53
+pwd (MCGeneration_wrapper.sh) 0, iSample 53
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_53 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_53 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_53.root already exists!!!iSample: 54
+pwd (MCGeneration_wrapper.sh) 0, iSample 54
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_54 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_54 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_54.root already exists!!!iSample: 55
+pwd (MCGeneration_wrapper.sh) 0, iSample 55
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_55 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_55 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_55/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_55.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_55/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_55.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_55/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_55.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_55/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_55.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_55/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_55.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586199.
+iSample: 56
+pwd (MCGeneration_wrapper.sh) 0, iSample 56
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_56 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_56 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_56.root already exists!!!iSample: 57
+pwd (MCGeneration_wrapper.sh) 0, iSample 57
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_57 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_57 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_57.root already exists!!!iSample: 58
+pwd (MCGeneration_wrapper.sh) 0, iSample 58
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_58 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_58 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_58.root already exists!!!iSample: 59
+pwd (MCGeneration_wrapper.sh) 0, iSample 59
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_59 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_59 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_59.root already exists!!!iSample: 60
+pwd (MCGeneration_wrapper.sh) 0, iSample 60
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_60 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_60 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_60.root already exists!!!iSample: 61
+pwd (MCGeneration_wrapper.sh) 0, iSample 61
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_61 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_61 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_61.root already exists!!!iSample: 62
+pwd (MCGeneration_wrapper.sh) 0, iSample 62
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_62 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_62 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_62/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_62.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_62/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_62.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_62/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_62.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_62/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_62.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_62/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_62.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586200.
+iSample: 63
+pwd (MCGeneration_wrapper.sh) 0, iSample 63
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_63 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_63 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_63/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_63.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_63/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_63.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_63/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_63.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_63/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_63.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_63/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_63.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586201.
+iSample: 64
+pwd (MCGeneration_wrapper.sh) 0, iSample 64
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_64 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_64 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_64.root already exists!!!iSample: 65
+pwd (MCGeneration_wrapper.sh) 0, iSample 65
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_65 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_65 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_65.root already exists!!!iSample: 66
+pwd (MCGeneration_wrapper.sh) 0, iSample 66
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_66 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_66 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_66/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_66.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_66/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_66.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_66/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_66.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_66/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_66.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_66/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_66.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586202.
+iSample: 67
+pwd (MCGeneration_wrapper.sh) 0, iSample 67
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_67 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_67 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_67/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_67.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_67/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_67.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_67/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_67.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_67/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_67.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_67/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_67.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586203.
+iSample: 68
+pwd (MCGeneration_wrapper.sh) 0, iSample 68
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_68 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_68 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_68.root already exists!!!iSample: 69
+pwd (MCGeneration_wrapper.sh) 0, iSample 69
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_69 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_69 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_69.root already exists!!!iSample: 70
+pwd (MCGeneration_wrapper.sh) 0, iSample 70
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_70 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_70 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_70/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_70.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_70/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_70.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_70/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_70.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_70/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_70.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_70/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_70.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586204.
+iSample: 71
+pwd (MCGeneration_wrapper.sh) 0, iSample 71
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_71 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_71 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_71.root already exists!!!iSample: 72
+pwd (MCGeneration_wrapper.sh) 0, iSample 72
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_72 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_72 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_72.root already exists!!!iSample: 73
+pwd (MCGeneration_wrapper.sh) 0, iSample 73
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_73 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_73 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_73/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_73.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_73/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_73.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_73/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_73.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_73/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_73.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_73/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_73.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586205.
+iSample: 74
+pwd (MCGeneration_wrapper.sh) 0, iSample 74
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_74 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_74 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_74.root already exists!!!iSample: 75
+pwd (MCGeneration_wrapper.sh) 0, iSample 75
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_75 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_75 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_75.root already exists!!!iSample: 76
+pwd (MCGeneration_wrapper.sh) 0, iSample 76
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_76 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_76 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_76.root already exists!!!iSample: 77
+pwd (MCGeneration_wrapper.sh) 0, iSample 77
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_77 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_77 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_77.root already exists!!!iSample: 78
+pwd (MCGeneration_wrapper.sh) 0, iSample 78
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_78 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_78 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_78/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_78.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_78/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_78.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_78/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_78.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_78/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_78.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_78/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_78.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586206.
+iSample: 79
+pwd (MCGeneration_wrapper.sh) 0, iSample 79
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_79 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_79 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_79.root already exists!!!iSample: 80
+pwd (MCGeneration_wrapper.sh) 0, iSample 80
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_80 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_80 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_80.root already exists!!!iSample: 81
+pwd (MCGeneration_wrapper.sh) 0, iSample 81
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_81 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_81 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_81.root already exists!!!iSample: 82
+pwd (MCGeneration_wrapper.sh) 0, iSample 82
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_82 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_82 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_82/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_82.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_82/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_82.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_82/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_82.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_82/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_82.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_82/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_82.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586207.
+iSample: 83
+pwd (MCGeneration_wrapper.sh) 0, iSample 83
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_83 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_83 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_83.root already exists!!!iSample: 84
+pwd (MCGeneration_wrapper.sh) 0, iSample 84
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_84 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_84 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_84.root already exists!!!iSample: 85
+pwd (MCGeneration_wrapper.sh) 0, iSample 85
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_85 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_85 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_85/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_85.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_85/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_85.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_85/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_85.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_85/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_85.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_85/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_85.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586208.
+iSample: 86
+pwd (MCGeneration_wrapper.sh) 0, iSample 86
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_86 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_86 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_86.root already exists!!!iSample: 87
+pwd (MCGeneration_wrapper.sh) 0, iSample 87
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_87 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_87 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_87.root already exists!!!iSample: 88
+pwd (MCGeneration_wrapper.sh) 0, iSample 88
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_88 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_88 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_88/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_88.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_88/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_88.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_88/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_88.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_88/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_88.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_88/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_88.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586209.
+iSample: 89
+pwd (MCGeneration_wrapper.sh) 0, iSample 89
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_89 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_89 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_89/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_89.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_89/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_89.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_89/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_89.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_89/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_89.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_89/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_89.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586210.
+iSample: 90
+pwd (MCGeneration_wrapper.sh) 0, iSample 90
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_90 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_90 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_90.root already exists!!!iSample: 91
+pwd (MCGeneration_wrapper.sh) 0, iSample 91
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_91 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_91 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_91.root already exists!!!iSample: 92
+pwd (MCGeneration_wrapper.sh) 0, iSample 92
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_92 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_92 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_92.root already exists!!!iSample: 93
+pwd (MCGeneration_wrapper.sh) 0, iSample 93
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_93 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_93 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_93.root already exists!!!iSample: 94
+pwd (MCGeneration_wrapper.sh) 0, iSample 94
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_94 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_94 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_94.root already exists!!!iSample: 95
+pwd (MCGeneration_wrapper.sh) 0, iSample 95
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_95 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_95 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_95.root already exists!!!iSample: 96
+pwd (MCGeneration_wrapper.sh) 0, iSample 96
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_96 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_96 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_96/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_96.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_96/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_96.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_96/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_96.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_96/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_96.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_96/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_96.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586211.
+iSample: 97
+pwd (MCGeneration_wrapper.sh) 0, iSample 97
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_97 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_97 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_97.root already exists!!!iSample: 98
+pwd (MCGeneration_wrapper.sh) 0, iSample 98
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_98 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_98 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_98.root already exists!!!iSample: 99
+pwd (MCGeneration_wrapper.sh) 0, iSample 99
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_99 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_99 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_99.root already exists!!!iSample: 100
+pwd (MCGeneration_wrapper.sh) 0, iSample 100
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_100 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_100 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_100.root already exists!!!iSample: 101
+pwd (MCGeneration_wrapper.sh) 0, iSample 101
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_101 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_101 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_101/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_101.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_101/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_101.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_101/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_101.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_101/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_101.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_101/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_101.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586212.
+iSample: 102
+pwd (MCGeneration_wrapper.sh) 0, iSample 102
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_102 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_102 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_102/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_102.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_102/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_102.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_102/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_102.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_102/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_102.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_102/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_102.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586213.
+iSample: 103
+pwd (MCGeneration_wrapper.sh) 0, iSample 103
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_103 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_103 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_103/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_103.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_103/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_103.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_103/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_103.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_103/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_103.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_103/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_103.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586214.
+iSample: 104
+pwd (MCGeneration_wrapper.sh) 0, iSample 104
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_104 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_104 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_104.root already exists!!!iSample: 105
+pwd (MCGeneration_wrapper.sh) 0, iSample 105
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_105 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_105 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_105/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_105.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_105/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_105.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_105/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_105.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_105/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_105.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_105/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_105.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586215.
+iSample: 106
+pwd (MCGeneration_wrapper.sh) 0, iSample 106
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_106 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_106 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_106/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_106.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_106/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_106.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_106/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_106.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_106/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_106.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_106/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_106.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586216.
+iSample: 107
+pwd (MCGeneration_wrapper.sh) 0, iSample 107
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_107 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_107 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_107/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_107.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_107/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_107.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_107/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_107.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_107/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_107.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_107/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_107.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586217.
+iSample: 108
+pwd (MCGeneration_wrapper.sh) 0, iSample 108
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_108 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_108 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_108/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_108.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_108/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_108.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_108/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_108.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_108/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_108.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_108/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_108.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586218.
+iSample: 109
+pwd (MCGeneration_wrapper.sh) 0, iSample 109
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_109 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_109 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_109/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_109.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_109/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_109.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_109/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_109.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_109/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_109.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_109/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_109.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586219.
+iSample: 110
+pwd (MCGeneration_wrapper.sh) 0, iSample 110
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_110 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_110 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_110/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_110.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_110/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_110.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_110/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_110.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_110/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_110.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_110/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_110.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586220.
+iSample: 111
+pwd (MCGeneration_wrapper.sh) 0, iSample 111
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_111 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_111 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_111/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_111.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_111/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_111.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_111/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_111.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_111/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_111.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_111/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_111.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586221.
+iSample: 112
+pwd (MCGeneration_wrapper.sh) 0, iSample 112
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_112 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_112 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_112/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_112.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_112/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_112.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_112/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_112.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_112/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_112.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_112/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_112.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586222.
+iSample: 113
+pwd (MCGeneration_wrapper.sh) 0, iSample 113
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_113 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_113 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_113/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_113.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_113/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_113.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_113/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_113.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_113/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_113.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_113/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_113.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586223.
+iSample: 114
+pwd (MCGeneration_wrapper.sh) 0, iSample 114
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_114 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_114 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_114/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_114.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_114/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_114.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_114/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_114.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_114/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_114.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_114/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_114.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586224.
+iSample: 115
+pwd (MCGeneration_wrapper.sh) 0, iSample 115
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_115 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_115 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_115/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_115.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_115/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_115.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_115/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_115.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_115/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_115.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_115/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_115.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586225.
+iSample: 116
+pwd (MCGeneration_wrapper.sh) 0, iSample 116
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_116 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_116 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_116/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_116.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_116/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_116.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_116/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_116.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_116/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_116.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_116/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_116.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586226.
+iSample: 117
+pwd (MCGeneration_wrapper.sh) 0, iSample 117
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_117 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_117 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_117/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_117.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_117/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_117.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_117/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_117.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_117/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_117.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_117/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_117.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586227.
+iSample: 118
+pwd (MCGeneration_wrapper.sh) 0, iSample 118
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_118 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_118 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_118/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_118.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_118/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_118.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_118/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_118.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_118/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_118.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_118/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_118.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586228.
+iSample: 119
+pwd (MCGeneration_wrapper.sh) 0, iSample 119
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_119 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_119 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_119.root already exists!!!iSample: 120
+pwd (MCGeneration_wrapper.sh) 0, iSample 120
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_120 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_120 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_120/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_120.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_120/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_120.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_120/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_120.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_120/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_120.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_120/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_120.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586229.
+iSample: 121
+pwd (MCGeneration_wrapper.sh) 0, iSample 121
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_121 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_121 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_121/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_121.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_121/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_121.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_121/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_121.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_121/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_121.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_121/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_121.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586230.
+iSample: 122
+pwd (MCGeneration_wrapper.sh) 0, iSample 122
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_122 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_122 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_122/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_122.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_122/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_122.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_122/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_122.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_122/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_122.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_122/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_122.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586231.
+iSample: 123
+pwd (MCGeneration_wrapper.sh) 0, iSample 123
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_123 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_123 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_123/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_123.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_123/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_123.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_123/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_123.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_123/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_123.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_123/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_123.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586232.
+iSample: 124
+pwd (MCGeneration_wrapper.sh) 0, iSample 124
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_124 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_124 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_124/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_124.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_124/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_124.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_124/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_124.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_124/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_124.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_124/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_124.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586233.
+iSample: 125
+pwd (MCGeneration_wrapper.sh) 0, iSample 125
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_125 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_125 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_125/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_125.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_125/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_125.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_125/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_125.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_125/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_125.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_125/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_125.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586234.
+iSample: 126
+pwd (MCGeneration_wrapper.sh) 0, iSample 126
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_126 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_126 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_126/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_126.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_126/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_126.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_126/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_126.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_126/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_126.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_126/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_126.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586235.
+iSample: 127
+pwd (MCGeneration_wrapper.sh) 0, iSample 127
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_127 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_127 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_127/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_127.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_127/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_127.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_127/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_127.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_127/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_127.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_127/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_127.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586236.
+iSample: 128
+pwd (MCGeneration_wrapper.sh) 0, iSample 128
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_128 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_128 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_128/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_128.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_128/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_128.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_128/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_128.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_128/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_128.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_128/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_128.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586237.
+iSample: 129
+pwd (MCGeneration_wrapper.sh) 0, iSample 129
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_129 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_129 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_129/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_129.sh 
+
+
+source /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_129/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_129.sh
+CondorExecScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_129/CondorExec_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_129.sh
+CondorSubmitScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_129/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_129.sh
+condor_submit /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_129/CondorSubmit_SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_129.sh
+Submitting job(s).
+1 job(s) submitted to cluster 586238.
+iSample: 130
+pwd (MCGeneration_wrapper.sh) 0, iSample 130
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_130 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_130 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+Output: /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/NanoAODv9_130.root already exists!!!iSample: 131
+pwd (MCGeneration_wrapper.sh) 0, iSample 131
+/afs/cern.ch/work/s/ssawant/private/htoaa/htoaa
+jobID: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_131 
+MadgraphCardName_toUse: SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_131 
+sampleName_toUse: SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-90_mA-30_wH-70_wA-60_TuneCP5_13TeV_madgraph_pythia8 
+NEvents:100,  GENLevelEfficiency: .0250
+MCGenerationScript: /afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5/SUSY_GluGluH_01J_HToAATo4B_mH-90_mA-30_wH-70_wA-60_131/MCGenerationScript_SUSY_GluGluH_01J_HToAATo4B_

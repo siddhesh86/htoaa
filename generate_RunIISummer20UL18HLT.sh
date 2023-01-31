@@ -32,11 +32,17 @@ pwd
 export SCRAM_ARCH=slc7_amd64_gcc700
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
+#if [ -r CMSSW_10_2_16_UL/src ] ; then
+#  echo release CMSSW_10_2_16_UL already exists
+#else
+#  scram p CMSSW CMSSW_10_2_16_UL
+#fi
 if [ -r CMSSW_10_2_16_UL/src ] ; then
-  echo release CMSSW_10_2_16_UL already exists
-else
-  scram p CMSSW CMSSW_10_2_16_UL
+    echo release CMSSW_10_2_16_UL already exists. Removing it.
+    rm -rf CMSSW_10_2_16_UL
 fi
+scram p CMSSW CMSSW_10_2_16_UL
+
 cd CMSSW_10_2_16_UL/src
 eval `scram runtime -sh`
 

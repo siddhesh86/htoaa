@@ -1,0 +1,4 @@
+set param_card mass 25 90.0 
+set param_card mass 36 30.0
+set param_card DECAY 25 70.0
+set param_card DECAY 36 60.0
