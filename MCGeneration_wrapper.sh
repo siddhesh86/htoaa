@@ -12,12 +12,12 @@
 
 ## Settings: Change as per need ------------------------------------------------------------------------
 Dir_sourceCodes=$(pwd)
-Dir_production='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp5' # without '/' in the end
+Dir_production='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp6' # without '/' in the end
 Dir_store='/eos/cms/store/user/ssawant/mc'  # ${Dir_production}
 NEvents=100
 GENLevelEfficiency=$(bc -l <<< '0.0250' )
 
-sampleTag='mH-90_mA-30_wH-70_wA-60' # 'mH-125_mA-50_wH-55_wA-40'
+sampleTag='mH-70_mA-15_wH-70_wA-50' # 'mH-90_mA-30_wH-70_wA-60' # 'mH-125_mA-50_wH-55_wA-40'
 MadgraphCardName="SUSY_GluGluH_01J_HToAATo4B_${sampleTag}"
 sampleName="SUSY_GluGluH_01J_HToAATo4B_Pt150_${sampleTag}_TuneCP5_13TeV_madgraph_pythia8"
 ERA='RunIISummer20UL18'
@@ -29,8 +29,8 @@ gridpackFile=${Dir_MadgraphPkg}/
 
 #FileNumber=0
 
-SampleNumber_First=1 #64 #5
-SampleNumber_Last=200 #68 #163 #7 # 55
+SampleNumber_First=100 #64 #5
+SampleNumber_Last=199 #68 #163 #7 # 55
 
 RunningMode="Condor"  # "Condor", "local"
 
@@ -370,6 +370,15 @@ do
 	    printf "time . ${MCGenerationScript} \n\n" >> ${CondorExecScript}
 	    printf "printf \"\\n\\n${MCGenerationScript} execution completed... \" \n" >> ${CondorExecScript}
 	    chmod a+x ${CondorExecScript}
+
+	    # HTCondor JobFlavor
+	    # espresso     = 20 minutes
+	    # microcentury = 1 hour
+	    # longlunch    = 2 hours
+	    # workday      = 8 hours
+	    # tomorrow     = 1 day
+	    # testmatch    = 3 days
+	    # nextweek     = 1 week
 	    
 	    printf "\nCondorSubmitScript: ${CondorSubmitScript}"
 	    printf "universe = vanilla \n" >  ${CondorSubmitScript}
@@ -381,7 +390,8 @@ do
 	    printf "notification = never \n" >>  ${CondorSubmitScript}
 	    printf "should_transfer_files = YES \n" >>  ${CondorSubmitScript}
 	    printf "when_to_transfer_output = ON_EXIT \n" >>  ${CondorSubmitScript}
-	    printf "+JobFlavour = \"workday\" \n" >>  ${CondorSubmitScript}
+	    #printf "+JobFlavour = \"workday\" \n" >>  ${CondorSubmitScript}
+	    printf "+JobFlavour = \"tomorrow\" \n" >>  ${CondorSubmitScript}
 	    printf "queue \n" >>  ${CondorSubmitScript}
 	    printf "\n" >>  ${CondorSubmitScript}
 	    chmod a+x ${CondorSubmitScript}
