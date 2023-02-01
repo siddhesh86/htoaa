@@ -12,12 +12,12 @@
 
 ## Settings: Change as per need ------------------------------------------------------------------------
 Dir_sourceCodes=$(pwd)
-Dir_production='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp6' # without '/' in the end
+Dir_production='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp7' # without '/' in the end
 Dir_store='/eos/cms/store/user/ssawant/mc'  # ${Dir_production}
 NEvents=100
 GENLevelEfficiency=$(bc -l <<< '0.0250' )
 
-sampleTag='mH-70_mA-15_wH-70_wA-50' # 'mH-90_mA-30_wH-70_wA-60' # 'mH-125_mA-50_wH-55_wA-40'
+sampleTag='mH-70_mA-12_wH-70_wA-70' # 'mH-70_mA-15_wH-70_wA-50' # 'mH-90_mA-30_wH-70_wA-60' # 'mH-125_mA-50_wH-55_wA-40'
 MadgraphCardName="SUSY_GluGluH_01J_HToAATo4B_${sampleTag}"
 sampleName="SUSY_GluGluH_01J_HToAATo4B_Pt150_${sampleTag}_TuneCP5_13TeV_madgraph_pythia8"
 ERA='RunIISummer20UL18'
