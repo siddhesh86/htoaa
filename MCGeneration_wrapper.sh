@@ -29,8 +29,8 @@ gridpackFile=${Dir_MadgraphPkg}/
 
 #FileNumber=0
 
-SampleNumber_First=0 #64 #5
-SampleNumber_Last=99 #68 #163 #7 # 55
+SampleNumber_First=299 #64 #5
+SampleNumber_Last=399 #99 #68 #163 #7 # 55
 
 RunningMode="Condor"  # "Condor", "local"
 
@@ -85,6 +85,14 @@ do
     RECOFile=${Dir_store}/${sampleName_toUse}/${ERA}/RECO_${iSample}.root
     MiniAODFile=${Dir_store}/${sampleName_toUse}/${ERA}/MiniAODv2_${iSample}.root
     NanoAODFile=${Dir_store}/${sampleName_toUse}/${ERA}/NanoAODv9_${iSample}.root
+
+    # HTCondor job submission files --
+    CondorExecScript=${Dir_production}/CondorExec_${jobID}.sh
+    CondorSubmitScript=${Dir_production}/CondorSubmit_${jobID}.sh
+    CondorLog=${Dir_production}/Condor_${jobID}.log
+    CondorOutput=${Dir_production}/Condor_${jobID}.out
+    CondorError=${Dir_production}/Condor_${jobID}.error
+    
     
     cd ${Dir_sourceCodes}
     echo "pwd (MCGeneration_wrapper.sh) 0, iSample ${iSample}"
@@ -97,9 +105,34 @@ do
 
     if [ -f ${NanoAODFile} ] && [ $(stat -c%s ${NanoAODFile}) -gt ${MinFileSize} ]; then
 	printf "printf \"\nOutput: ${NanoAODFile} already exists!!! \" \n" >> ${MCGenerationScript}
-	printf "Output: ${NanoAODFile} already exists!!!"
+	printf "Output: ${NanoAODFile} already exists!!! \n"
 	continue
     fi
+
+    # check whether HTCondor job is running
+    if [ $RunningMode == "Condor" ]; then
+	isJobRunning=0
+
+	if [ -f ${CondorLog} ]; then
+	    # Check last 2 lines of log file
+	    if  tail -n 2 ${CondorLog} | grep -q "Job terminated"; then
+		# Job terminated of its own accord at 2023-01-31T11:55:43Z.
+		isJobRunning=0
+	    elif tail -n 2 ${CondorLog} | grep -q "Job removed"; then
+		# Job removed by SYSTEM_PERIODIC_REMOVE due to wall time exceeded allowed max.
+		isJobRunning=0
+	    else
+		isJobRunning=1
+	    fi
+
+	    if [[ $isJobRunning -eq 1 ]]; then
+		printf "isJobRunning: ${isJobRunning}. \t\t Job ${iSample} is already running.. \n"
+		continue
+	    fi
+	    printf "isJobRunning: ${isJobRunning}. \t\t Job ${iSample} is NOT running. Resubmit condor job.. \n"	    
+	fi
+    fi
+    
 
     MCGenerationScript=${Dir_production}/MCGenerationScript_${jobID}.sh
 
@@ -118,6 +151,7 @@ do
     DatasetType='MadgraphGridpack'
     gridpackFile_0=${Dir_MadgraphPkg}/${MadgraphCardName_toUse}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz # Default path
     #gridpackFile=${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${iSample}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz # relocated path
+    filesToDeleteAtEnd="${filesToDeleteAtEnd}  ${gridpackFile}"
 
     if [ ! -d ${Dir_store}/${sampleName_toUse}/${ERA} ]; then
 	mkdir -p ${Dir_store}/${sampleName_toUse}/${ERA}
@@ -351,11 +385,6 @@ do
 	    time . ${MCGenerationScript}
 	else
 	    # Submit job on HTCondor
-	    CondorExecScript=${Dir_production}/CondorExec_${jobID}.sh
-	    CondorSubmitScript=${Dir_production}/CondorSubmit_${jobID}.sh
-	    CondorLog=${Dir_production}/Condor_${jobID}.log
-	    CondorOutput=${Dir_production}/Condor_${jobID}.out
-	    CondorError=${Dir_production}/Condor_${jobID}.error
 	    
 	    printf "\nCondorExecScript: ${CondorExecScript}"
 	    printf "#!/bin/bash   \n\n" >  ${CondorExecScript}	
