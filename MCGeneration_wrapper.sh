@@ -29,8 +29,8 @@ gridpackFile=${Dir_MadgraphPkg}/
 
 #FileNumber=0
 
-SampleNumber_First=299 #64 #5
-SampleNumber_Last=399 #99 #68 #163 #7 # 55
+SampleNumber_First=100 #64 #5
+SampleNumber_Last=199 #99 #68 #163 #7 # 55
 
 RunningMode="Condor"  # "Condor", "local"
 
@@ -85,7 +85,11 @@ do
     RECOFile=${Dir_store}/${sampleName_toUse}/${ERA}/RECO_${iSample}.root
     MiniAODFile=${Dir_store}/${sampleName_toUse}/${ERA}/MiniAODv2_${iSample}.root
     NanoAODFile=${Dir_store}/${sampleName_toUse}/${ERA}/NanoAODv9_${iSample}.root
+    
+    sampleChain=(${gridpackFile} ${wmLHEGENFile} ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile} ${MiniAODFile} ${NanoAODFile})
 
+    filesToDeleteAtEnd="${Dir_production}/CMSSW* ${Dir_production}/*_report.xml ${gridpackFile} ${Dir_store}/${sampleName_toUse}/${ERA}/wmLHEGEN_${iSample}_inLHE.root  ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile}  "
+    
     # HTCondor job submission files --
     CondorExecScript=${Dir_production}/CondorExec_${jobID}.sh
     CondorSubmitScript=${Dir_production}/CondorSubmit_${jobID}.sh
@@ -103,13 +107,31 @@ do
     echo "sampleName_toUse: ${sampleName_toUse} "
     echo "NEvents:${NEvents},  GENLevelEfficiency: ${GENLevelEfficiency}"
 
+
+    # If NanoAOD file exists then job ran successfully -------------------------
     if [ -f ${NanoAODFile} ] && [ $(stat -c%s ${NanoAODFile}) -gt ${MinFileSize} ]; then
-	printf "printf \"\nOutput: ${NanoAODFile} already exists!!! \" \n" >> ${MCGenerationScript}
+	#printf "printf \"\nOutput: ${NanoAODFile} already exists!!! \" \n" >> ${MCGenerationScript}
 	printf "Output: ${NanoAODFile} already exists!!! \n"
+	printf "rm -rf ${filesToDeleteAtEnd} \n\n"
+	rm -rf ${filesToDeleteAtEnd}
 	continue
     fi
+    # --------------------------------------------------------------------------
 
-    # check whether HTCondor job is running
+    # check last sample file produced
+    sample_lastGeneratedFile=""
+    idx_sample_lastGeneratedFile=0
+    for iSampleStep in ${!sampleChain[@]}; do
+	printf "iSampleStep : ${iSampleStep} \n"
+	if [ -f ${sampleChain[$iSampleStep]} ]; then
+	    idx_sample_lastGeneratedFile=${iSampleStep}
+	    sample_lastGeneratedFile=${sampleChain[$iSampleStep]}	    
+	fi
+    done
+    printf " \t sample_lastGeneratedFile[${idx_sample_lastGeneratedFile}]: ${sampleChain[$idx_sample_lastGeneratedFile]} \n"
+   
+    
+    # check whether the status of submitted HTCondor job -----------------------
     if [ $RunningMode == "Condor" ]; then
 	isJobRunning=0
 
@@ -118,9 +140,15 @@ do
 	    if  tail -n 2 ${CondorLog} | grep -q "Job terminated"; then
 		# Job terminated of its own accord at 2023-01-31T11:55:43Z.
 		isJobRunning=0
+		
 	    elif tail -n 2 ${CondorLog} | grep -q "Job removed"; then
 		# Job removed by SYSTEM_PERIODIC_REMOVE due to wall time exceeded allowed max.
 		isJobRunning=0
+
+		# delete last produced sample as the file might be currupt
+		printf "\n ERROR: 'Job removed by SYSTEM_PERIODIC_REMOVE'. \t Deleting the last produced sample file ${sample_lastGeneratedFile}. \n"
+		rm ${sample_lastGeneratedFile}
+
 	    else
 		isJobRunning=1
 	    fi
@@ -132,21 +160,17 @@ do
 	    printf "isJobRunning: ${isJobRunning}. \t\t Job ${iSample} is NOT running. Resubmit condor job.. \n"	    
 	fi
     fi
+    # --------------------------------------------------------------------------
+
     
-
     MCGenerationScript=${Dir_production}/MCGenerationScript_${jobID}.sh
-
-    echo "MCGenerationScript: ${MCGenerationScript} "
-
-    printf "#!/bin/bash \n\n" > ${MCGenerationScript}
-    printf "cd ${Dir_production} \n\n" >> ${MCGenerationScript}
-
-
     filesToDeleteAtEnd="${Dir_production}/*_report.xml"
     runJob=0
 
+    echo "MCGenerationScript: ${MCGenerationScript} "
+    printf "#!/bin/bash \n\n" > ${MCGenerationScript}
+    printf "cd ${Dir_production} \n\n" >> ${MCGenerationScript}
 
-    
     # Madgraph gridpack ----------------------------------------------------------------
     DatasetType='MadgraphGridpack'
     gridpackFile_0=${Dir_MadgraphPkg}/${MadgraphCardName_toUse}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz # Default path
@@ -408,6 +432,24 @@ do
 	    # tomorrow     = 1 day
 	    # testmatch    = 3 days
 	    # nextweek     = 1 week
+
+	    # job run time for different steps
+	    # Madgraph	        real	112m21.326s	2hr
+	    # wmLHE		real	254m29.866s	4hr
+	    # SIM		real	72m44.071s	1hr
+	    # DIGI		real	11m56.162s	
+	    # HLT		real	6m24.796s
+	    # RECO		real	21m11.963s
+	    # MiniAOD 	        real	5m0.712s
+
+	    jobFlavour="tomorrow"
+	    if [[ $idx_sample_lastGeneratedFile -eq 1 ]]; then
+		# last  GeneratedFile is wmLHE 
+		jobFlavour="workday"
+	    elif  [[ $idx_sample_lastGeneratedFile -ge 2 ]]; then
+		# last  GeneratedFile is SIM or next ones
+		jobFlavour="longlunch"
+	    fi
 	    
 	    printf "\nCondorSubmitScript: ${CondorSubmitScript}"
 	    printf "universe = vanilla \n" >  ${CondorSubmitScript}
@@ -420,7 +462,7 @@ do
 	    printf "should_transfer_files = YES \n" >>  ${CondorSubmitScript}
 	    printf "when_to_transfer_output = ON_EXIT \n" >>  ${CondorSubmitScript}
 	    #printf "+JobFlavour = \"workday\" \n" >>  ${CondorSubmitScript}
-	    printf "+JobFlavour = \"tomorrow\" \n" >>  ${CondorSubmitScript}
+	    printf "+JobFlavour = \"${jobFlavour}\" \n" >>  ${CondorSubmitScript}
 	    printf "queue \n" >>  ${CondorSubmitScript}
 	    printf "\n" >>  ${CondorSubmitScript}
 	    chmod a+x ${CondorSubmitScript}
