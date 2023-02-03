@@ -29,8 +29,8 @@ gridpackFile=${Dir_MadgraphPkg}/
 
 #FileNumber=0
 
-SampleNumber_First=100 #64 #5
-SampleNumber_Last=199 #99 #68 #163 #7 # 55
+SampleNumber_First=300 #64 #5
+SampleNumber_Last=599 #99 #68 #163 #7 # 55
 
 RunningMode="Condor"  # "Condor", "local"
 
@@ -122,8 +122,8 @@ do
     sample_lastGeneratedFile=""
     idx_sample_lastGeneratedFile=0
     for iSampleStep in ${!sampleChain[@]}; do
-	printf "iSampleStep : ${iSampleStep} \n"
-	if [ -f ${sampleChain[$iSampleStep]} ]; then
+	#printf "iSampleStep : ${iSampleStep} \n"
+	if [ -f ${sampleChain[$iSampleStep]} ] && [ $(stat -c%s ${sampleChain[$iSampleStep]}) -gt ${MinFileSize} ]; then
 	    idx_sample_lastGeneratedFile=${iSampleStep}
 	    sample_lastGeneratedFile=${sampleChain[$iSampleStep]}	    
 	fi
@@ -194,6 +194,11 @@ do
 	printf "cp ${Dir_sourceCodes}/madgraphCards/${MadgraphCardName}_run_card.dat        ${Dir_MadgraphCards}/${MadgraphCardName_toUse}/${MadgraphCardName_toUse}_run_card.dat       \n" >> ${MCGenerationScript}
 	# Rename MadgraphCard output name
 	printf "sed -i \"s/${MadgraphCardName}/${MadgraphCardName_toUse}/g\"   ${Dir_MadgraphCards}/${MadgraphCardName_toUse}/${MadgraphCardName_toUse}_proc_card.dat \n\n" >> ${MCGenerationScript}
+
+	if [ -d ${Dir_MadgraphPkg}/${MadgraphCardName_toUse} ]; then
+	    printf "${Dir_MadgraphPkg}/${MadgraphCardName_toUse}/ already exists... Removing it..  \n"
+	    rm -rf ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}/  ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}.log 
+	fi
 
 	printf "printf \"\\\n ***Run gridpack_generation.sh ${MadgraphCardName_toUse} \\\n \" \n" >> ${MCGenerationScript}
 	#printf "time ./gridpack_generation.sh ${MadgraphCardName_toUse} ${Dir_MadgraphCards}/${MadgraphCardName_toUse}  \n\n" >> ${MCGenerationScript}
