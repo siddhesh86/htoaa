@@ -29,8 +29,8 @@ gridpackFile=${Dir_MadgraphPkg}/
 
 #FileNumber=0
 
-SampleNumber_First=300 #64 #5
-SampleNumber_Last=599 #99 #68 #163 #7 # 55
+SampleNumber_First=0 #64 #5
+SampleNumber_Last=799 #99 #68 #163 #7 # 55
 
 RunningMode="Condor"  # "Condor", "local"
 
@@ -197,7 +197,7 @@ do
 
 	if [ -d ${Dir_MadgraphPkg}/${MadgraphCardName_toUse} ]; then
 	    printf "${Dir_MadgraphPkg}/${MadgraphCardName_toUse}/ already exists... Removing it..  \n"
-	    rm -rf ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}/  ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}.log 
+	    rm -rf ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}* #/  ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}.log 
 	fi
 
 	printf "printf \"\\\n ***Run gridpack_generation.sh ${MadgraphCardName_toUse} \\\n \" \n" >> ${MCGenerationScript}
