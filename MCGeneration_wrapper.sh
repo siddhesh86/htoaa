@@ -29,8 +29,8 @@ gridpackFile=${Dir_MadgraphPkg}/
 
 #FileNumber=0
 
-SampleNumber_First=0 #64 #5
-SampleNumber_Last=799 #99 #68 #163 #7 # 55
+SampleNumber_First=1000 #64 #5
+SampleNumber_Last=1099 #99 #68 #163 #7 # 55
 
 RunningMode="Condor"  # "Condor", "local"
 
@@ -128,8 +128,9 @@ do
 	    sample_lastGeneratedFile=${sampleChain[$iSampleStep]}	    
 	fi
     done
-    printf " \t sample_lastGeneratedFile[${idx_sample_lastGeneratedFile}]: ${sampleChain[$idx_sample_lastGeneratedFile]} \n"
-   
+    if [ ! -z ${sample_lastGeneratedFile}]; then
+	printf " \t sample_lastGeneratedFile[${idx_sample_lastGeneratedFile}]: ${sampleChain[$idx_sample_lastGeneratedFile]}  (size $(stat -c%s ${sample_lastGeneratedFile})) \n"
+    fi
     
     # check whether the status of submitted HTCondor job -----------------------
     if [ $RunningMode == "Condor" ]; then
@@ -140,13 +141,23 @@ do
 	    if  tail -n 2 ${CondorLog} | grep -q "Job terminated"; then
 		# Job terminated of its own accord at 2023-01-31T11:55:43Z.
 		isJobRunning=0
-		
+
+		# previous job failed due to "file probably not closed, trying to recover" error
+		if tail -n 3 ${CondorError} | grep -q "probably not closed, trying to recover"; then
+		    # file ///eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-70_mA-12_wH-70_wA-70_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/SIM_226.root probably not closed, trying to recover
+		    if tail -n 3 ${CondorError} | grep -q "${sample_lastGeneratedFile}"; then
+			# delete last produced sample as the file might be currupt
+			printf "\n ERROR: \"file probably not closed, trying to recover\". \t Deleting the last produced sample file ${sample_lastGeneratedFile} (size $(stat -c%s ${sample_lastGeneratedFile})). \n"
+			rm ${sample_lastGeneratedFile}			
+		    fi
+		fi
+		    
 	    elif tail -n 2 ${CondorLog} | grep -q "Job removed"; then
 		# Job removed by SYSTEM_PERIODIC_REMOVE due to wall time exceeded allowed max.
 		isJobRunning=0
 
 		# delete last produced sample as the file might be currupt
-		printf "\n ERROR: 'Job removed by SYSTEM_PERIODIC_REMOVE'. \t Deleting the last produced sample file ${sample_lastGeneratedFile}. \n"
+		printf "\n ERROR: 'Job removed by SYSTEM_PERIODIC_REMOVE'. \t Deleting the last produced sample file ${sample_lastGeneratedFile} (size $(stat -c%s ${sample_lastGeneratedFile})). \n"
 		rm ${sample_lastGeneratedFile}
 
 	    else
