@@ -31,8 +31,8 @@ Dir_MadgraphCards='cards/production/13TeV/HToAATo4B' # without '/' in the end
 
 #FileNumber=0
 
-SampleNumber_First=2600 #2500 #2401  #2200 #2102 #2000
-SampleNumber_Last=2699 #2599 #2499  #2299 #2199 #2100
+SampleNumber_First=2900 #2500 #2401  #2200 #2102 #2000
+SampleNumber_Last=2999 #2599 #2499  #2299 #2199 #2100
 NEvents_0=${NEvents}
 # run number    0 to 1699: 100 events per job + Madgraph 1000 events
 # run number 1700 to 1799: 200 events per job + Madgraph 1000 events
@@ -43,7 +43,8 @@ NEvents_0=${NEvents}
 # run number 2300 to 2399:   500 events per job + Madgraph 500*effi events + production on /eos
 # run number 2400 to 2499:   400 events per job + Madgraph 400*effi events + production on /afs
 # run number 2500 to 2599:   300 events per job + Madgraph 400*effi events + production on /afs
-# run number 2600 to :   200 events per job + Madgraph 400*effi events + production on /afs
+# run number 2600 to 2699:   200 events per job + Madgraph 400*effi events + production on /afs
+# run number 2700 to 2899:   100 events per job + Madgraph 400*effi events + production on /afs
 
 RunningMode="Condor"  # "Condor", "local"
 
@@ -101,6 +102,7 @@ do
     #continue
     Dir_MadgraphPkg="*-*"
 
+    NEvents_LHE=1000 
     if [ ${iSample} -le 1699 ]; then
 	NEvents=100
     elif [ ${iSample} -le 1799 ]; then
@@ -114,10 +116,19 @@ do
 	NEvents=500
     elif [[(${iSample} -ge 2400 && ${iSample} -le 2499)]]; then
 	NEvents=400
+	NEvents_LHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
     elif [[(${iSample} -ge 2500 && ${iSample} -le 2599)]]; then
 	NEvents=300
-    elif [[(${iSample} -ge 2600 && ${iSample} -le 9999)]]; then
+	NEvents_LHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+    elif [[(${iSample} -ge 2600 && ${iSample} -le 2699)]]; then
 	NEvents=200
+	NEvents_LHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+    elif [[(${iSample} -ge 2700 && ${iSample} -le 2899)]]; then
+	NEvents=100
+	NEvents_LHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+    elif [[(${iSample} -ge 2900 && ${iSample} -le 9999)]]; then
+	NEvents=100
+	NEvents_LHE=1000 
     elif [ ${iSample} -eq 100001 ]; then
 	NEvents=10
     fi
@@ -311,7 +322,8 @@ do
 
     # Madgraph gridpack ----------------------------------------------------------------
     DatasetType='MadgraphGridpack'
-    NEvents_toUse=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+    #NEvents_toUse=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+    NEvents_toUse=${NEvents_LHE}
     gridpackFile_0=${Dir_MadgraphPkg}/${MadgraphCardName_toUse}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz # Default path
     #gridpackFile=${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${iSample}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz # relocated path
     filesToDeleteAtEnd="${filesToDeleteAtEnd}  ${gridpackFile}"
