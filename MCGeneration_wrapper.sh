@@ -28,11 +28,12 @@ Dir_MadgraphPkg_afs='/afs/cern.ch/work/s/ssawant/private/htoaa/MCproduction/HToA
 Dir_MadgraphPkg_eos='/eos/cms/store/user/ssawant/MCGeneration_Log/MCGridpackGeneration/genproductions/bin/MadGraph5_aMCatNLO'
 Dir_MadgraphCards='cards/production/13TeV/HToAATo4B' # without '/' in the end
 
+MadgraphGridpackSample="/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-70_mA-12_wH-70_wA-70_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/MadgraphGridpack_3000_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
 
 #FileNumber=0
 
-SampleNumber_First=2900 #2500 #2401  #2200 #2102 #2000
-SampleNumber_Last=2999 #2599 #2499  #2299 #2199 #2100
+SampleNumber_First=3100 #2500 #2401  #2200 #2102 #2000
+SampleNumber_Last=3102 #2599 #2499  #2299 #2199 #2100
 NEvents_0=${NEvents}
 # run number    0 to 1699: 100 events per job + Madgraph 1000 events
 # run number 1700 to 1799: 200 events per job + Madgraph 1000 events
@@ -45,6 +46,10 @@ NEvents_0=${NEvents}
 # run number 2500 to 2599:   300 events per job + Madgraph 400*effi events + production on /afs
 # run number 2600 to 2699:   200 events per job + Madgraph 400*effi events + production on /afs
 # run number 2700 to 2899:   100 events per job + Madgraph 400*effi events + production on /afs
+# run number 2900 to 2999:   100 events per job + Madgraph 1000 + wmLHE 1000 + production on /afs
+# run number 3000 to 3099:   100 events per job + Madgraph 1000 + wmLHE 4000 + production on /afs
+# run number 3100 to :   100 events per job + Madgraph 4000 + wmLHE 4000 + production on /afs
+
 
 RunningMode="Condor"  # "Condor", "local"
 
@@ -102,7 +107,8 @@ do
     #continue
     Dir_MadgraphPkg="*-*"
 
-    NEvents_LHE=1000 
+    NEvents_Madgraph=1000
+    NEvents_wmLHE=4000 
     if [ ${iSample} -le 1699 ]; then
 	NEvents=100
     elif [ ${iSample} -le 1799 ]; then
@@ -116,19 +122,32 @@ do
 	NEvents=500
     elif [[(${iSample} -ge 2400 && ${iSample} -le 2499)]]; then
 	NEvents=400
-	NEvents_LHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+	NEvents_Madgraph=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+	NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
     elif [[(${iSample} -ge 2500 && ${iSample} -le 2599)]]; then
 	NEvents=300
-	NEvents_LHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+	NEvents_Madgraph=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+	NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
     elif [[(${iSample} -ge 2600 && ${iSample} -le 2699)]]; then
 	NEvents=200
-	NEvents_LHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+	NEvents_Madgraph=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+	NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
     elif [[(${iSample} -ge 2700 && ${iSample} -le 2899)]]; then
 	NEvents=100
-	NEvents_LHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
-    elif [[(${iSample} -ge 2900 && ${iSample} -le 9999)]]; then
+	NEvents_Madgraph=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+	NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+    elif [[(${iSample} -ge 2900 && ${iSample} -le 2999)]]; then
 	NEvents=100
-	NEvents_LHE=1000 
+	NEvents_Madgraph=1000
+	NEvents_wmLHE=1000
+    elif [[(${iSample} -ge 3000 && ${iSample} -le 3099)]]; then
+	NEvents=100
+	NEvents_Madgraph=1000
+	NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+    elif [[(${iSample} -ge 3100 && ${iSample} -le 9999)]]; then
+	NEvents=100
+	NEvents_Madgraph=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency") 
+	NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
     elif [ ${iSample} -eq 100001 ]; then
 	NEvents=10
     fi
@@ -179,7 +198,8 @@ do
 	mkdir -p ${Dir_logs}
     fi
     
-    gridpackFile=${Dir_store}/${sampleName_toUse}/${ERA}/MadgraphGridpack_${iSample}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz # relocated path
+    #gridpackFile=${Dir_store}/${sampleName_toUse}/${ERA}/MadgraphGridpack_${iSample}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz # relocated path
+    gridpackFile=${MadgraphGridpackSample}
     wmLHEGENFile=${Dir_store}/${sampleName_toUse}/${ERA}/wmLHEGEN_${iSample}.root
     SIMFile=${Dir_store}/${sampleName_toUse}/${ERA}/SIM_${iSample}.root
     DIGIPremixFile=${Dir_store}/${sampleName_toUse}/${ERA}/DIGIPremix_${iSample}.root
@@ -207,7 +227,7 @@ do
     echo "jobID: ${jobID} "
     echo "MadgraphCardName_toUse: ${MadgraphCardName_toUse} "
     echo "sampleName_toUse: ${sampleName_toUse} "
-    printf "NEvents: ${NEvents},  GENLevelEfficiency: ${GENLevelEfficiency},   MinFileSize_NanoAOD: ${MinFileSize_NanoAOD},  MinFileSize_MiniAOD: ${MinFileSize_MiniAOD} \n"
+    printf "NEvents: ${NEvents},  GENLevelEfficiency: ${GENLevelEfficiency},  NEvents_Madgraph: ${NEvents_Madgraph}, NEvents_wmLHE: ${NEvents_wmLHE},   MinFileSize_NanoAOD: ${MinFileSize_NanoAOD},  MinFileSize_MiniAOD: ${MinFileSize_MiniAOD} \n"
     printf " Dir_MadgraphPkg: ${Dir_MadgraphPkg}, \n Dir_production: ${Dir_production}, \n Dir_logs: ${Dir_logs} \n"
 
 
@@ -311,6 +331,10 @@ do
     fi
     # --------------------------------------------------------------------------
 
+    if [ ! -d ${Dir_store}/${sampleName_toUse}/${ERA} ]; then
+	mkdir -p ${Dir_store}/${sampleName_toUse}/${ERA}
+    fi
+    
     
     MCGenerationScript=${Dir_production}/MCGenerationScript_${jobID}.sh
     filesToDeleteAtEnd="${Dir_production}/*_report.xml"
@@ -319,67 +343,6 @@ do
     echo "MCGenerationScript: ${MCGenerationScript} "
     printf "#!/bin/bash \n\n" > ${MCGenerationScript}
     printf "cd ${Dir_production} \n\n" >> ${MCGenerationScript}
-
-    # Madgraph gridpack ----------------------------------------------------------------
-    DatasetType='MadgraphGridpack'
-    #NEvents_toUse=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
-    NEvents_toUse=${NEvents_LHE}
-    gridpackFile_0=${Dir_MadgraphPkg}/${MadgraphCardName_toUse}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz # Default path
-    #gridpackFile=${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${iSample}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz # relocated path
-    filesToDeleteAtEnd="${filesToDeleteAtEnd}  ${gridpackFile}"
-
-    if [ ! -d ${Dir_store}/${sampleName_toUse}/${ERA} ]; then
-	mkdir -p ${Dir_store}/${sampleName_toUse}/${ERA}
-    fi
-
-    if [ -f ${gridpackFile} ] && [ $(stat -c%s ${gridpackFile}) -gt ${MinFileSize} ]; then
-	printf "printf '\nOutput: ${gridpackFile} already exists!!! ' \n" >> ${MCGenerationScript}
-    else
-	runJob=1
-	printf "cd ${Dir_MadgraphPkg} \n" >> ${MCGenerationScript}
-	printf "mkdir -p ${Dir_MadgraphCards}/${MadgraphCardName_toUse} \n" >> ${MCGenerationScript}
-
-	printf "cp ${Dir_sourceCodes}/madgraphCards/${MadgraphCardName}_customizecards.dat  ${Dir_MadgraphCards}/${MadgraphCardName_toUse}/${MadgraphCardName_toUse}_customizecards.dat \n" >> ${MCGenerationScript}
-	printf "cp ${Dir_sourceCodes}/madgraphCards/${MadgraphCardName}_extramodels.dat     ${Dir_MadgraphCards}/${MadgraphCardName_toUse}/${MadgraphCardName_toUse}_extramodels.dat    \n" >> ${MCGenerationScript}
-	printf "cp ${Dir_sourceCodes}/madgraphCards/${MadgraphCardName}_proc_card.dat       ${Dir_MadgraphCards}/${MadgraphCardName_toUse}/${MadgraphCardName_toUse}_proc_card.dat      \n" >> ${MCGenerationScript}
-	printf "cp ${Dir_sourceCodes}/madgraphCards/${MadgraphCardName}_run_card.dat        ${Dir_MadgraphCards}/${MadgraphCardName_toUse}/${MadgraphCardName_toUse}_run_card.dat       \n" >> ${MCGenerationScript}
-	# Rename MadgraphCard output name
-	printf "sed -i \"s/${MadgraphCardName}/${MadgraphCardName_toUse}/g\"   ${Dir_MadgraphCards}/${MadgraphCardName_toUse}/${MadgraphCardName_toUse}_proc_card.dat \n\n" >> ${MCGenerationScript}
-	# Set nEvents in run_card.dat
-	printf "sed -i \"s/NEVENTSTOSET/${NEvents_toUse}/g\"   ${Dir_MadgraphCards}/${MadgraphCardName_toUse}/${MadgraphCardName_toUse}_run_card.dat  \n\n" >> ${MCGenerationScript}
-	
-
-	if [ -d ${Dir_MadgraphPkg}/${MadgraphCardName_toUse} ]; then
-	    printf "${Dir_MadgraphPkg}/${MadgraphCardName_toUse}/ already exists... Removing it..  \n"
-	    rm -rf ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}* #/  ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}.log 
-	fi
-
-	printf "printf \"\\\n ***Run gridpack_generation.sh ${MadgraphCardName_toUse} \\\n \" \n" >> ${MCGenerationScript}
-	#printf "time ./gridpack_generation.sh ${MadgraphCardName_toUse} ${Dir_MadgraphCards}/${MadgraphCardName_toUse}  \n\n" >> ${MCGenerationScript}
-	printf "time . gridpack_generation.sh ${MadgraphCardName_toUse} ${Dir_MadgraphCards}/${MadgraphCardName_toUse}  \n\n" >> ${MCGenerationScript}
-
-	# output file: gridpackFile_0
-	printf "if [ ! -f ${gridpackFile_0} ] \n" >> ${MCGenerationScript}
-	printf "then \n" >> ${MCGenerationScript}
-	printf "    printf '${gridpackFile_0} did not produce... \t\t **** ERROR **** \n' \n" >> ${MCGenerationScript}
-	printf "    exit 1 \n" >> ${MCGenerationScript}
-	printf "fi \n" >> ${MCGenerationScript}
-
-	printf "printf \"\\\n ***Done gridpack_generation.sh ${MadgraphCardName_toUse} \\\n \" \n" >> ${MCGenerationScript}
-	
-	# mv gridpackFile_0 to gridpackFile
-	printf "printf \"mv ${gridpackFile_0} ${gridpackFile} \\\n \" \n" >> ${MCGenerationScript}
-	printf "mv ${gridpackFile_0} ${gridpackFile} \n" >> ${MCGenerationScript}
-	
-	printf "printf \"rm -rf ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}/  ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}.log \\\n \" \n" >> ${MCGenerationScript}
-	printf "rm -rf ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}/  ${Dir_MadgraphPkg}/${MadgraphCardName_toUse}.log \n" >> ${MCGenerationScript}
-
-	printf "mv ${Dir_MadgraphPkg}/${Dir_MadgraphCards}/${MadgraphCardName_toUse} ${Dir_production}/cards_${MadgraphCardName_toUse}  \n" >> ${MCGenerationScript}
-    fi
-
-
-    #printf "exit 1 \n" >> ${MCGenerationScript}
-
 
 
 
@@ -392,9 +355,10 @@ do
     outputFile=${wmLHEGENFile}  # ${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${iSample}.root
     #NEvents_toUse=$((NEvents / GENLevelEfficiency))
     #NEvents_toUse=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+    NEvents_toUse=${NEvents_wmLHE}
     filesToDeleteAtEnd="${filesToDeleteAtEnd}  ${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${iSample}_inLHE.root"
 
-    printf "\nprintf \"\\\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes} \\\n \"  \n" >> ${MCGenerationScript}
+    printf "\nprintf \"\\\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  ${iSample} \\\n \"  \n" >> ${MCGenerationScript}
     if [ -f ${outputFile} ] && [ $(stat -c%s ${outputFile}) -gt ${MinFileSize} ]; then
 	printf "printf '\nOutput: ${outputFile} already exists!!! ' \n" >> ${MCGenerationScript}
     else
@@ -402,9 +366,9 @@ do
 	printf "rm -rf ${Dir_production}/CMSSW* ${Dir_production}/lheevent \n" >> ${MCGenerationScript}
 	
 	#printf "time source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}   \n" >> ${MCGenerationScript}
-	printf "time . ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}   \n" >> ${MCGenerationScript}
+	printf "time . ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  ${iSample}  \n" >> ${MCGenerationScript}
 
-	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  \"  \n" >> ${MCGenerationScript}
+	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  ${iSample}  \"  \n" >> ${MCGenerationScript}
 	printf "printf \"rm -rf ${Dir_production}/CMSSW*  ${Dir_production}/lheevent \\\n \" \n" >> ${MCGenerationScript}
 	printf "rm -rf ${Dir_production}/CMSSW*  ${Dir_production}/lheevent \n" >> ${MCGenerationScript}	
     fi

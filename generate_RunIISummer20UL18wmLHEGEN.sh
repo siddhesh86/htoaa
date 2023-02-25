@@ -12,6 +12,7 @@ nEvents=${3}
 jobID=${4}
 sourceCodeDir=${5}
 #productionDir=${6}
+randomSeed=${6}
 
 jobName="SUSY_GluGluH_01J_HToAATo4B_${jobID}_RunIISummer20UL18wmLHEGEN"
 
@@ -143,7 +144,9 @@ ls
 # cmsDriver command
 #cmsDriver.py Configuration/GenProduction/python/HIG-RunIISummer20UL18wmLHEGEN-02511-fragment.py --python_filename HIG-RunIISummer20UL18wmLHEGEN-02511_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:HIG-RunIISummer20UL18wmLHEGEN-02511.root --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(4000)" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
 
-cmsDriver.py Configuration/GenProduction/python/${jobName}-fragment.py --python_filename ${jobName}_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(4000)" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
+#cmsDriver.py Configuration/GenProduction/python/${jobName}-fragment.py --python_filename ${jobName}_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(4000)" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
+
+cmsDriver.py Configuration/GenProduction/python/${jobName}-fragment.py --python_filename ${jobName}_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed="cms.untracked.uint32(${randomSeed})" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
 
 
 echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 4: '
