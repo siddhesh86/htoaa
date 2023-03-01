@@ -13,6 +13,7 @@ jobID=${4}
 sourceCodeDir=${5}
 #productionDir=${6}
 randomSeed=${6}
+HiggsPtMin=${7}
 
 jobName="SUSY_GluGluH_01J_HToAATo4B_${jobID}_RunIISummer20UL18wmLHEGEN"
 
@@ -94,6 +95,9 @@ cp ${sourceCodeDir}/GENFragment_SUSY_GluGluH_01J_HToAATo4B.py Configuration/GenP
 # replace input Gridpack file
 #psed -i "s|INPUTGRIDPACK=''|INPUTGRIDPACK='$inputFile'|g" Configuration/GenProduction/python/${jobName}-fragment.py
 sed -i "s|INPUTGRIDPACK=\"\"|INPUTGRIDPACK=\"${inputFile}\"|g" Configuration/GenProduction/python/${jobName}-fragment.py
+
+# replace HiggsPtMin
+sed -i "s|HIGGSPTMIN=150|HIGGSPTMIN=${HiggsPtMin}|g" Configuration/GenProduction/python/${jobName}-fragment.py
 
 echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 2: '
 pwd

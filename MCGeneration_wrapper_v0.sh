@@ -12,25 +12,44 @@
 
 ## Settings: Change as per need ------------------------------------------------------------------------
 Dir_sourceCodes=$(pwd)
+#Dir_production='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp7' # without '/' in the end
 Dir_logs='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp8' # without '/' in the end
-Dir_production=${Dir_logs}  
+Dir_production='/eos/cms/store/user/ssawant/MCGeneration_Log/MCGeneration' # without '/' in the end
 Dir_store='/eos/cms/store/user/ssawant/mc'  # ${Dir_production}
+NEvents=10  #100, 200, 400 # now set in for loop
 GENLevelEfficiency=$(bc -l <<< '0.0250' )
 
-HiggsPtMin=150 # 150 250 350
-sampleTag='mH-70_mA-12_wH-70_wA-70' 
+HiggsPtMin=150
+sampleTag='mH-70_mA-12_wH-70_wA-70' # 'mH-70_mA-15_wH-70_wA-50' # 'mH-90_mA-30_wH-70_wA-60' # 'mH-125_mA-50_wH-55_wA-40'
 MadgraphCardName="SUSY_GluGluH_01J_HToAATo4B_${sampleTag}"
 sampleName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}_TuneCP5_13TeV_madgraph_pythia8"
 ERA='RunIISummer20UL18'
+#InputGridpackFile='/cvmfs/cms.cern.ch/phys_generator/gridpacks/UL/13TeV/madgraph/V5_2.6.5/SUSY_GluGluH_01J_HToAATo4B_M-50/v1/SUSY_GluGluH_01J_HToAATo4B_M-50_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz'
+Dir_MadgraphPkg_afs='/afs/cern.ch/work/s/ssawant/private/htoaa/MCproduction/HToAATo4B/MCGridpacks/genproductions/bin/MadGraph5_aMCatNLO'
+Dir_MadgraphPkg_eos='/eos/cms/store/user/ssawant/MCGeneration_Log/MCGridpackGeneration/genproductions/bin/MadGraph5_aMCatNLO'
+Dir_MadgraphCards='cards/production/13TeV/HToAATo4B' # without '/' in the end
 
-#Dir_MadgraphPkg_afs='/afs/cern.ch/work/s/ssawant/private/htoaa/MCproduction/HToAATo4B/MCGridpacks/genproductions/bin/MadGraph5_aMCatNLO'
-#Dir_MadgraphCards='cards/production/13TeV/HToAATo4B' # without '/' in the end
-MadgraphGridpackSample='/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-70_mA-12_wH-70_wA-70_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-70_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz' 
+MadgraphGridpackSample="/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-70_mA-12_wH-70_wA-70_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/MadgraphGridpack_3000_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
 
+#FileNumber=0
 
-SampleNumber_First=1
-SampleNumber_Last=1 
+SampleNumber_First=3100 #2500 #2401  #2200 #2102 #2000
+SampleNumber_Last=3102 #2599 #2499  #2299 #2199 #2100
 NEvents_0=${NEvents}
+# run number    0 to 1699: 100 events per job + Madgraph 1000 events
+# run number 1700 to 1799: 200 events per job + Madgraph 1000 events
+# run number 1800 to 1999: 300 events per job + Madgraph 1000 events
+# run number 2000 to 2100: 400 events per job + Madgraph 2000 events
+# run number 2101 to 2199:   500 events per job + Madgraph 5000 events
+# run number 2200 to 2299:   500 events per job + Madgraph 5000 events + production on /eos
+# run number 2300 to 2399:   500 events per job + Madgraph 500*effi events + production on /eos
+# run number 2400 to 2499:   400 events per job + Madgraph 400*effi events + production on /afs
+# run number 2500 to 2599:   300 events per job + Madgraph 400*effi events + production on /afs
+# run number 2600 to 2699:   200 events per job + Madgraph 400*effi events + production on /afs
+# run number 2700 to 2899:   100 events per job + Madgraph 400*effi events + production on /afs
+# run number 2900 to 2999:   100 events per job + Madgraph 1000 + wmLHE 1000 + production on /afs
+# run number 3000 to 3099:   100 events per job + Madgraph 1000 + wmLHE 4000 + production on /afs
+# run number 3100 to :   100 events per job + Madgraph 4000 + wmLHE 4000 + production on /afs
 
 
 RunningMode="Condor"  # "Condor", "local"
@@ -89,17 +108,59 @@ do
     #continue
     Dir_MadgraphPkg="*-*"
 
+    NEvents_Madgraph=1000
     NEvents_wmLHE=4000 
-    if [ ${iSample} -le 99999 ]; then
+    if [ ${iSample} -le 1699 ]; then
 	NEvents=100
+    elif [ ${iSample} -le 1799 ]; then
+	NEvents=200
+    elif [ ${iSample} -le 1999 ]; then
+	NEvents=300
+	#elif [[ (${iSample} -le 2100) || (${iSample} -ge 2400 && ${iSample} -le 2499) ]]; then
+    elif [ ${iSample} -le 2100 ]; then
+	NEvents=400
+    elif [[(${iSample} -ge 2101 && ${iSample} -le 2399)]]; then
+	NEvents=500
+    elif [[(${iSample} -ge 2400 && ${iSample} -le 2499)]]; then
+	NEvents=400
+	NEvents_Madgraph=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
 	NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
-    #elif [[(${iSample} -ge 3000 && ${iSample} -le 3099)]]; then
+    elif [[(${iSample} -ge 2500 && ${iSample} -le 2599)]]; then
+	NEvents=300
+	NEvents_Madgraph=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+	NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+    elif [[(${iSample} -ge 2600 && ${iSample} -le 2699)]]; then
+	NEvents=200
+	NEvents_Madgraph=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+	NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+    elif [[(${iSample} -ge 2700 && ${iSample} -le 2899)]]; then
+	NEvents=100
+	NEvents_Madgraph=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+	NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+    elif [[(${iSample} -ge 2900 && ${iSample} -le 2999)]]; then
+	NEvents=100
+	NEvents_Madgraph=1000
+	NEvents_wmLHE=1000
+    elif [[(${iSample} -ge 3000 && ${iSample} -le 3099)]]; then
+	NEvents=100
+	NEvents_Madgraph=1000
+	NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+    elif [[(${iSample} -ge 3100 && ${iSample} -le 9999)]]; then
+	NEvents=100
+	NEvents_Madgraph=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency") 
+	NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
+    elif [ ${iSample} -eq 100001 ]; then
+	NEvents=10
     fi
 
-    
-    Dir_MadgraphPkg=${Dir_MadgraphPkg_afs}
-    Dir_production_0=${Dir_logs_0}
-    
+    if [[ (${iSample} -ge 2200  && ${iSample} -le 2399 )]]; then
+	Dir_MadgraphPkg=${Dir_MadgraphPkg_eos}
+	
+	continue # Don't run production on eos. Gave a lots of errors. ******
+    else
+	Dir_MadgraphPkg=${Dir_MadgraphPkg_afs}
+	Dir_production_0=${Dir_logs_0}
+    fi
     
     if   [ ${NEvents} -eq 100  ]; then
 	MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents100}
@@ -298,7 +359,7 @@ do
     NEvents_toUse=${NEvents_wmLHE}
     filesToDeleteAtEnd="${filesToDeleteAtEnd}  ${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${iSample}_inLHE.root"
 
-    printf "\nprintf \"\\\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  ${iSample}  ${HiggsPtMin} \\\n \"  \n" >> ${MCGenerationScript}
+    printf "\nprintf \"\\\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  ${iSample} \\\n \"  \n" >> ${MCGenerationScript}
     if [ -f ${outputFile} ] && [ $(stat -c%s ${outputFile}) -gt ${MinFileSize} ]; then
 	printf "printf '\nOutput: ${outputFile} already exists!!! ' \n" >> ${MCGenerationScript}
     else
@@ -306,9 +367,9 @@ do
 	printf "rm -rf ${Dir_production}/CMSSW* ${Dir_production}/lheevent \n" >> ${MCGenerationScript}
 	
 	#printf "time source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}   \n" >> ${MCGenerationScript}
-	printf "time . ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  ${iSample}  ${HiggsPtMin}  \n" >> ${MCGenerationScript}
+	printf "time . ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  ${iSample}  \n" >> ${MCGenerationScript}
 
-	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  ${iSample}  ${HiggsPtMin}  \"  \n" >> ${MCGenerationScript}
+	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  ${iSample}  \"  \n" >> ${MCGenerationScript}
 	printf "printf \"rm -rf ${Dir_production}/CMSSW*  ${Dir_production}/lheevent \\\n \" \n" >> ${MCGenerationScript}
 	printf "rm -rf ${Dir_production}/CMSSW*  ${Dir_production}/lheevent \n" >> ${MCGenerationScript}	
     fi
