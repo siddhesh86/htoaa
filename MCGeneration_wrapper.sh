@@ -17,9 +17,9 @@ Dir_production=${Dir_logs}
 Dir_store='/eos/cms/store/user/ssawant/mc'  # ${Dir_production}
 GENLevelEfficiency=$(bc -l <<< '0.0250' )
 
-HiggsPtMin=150 # 150 250 350
+HiggsPtMin=350 # 150 250 350
 sampleTag='mH-70_mA-12_wH-70_wA-70' 
-MadgraphCardName="SUSY_GluGluH_01J_HToAATo4B_${sampleTag}"
+MadgraphCardName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}"
 sampleName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}_TuneCP5_13TeV_madgraph_pythia8"
 ERA='RunIISummer20UL18'
 
