@@ -15,9 +15,8 @@ Dir_sourceCodes=$(pwd)
 Dir_logs='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp8' # without '/' in the end
 Dir_production=${Dir_logs}  
 Dir_store='/eos/cms/store/user/ssawant/mc'  # ${Dir_production}
-GENLevelEfficiency=$(bc -l <<< '0.0250' )
 
-HiggsPtMin=350 # 150 250 350
+HiggsPtMin=150 # 150 250 350
 sampleTag='mH-70_mA-12_wH-70_wA-70' 
 MadgraphCardName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}"
 sampleName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}_TuneCP5_13TeV_madgraph_pythia8"
@@ -28,8 +27,8 @@ ERA='RunIISummer20UL18'
 MadgraphGridpackSample='/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-70_mA-12_wH-70_wA-70_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-70_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz' 
 
 
-SampleNumber_First=1
-SampleNumber_Last=1 
+SampleNumber_First=2
+SampleNumber_Last=2 
 NEvents_0=${NEvents}
 
 
@@ -89,6 +88,18 @@ do
     #continue
     Dir_MadgraphPkg="*-*"
 
+    RandomNumberSeed=$(bc -l <<<"scale=0; ($HiggsPtMin * 100000) + $iSample ")
+    
+    GENLevelEfficiency=$(bc -l <<< '0.0250' )
+    if   [ ${HiggsPtMin} -eq 150 ]; then
+	GENLevelEfficiency=$(bc -l <<< '0.0250' )
+    elif [ ${HiggsPtMin} -eq 250 ]; then
+	GENLevelEfficiency=$(bc -l <<< '0.0077' )
+    elif [ ${HiggsPtMin} -eq 350 ]; then
+	GENLevelEfficiency=$(bc -l <<< '0.0030' )
+    fi
+	
+
     NEvents_wmLHE=4000 
     if [ ${iSample} -le 99999 ]; then
 	NEvents=100
@@ -137,7 +148,7 @@ do
     if [ ! -d ${Dir_logs} ]; then
 	mkdir -p ${Dir_logs}
     fi
-    
+
     #gridpackFile=${Dir_store}/${sampleName_toUse}/${ERA}/MadgraphGridpack_${iSample}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz # relocated path
     gridpackFile=${MadgraphGridpackSample}
     wmLHEGENFile=${Dir_store}/${sampleName_toUse}/${ERA}/wmLHEGEN_${iSample}.root
@@ -165,12 +176,13 @@ do
     pwd
 
     echo "jobID: ${jobID} "
-    echo "MadgraphCardName_toUse: ${MadgraphCardName_toUse} "
-    echo "sampleName_toUse: ${sampleName_toUse} "
+    #echo "MadgraphCardName_toUse: ${MadgraphCardName_toUse} "
+    echo "sampleName_toUse: ${sampleName_toUse}   RandomNumberSeed: ${RandomNumberSeed} "
     printf "NEvents: ${NEvents},  GENLevelEfficiency: ${GENLevelEfficiency},  NEvents_Madgraph: ${NEvents_Madgraph}, NEvents_wmLHE: ${NEvents_wmLHE},   MinFileSize_NanoAOD: ${MinFileSize_NanoAOD},  MinFileSize_MiniAOD: ${MinFileSize_MiniAOD} \n"
-    printf " Dir_MadgraphPkg: ${Dir_MadgraphPkg}, \n Dir_production: ${Dir_production}, \n Dir_logs: ${Dir_logs} \n"
+    printf " Dir_production: ${Dir_production}, \n Dir_logs: ${Dir_logs} \n"
 
 
+    
 
     # If NanoAOD file exists then job ran successfully -------------------------
     #if [ -f ${NanoAODFile} ] && [ $(stat -c%s ${NanoAODFile}) -gt ${MinFileSize} ]; then
@@ -298,17 +310,17 @@ do
     NEvents_toUse=${NEvents_wmLHE}
     filesToDeleteAtEnd="${filesToDeleteAtEnd}  ${Dir_store}/${sampleName_toUse}/${ERA}/${DatasetType}_${iSample}_inLHE.root"
 
-    printf "\nprintf \"\\\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  ${iSample}  ${HiggsPtMin} \\\n \"  \n" >> ${MCGenerationScript}
+    printf "\nprintf \"\\\nRun source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}   ${RandomNumberSeed}  ${HiggsPtMin} \\\n \"  \n" >> ${MCGenerationScript}
     if [ -f ${outputFile} ] && [ $(stat -c%s ${outputFile}) -gt ${MinFileSize} ]; then
 	printf "printf '\nOutput: ${outputFile} already exists!!! ' \n" >> ${MCGenerationScript}
     else
 	runJob=1
 	printf "rm -rf ${Dir_production}/CMSSW* ${Dir_production}/lheevent \n" >> ${MCGenerationScript}
 	
-	#printf "time source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}   \n" >> ${MCGenerationScript}
-	printf "time . ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  ${iSample}  ${HiggsPtMin}  \n" >> ${MCGenerationScript}
+	#printf "time source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}   \n" >> ${MCGenerationScript} RandomNumberSeed 
+	printf "time . ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}   ${RandomNumberSeed}  ${HiggsPtMin}  \n" >> ${MCGenerationScript}
 
-	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  ${iSample}  ${HiggsPtMin}  \"  \n" >> ${MCGenerationScript}
+	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  ${RandomNumberSeed}  ${HiggsPtMin}  \"  \n" >> ${MCGenerationScript}
 	printf "printf \"rm -rf ${Dir_production}/CMSSW*  ${Dir_production}/lheevent \\\n \" \n" >> ${MCGenerationScript}
 	printf "rm -rf ${Dir_production}/CMSSW*  ${Dir_production}/lheevent \n" >> ${MCGenerationScript}	
     fi
