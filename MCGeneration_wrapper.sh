@@ -24,13 +24,20 @@ ERA='RunIISummer20UL18'
 
 #Dir_MadgraphPkg_afs='/afs/cern.ch/work/s/ssawant/private/htoaa/MCproduction/HToAATo4B/MCGridpacks/genproductions/bin/MadGraph5_aMCatNLO'
 #Dir_MadgraphCards='cards/production/13TeV/HToAATo4B' # without '/' in the end
-MadgraphGridpackSample='/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_mH-70_mA-12_wH-70_wA-70_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-70_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz' 
+MadgraphGridpackSample='/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-70_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz'
 
 
 SampleNumber_First=2
-SampleNumber_Last=2 
+SampleNumber_Last=99 #99 
 NEvents_0=${NEvents}
+# 150:
+# 2 - 99
 
+# 250:
+# 2 - 99
+
+# 350:
+# 2 - 59
 
 RunningMode="Condor"  # "Condor", "local"
 
@@ -103,10 +110,16 @@ do
     NEvents_wmLHE=4000 
     if [ ${iSample} -le 99999 ]; then
 	NEvents=100
-	NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
     #elif [[(${iSample} -ge 3000 && ${iSample} -le 3099)]]; then
     fi
 
+    if [ ${HiggsPtMin} -eq 350 ]; then
+	if [ ${iSample} -le 99999 ]; then
+	    NEvents=40
+	fi	
+    fi
+
+    NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
     
     Dir_MadgraphPkg=${Dir_MadgraphPkg_afs}
     Dir_production_0=${Dir_logs_0}
@@ -160,8 +173,9 @@ do
     NanoAODFile=${Dir_store}/${sampleName_toUse}/${ERA}/NanoAODv9_${iSample}.root
     
     sampleChain=(${gridpackFile} ${wmLHEGENFile} ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile} ${MiniAODFile} ${NanoAODFile})
+    #sampleChain=(${wmLHEGENFile} ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile} ${MiniAODFile} ${NanoAODFile})
 
-    filesToDeleteAtEnd="${Dir_production}/CMSSW* ${Dir_production}/*_report.xml ${gridpackFile} ${Dir_store}/${sampleName_toUse}/${ERA}/wmLHEGEN_${iSample}_inLHE.root  ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile}  "
+    filesToDeleteAtEnd="${Dir_production}/CMSSW* ${Dir_production}/*_report.xml ${Dir_store}/${sampleName_toUse}/${ERA}/wmLHEGEN_${iSample}_inLHE.root  ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile}  "
     
     # HTCondor job submission files --
     CondorExecScript=${Dir_logs}/CondorExec_${jobID}.sh
@@ -252,8 +266,10 @@ do
 			printf "\ncondition_2_1: >>${condition_2_1}<< \n"
 			printf "condition_2_2: >>${condition_2_2}<< \n"
 			# delete last produced sample as the file might be currupt
-			printf "\n ERROR: Input file seems currupt... \t Deleting the last produced sample file ${sample_lastGeneratedFile} (size $(stat -c%s ${sample_lastGeneratedFile})). \n"
-			rm ${sample_lastGeneratedFile}			
+			if [[ "${sample_lastGeneratedFile}" != "${gridpackFile}" ]]; then
+			    printf "\n ERROR: Input file seems currupt... \t Deleting the last produced sample file ${sample_lastGeneratedFile} (size $(stat -c%s ${sample_lastGeneratedFile})). \n"
+			    rm ${sample_lastGeneratedFile}
+			fi
 		    fi
 		fi
 		    
@@ -468,6 +484,8 @@ do
 
 	printf "printf \"rm -rf ${filesToDeleteAtEnd}   \\\n \" \n" >> ${MCGenerationScript}
 	printf "rm -rf ${filesToDeleteAtEnd}   \n" >> ${MCGenerationScript}
+
+	printf "\nprintf \"\\\n***Done ALL ********************  \"  \n" >> ${MCGenerationScript}
     fi
 
     printf "\nls \n" >> ${MCGenerationScript}
@@ -594,6 +612,11 @@ do
 	jobRunTime=$(( ${jobRunTimeInHr} * 60 * 60 ))
 	printf "jobRunTime: ${jobRunTime} (${jobRunTimeInHr} hr) \n"
 	printf "+MaxRuntime = ${jobRunTime}  \n" >>  ${CondorSubmitScript}
+    fi
+
+    # By default, a job will get one slot of a CPU core, 2gb of memory and 20gb of disk space. Memory: 2gb / core limit
+    if  [[ $idx_sample_lastGeneratedFile -le 1 ]]; then
+	printf "RequestCpus = 2 \n" >>  ${CondorSubmitScript}
     fi
     
     printf "queue \n" >>  ${CondorSubmitScript}
