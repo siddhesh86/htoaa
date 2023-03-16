@@ -16,7 +16,7 @@ Dir_logs='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp8' # without
 Dir_production=${Dir_logs}  
 Dir_store='/eos/cms/store/user/ssawant/mc'  # ${Dir_production}
 
-HiggsPtMin=150 # 150 250 350
+HiggsPtMin=350 # 150 250 350
 sampleTag='mH-70_mA-12_wH-70_wA-70' 
 MadgraphCardName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}"
 sampleName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}_TuneCP5_13TeV_madgraph_pythia8"
@@ -27,11 +27,11 @@ ERA='RunIISummer20UL18'
 MadgraphGridpackSample='/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-70_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz'
 
 
-SampleNumber_First=207 #2
-SampleNumber_Last=207 #99 #99 
+SampleNumber_First=0 #2
+SampleNumber_Last=149 #99 #99 
 NEvents_0=${NEvents}
 # 150:
-# 2 - 207
+# 2 - 206
 
 # 250:
 # 2 - 99
@@ -164,28 +164,13 @@ do
 
     #gridpackFile=${Dir_store}/${sampleName_toUse}/${ERA}/MadgraphGridpack_${iSample}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz # relocated path
     gridpackFile=${MadgraphGridpackSample}
-    
-    #wmLHEGENFile=${Dir_store}/${sampleName_toUse}/${ERA}/wmLHEGEN_${iSample}.root
-    #SIMFile=${Dir_store}/${sampleName_toUse}/${ERA}/SIM_${iSample}.root
-    #DIGIPremixFile=${Dir_store}/${sampleName_toUse}/${ERA}/DIGIPremix_${iSample}.root
-    #HLTFile=${Dir_store}/${sampleName_toUse}/${ERA}/HLT_${iSample}.root
-    #RECOFile=${Dir_store}/${sampleName_toUse}/${ERA}/RECO_${iSample}.root
-    #MiniAODFile=${Dir_store}/${sampleName_toUse}/${ERA}/MiniAODv2_${iSample}.root
-    #NanoAODFile=${Dir_store}/${sampleName_toUse}/${ERA}/NanoAODv9_${iSample}.root
-        
-    wmLHEGENFile=wmLHEGEN_${iSample}.root
-    SIMFile=SIM_${iSample}.root
-    DIGIPremixFile=DIGIPremix_${iSample}.root
-    HLTFile=HLT_${iSample}.root
-    RECOFile=RECO_${iSample}.root
-    MiniAODFile=MiniAODv2_${iSample}.root
-    NanoAODFile=NanoAODv9_${iSample}.root
-
-    
-    wmLHEGENFile_Final=${Dir_store}/${sampleName_toUse}/${ERA}/wmLHEGEN_${iSample}.root
-    MiniAODFile_Final=${Dir_store}/${sampleName_toUse}/${ERA}/MiniAODv2_${iSample}.root
-    NanoAODFile_Final=${Dir_store}/${sampleName_toUse}/${ERA}/NanoAODv9_${iSample}.root
-    
+    wmLHEGENFile=${Dir_store}/${sampleName_toUse}/${ERA}/wmLHEGEN_${iSample}.root
+    SIMFile=${Dir_store}/${sampleName_toUse}/${ERA}/SIM_${iSample}.root
+    DIGIPremixFile=${Dir_store}/${sampleName_toUse}/${ERA}/DIGIPremix_${iSample}.root
+    HLTFile=${Dir_store}/${sampleName_toUse}/${ERA}/HLT_${iSample}.root
+    RECOFile=${Dir_store}/${sampleName_toUse}/${ERA}/RECO_${iSample}.root
+    MiniAODFile=${Dir_store}/${sampleName_toUse}/${ERA}/MiniAODv2_${iSample}.root
+    NanoAODFile=${Dir_store}/${sampleName_toUse}/${ERA}/NanoAODv9_${iSample}.root
     
     sampleChain=(${gridpackFile} ${wmLHEGENFile} ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile} ${MiniAODFile} ${NanoAODFile})
     #sampleChain=(${wmLHEGENFile} ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile} ${MiniAODFile} ${NanoAODFile})
@@ -200,8 +185,7 @@ do
     CondorError=${Dir_logs}/Condor_${jobID}.error
     
     
-    #cd ${Dir_sourceCodes}
-    cd ${Dir_production}
+    cd ${Dir_sourceCodes}
     echo "pwd (MCGeneration_wrapper.sh) 0, iSample ${iSample}"
     pwd
 
@@ -216,8 +200,7 @@ do
 
     # If NanoAOD file exists then job ran successfully -------------------------
     #if [ -f ${NanoAODFile} ] && [ $(stat -c%s ${NanoAODFile}) -gt ${MinFileSize} ]; then
-    #if [ -f ${NanoAODFile} ] && [ $(stat -c%s ${NanoAODFile}) -gt ${MinFileSize_NanoAOD} ] &&  [ -f ${MiniAODFile} ] && [ $(stat -c%s ${MiniAODFile}) -gt ${MinFileSize_MiniAOD} ]; then
-    if [ -f ${NanoAODFile_Final} ] && [ $(stat -c%s ${NanoAODFile_Final}) -gt ${MinFileSize_NanoAOD} ] &&  [ -f ${MiniAODFile_Final} ] && [ $(stat -c%s ${MiniAODFile_Final}) -gt ${MinFileSize_MiniAOD} ]; then
+    if [ -f ${NanoAODFile} ] && [ $(stat -c%s ${NanoAODFile}) -gt ${MinFileSize_NanoAOD} ] &&  [ -f ${MiniAODFile} ] && [ $(stat -c%s ${MiniAODFile}) -gt ${MinFileSize_MiniAOD} ]; then
 	#printf "printf \"\nOutput: ${NanoAODFile} already exists!!! \" \n" >> ${MCGenerationScript}
 	printf "Output already exists!!!: \n${MiniAODFile}  (size $(stat -c%s ${MiniAODFile})) \n${NanoAODFile}  (size $(stat -c%s ${NanoAODFile})) \n"
 	printf "rm -rf ${filesToDeleteAtEnd} ${Dir_production} \n\n"
@@ -330,6 +313,9 @@ do
     printf "#!/bin/bash \n\n" > ${MCGenerationScript}
     printf "cd ${Dir_production} \n\n" >> ${MCGenerationScript}
 
+
+
+    printf "cd ${Dir_production} \n\n" >> ${MCGenerationScript}
 
     # wmLHEGEN -------------------------------------------------------------------------
     DatasetType='wmLHEGEN'
@@ -531,16 +517,6 @@ do
     #printf "time source ${MCGenerationScript} \n\n" >> ${CondorExecScript}
     printf "time . ${MCGenerationScript} \n\n" >> ${CondorExecScript}
     printf "printf \"\\\n\\\n${MCGenerationScript} execution completed... \" \n" >> ${CondorExecScript}
-
-    printf "time eos cp ${wmLHEGENFile} ${Dir_store}/${sampleName_toUse}/${ERA}  \n" >> ${CondorExecScript}
-    printf "printf \"eos cp ${wmLHEGENFile} done. \" \n" >> ${CondorExecScript}
-    printf "time eos cp ${MiniAODFile} ${Dir_store}/${sampleName_toUse}/${ERA}  \n" >> ${CondorExecScript}
-    printf "printf \"eos cp ${MiniAODFile} done. \" \n" >> ${CondorExecScript}
-    printf "time eos cp ${NanoAODFile} ${Dir_store}/${sampleName_toUse}/${ERA}  \n" >> ${CondorExecScript}
-    printf "printf \"eos cp ${NanoAODFile} done. \" \n" >> ${CondorExecScript}
-
-    printf "printf \"\\\n\\\n${MCGenerationScript} ALL DONE... \" \n" >> ${CondorExecScript}
-    
     chmod a+x ${CondorExecScript}
 
     # HTCondor JobFlavor
