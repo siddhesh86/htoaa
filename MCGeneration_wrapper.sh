@@ -16,7 +16,7 @@ Dir_logs='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp8' # without
 Dir_production=${Dir_logs}  
 Dir_store='/eos/cms/store/user/ssawant/mc'  # ${Dir_production}
 
-HiggsPtMin=150 # 150 250 350
+HiggsPtMin=250 # 150 250 350
 sampleTag='mH-70_mA-12_wH-70_wA-70' 
 MadgraphCardName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}"
 sampleName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}_TuneCP5_13TeV_madgraph_pythia8"
@@ -27,14 +27,14 @@ ERA='RunIISummer20UL18'
 MadgraphGridpackSample='/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-70_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz'
 
 
-SampleNumber_First=207 #2
-SampleNumber_Last=207 #99 #99 
+SampleNumber_First=0 #2
+SampleNumber_Last=149 #99 #99 
 NEvents_0=${NEvents}
 # 150:
 # 2 - 207
 
 # 250:
-# 2 - 99
+# 2 - 149
 
 # 350:
 # 2 - 149
@@ -190,7 +190,8 @@ do
     sampleChain=(${gridpackFile} ${wmLHEGENFile} ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile} ${MiniAODFile} ${NanoAODFile})
     #sampleChain=(${wmLHEGENFile} ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile} ${MiniAODFile} ${NanoAODFile})
 
-    filesToDeleteAtEnd="${Dir_production}/CMSSW* ${Dir_production}/*_report.xml ${Dir_store}/${sampleName_toUse}/${ERA}/wmLHEGEN_${iSample}_inLHE.root  ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile}  "
+    #filesToDeleteAtEnd="${Dir_production}/CMSSW* ${Dir_production}/*_report.xml ${Dir_store}/${sampleName_toUse}/${ERA}/wmLHEGEN_${iSample}_inLHE.root  ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile}  "
+    filesToDeleteAtEnd="${Dir_production}/CMSSW* ${Dir_production}/*_report.xml wmLHEGEN_${iSample}_inLHE.root  ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile}  "
     
     # HTCondor job submission files --
     CondorExecScript=${Dir_logs}/CondorExec_${jobID}.sh
@@ -401,7 +402,10 @@ do
 
 	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  \"  \n" >> ${MCGenerationScript}
 	printf "printf \"rm -rf ${Dir_production}/CMSSW*   \\\n \" \n" >> ${MCGenerationScript}
-	printf "rm -rf ${Dir_production}/CMSSW*   \n" >> ${MCGenerationScript}	
+	printf "rm -rf ${Dir_production}/CMSSW*   \n" >> ${MCGenerationScript}
+
+	# rm files needed for previous steps
+	printf "rm -rf wmLHEGEN_${iSample}_inLHE.root   \n" >> ${MCGenerationScript}
     fi
     
 	
@@ -425,7 +429,10 @@ do
 
 	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  \"  \n" >> ${MCGenerationScript}
 	printf "printf \"rm -rf ${Dir_production}/CMSSW*   \\\n \" \n" >> ${MCGenerationScript}
-	printf "rm -rf ${Dir_production}/CMSSW*   \n" >> ${MCGenerationScript}	
+	printf "rm -rf ${Dir_production}/CMSSW*   \n" >> ${MCGenerationScript}
+	
+	# rm files needed for previous steps
+	printf "rm -rf ${SIMFile}   \n" >> ${MCGenerationScript}
     fi
 
     
@@ -450,6 +457,9 @@ do
 	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  \"  \n" >> ${MCGenerationScript}
 	printf "printf \"rm -rf ${Dir_production}/CMSSW*   \\\n \" \n" >> ${MCGenerationScript}
 	printf "rm -rf ${Dir_production}/CMSSW*   \n" >> ${MCGenerationScript}	
+	
+	# rm files needed for previous steps
+	printf "rm -rf ${DIGIPremixFile}   \n" >> ${MCGenerationScript}
     fi
 
     
@@ -473,6 +483,9 @@ do
 	printf "\nprintf \"\\\n***Done source ${Dir_sourceCodes}/generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}  \"  \n" >> ${MCGenerationScript}
 	printf "printf \"rm -rf ${Dir_production}/CMSSW*   \\\n \" \n" >> ${MCGenerationScript}
 	printf "rm -rf ${Dir_production}/CMSSW*   \n" >> ${MCGenerationScript}	
+	
+	# rm files needed for previous steps
+	printf "rm -rf ${HLTFile}   \n" >> ${MCGenerationScript}
     fi
 
     
@@ -533,12 +546,15 @@ do
     printf "printf \"\\\n\\\n${MCGenerationScript} execution completed... \" \n" >> ${CondorExecScript}
 
     printf "time eos cp ${wmLHEGENFile} ${Dir_store}/${sampleName_toUse}/${ERA}  \n" >> ${CondorExecScript}
-    printf "printf \"eos cp ${wmLHEGENFile} done. \" \n" >> ${CondorExecScript}
+    printf "printf \"\\\n eos cp ${wmLHEGENFile} done. \" \n" >> ${CondorExecScript}
     printf "time eos cp ${MiniAODFile} ${Dir_store}/${sampleName_toUse}/${ERA}  \n" >> ${CondorExecScript}
-    printf "printf \"eos cp ${MiniAODFile} done. \" \n" >> ${CondorExecScript}
+    printf "printf \"\\\n eos cp ${MiniAODFile} done. \" \n" >> ${CondorExecScript}
     printf "time eos cp ${NanoAODFile} ${Dir_store}/${sampleName_toUse}/${ERA}  \n" >> ${CondorExecScript}
-    printf "printf \"eos cp ${NanoAODFile} done. \" \n" >> ${CondorExecScript}
+    printf "printf \"\\\n eos cp ${NanoAODFile} done. \" \n" >> ${CondorExecScript}
 
+    printf "time rm ${wmLHEGENFile} ${MiniAODFile} ${NanoAODFile}  \n" >> ${CondorExecScript}
+    printf "printf \"\\\n rm local ${wmLHEGENFile} ${MiniAODFile} ${NanoAODFile} done. \" \n" >> ${CondorExecScript}
+    
     printf "printf \"\\\n\\\n${MCGenerationScript} ALL DONE... \" \n" >> ${CondorExecScript}
     
     chmod a+x ${CondorExecScript}
