@@ -220,7 +220,7 @@ do
     #if [ -f ${NanoAODFile} ] && [ $(stat -c%s ${NanoAODFile}) -gt ${MinFileSize_NanoAOD} ] &&  [ -f ${MiniAODFile} ] && [ $(stat -c%s ${MiniAODFile}) -gt ${MinFileSize_MiniAOD} ]; then
     if [ -f ${NanoAODFile_Final} ] && [ $(stat -c%s ${NanoAODFile_Final}) -gt ${MinFileSize_NanoAOD} ] &&  [ -f ${MiniAODFile_Final} ] && [ $(stat -c%s ${MiniAODFile_Final}) -gt ${MinFileSize_MiniAOD} ]; then
 	#printf "printf \"\nOutput: ${NanoAODFile} already exists!!! \" \n" >> ${MCGenerationScript}
-	printf "Output already exists!!!: \n${MiniAODFile}  (size $(stat -c%s ${MiniAODFile})) \n${NanoAODFile}  (size $(stat -c%s ${NanoAODFile})) \n"
+	printf "Output already exists!!!: \n${MiniAODFile_Final}  (size $(stat -c%s ${MiniAODFile_Final})) \n${NanoAODFile_Final}  (size $(stat -c%s ${NanoAODFile_Final})) \n"
 	printf "rm -rf ${filesToDeleteAtEnd} ${Dir_production} \n\n"
 	rm -rf ${filesToDeleteAtEnd} ${Dir_production}
 	continue
