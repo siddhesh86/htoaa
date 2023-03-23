@@ -20,4 +20,4 @@ To run MCGeneration_wrapper.sh:
 source MCGeneration_wrapper.sh
 ```
 
-Note: Running MCGeneration_wrapper.sh with sample file numbers from already produced sample files will delete the corresponding HT Condor log files from the jobs. Hence run MCGeneration_wrapper.sh twice, for the first round to produce samples, and for the second time to clean up disk space by deleting log files.
+Note: Running MCGeneration_wrapper.sh with sample file numbers from already produced sample files will delete the corresponding HT Condor log files from the jobs. Hence run MCGeneration_wrapper.sh twice, for the first round to produce samples, and for the second time to clean up disk space by deleting log files for the produce samples.
