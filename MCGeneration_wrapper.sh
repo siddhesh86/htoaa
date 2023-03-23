@@ -9,29 +9,28 @@
 # Run command: (submit from a fresh terminal. Condor job submission from existing screen session did not recognise 'condor_submit' command.)
 # $ time ./MCGeneration_wrapper.sh
 
+UserName=$(whoami)
+echo "UserName: ${UserName}"
 
 ## Settings: Change as per need ------------------------------------------------------------------------
-Dir_sourceCodes=$(pwd)
-Dir_logs='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp8' # without '/' in the end
-Dir_store='/eos/cms/store/user/ssawant/mc'  # ${Dir_production}
-
 HiggsPtMin=350 # 150 250 350
 
-
+# set first (SampleNumber_First) to last (SampleNumber_Last) MC sample file numbers to be produced in this round of submission/execution.
 SampleNumber_First=0 #2
 SampleNumber_Last=440 #99 #99 
-NEvents_0=${NEvents}
-# 150:
-# 0 - 319
+# Pt 150:
+# Produced SampleNumber: 0 - 319
 
-# 250:
-# 0 - 310
+# Pt 250:
+# Produced SampleNumber: 0 - 310
 
-# 350:
-# 0 - 440
+# Pt 350:
+# Produced SampleNumber: 0 - 440
 ## ----------------------------------------------------------------------------------------------------
 
-
+Dir_sourceCodes=$(pwd)
+Dir_logs='/afs/cern.ch/work/s/${UserName}/private/htoaa/MCGeneration/tmp8' # without '/' in the end
+Dir_store='/eos/cms/store/user/${UserName}/mc'  # ${Dir_production}
 Dir_production=${Dir_logs}  
 
 sampleTag='mH-70_mA-12_wH-70_wA-70' 
@@ -68,6 +67,7 @@ MinFileSize_MiniAOD_nEvents400=37000000
 MinFileSize_NanoAOD_nEvents500=4100000
 MinFileSize_MiniAOD_nEvents500=48000000
 ##--------------------------------------------------------------------------------------------------------
+NEvents_0=${NEvents}
 NEventsAll=-1
 
 # run Madgraph: /afs/cern.ch/work/s/ssawant/private/htoaa/MCproduction/HToAATo4B/MCGridpacks/genproductions/bin/MadGraph5_aMCatNLO
@@ -75,6 +75,7 @@ NEventsAll=-1
 
 echo "Dir_sourceCodes: ${Dir_sourceCodes} "
 echo "Dir_production: ${Dir_production} "
+
 
 Dir_production_0=${Dir_production}
 Dir_logs_0=${Dir_logs}
@@ -540,7 +541,7 @@ do
     #printf "export SCRAM_ARCH=slc6_amd64_gcc700 \n" >> ${CondorExecScript}
     printf "export SCRAM_ARCH=slc7_amd64_gcc10 \n" >> ${CondorExecScript}
     printf "source /cvmfs/cms.cern.ch/cmsset_default.sh \n" >> ${CondorExecScript}
-    printf "export X509_USER_PROXY=/afs/cern.ch/user/s/ssawant/x509up_u108989  \n\n" >> ${CondorExecScript}
+    printf "export X509_USER_PROXY=/afs/cern.ch/user/s/${UserName}/x509up_u108989  \n\n" >> ${CondorExecScript}
     printf "export X509_USER_PROXY=\$1 \n" >> ${CondorExecScript}
     printf "export EOS_MGM_URL=root://eoscms.cern.ch \n" >> ${CondorExecScript}
     printf "voms-proxy-info -all \n" >> ${CondorExecScript}
@@ -623,7 +624,7 @@ do
     
     printf "CondorSubmitScript: ${CondorSubmitScript} \n"
     printf "universe = vanilla \n" >  ${CondorSubmitScript}
-    printf "X509_USER_PROXY=/afs/cern.ch/user/s/ssawant/x509up_u108989 \n" >>  ${CondorSubmitScript}
+    printf "X509_USER_PROXY=/afs/cern.ch/user/s/${UserName}/x509up_u108989 \n" >>  ${CondorSubmitScript}
     printf "arguments = \$(X509_USER_PROXY) \n" >>  ${CondorSubmitScript}
     printf "executable = ${CondorExecScript}  \n" >>  ${CondorSubmitScript}
     printf "getenv = TRUE \n" >>  ${CondorSubmitScript}
