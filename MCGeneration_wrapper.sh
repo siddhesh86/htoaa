@@ -13,10 +13,27 @@
 ## Settings: Change as per need ------------------------------------------------------------------------
 Dir_sourceCodes=$(pwd)
 Dir_logs='/afs/cern.ch/work/s/ssawant/private/htoaa/MCGeneration/tmp8' # without '/' in the end
-Dir_production=${Dir_logs}  
 Dir_store='/eos/cms/store/user/ssawant/mc'  # ${Dir_production}
 
-HiggsPtMin=250 # 150 250 350
+HiggsPtMin=350 # 150 250 350
+
+
+SampleNumber_First=0 #2
+SampleNumber_Last=440 #99 #99 
+NEvents_0=${NEvents}
+# 150:
+# 0 - 319
+
+# 250:
+# 0 - 310
+
+# 350:
+# 0 - 440
+## ----------------------------------------------------------------------------------------------------
+
+
+Dir_production=${Dir_logs}  
+
 sampleTag='mH-70_mA-12_wH-70_wA-70' 
 MadgraphCardName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}"
 sampleName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}_TuneCP5_13TeV_madgraph_pythia8"
@@ -27,26 +44,17 @@ ERA='RunIISummer20UL18'
 MadgraphGridpackSample='/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-70_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz'
 
 
-SampleNumber_First=0 #2
-SampleNumber_Last=149 #99 #99 
-NEvents_0=${NEvents}
-# 150:
-# 2 - 207
-
-# 250:
-# 2 - 149
-
-# 350:
-# 2 - 149
-
 RunningMode="Condor"  # "Condor", "local"
 
 MinFileSize=1000000 # 1 MB
 MinFileSize_NanoAOD=0    # 100 events:  3127381 ( 3 MB)  3000000.  200 events:  3417131  (3.3 MB)  3300000
-MinFileSize_MiniAOD=0   # 100 events: 11178117 (11 MB) 11000000.  200 events: 20442773  (20 MB)  19000000
+MinFileSize_MiniAOD=0   # 100 events: (09 MB) 11000000.  200 events: 20442773  (20 MB)  19000000
 
-MinFileSize_NanoAOD_nEvents100=3000000
-MinFileSize_MiniAOD_nEvents100=11000000
+MinFileSize_NanoAOD_nEvents100=2600000
+MinFileSize_MiniAOD_nEvents100=9000000
+
+MinFileSize_NanoAOD_nEvents40=2000000
+MinFileSize_MiniAOD_nEvents40=2700000
 
 MinFileSize_NanoAOD_nEvents200=3300000
 MinFileSize_MiniAOD_nEvents200=19000000
@@ -128,6 +136,9 @@ do
     if   [ ${NEvents} -eq 100  ]; then
 	MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents100}
 	MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents100}
+    elif [ ${NEvents} -eq 40  ]; then
+	MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents40}
+	MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents40}	
     elif [ ${NEvents} -eq 200  ]; then
 	MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents200}
 	MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents200}    
