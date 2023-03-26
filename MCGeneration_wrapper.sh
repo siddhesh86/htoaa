@@ -13,11 +13,11 @@ UserName=$(whoami)
 echo "UserName: ${UserName}"
 
 ## Settings: Change as per need ------------------------------------------------------------------------
-HiggsPtMin=150 # 150 250 350
+HiggsPtMin=350 # 150 250 350
 
 # set first (SampleNumber_First) to last (SampleNumber_Last) MC sample file numbers to be produced in this round of submission/execution.
-SampleNumber_First=451 #2
-SampleNumber_Last=451 #99 #99 
+SampleNumber_First=0 #2
+SampleNumber_Last=600 #99 #99 
 # Pt 150:
 # Produced SampleNumber: 0 - 451
 
@@ -25,7 +25,7 @@ SampleNumber_Last=451 #99 #99
 # Produced SampleNumber: 0 - 410
 
 # Pt 350:
-# Produced SampleNumber: 0 - 440
+# Produced SampleNumber: 0 - 600
 ## ----------------------------------------------------------------------------------------------------
 
 Dir_sourceCodes=$(pwd)
@@ -536,8 +536,8 @@ do
     printf "time eos cp   ${NanoAODFile}      ${Dir_store}/${sampleName_toUse}/${ERA}  \n" >> ${CondorExecScript}
     printf "printf \"\\\n eos cp ${NanoAODFile} done. \" \n" >> ${CondorExecScript}
 
-    #printf "time rm ${wmLHEGENFile} ${MiniAODFile} ${NanoAODFile}  \n" >> ${CondorExecScript}
-    #printf "printf \"\\\n rm local ${wmLHEGENFile} ${MiniAODFile} ${NanoAODFile} done. \" \n" >> ${CondorExecScript}
+    printf "time rm ${wmLHEGENFile} ${MiniAODFile} ${NanoAODFile} ${gridpackFile}  \n" >> ${CondorExecScript}
+    printf "printf \"\\\n rm local ${wmLHEGENFile} ${MiniAODFile} ${NanoAODFile} ${gridpackFile} done. \" \n" >> ${CondorExecScript}
     
     printf "printf \"\\\n\\\n CondorExecScript ALL DONE... \" \n" >> ${CondorExecScript}       
     chmod a+x ${CondorExecScript}
