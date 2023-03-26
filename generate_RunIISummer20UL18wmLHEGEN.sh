@@ -21,7 +21,7 @@ jobName="SUSY_GluGluH_01J_HToAATo4B_${jobID}_RunIISummer20UL18wmLHEGEN"
 outputDir=$(echo ${outputFile} | sed 's|\(.*\)/.*|\1|')
 
 printf "\n\ngenerate_RunIISummer20ULwmLHEGEN.sh:: \nArguments: $@ \n"
-printf "\ninputFile: ${inputFile} "
+printf "\ninputFile: ${inputFile} \n"
 echo "outputDir: ${outputDir} "
 echo "outputFile: ${outputFile}"
 echo "nEvents: ${nEvents}"
@@ -34,6 +34,14 @@ pwd_=$(pwd)
 echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 0: '
 pwd
 
+inputDir=$(dirname "$inputFile")
+
+# set absolute inputFile path instead of relative one
+if [[ -z "$inputDir" || "$inputDir" == "." ]] ; then
+    inputFileName=$(basename "$inputFile") 
+    inputFile=${pwd_}/${inputFileName}
+    printf "inputFile to use: ${inputFile} \n"
+fi
 
 
 : '
@@ -106,6 +114,9 @@ ls
 echo 'ls Configuration/GenProduction/python/ (generate_RunIISummer20UL18wmLHEGEN.sh) 2'
 ls Configuration/GenProduction/python/
 
+printf "\n\n (generate_RunIISummer20UL18wmLHEGEN.sh) 2: cat Configuration/GenProduction/python/${jobName}-fragment.py: "
+cat Configuration/GenProduction/python/${jobName}-fragment.py
+printf "\n\n"
 
 
 # Check if fragment contais gridpack path ant that it is in cvmfs
