@@ -16,16 +16,16 @@ echo "UserName: ${UserName}"
 HiggsPtMin=350 # 150 250 350
 
 # set first (SampleNumber_First) to last (SampleNumber_Last) MC sample file numbers to be produced in this round of submission/execution.
-SampleNumber_First=0 #2
-SampleNumber_Last=600 #99 #99 
+SampleNumber_First=0
+SampleNumber_Last=1500 
 # Pt 150:
-# Produced SampleNumber: 0 - 451
+# Produced SampleNumber: 0 - 901
 
 # Pt 250:
-# Produced SampleNumber: 0 - 410
+# Produced SampleNumber: 0 - 900
 
 # Pt 350:
-# Produced SampleNumber: 0 - 600
+# Produced SampleNumber: 0 - 1200
 ## ----------------------------------------------------------------------------------------------------
 
 Dir_sourceCodes=$(pwd)
@@ -105,7 +105,8 @@ do
     #continue
     Dir_MadgraphPkg="*-*"
 
-    RandomNumberSeed=$(bc -l <<<"scale=0; ($HiggsPtMin * 100000) + $iSample ")
+    #RandomNumberSeed=$(bc -l <<<"scale=0; ($HiggsPtMin * 100000) + $iSample ")
+    RandomNumberSeed=$RANDOM
     
     GENLevelEfficiency=$(bc -l <<< '0.0250' )
     if   [ ${HiggsPtMin} -eq 150 ]; then
@@ -564,6 +565,7 @@ do
     printf "output = ${CondorOutput} \n" >>  ${CondorSubmitScript}
     printf "error = ${CondorError} \n" >>  ${CondorSubmitScript}
     printf "notification = never \n" >>  ${CondorSubmitScript}
+    printf "transfer_output_files = \"\" \n" >>  ${CondorSubmitScript}
     #printf "should_transfer_files = YES \n" >>  ${CondorSubmitScript}
     printf "should_transfer_files = IF_NEEDED \n" >>  ${CondorSubmitScript}
     printf "when_to_transfer_output = ON_EXIT \n" >>  ${CondorSubmitScript}
