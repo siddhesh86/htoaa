@@ -13,19 +13,27 @@ UserName=$(whoami)
 echo "UserName: ${UserName}"
 
 ## Settings: Change as per need ------------------------------------------------------------------------
-HiggsPtMin=350 # 150 250 350
+#sampleTag='mH-70_mA-12_wH-70_wA-70'
+sampleTag='mH-70_mA-12_wH-70_wA-10' 
+HiggsPtMin=150 # 150 250 350
 
 # set first (SampleNumber_First) to last (SampleNumber_Last) MC sample file numbers to be produced in this round of submission/execution.
 SampleNumber_First=0
-SampleNumber_Last=1500 
+SampleNumber_Last=100
+#sampleTag='mH-70_mA-12_wH-70_wA-70'
 # Pt 150:
-# Produced SampleNumber: 0 - 901
+# Produced SampleNumber: 0 - 1300
 
 # Pt 250:
-# Produced SampleNumber: 0 - 900
+# Produced SampleNumber: 0 - 1300
 
 # Pt 350:
-# Produced SampleNumber: 0 - 1200
+# Produced SampleNumber: 0 - 2100
+
+#sampleTag='mH-70_mA-12_wH-70_wA-10'
+# Pt 150:
+# Produced SampleNumber: 0 - 100
+
 ## ----------------------------------------------------------------------------------------------------
 
 Dir_sourceCodes=$(pwd)
@@ -33,14 +41,14 @@ Dir_logs="/afs/cern.ch/work/s/${UserName}/private/htoaa/MCGeneration/tmp8" # wit
 Dir_store="/eos/cms/store/user/${UserName}/mc"  # ${Dir_production}
 Dir_production=${Dir_logs}  
 
-sampleTag='mH-70_mA-12_wH-70_wA-70' 
 MadgraphCardName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}"
 sampleName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}_TuneCP5_13TeV_madgraph_pythia8"
 ERA='RunIISummer20UL18'
 
 #Dir_MadgraphPkg_afs='/afs/cern.ch/work/s/ssawant/private/htoaa/MCproduction/HToAATo4B/MCGridpacks/genproductions/bin/MadGraph5_aMCatNLO'
 #Dir_MadgraphCards='cards/production/13TeV/HToAATo4B' # without '/' in the end
-MadgraphGridpackSample='/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-70_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz'
+#MadgraphGridpackSample='/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-70_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz'
+MadgraphGridpackSample="/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_${sampleTag}_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
 
 RunningMode="Condor"  # "Condor", "local"
 
