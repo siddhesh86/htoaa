@@ -4,6 +4,7 @@ import FWCore.ParameterSet.Config as cms
 # https://github.com/cms-sw/genproductions/pull/2891
 
 INPUTGRIDPACK=""
+HIGGSPTMIN=150
 
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     #args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/UL/13TeV/madgraph/V5_2.6.5/SUSY_GluGluH_01J_HToAATo4B_M-12/v1/SUSY_GluGluH_01J_HToAATo4B_M-12_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz'),
@@ -70,7 +71,8 @@ highPtHs = cms.EDFilter("EtaPtMinCandViewSelector",
     etaMax = cms.double(10.0),
     etaMin = cms.double(-10.0),
     filter = cms.bool(True),
-    ptMin = cms.double(150.0),
+    #ptMin = cms.double(150.0),
+    ptMin = cms.double(HIGGSPTMIN),
     src = cms.InputTag("genSelectorH")
 )
 

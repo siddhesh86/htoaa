@@ -12,6 +12,8 @@ nEvents=${3}
 jobID=${4}
 sourceCodeDir=${5}
 #productionDir=${6}
+randomSeed=${6}
+HiggsPtMin=${7}
 
 jobName="SUSY_GluGluH_01J_HToAATo4B_${jobID}_RunIISummer20UL18wmLHEGEN"
 
@@ -19,7 +21,7 @@ jobName="SUSY_GluGluH_01J_HToAATo4B_${jobID}_RunIISummer20UL18wmLHEGEN"
 outputDir=$(echo ${outputFile} | sed 's|\(.*\)/.*|\1|')
 
 printf "\n\ngenerate_RunIISummer20ULwmLHEGEN.sh:: \nArguments: $@ \n"
-printf "\ninputFile: ${inputFile} "
+printf "\ninputFile: ${inputFile} \n"
 echo "outputDir: ${outputDir} "
 echo "outputFile: ${outputFile}"
 echo "nEvents: ${nEvents}"
@@ -32,6 +34,14 @@ pwd_=$(pwd)
 echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 0: '
 pwd
 
+inputDir=$(dirname "$inputFile")
+
+# set absolute inputFile path instead of relative one
+if [[ -z "$inputDir" || "$inputDir" == "." ]] ; then
+    inputFileName=$(basename "$inputFile") 
+    inputFile=${pwd_}/${inputFileName}
+    printf "inputFile to use: ${inputFile} \n"
+fi
 
 
 : '
@@ -94,6 +104,9 @@ cp ${sourceCodeDir}/GENFragment_SUSY_GluGluH_01J_HToAATo4B.py Configuration/GenP
 #psed -i "s|INPUTGRIDPACK=''|INPUTGRIDPACK='$inputFile'|g" Configuration/GenProduction/python/${jobName}-fragment.py
 sed -i "s|INPUTGRIDPACK=\"\"|INPUTGRIDPACK=\"${inputFile}\"|g" Configuration/GenProduction/python/${jobName}-fragment.py
 
+# replace HiggsPtMin
+sed -i "s|HIGGSPTMIN=150|HIGGSPTMIN=${HiggsPtMin}|g" Configuration/GenProduction/python/${jobName}-fragment.py
+
 echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 2: '
 pwd
 echo 'ls (generate_RunIISummer20UL18wmLHEGEN.sh) 2: '
@@ -101,6 +114,9 @@ ls
 echo 'ls Configuration/GenProduction/python/ (generate_RunIISummer20UL18wmLHEGEN.sh) 2'
 ls Configuration/GenProduction/python/
 
+printf "\n\n (generate_RunIISummer20UL18wmLHEGEN.sh) 2: cat Configuration/GenProduction/python/${jobName}-fragment.py: "
+cat Configuration/GenProduction/python/${jobName}-fragment.py
+printf "\n\n"
 
 
 # Check if fragment contais gridpack path ant that it is in cvmfs
@@ -143,7 +159,9 @@ ls
 # cmsDriver command
 #cmsDriver.py Configuration/GenProduction/python/HIG-RunIISummer20UL18wmLHEGEN-02511-fragment.py --python_filename HIG-RunIISummer20UL18wmLHEGEN-02511_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:HIG-RunIISummer20UL18wmLHEGEN-02511.root --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(4000)" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
 
-cmsDriver.py Configuration/GenProduction/python/${jobName}-fragment.py --python_filename ${jobName}_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(4000)" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
+#cmsDriver.py Configuration/GenProduction/python/${jobName}-fragment.py --python_filename ${jobName}_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(4000)" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
+
+cmsDriver.py Configuration/GenProduction/python/${jobName}-fragment.py --python_filename ${jobName}_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed="cms.untracked.uint32(${randomSeed})" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
 
 
 echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 4: '
