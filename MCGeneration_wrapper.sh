@@ -14,12 +14,13 @@ echo "UserName: ${UserName}"
 
 ## Settings: Change as per need ------------------------------------------------------------------------
 #sampleTag='mH-70_mA-12_wH-70_wA-70'
-sampleTag='mH-70_mA-12_wH-70_wA-10' 
-HiggsPtMin=350 # 150 250 350
+#sampleTag='mH-70_mA-12_wH-70_wA-10'
+sampleTag='mH-70_mA-12_wH-70_wA-2' 
+HiggsPtMin=150 # 150 250 350
 
 # set first (SampleNumber_First) to last (SampleNumber_Last) MC sample file numbers to be produced in this round of submission/execution.
 SampleNumber_First=0
-SampleNumber_Last=400
+SampleNumber_Last=100
 
 #sampleTag='mH-70_mA-12_wH-70_wA-70'
 # Pt 150:
@@ -40,6 +41,16 @@ SampleNumber_Last=400
 
 # Pt 350:
 # Produced SampleNumber: 0 - 400
+
+#sampleTag='mH-70_mA-12_wH-70_wA-2'
+# Pt 150:
+# Produced SampleNumber: 0 - 0
+
+# Pt 250:
+# Produced SampleNumber: 0 - 
+
+# Pt 350:
+# Produced SampleNumber: 0 - 
 ## ----------------------------------------------------------------------------------------------------
 
 Dir_sourceCodes=$(pwd)
