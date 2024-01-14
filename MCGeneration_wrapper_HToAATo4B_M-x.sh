@@ -44,8 +44,12 @@ RunningMode="Condor"  # "Condor", "local"
 
 
 Dir_sourceCodes=$(pwd)
-Dir_logs=${Dir_sourceCodes} # "/afs/cern.ch/work/s/${UserName}/private/htoaa/MCGeneration/tmp8" # without '/' in the end
-Dir_store="root://cms-xrd-global.cern.ch///store/user/${UserName}/mc" # "/eos/cms/store/user/${UserName}/mc"  # ${Dir_production}
+Dir_logs="${Dir_sourceCodes}/../mc_submission" # "/afs/cern.ch/work/s/${UserName}/private/htoaa/MCGeneration/tmp8" # without '/' in the end
+#XRootDRedirector="root://cms-xrd-global.cern.ch//"
+XRootDRedirector="root://xrootd-cms.infn.it//"
+#Dir_store="root://cms-xrd-global.cern.ch///store/user/${UserName}/mc" # "/eos/cms/store/user/${UserName}/mc"  # ${Dir_production}
+Dir_store_filepath0="/store/user/${UserName}/mc"
+Dir_store="${XRootDRedirector}${Dir_store_filepath0}"
 Dir_production=${Dir_logs}  
 
 MadgraphRunSettingsDetails="el9_amd64_gcc11_CMSSW_13_2_9"
@@ -58,7 +62,7 @@ sampleName="SUSY_GluGluH_01J_HToAATo4B_Pt${HiggsPtMin}_${sampleTag}_TuneCP5_13Te
 #Dir_MadgraphPkg_afs='/afs/cern.ch/work/s/ssawant/private/htoaa/MCproduction/HToAATo4B/MCGridpacks/genproductions/bin/MadGraph5_aMCatNLO'
 #Dir_MadgraphCards='cards/production/13TeV/HToAATo4B' # without '/' in the end
 #MadgraphGridpackSample='/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-70_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz'
-MadgraphGridpackSample="/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_${sampleTag}_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
+#MadgraphGridpackSample="/eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_${sampleTag}_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
 
 
 
@@ -86,7 +90,7 @@ MinFileSize_MiniAOD_nEvents500=48000000
 ##--------------------------------------------------------------------------------------------------------
 
 
-
+NEvents=100
 NEvents_0=${NEvents}
 NEventsAll=-1
 
@@ -99,21 +103,22 @@ do
     do
         prodmp="${prod}${mp}"
 
-        
-        #MadgraphGridpackSample="${Dir_store}/${prodmp}_${MadgraphRunSettingsDetails}_tarball.tar.xz"
-        MadgraphGridpackSample=/afs/cern.ch/work/s/ssawant/private/htoaa/MCproduction/HToAATo4B/MCGridpacks/genproductions/bin/MadGraph5_aMCatNLO
+	Dir_store_filepath_toUse="${Dir_store_filepath0}/${prodmp}"
+        Dir_store_toUse="${XRootDRedirector}${Dir_store_filepath_toUse}"
+        MadgraphGridpackSample="${XRootDRedirector}${Dir_store_filepath0}/${prodmp}_${MadgraphRunSettingsDetails}_tarball.tar.xz" # root://cms-xrd-global.cern.ch///store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_M-47.5_el9_amd64_gcc11_CMSSW_13_2_9_tarball.tar.xz
+        #MadgraphGridpackSample=/afs/cern.ch/work/s/ssawant/private/htoaa/MCproduction/HToAATo4B/MCGridpacks/genproductions/bin/MadGraph5_aMCatNLO
         # run Madgraph: /afs/cern.ch/work/s/ssawant/private/htoaa/MCproduction/HToAATo4B/MCGridpacks/genproductions/bin/MadGraph5_aMCatNLO
         # 
-        IFS='ssawant' read -r -a MadgraphGridpackSample_array <<< "$MadgraphGridpackSample"
+        IFS='/' read -r -a MadgraphGridpackSample_array <<< "$MadgraphGridpackSample"
         MadgraphGridpackSample_local=${MadgraphGridpackSample_array[-1]}
 
         echo "Dir_sourceCodes: ${Dir_sourceCodes} "
         echo "Dir_production: ${Dir_production} "
+	echo "Dir_store_toUse: ${Dir_store_toUse}"
         echo "MadgraphGridpackSample: ${MadgraphGridpackSample} "
-        echo "MadgraphGridpackSample_array: ${MadgraphGridpackSample_array}"
+        echo "MadgraphGridpackSample_array: ${MadgraphGridpackSample_array[@]}"
         echo "MadgraphGridpackSample_local: ${MadgraphGridpackSample_local} "
 
-        continue
 
 
         Dir_production_0=${Dir_production}
@@ -124,10 +129,16 @@ do
             mkdir -p ${Dir_production}    
         fi
 
-        if [ ! -d ${Dir_store} ]
-        then
-            mkdir -p ${Dir_store}    
-        fi
+	if [[ ${Dir_store_toUse} == *"root://"* ]]
+	then
+	    echo "Not running: xrdfs ${XRootDRedirector} mkdir -p ${Dir_store_filepath_toUse}"
+	    #xrdfs ${XRootDRedirector} mkdir -p ${Dir_store_filepath_toUse}
+	else
+            if [ ! -d ${Dir_store_toUse} ]
+            then
+		mkdir -p ${Dir_store_toUse}    
+            fi
+	fi
 
         if [ ! -d ${Dir_logs} ]
         then
@@ -139,83 +150,83 @@ do
         for (( iSample=${SampleNumber_First}; iSample<=${SampleNumber_Last}; iSample++ ))
         do
             printf "\niSample: ${iSample} \n"
-            break
-            #continue
-            Dir_MadgraphPkg="*-*"
+            #break
+            continue
+            #Dir_MadgraphPkg="*-*"
 
             #RandomNumberSeed=$(bc -l <<<"scale=0; ($HiggsPtMin * 100000) + $iSample ")
             RandomNumberSeed=$RANDOM
             
             GENLevelEfficiency=$(bc -l <<< '0.0250' )
             if   [ ${HiggsPtMin} -eq 150 ]; then
-            GENLevelEfficiency=$(bc -l <<< '0.0250' )
+		GENLevelEfficiency=$(bc -l <<< '0.057' )
             elif [ ${HiggsPtMin} -eq 250 ]; then
-            GENLevelEfficiency=$(bc -l <<< '0.0077' )
+		GENLevelEfficiency=$(bc -l <<< '0.0077' )
             elif [ ${HiggsPtMin} -eq 350 ]; then
-            GENLevelEfficiency=$(bc -l <<< '0.0030' )
+		GENLevelEfficiency=$(bc -l <<< '0.0030' )
             fi
             
 
             NEvents_wmLHE=4000 
             if [ ${iSample} -le 99999 ]; then
-            NEvents=100
+		NEvents=100
             #elif [[(${iSample} -ge 3000 && ${iSample} -le 3099)]]; then
             fi
 
             if [ ${HiggsPtMin} -eq 350 ]; then
-            if [ ${iSample} -le 99999 ]; then
-                NEvents=40
-            fi	
+		if [ ${iSample} -le 99999 ]; then
+                    NEvents=40
+		fi	
             fi
 
             NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
             
-            Dir_MadgraphPkg=${Dir_MadgraphPkg_afs}
+            #Dir_MadgraphPkg=${Dir_MadgraphPkg_afs}
             Dir_production_0=${Dir_logs_0}
             
             
             if   [ ${NEvents} -eq 100  ]; then
-            MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents100}
-            MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents100}
+		MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents100}
+		MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents100}
             elif [ ${NEvents} -eq 40  ]; then
-            MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents40}
-            MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents40}	
+		MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents40}
+		MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents40}	
             elif [ ${NEvents} -eq 200  ]; then
-            MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents200}
-            MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents200}    
+		MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents200}
+		MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents200}    
             elif [ ${NEvents} -eq 300  ]; then
-            MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents300}
-            MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents300}    
+		MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents300}
+		MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents300}    
             elif [ ${NEvents} -eq 400  ]; then
-            MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents400}
-            MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents400}    
+		MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents400}
+		MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents400}    
             elif [ ${NEvents} -eq 500  ]; then
-            MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents500}
-            MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents500}
+		MinFileSize_NanoAOD=${MinFileSize_NanoAOD_nEvents500}
+		MinFileSize_MiniAOD=${MinFileSize_MiniAOD_nEvents500}
             else
-            MinFileSize_NanoAOD=${MinFileSize}
-            MinFileSize_MiniAOD=${MinFileSize}	
+		MinFileSize_NanoAOD=${MinFileSize}
+		MinFileSize_MiniAOD=${MinFileSize}	
             fi
 
 
         
             
-            jobID=${MadgraphCardName}_${iSample}
+            jobID=${prodmp}_${iSample}  # ${MadgraphCardName}_${iSample}
 
-            MadgraphCardName_toUse=${MadgraphCardName}_${iSample}
-            sampleName_toUse=${sampleName}
+            #MadgraphCardName_toUse=${MadgraphCardName}_${iSample}
+            sampleName_toUse=${jobID}  # ${sampleName}
             Dir_production=${Dir_production_0}/${jobID}
             Dir_logs=${Dir_logs_0}/${jobID}
             
             if [ ! -d ${Dir_production} ]; then
-            mkdir -p ${Dir_production}
+		mkdir -p ${Dir_production}
             fi
             if [ ! -d ${Dir_logs} ]; then
-            mkdir -p ${Dir_logs}
+		mkdir -p ${Dir_logs}
             fi
-            if [ ! -d ${Dir_store}/${sampleName_toUse}/${ERA} ]; then
-            mkdir -p ${Dir_store}/${sampleName_toUse}/${ERA}
-            fi
+            #if [ ! -d ${Dir_store}/${sampleName_toUse}/${ERA} ]; then
+	    #    mkdir -p ${Dir_store}/${sampleName_toUse}/${ERA}
+            #fi
             
             
 
@@ -230,18 +241,18 @@ do
             #MiniAODFile=${Dir_store}/${sampleName_toUse}/${ERA}/MiniAODv2_${iSample}.root
             #NanoAODFile=${Dir_store}/${sampleName_toUse}/${ERA}/NanoAODv9_${iSample}.root
                 
-            wmLHEGENFile=./wmLHEGEN_${iSample}.root
-            SIMFile=./SIM_${iSample}.root
-            DIGIPremixFile=./DIGIPremix_${iSample}.root
-            HLTFile=./HLT_${iSample}.root
-            RECOFile=./RECO_${iSample}.root
-            MiniAODFile=./MiniAODv2_${iSample}.root
-            NanoAODFile=./NanoAODv9_${iSample}.root
+            wmLHEGENFile=./${prodmp}_${iSample}_wmLHEGEN.root
+            SIMFile=./${prodmp}_${iSample}_SIM.root
+            DIGIPremixFile=./${prodmp}_${iSample}_DIGIPremix}.root
+            HLTFile=./${prodmp}_${iSample}_HLT.root
+            RECOFile=./${prodmp}_${iSample}_RECO.root
+            MiniAODFile=./${prodmp}_${iSample}_MiniAODv2.root
+            NanoAODFile=./${prodmp}_${iSample}_NanoAODv9.root
 
             
-            wmLHEGENFile_Final=${Dir_store}/${sampleName_toUse}/${ERA}/wmLHEGEN_${iSample}.root
-            MiniAODFile_Final=${Dir_store}/${sampleName_toUse}/${ERA}/MiniAODv2_${iSample}.root
-            NanoAODFile_Final=${Dir_store}/${sampleName_toUse}/${ERA}/NanoAODv9_${iSample}.root
+            wmLHEGENFile_Final=${Dir_store_toUse}/${ERA}/wmLHEGEN_${iSample}.root
+            MiniAODFile_Final=${Dir_store_toUse}/${ERA}/MiniAODv2_${iSample}.root
+            NanoAODFile_Final=${Dir_store_toUse}/${ERA}/NanoAODv9_${iSample}.root
             
             
             sampleChain=(${gridpackFile} ${wmLHEGENFile} ${SIMFile} ${DIGIPremixFile} ${HLTFile} ${RECOFile} ${MiniAODFile} ${NanoAODFile})

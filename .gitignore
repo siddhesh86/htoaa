@@ -1,3 +1,7 @@
 __pycache__/
 cout_*.txt
+log*
+log/*
+CMSSW*
+*tarball.tar.xz
 *~
