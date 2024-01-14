@@ -74,6 +74,11 @@ echo "argument iSample: $iSample "
 printf "\nMadgraphGridpackSample: ${MadgraphGridpackSample} \n"
 printf "MiniAODFile_Final: ${MiniAODFile_Final_FileName} \n"
 
+echo "jobID 0: ${jobID}"
+jobID="${jobID/./p}"
+echo "jobID 1: ${jobID}"
+
+
 echo "pwd: "
 pwd
 echo "ls -ltrh: "
