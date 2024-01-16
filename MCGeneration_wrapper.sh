@@ -13,14 +13,14 @@ UserName=$(whoami)
 echo "UserName: ${UserName}"
 
 ## Settings: Change as per need ------------------------------------------------------------------------
-#sampleTag='mH-70_mA-12_wH-70_wA-70'
+sampleTag='mH-70_mA-12_wH-70_wA-70'
 #sampleTag='mH-70_mA-12_wH-70_wA-10'
-sampleTag='mH-70_mA-12_wH-70_wA-2' 
+#sampleTag='mH-70_mA-12_wH-70_wA-2' 
 HiggsPtMin=150 # 150 250 350
 
 # set first (SampleNumber_First) to last (SampleNumber_Last) MC sample file numbers to be produced in this round of submission/execution.
-SampleNumber_First=0
-SampleNumber_Last=100
+SampleNumber_First=2001
+SampleNumber_Last=2001
 
 #sampleTag='mH-70_mA-12_wH-70_wA-70'
 # Pt 150:
@@ -154,6 +154,8 @@ do
 	    NEvents=40
 	fi	
     fi
+
+    NEvents=5
 
     NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
     
@@ -600,6 +602,8 @@ do
     
     jobRunTimeInHr=30
     jobFlavour="tomorrow"
+
+    : '
     
     if [ ${NEvents} -le 401  ]; then
 	jobFlavour="tomorrow"
@@ -633,6 +637,8 @@ do
 	printf "jobRunTime: ${jobRunTime} (${jobRunTimeInHr} hr) \n"
 	printf "+MaxRuntime = ${jobRunTime}  \n" >>  ${CondorSubmitScript}
     fi
+    '''
+    printf "+JobFlavour = \"longlunch\" \n" >>  ${CondorSubmitScript}
     
     # By default, a job will get one slot of a CPU core, 2gb of memory and 20gb of disk space. Memory: 2gb / core limit
     printf "RequestCpus = 2 \n" >>  ${CondorSubmitScript}

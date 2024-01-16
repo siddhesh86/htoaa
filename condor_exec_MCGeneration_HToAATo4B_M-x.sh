@@ -7,15 +7,39 @@
 
 echo "condor_exec_MCGeneration_HToAATo4B_M-x.sh execution started"
 echo "Print all input arguments: $@"
+echo "pwd : "
+pwd
 
-prodmode=$1
-HiggsPtMin=$2
-mA=$3
-ERA=$4
-NEvents=$5
-iSample=$6
-XRootDRedirector=$7
-MadgraphGridpackSample_EosFileName=$8
+export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
+export SCRAM_ARCH=slc7_amd64_gcc10
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+export HOME=$(pwd) # HOME environment variable is not set by default, so set it as pwd. It is needed for DAS query
+#source /afs/cern.ch/user/s/ssawant/.bashrc
+
+
+#export X509_USER_PROXY=/afs/cern.ch/user/s/ssawant/x509up_u108989
+export X509_USER_PROXY=$1
+voms-proxy-info -all
+voms-proxy-info -all -file $X509_USER_PROXY
+
+printf "\n printenv : \n"
+printenv
+
+# Check if DAS query works fine
+echo "dasgoclient --version : "
+dasgoclient --version
+echo "dasgoclient --query=\"dataset=/ZeroBias*/*Run2022C*/*\": "
+dasgoclient --query="dataset=/ZeroBias*/*Run2022C*/*"
+
+# Set input variables :
+prodmode=$2
+HiggsPtMin=$3
+mA=$4
+ERA=$5
+NEvents=$6
+iSample=$7
+XRootDRedirector=$8
+MadgraphGridpackSample_EosFileName=$9
 #OpDir=$7
 
 
@@ -24,6 +48,7 @@ jobID="Pt${HiggsPtMin}_M-${mA}"                         # jobID is used for inte
 SampleGeneratorDetails="TuneCP5_13TeV_madgraph_pythia8" # GENERATOR details that will be included in 'sample's name'.
 xrdcpPort="1094"                                        # For e.g. xrdcp -f  tmp.txt root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/tmp/tmp.txt
 
+Dir_baseLocal=$(pwd)
 Dir_sourceCodes=$(pwd)                                  # GEN-fragment.py and other sample-generation-config files are transferred to 'pwd' by HT-Condor 
 RandomNumberSeed=$RANDOM                                # Ramdom seed for sample generation
 
@@ -40,25 +65,25 @@ NEventsAll=-1
 # Madgraph input file full path
 # root://xrootd-cms.infn.it///store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_M-47.5_el9_amd64_gcc11_CMSSW_13_2_9_tarball.tar.xz
 MadgraphGridpackSample="root://${XRootDRedirector}/${MadgraphGridpackSample_EosFileName}"
-MadgraphGridpackSample_local=./$(basename $MadgraphGridpackSample_EosFileName)
+MadgraphGridpackSample_local=${Dir_baseLocal}/$(basename $MadgraphGridpackSample_EosFileName)
 
 ## Output file: local
 # Sample data names
-wmLHEGENFile=./${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_wmLHEGEN.root
-wmLHEGEN_inLHE_File=./${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_wmLHEGEN_inLHE.root
-SIMFile=./${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_SIM.root
-DIGIPremixFile=./${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_DIGIPremix.root
-HLTFile=./${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_HLT.root
-RECOFile=./${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_RECO.root
-MiniAODFile=./${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_MiniAODv2.root
-#NanoAODFile=./${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_NanoAODv9.root
+wmLHEGENFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_wmLHEGEN.root
+wmLHEGEN_inLHE_File=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_wmLHEGEN_inLHE.root
+SIMFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_SIM.root
+DIGIPremixFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_DIGIPremix.root
+HLTFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_HLT.root
+RECOFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_RECO.root
+MiniAODFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_MiniAODv2.root
+#NanoAODFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_NanoAODv9.root
 
 ## Output file: Final
 # xrdcp command: For e.g.:  xrdcp -f  tmp.txt root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/tmp/tmp.txt
 # xrdcp output dir: For e.g.: root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-47.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18
 XRootDHostAndPort="root://${XRootDRedirector}:${xrdcpPort}"
-OpDir_base=$(dirname $$MadgraphGridpackSample_EosFileName)
-if [[ ${OpDir_base} == "/store/*" ]]; then
+OpDir_base=$(dirname $MadgraphGridpackSample_EosFileName)
+if [[ ${OpDir_base} == "/store/"* ]]; then
     OpDir_base="/eos/cms${OpDir_base}"
 fi
 OpDir="${OpDir_base}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${SampleGeneratorDetails}/${ERA}" 
@@ -72,7 +97,12 @@ echo "argument mA: $mA "
 echo "argument NEvents: $NEvents "
 echo "argument iSample: $iSample "
 printf "\nMadgraphGridpackSample: ${MadgraphGridpackSample} \n"
+printf "MadgraphGridpackSample_EosFileName: ${MadgraphGridpackSample_EosFileName} \n"
+#printf "(dirname $MadgraphGridpackSample_EosFileName)"
+printf "OpDir_base: ${OpDir_base} \n"
+printf "OpDir: ${OpDir} \n"
 printf "MiniAODFile_Final: ${MiniAODFile_Final_FileName} \n"
+printf "{XRootDHostAndPort}/{MiniAODFile_Final_FileName}: ${XRootDHostAndPort}/${MiniAODFile_Final_FileName} \n"
 
 echo "jobID 0: ${jobID}"
 jobID="${jobID/./p}"
@@ -225,6 +255,12 @@ time xrdfs ${XRootDHostAndPort} ls -l ${MiniAODFile_Final_FileName}
 
 echo "rm ${MadgraphGridpackSample_local}: "
 rm ${MadgraphGridpackSample_local}
+
+echo "rm ${prodmode}*.py ${prodmode}*.xml \n"
+rm ${prodmode}*.py ${prodmode}*.xml
+
+printf "rm ${MiniAODFile} : \n"
+rm ${MiniAODFile}
 
 echo "ls -ltrh at the end: "
 ls -ltrh
