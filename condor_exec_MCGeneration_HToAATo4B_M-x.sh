@@ -10,8 +10,19 @@ echo "Print all input arguments: $@"
 echo "pwd : "
 pwd
 
+RandomNumber=$RANDOM
+Dir_1="dir_${RandomNumber}"
+printf "\n mkdir ${Dir_1} : \n"
+mkdir ${Dir_1}
+printf "\n cd ${Dir_1} : \n"
+cd ${Dir_1}
+printf "\n cp ../* . : \n"
+cp ../* .
+printf "\n pwd : \n"
+pwd
+
 export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
-export SCRAM_ARCH=slc7_amd64_gcc10
+#export SCRAM_ARCH=slc7_amd64_gcc10
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 export HOME=$(pwd) # HOME environment variable is not set by default, so set it as pwd. It is needed for DAS query
 #source /afs/cern.ch/user/s/ssawant/.bashrc
@@ -19,7 +30,9 @@ export HOME=$(pwd) # HOME environment variable is not set by default, so set it 
 
 #export X509_USER_PROXY=/afs/cern.ch/user/s/ssawant/x509up_u108989
 export X509_USER_PROXY=$1
+printf "\nvoms-proxy-info -all: \n"
 voms-proxy-info -all
+printf "\nvoms-proxy-info -all -file $X509_USER_PROXY : \n"
 voms-proxy-info -all -file $X509_USER_PROXY
 
 printf "\n printenv : \n"
@@ -28,8 +41,8 @@ printenv
 # Check if DAS query works fine
 echo "dasgoclient --version : "
 dasgoclient --version
-echo "dasgoclient --query=\"dataset=/ZeroBias*/*Run2022C*/*\": "
-dasgoclient --query="dataset=/ZeroBias*/*Run2022C*/*"
+echo "dasgoclient --query=\"dataset=/ZeroBias*/*Run2022C*/*\" -verbose 2: "
+dasgoclient --query="dataset=/ZeroBias*/*Run2022C*/*" -verbose 2
 
 # Set input variables :
 prodmode=$2
@@ -246,12 +259,19 @@ ls -ltrh
 ## Copy output file
 # https://indico.cern.ch/event/533066/contributions/2210981/attachments/1293986/1928541/CMSSW_tips.pdf
 # xrdcp -f  tmp.txt root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/tmp/tmp.txt
-printf "time xrdcp -f ${MiniAODFile} ${XRootDHostAndPort}/${MiniAODFile_Final_FileName} : \n"
-time xrdcp -f ${MiniAODFile} ${XRootDHostAndPort}/${MiniAODFile_Final_FileName} 
+printf "time xrdcp -f -v ${MiniAODFile} ${XRootDHostAndPort}/${MiniAODFile_Final_FileName} try 1: \n"
+# run xrdcp command until it succeeds
+try=1
+until xrdcp -f -v ${MiniAODFile} ${XRootDHostAndPort}/${MiniAODFile_Final_FileName} 
+do
+    try=$((try+1))
+    printf "xrdcp failed. Try again: try ${try}\n"
+done
+printf "xrdcp done in try ${try} *** \n"
 
 # ls output file at final destination
-printf "time xrdfs ${XRootDHostAndPort} ls -l ${MiniAODFile_Final_FileName} : \n"
-time xrdfs ${XRootDHostAndPort} ls -l ${MiniAODFile_Final_FileName}
+#printf "time xrdfs ${XRootDHostAndPort} ls -l ${MiniAODFile_Final_FileName} : \n"
+#time xrdfs ${XRootDHostAndPort} ls -l ${MiniAODFile_Final_FileName}
 
 echo "rm ${MadgraphGridpackSample_local}: "
 rm ${MadgraphGridpackSample_local}
@@ -264,5 +284,8 @@ rm ${MiniAODFile}
 
 echo "ls -ltrh at the end: "
 ls -ltrh
+
+printf "\n cd .. : \n"
+cd ..
 
 echo "condor_exec_MCGeneration_HToAATo4B_M-x.sh done"
