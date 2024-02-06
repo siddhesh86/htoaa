@@ -9,5 +9,5 @@ MCGeneration_wrapper_tmp.sh
 condor_exec_MCGeneration_HToAATo4B_M-x_tmp.sh
 condor_submit_MCGeneration_HToAATo4B_M-x_tmp.sh
 condor_exec.exe
-.LOG_.gwms-user-job-wrapper.sh.14.txt
+.LOG_.gwms-user-job-wrapper.sh.*.txt
 *~

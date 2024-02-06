@@ -6,9 +6,13 @@
 # xrdcp -f  tmp.txt root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/tmp/tmp.txt
 
 echo "condor_exec_MCGeneration_HToAATo4B_M-x.sh execution started"
-echo "Print all input arguments: $@"
+echo "hostname: "
+hostname
+echo "date: "
+date
 echo "pwd : "
 pwd
+echo "Print all input arguments: $@"
 
 RandomNumber=$RANDOM
 Dir_1="dir_${RandomNumber}"
@@ -89,18 +93,20 @@ DIGIPremixFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_n
 HLTFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_HLT.root
 RECOFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_RECO.root
 MiniAODFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_MiniAODv2.root
-#NanoAODFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_NanoAODv9.root
+NanoAODFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_NanoAODv9.root
 
 ## Output file: Final
 # xrdcp command: For e.g.:  xrdcp -f  tmp.txt root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/tmp/tmp.txt
 # xrdcp output dir: For e.g.: root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-47.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18
 XRootDHostAndPort="root://${XRootDRedirector}:${xrdcpPort}"
+XRootDHostAndPort1="root://eosuser.cern.ch"
 OpDir_base=$(dirname $MadgraphGridpackSample_EosFileName)
 if [[ ${OpDir_base} == "/store/"* ]]; then
     OpDir_base="/eos/cms${OpDir_base}"
 fi
 OpDir="${OpDir_base}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${SampleGeneratorDetails}/${ERA}" 
 MiniAODFile_Final_FileName=${OpDir}/MiniAODv2_${iSample}_nEvents${NEvents}.root
+NanoAODFile_Final_FileName=${OpDir}/NanoAODv9Custom_${iSample}_nEvents${NEvents}.root
 ### -------------------------------------------------------------------------------------------------------------------
 
 
@@ -239,6 +245,8 @@ rm -rf ${HLTFile}
 printf "rm -rf ${RECOFile} \n"
 rm -rf ${RECOFile}
 
+
+
 # NanoAODv9 -------------------------------------------------------------------------
 #DatasetType='NanoAODv9'
 #inputFile=${MiniAODFile}
@@ -251,6 +259,21 @@ rm -rf ${RECOFile}
 #printf "rm -rf CMSSW* \n"
 #rm -rf CMSSW*
 
+# NanoAODv9Custom -------------------------------------------------------------------------
+DatasetType='NanoAODv9Custom'
+inputFile=${MiniAODFile}
+outputFile=${NanoAODFile}
+NEvents_toUse=${NEventsAll}
+
+printf "\n\nRun time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  \n"
+time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  
+printf "\n***Done time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  \n"
+printf "rm -rf CMSSW* \n"
+rm -rf CMSSW*
+
+
+
+
 
 printf "\n\n***Done running all MC sample production steps. \n"
 printf "ls -ltrh after all MC sample production steps: \n"
@@ -258,29 +281,152 @@ ls -ltrh
 
 ## Copy output file
 # https://indico.cern.ch/event/533066/contributions/2210981/attachments/1293986/1928541/CMSSW_tips.pdf
-# xrdcp -f  tmp.txt root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/tmp/tmp.txt
-printf "time xrdcp -f -v ${MiniAODFile} ${XRootDHostAndPort}/${MiniAODFile_Final_FileName} try 1: \n"
+# xrdcp -f -v  tmp.txt root://eosuser.cern.ch//eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-47.5_TuneCP5_13TeV_madgraph_pythia8/tmp1.txt
+printf "\n\n xrdcp -f -v ${MiniAODFile} ${XRootDHostAndPort1}/${MiniAODFile_Final_FileName} :\n"
 # run xrdcp command until it succeeds
 try=1
-until xrdcp -f -v ${MiniAODFile} ${XRootDHostAndPort}/${MiniAODFile_Final_FileName} 
+xrdcpSucceed=1
+until xrdcp -f -v ${MiniAODFile} ${XRootDHostAndPort1}/${MiniAODFile_Final_FileName}
 do
     try=$((try+1))
-    printf "xrdcp failed. Try again: try ${try}\n"
+    if [ $try -ge 100 ]; then
+	xrdcpSucceed=0
+	printf "try=${try} reached maximum limit. Give up xrdcp (1) .... \n"
+	break
+    fi
+    printf "xrdcp (1) failed. Try again: try ${try}\n"
+    sleep 10
 done
-printf "xrdcp done in try ${try} *** \n"
+printf "xrdcp (1) done in try ${try} with xrdcpSucceed = ${xrdcpSucceed} *** \n"
 
-# ls output file at final destination
-#printf "time xrdfs ${XRootDHostAndPort} ls -l ${MiniAODFile_Final_FileName} : \n"
-#time xrdfs ${XRootDHostAndPort} ls -l ${MiniAODFile_Final_FileName}
+# Try another xrdcp command
+if [ $xrdcpSucceed -eq 0 ]; then
+    # gfal-copy -f tmp.txt root://eosuser.cern.ch//eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-47.5_TuneCP5_13TeV_madgraph_pythia8/tmp.txt
+    printf "\n\n gfal-copy -f ${MiniAODFile} ${XRootDHostAndPort1}/${MiniAODFile_Final_FileName} :\n"
+    try=1
+    xrdcpSucceed=1
+    until gfal-copy -f ${MiniAODFile} ${XRootDHostAndPort1}/${MiniAODFile_Final_FileName}
+    do
+	try=$((try+1))
+	if [ $try -ge 100 ]; then
+	    xrdcpSucceed=0
+	    printf "try=${try} reached maximum limit. Give up xrdcp (2) .... \n"
+	    break
+	fi
+	printf "xrdcp (2) failed. Try again: try ${try}\n"
+	sleep 10
+    done
+    printf "xrdcp (2) done in try ${try} with xrdcpSucceed = ${xrdcpSucceed} *** \n"
+fi
+
+# Try xrdcp another command
+if [ $xrdcpSucceed -eq 0 ]; then
+    # xrdcp -f  tmp.txt root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/tmp/tmp.txt
+    printf "\n\n xrdcp -f -v ${MiniAODFile} ${XRootDHostAndPort}/${MiniAODFile_Final_FileName} : \n"
+    try=1
+    xrdcpSucceed=1
+    until xrdcp -f -v ${MiniAODFile} ${XRootDHostAndPort}/${MiniAODFile_Final_FileName}
+    do
+	try=$((try+1))
+	if [ $try -ge 100 ]; then
+	    xrdcpSucceed=0
+	    printf "try=${try} reached maximum limit. Give up xrdcp (3) .... \n"
+	    break
+	fi
+	printf "xrdcp (3) failed. Try again: try ${try}\n"
+	sleep 10
+    done
+    printf "xrdcp (3) done in try ${try} with xrdcpSucceed = ${xrdcpSucceed} *** \n"
+fi
+
 
 echo "rm ${MadgraphGridpackSample_local}: "
 rm ${MadgraphGridpackSample_local}
-
+    
 echo "rm ${prodmode}*.py ${prodmode}*.xml \n"
 rm ${prodmode}*.py ${prodmode}*.xml
 
-printf "rm ${MiniAODFile} : \n"
-rm ${MiniAODFile}
+if [ $xrdcpSucceed -eq 1 ]; then
+    printf "rm ${MiniAODFile} : \n"
+    rm ${MiniAODFile}    
+else
+    # xrdcp failed:
+    # mv Miniaod to condor_base directory so that the minoaod is copied to condor_submission directory
+    printf "\n mv ${MiniAODFile} ../ : \n"
+    mv ${MiniAODFilel} ../
+fi
+
+
+## Copy NanoAOD file
+printf "\n\n xrdcp -f -v ${NanoAODFile} ${XRootDHostAndPort1}/${NanoAODFile_Final_FileName} :\n"
+# run xrdcp command until it succeeds
+try=1
+xrdcpSucceed=1
+until xrdcp -f -v ${NanoAODFile} ${XRootDHostAndPort1}/${NanoAODFile_Final_FileName}
+do
+    try=$((try+1))
+    if [ $try -ge 100 ]; then
+        xrdcpSucceed=0
+        printf "try=${try} reached maximum limit. Give up xrdcp (1) .... \n"
+        break
+    fi
+    printf "xrdcp (1) failed. Try again: try ${try}\n"
+    sleep 10
+done
+printf "xrdcp (1) done in try ${try} with xrdcpSucceed = ${xrdcpSucceed} *** \n"
+
+# Try another xrdcp command
+if [ $xrdcpSucceed -eq 0 ]; then
+    # gfal-copy -f tmp.txt root://eosuser.cern.ch//eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-47.5_TuneCP5_13TeV_madgraph_pythia8/tmp.txt
+    printf "\n\n gfal-copy -f ${NanoAODFile} ${XRootDHostAndPort1}/${NanoAODFile_Final_FileName} :\n"
+    try=1
+    xrdcpSucceed=1
+    until gfal-copy -f ${NanoAODFile} ${XRootDHostAndPort1}/${NanoAODFile_Final_FileName}
+    do
+        try=$((try+1))
+        if [ $try -ge 100 ]; then
+            xrdcpSucceed=0
+            printf "try=${try} reached maximum limit. Give up xrdcp (2) .... \n"
+            break
+        fi
+        printf "xrdcp (2) failed. Try again: try ${try}\n"
+        sleep 10
+    done
+    printf "xrdcp (2) done in try ${try} with xrdcpSucceed = ${xrdcpSucceed} *** \n"
+fi
+
+# Try xrdcp another command
+if [ $xrdcpSucceed -eq 0 ]; then
+    # xrdcp -f  tmp.txt root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/tmp/tmp.txt
+    printf "\n\n xrdcp -f -v ${NanoAODFile} ${XRootDHostAndPort}/${NanoAODFile_Final_FileName} : \n"
+    try=1
+    xrdcpSucceed=1
+    until xrdcp -f -v ${NanoAODFile} ${XRootDHostAndPort}/${NanoAODFile_Final_FileName}
+    do
+        try=$((try+1))
+        if [ $try -ge 100 ]; then
+            xrdcpSucceed=0
+            printf "try=${try} reached maximum limit. Give up xrdcp (3) .... \n"
+            break
+        fi
+        printf "xrdcp (3) failed. Try again: try ${try}\n"
+        sleep 10
+    done
+    printf "xrdcp (3) done in try ${try} with xrdcpSucceed = ${xrdcpSucceed} *** \n"
+fi
+
+if [ $xrdcpSucceed -eq 1 ]; then
+    printf "rm ${NanoAODFile} : \n"
+    rm ${NanoAODFile}    
+else
+    # xrdcp failed:
+    # mv Nanoaod to condor_base directory so that the minoaod is copied to condor_submission directory
+    printf "\n mv ${NanoAODFile} ../ : \n"
+    mv ${NanoAODFilel} ../
+fi
+
+
+
 
 echo "ls -ltrh at the end: "
 ls -ltrh
@@ -289,3 +435,5 @@ printf "\n cd .. : \n"
 cd ..
 
 echo "condor_exec_MCGeneration_HToAATo4B_M-x.sh done"
+echo "date: "
+date
