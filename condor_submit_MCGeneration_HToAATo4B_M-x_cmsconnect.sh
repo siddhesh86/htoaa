@@ -47,10 +47,10 @@ Requirements = HAS_SINGULARITY == True
 #RequestCpus = 8
 
 # 7200 # 2*60*60
-+MaxRuntime = 7200
+#+MaxRuntime = 7200
 # 8*60*60 = 28800
 #+MaxRuntime = 28800
 # 86400 # 24*60*60 
-#+MaxRuntime = 86400 
++MaxRuntime = 86400 
 
 Queue prodmode, HiggsPtMin, mA, DatasetERA, nEvents, iSample, XRootDRedirector, ipFile from params_MCGeneration_HToAATo4B_M-x.txt
