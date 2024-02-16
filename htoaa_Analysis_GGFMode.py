@@ -118,7 +118,7 @@ class ObjectSelection:
         self.FatJetEtaThsh = 2.4
         self.FatJetJetID   = int(JetIDs.tightIDPassingLeptonVeto)
 
-        self.FatJetMSoftDropThshLow  = 20 # 90
+        self.FatJetMSoftDropThshLow  = 50 # 20 # 90
         self.FatJetMSoftDropThshHigh = 9999 #200
 
         self.FatJetParticleNetMD_Xbb_Thsh       = 0.8
@@ -127,6 +127,7 @@ class ObjectSelection:
         self.FatJetParticleNetMD_Hto4b_Htoaa4bOverQCD_Thsh   = bTagWPs[self.era]['ParticleNetMD_Hto4b_Htoaa4bOverQCD'][self.wp_ParticleNetMD_Hto4b_Htoaa4bOverQCD]
         self.FatJetZHbb_plus_Xbb_Thsh = 0.4
         self.FatJetZHbb_Xbb_avg_Thsh  = 0.4
+        self.FatJetZHbb_Thsh          = 0.7
 
         self.nSV_matched_leadingFatJet_Thsh = 3
 
@@ -336,7 +337,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
     def __init__(self, datasetInfo={}):
         print(f"HToAATo4bProcessor::__init__():: {datasetInfo = }")
          
-        global runMode_SignalGenChecks;       runMode_SignalGenChecks  = True; # True
+        global runMode_SignalGenChecks;       runMode_SignalGenChecks  = False; # True
         global runMode_QCDGenValidation;      runMode_QCDGenValidation = False; # True
         global runMode_GenLHEPlots;           runMode_GenLHEPlots      = False
         global runMode_SignificancsScan2D;    runMode_SignificancsScan2D = False
@@ -409,7 +410,8 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 #sTrgSelection,
                 #"leadingFatJetBtagDeepB",
                 "leadingFatJetMSoftDrop",
-                "leadingFatJetZHbb_Xbb_avg",
+                #"leadingFatJetZHbb_Xbb_avg",
+                "leadingFatJetZHbb",
                 #"leadingFatJetDeepTagMD_bbvsLight", #"leadingFatJetParticleNetMD_Xbb",
                 #"leadingFatJetParticleNetMD_XbbvsQCD",
                 #"leadingFatJetParticleNetMD_Hto4b_Htoaa4bOverQCD",
@@ -493,12 +495,26 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         '''
 
         for sSelName_ in ["SRWP40", "SRWP60", "SRWP80"]:
+            # massA windows
             for sMassAWindowName in massPseudoscalarA_windows_dict:
                 sSelWindowName_ = "%s_%s" % (sSelName_, sMassAWindowName)
                 
                 self.sel_names_all[sSelWindowName_] = self.sel_names_all[sSelName_] + [
                     "leadingFatJetParticleNet_massA_Hto4b_avg_%s" % (sMassAWindowName)
                 ]
+
+            # massH windows
+            for sMassHiggsWindowName in massHiggs_windows_dict:
+                sSelWindowName_ = "%s_%s" % (sSelName_, sMassHiggsWindowName)
+
+                if 'Msoftdrop' in sMassHiggsWindowName:  # == 'MsoftdropHiggsWindow':
+                    self.sel_names_all[sSelWindowName_] = self.sel_names_all[sSelName_] + [
+                        "leadingFatJetMsoftdrop_%s" % (sMassHiggsWindowName)
+                    ]
+                elif 'PNet_massH_Hto4b' in sMassHiggsWindowName: # == 'PNet_massH_Hto4b_HiggsWindow':
+                    self.sel_names_all[sSelWindowName_] = self.sel_names_all[sSelName_] + [
+                        "leadingFatJetPNet_massH_Hto4b_%s" % (sMassHiggsWindowName)
+                    ]
 
         
 
@@ -622,6 +638,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         #mass_axis             = hist.Bin("Mass",      r"$m$ [GeV]",       400, 0, 200)
         mass_axis             = hist.Bin("Mass",                   r"$m$ [GeV]",                 300,       0,     300)
         mass_axis1            = hist.Bin("Mass1",                  r"$m$ [GeV]",               20*70,       0,     70)
+        mass_axis2            = hist.Bin("Mass2",                  r"$m$ [GeV]",                2*70,       0,     70)
         mass10_axis           = hist.Bin("Mass10",                 r"$m$ [GeV]",                 300,       0,      10)
         logMass3_axis         = hist.Bin("logMass3",               r"$m$ [GeV]",                 300,       0,       3)
         mlScore_axis          = hist.Bin("MLScore",                r"ML score",                  100,    -1.1,     1.1)
@@ -1062,7 +1079,11 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 histos.update(OD([
                     ('hLeadingFatJetEta_vs_Phi'+sHExt,             
                      {sXaxis: eta_axis,        sXaxisLabel: r"\eta (leading FatJet)",
-                      sYaxis: phi_axis,        sYaxisLabel: r"\phi (leading FatJet)"}),                    
+                      sYaxis: phi_axis,        sYaxisLabel: r"\phi (leading FatJet)"}),        
+
+                    ('hLeadingFatJetParticleNet_massH_Hto4b_avg_vs_massA_Hto4b_avg'+sHExt,     
+                     {sXaxis: mass_axis,       sXaxisLabel: r"LeadingFatJetParticleNet_massH_Hto4b_avg",
+                      sYaxis: mass_axis2,       sYaxisLabel: r"hLeadingFatJetParticleNet_massA_Hto4b_avg"}),            
                 ]))
 
 
@@ -2664,6 +2685,11 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             leadingFatJet.deepTagMD_ZHbbvsQCD >= 0,
             leadingFatJet.deepTagMD_ZHbbvsQCD,
             np.full_like(leadingFatJet.deepTagMD_ZHbbvsQCD, 0)
+        ) 
+        leadingFatJetDeepTagMD_ZHccvsQCD = ak.where(
+            leadingFatJet.deepTagMD_ZHccvsQCD >= 0,
+            leadingFatJet.deepTagMD_ZHccvsQCD,
+            np.full_like(leadingFatJet.deepTagMD_ZHccvsQCD, 0)
         )        
         leadingFatJetParticleNetMD_XbbvsQCD = ak.where(
             (leadingFatJet.particleNetMD_Xbb + leadingFatJet.particleNetMD_QCD) > 0,
@@ -2682,6 +2708,13 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         ) 
         leadingFatJetZHbb_plus_Xbb =  leadingFatJetDeepTagMD_ZHbbvsQCD + leadingFatJetParticleNetMD_XbbvsQCD
         leadingFatJetZHbb_Xbb_avg  = (leadingFatJetDeepTagMD_ZHbbvsQCD + leadingFatJetParticleNetMD_XbbvsQCD) / 2
+
+        # ZHbb = ZHbbvsQCD*(1 - ZHccvsQCD)/(1 - ZHbbvsQCD*ZHccvsQCD)
+        leadingFatJetZHbb = leadingFatJetDeepTagMD_ZHbbvsQCD * (1 - leadingFatJetDeepTagMD_ZHccvsQCD)
+        leadingFatJetZHbb = leadingFatJetZHbb / (1 - (leadingFatJetDeepTagMD_ZHbbvsQCD * leadingFatJetDeepTagMD_ZHccvsQCD))
+
+
+
         # PNetMD_Hto4b
         if 'particleNetMD_Hto4b_Haa4b' in events.FatJet.fields:
             leadingFatJet_PNetMD_Hto4b_QCD01234b_sum = (
@@ -2725,6 +2758,16 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 leadingFatJet.particleNet_massA_Hto4b_v3
             ])
             
+            # hLeadingFatJetParticleNet_massH_Hto4b_avg_v0123
+            # Scale particleNet_massH_Hto4b_v0 by 1.01 to get better response
+            # https://indico.cern.ch/event/1343334/contributions/5655252/attachments/2745224/4781382/2023_11_02_HToAATo4B_Higgs_mass_studies.pdf#page=15
+            leadingFatJet_PNet_massH_Hto4b_avg = calculateAverageOfArrays([
+                leadingFatJet.particleNet_massH_Hto4b_v0 * 1.01,
+                leadingFatJet.particleNet_massH_Hto4b_v1,
+                leadingFatJet.particleNet_massH_Hto4b_v2,
+                leadingFatJet.particleNet_massH_Hto4b_v3, 
+                ])
+
 
         # SubJet corresponding to leading FatJet 
         leadingFatJet_subJetIdx_concatenate = ak.concatenate([
@@ -2796,6 +2839,9 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         leptonsTight   = ak.concatenate([muonsTight, electronsTight], axis=1)
         nLeptons_matched_leadingFatJet = ak.fill_none(ak.sum(leadingFatJet.metric_table( leptonsTight, axis=None ) < 0.8, axis=1), 0)
 
+
+        ## non-HTo4B FatJet
+        
 
 
         #####################
@@ -2875,6 +2921,12 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 leadingFatJetZHbb_Xbb_avg > self.objectSelector.FatJetZHbb_Xbb_avg_Thsh
             )
 
+        if "leadingFatJetZHbb" in self.sel_conditions_all_list:
+            selection.add(
+                "leadingFatJetZHbb",
+                leadingFatJetZHbb > self.objectSelector.FatJetZHbb_Thsh
+            )       
+        
         if "leadingFatJetDeepTagMD_bbvsLight" in self.sel_conditions_all_list:
             selection.add(
                 "leadingFatJetDeepTagMD_bbvsLight",
@@ -2948,7 +3000,32 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                  (leadingFatJet_PNet_massA_Hto4b_avg < massAWindow[1] ))
             )
 
+        # mH windows
+        for sMassHiggsWindowName, massHiggsWindow in massHiggs_windows_dict. items():
+            # msoftdrop
+            if 'Msoftdrop' in sMassHiggsWindowName:
+                sSelName_tmp_ = "leadingFatJetMsoftdrop_%s" % (sMassHiggsWindowName)
+                if sSelName_tmp_ not in self.sel_conditions_all_list: continue
 
+                selection.add(
+                    sSelName_tmp_,
+                    ((leadingFatJet.msoftdrop > massHiggsWindow[0]) & 
+                     (leadingFatJet.msoftdrop < massHiggsWindow[1] ))
+                )
+
+            # ParticleNet_massH_Hto4b
+            elif 'PNet_massH_Hto4b' in sMassHiggsWindowName:
+                sSelName_tmp_ = "leadingFatJetPNet_massH_Hto4b_%s" % (sMassHiggsWindowName)
+                if sSelName_tmp_ not in self.sel_conditions_all_list: continue
+
+                selection.add(
+                    sSelName_tmp_,
+                    ((leadingFatJet_PNet_massH_Hto4b_avg > massHiggsWindow[0]) & 
+                     (leadingFatJet_PNet_massH_Hto4b_avg < massHiggsWindow[1] ))
+                )
+
+
+            
 
 
 
@@ -4807,7 +4884,10 @@ class HToAATo4bProcessor(processor.ProcessorABC):
 
                     sel_SR_forHExt_woGenMatch = sel_SR_forHExt
                     #if runMode_OptimizePNetTaggerCut and self.datasetInfo['isSignal']:
-                    if self.datasetInfo['isSignal']:
+                    #if self.datasetInfo['isSignal']:
+                    if (self.datasetInfo['isSignal'] and \
+                        (runMode_SignificancsScan2D or \
+                         runMode_OptimizePNetTaggerCut) ):
                         sel_SR_forHExt = sel_SR_forHExt & (n_leadingFatJat_matched_genB_HToAATo4B >= 4)
                     sel_SR_forHExt = ak.fill_none(sel_SR_forHExt, False) 
 
@@ -5789,12 +5869,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         # https://indico.cern.ch/event/1343334/contributions/5655252/attachments/2745224/4781382/2023_11_02_HToAATo4B_Higgs_mass_studies.pdf#page=15
                         output['hLeadingFatJetParticleNet_massH_Hto4b_avg_v0123'+sHExt].fill(
                             dataset=dataset,
-                            Mass=calculateAverageOfArrays([
-                                leadingFatJet.particleNet_massH_Hto4b_v0[sel_SR_forHExt] * 1.01,
-                                leadingFatJet.particleNet_massH_Hto4b_v1[sel_SR_forHExt],
-                                leadingFatJet.particleNet_massH_Hto4b_v2[sel_SR_forHExt],
-                                leadingFatJet.particleNet_massH_Hto4b_v3[sel_SR_forHExt], 
-                                ]),
+                            Mass=leadingFatJet_PNet_massH_Hto4b_avg[sel_SR_forHExt],
                             systematic=syst,
                             weight=evtWeight[sel_SR_forHExt]
                         )
@@ -5867,6 +5942,14 @@ class HToAATo4bProcessor(processor.ProcessorABC):
 
 
                     ### 2-D distribution ----------------------------------------------------------
+
+                    output['hLeadingFatJetParticleNet_massH_Hto4b_avg_vs_massA_Hto4b_avg'+sHExt].fill(
+                        dataset=dataset,
+                        Mass=(leadingFatJet_PNet_massH_Hto4b_avg[sel_SR_forHExt]),
+                        Mass2=(leadingFatJet_PNet_massA_Hto4b_avg[sel_SR_forHExt]),
+                        systematic=syst,
+                        weight=evtWeight[sel_SR_forHExt]
+                    )                    
 
                     if runMode_SignificancsScan2D:
 
