@@ -1,7 +1,5 @@
 #!/bin/bash
 
-## SUSY_GluGluH_01J_HToAATo4B_Pt450_mH-70_mA-12_wH-70_wA-10: 28.2 mins/event
-
 # SUSY_GluGluH_01J_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8
 
 # https://indico.cern.ch/event/533066/contributions/2210981/attachments/1293986/1928541/CMSSW_tips.pdf
@@ -47,21 +45,19 @@ printenv
 # Check if DAS query works fine
 echo "dasgoclient --version : "
 dasgoclient --version
-#echo "dasgoclient --query=\"dataset=/ZeroBias*/*Run2022C*/*\" -verbose 2: "
-#dasgoclient --query="dataset=/ZeroBias*/*Run2022C*/*" -verbose 2
-echo "dasgoclient --query=\"dataset=/ZeroBias*/*Run2022C*/*\" : "
-dasgoclient --query="dataset=/ZeroBias*/*Run2022C*/*" 
+echo "dasgoclient --query=\"dataset=/ZeroBias*/*Run2022C*/*\" -verbose 2: "
+dasgoclient --query="dataset=/ZeroBias*/*Run2022C*/*" -verbose 2
 
 # Set input variables :
 prodmode=$2
 HiggsPtMin=$3
 mA=$4
-wA=$5
-ERA=$6
-NEvents=$7
-iSample=$8
-XRootDRedirector=$9
-MadgraphGridpackSample_EosFileName=${10}
+ERA=$5
+NEvents=$6
+iSample=$7
+XRootDRedirector=$8
+MadgraphGridpackSample_EosFileName=$9
+#OpDir=$7
 
 
 ### Settings -----------------------------------------------------------------------------------------------------------
@@ -74,15 +70,9 @@ Dir_sourceCodes=$(pwd)                                  # GEN-fragment.py and ot
 RandomNumberSeed=$RANDOM                                # Ramdom seed for sample generation
 
 # GEN-filter efficiency
-GENLevelEfficiency=$(bc -l <<< '0.02500' )
+GENLevelEfficiency=$(bc -l <<< '0.0570' )
 if   [ ${HiggsPtMin} -eq 150 ]; then
     GENLevelEfficiency=$(bc -l <<< '0.057' )
-elif [ ${HiggsPtMin} -eq 250 ]; then
-    GENLevelEfficiency=$(bc -l <<< '0.0077' )
-elif [ ${HiggsPtMin} -eq 350 ]; then
-    GENLevelEfficiency=$(bc -l <<< '0.0030' )
-elif [ ${HiggsPtMin} -eq 450 ]; then
-    GENLevelEfficiency=$(bc -l <<< '0.00096' ) 
 fi
 
 NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
@@ -96,19 +86,14 @@ MadgraphGridpackSample_local=${Dir_baseLocal}/$(basename $MadgraphGridpackSample
 
 ## Output file: local
 # Sample data names
-SampleProcessName="${prodmode}_Pt${HiggsPtMin}_M-${mA}"
-if (( $(echo "$wA > 1" | bc -l) )); then
-    SampleProcessName="${prodmode}_Pt${HiggsPtMin}_mH-70_mA-${mA}_wH-70_wA-${wA}"
-fi
-
-wmLHEGENFile=${Dir_baseLocal}/${SampleProcessName}_${iSample}_nEvents${NEvents}_wmLHEGEN.root
-wmLHEGEN_inLHE_File=${Dir_baseLocal}/${SampleProcessName}_${iSample}_nEvents${NEvents}_wmLHEGEN_inLHE.root
-SIMFile=${Dir_baseLocal}/${SampleProcessName}_${iSample}_nEvents${NEvents}_SIM.root
-DIGIPremixFile=${Dir_baseLocal}/${SampleProcessName}_${iSample}_nEvents${NEvents}_DIGIPremix.root
-HLTFile=${Dir_baseLocal}/${SampleProcessName}_${iSample}_nEvents${NEvents}_HLT.root
-RECOFile=${Dir_baseLocal}/${SampleProcessName}_${iSample}_nEvents${NEvents}_RECO.root
-MiniAODFile=${Dir_baseLocal}/${SampleProcessName}_${iSample}_nEvents${NEvents}_MiniAODv2.root
-NanoAODFile=${Dir_baseLocal}/${SampleProcessName}_${iSample}_nEvents${NEvents}_NanoAODv9.root
+wmLHEGENFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_wmLHEGEN.root
+wmLHEGEN_inLHE_File=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_wmLHEGEN_inLHE.root
+SIMFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_SIM.root
+DIGIPremixFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_DIGIPremix.root
+HLTFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_HLT.root
+RECOFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_RECO.root
+MiniAODFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_MiniAODv2.root
+NanoAODFile=${Dir_baseLocal}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${iSample}_nEvents${NEvents}_NanoAODv9.root
 
 ## Output file: Final
 # xrdcp command: For e.g.:  xrdcp -f  tmp.txt root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/tmp/tmp.txt
@@ -119,7 +104,7 @@ OpDir_base=$(dirname $MadgraphGridpackSample_EosFileName)
 if [[ ${OpDir_base} == "/store/"* ]]; then
     OpDir_base="/eos/cms${OpDir_base}"
 fi
-OpDir="${OpDir_base}/${SampleProcessName}_${SampleGeneratorDetails}/${ERA}" 
+OpDir="${OpDir_base}/${prodmode}_Pt${HiggsPtMin}_M-${mA}_${SampleGeneratorDetails}/${ERA}" 
 MiniAODFile_Final_FileName=${OpDir}/MiniAODv2_${iSample}_nEvents${NEvents}.root
 NanoAODFile_Final_FileName=${OpDir}/NanoAODv9Custom_${iSample}_nEvents${NEvents}.root
 ### -------------------------------------------------------------------------------------------------------------------
