@@ -13,7 +13,8 @@ jobID=${4}
 sourceCodeDir=${5}
 #productionDir=${6}
 randomSeed=${6}
-HiggsPtMin=${7}
+prodmode=${7}
+HiggsPtMin=${8}
 
 #jobName="SUSY_GluGluH_01J_HToAATo4B_${jobID}_RunIISummer20UL18wmLHEGEN"
 jobName=${jobID}
@@ -98,7 +99,8 @@ fi
 
 # Copy fragment
 #cp ${pwd_}/GENFragment_SUSY_GluGluH_01J_HToAATo4B.py Configuration/GenProduction/python/${jobName}-fragment.py
-cp ${sourceCodeDir}/GENFragment_SUSY_GluGluH_01J_HToAATo4B.py Configuration/GenProduction/python/${jobName}-fragment.py
+#cp ${sourceCodeDir}/GENFragment_SUSY_GluGluH_01J_HToAATo4B.py Configuration/GenProduction/python/${jobName}-fragment.py
+cp ${sourceCodeDir}/GENFragment_${prodmode}.py Configuration/GenProduction/python/${jobName}-fragment.py
 
 # replace input Gridpack file
 #psed -i "s|INPUTGRIDPACK=''|INPUTGRIDPACK='$inputFile'|g" Configuration/GenProduction/python/${jobName}-fragment.py
