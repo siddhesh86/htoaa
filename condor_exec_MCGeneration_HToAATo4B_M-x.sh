@@ -65,7 +65,9 @@ MadgraphGridpackSample_EosFileName=${10}
 
 
 ### Settings -----------------------------------------------------------------------------------------------------------
-jobID="Pt${HiggsPtMin}_M-${mA}"                         # jobID is used for internal job processing and not used in dataset name.
+# sample name e.g. SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8
+#jobID="Pt${HiggsPtMin}_M-${mA}"                         # jobID is used for internal job processing and not used in dataset name.
+jobID="${prodmode}_Pt${HiggsPtMin}_M-${mA}_${ERA}"                         # jobID is used for internal job processing and not used in dataset name.
 SampleGeneratorDetails="TuneCP5_13TeV_madgraph_pythia8" # GENERATOR details that will be included in 'sample's name'.
 xrdcpPort="1094"                                        # For e.g. xrdcp -f  tmp.txt root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/tmp/tmp.txt
 

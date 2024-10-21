@@ -15,8 +15,8 @@ sourceCodeDir=${5}
 randomSeed=${6}
 HiggsPtMin=${7}
 
-jobName="SUSY_GluGluH_01J_HToAATo4B_${jobID}_RunIISummer20UL18wmLHEGEN"
-
+#jobName="SUSY_GluGluH_01J_HToAATo4B_${jobID}_RunIISummer20UL18wmLHEGEN"
+jobName=${jobID}
 
 outputDir=$(echo ${outputFile} | sed 's|\(.*\)/.*|\1|')
 

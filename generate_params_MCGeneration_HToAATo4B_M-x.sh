@@ -22,8 +22,8 @@ mApoints=(47.5)
 wA=0 # 0 for narrow A width sample. 10 or 70 for broader A width samples. <<<<<<<<<< IMPORTANT <<<<<<<<<<<<<<
 
 # set first (SampleNumber_First) to last (SampleNumber_Last) MC sample file numbers to be produced in this round of submission/execution.
-SampleNumber_First=0
-SampleNumber_Last=0
+SampleNumber_First=1
+SampleNumber_Last=1
 
 
 ## Dataset ERA
@@ -63,7 +63,7 @@ do
 
 	    NEvents=500
 	    if   [ ${HiggsPtMin} -eq 150 ]; then
-			NEvents=500
+		    NEvents=500
 	    elif [ ${HiggsPtMin} -eq 250 ]; then
 			NEvents=180 #200
 	    elif [ ${HiggsPtMin} -eq 350 ]; then
