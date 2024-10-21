@@ -1,15 +1,29 @@
 Universe = vanilla
 
 Proxy_filename=x509up_u108989
+UserName=$(whoami)
+
+ConfigGEN=GENFragment_$(prodmode).py
+ConfigWmLHEGEN=generate_$(DatasetERA)wmLHEGEN.sh
+ConfigSIM=generate_$(DatasetERA)SIM.sh
+ConfigDIGIPremix=generate_$(DatasetERA)DIGIPremix.sh
+ConfigHLT=generate_$(DatasetERA)HLT.sh
+ConfigRECO=generate_$(DatasetERA)RECO.sh
+ConfigMiniAOD=generate_$(DatasetERA)MiniAODv2.sh
+ConfigNanoAOD=generate_$(DatasetERA)NanoAODv9.sh
+ConfigNanoAODCustom=generate_$(DatasetERA)NanoAODv9Custom.sh
+
+
 #X509_USER_PROXY=/afs/cern.ch/user/s/ssawant/$(Proxy_filename)
-X509_USER_PROXY=/home/ssawant/$(Proxy_filename)
+#X509_USER_PROXY=/home/ssawant/$(Proxy_filename)
+X509_USER_PROXY=/home/$(UserName)/$(Proxy_filename)
 
 Executable = condor_exec_MCGeneration_HToAATo4B_M-x.sh
 #Arguments = $(X509_USER_PROXY) $(prodmode) $(HiggsPtMin) $(mA) $(DatasetERA) $(nEvents) $(iSample) $(XRootDRedirector) $(ipFile)
 Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(mA) $(wA) $(DatasetERA) $(nEvents) $(iSample) $(XRootDRedirector) $(ipFile) 
 
 
-transfer_input_files = $(X509_USER_PROXY), GENFragment_SUSY_GluGluH_01J_HToAATo4B.py, generate_RunIISummer20UL18wmLHEGEN.sh, generate_RunIISummer20UL18SIM.sh, generate_RunIISummer20UL18DIGIPremix.sh, generate_RunIISummer20UL18HLT.sh, generate_RunIISummer20UL18RECO.sh, generate_RunIISummer20UL18MiniAODv2.sh, generate_RunIISummer20UL18NanoAODv9.sh, generate_RunIISummer20UL18NanoAODv9Custom.sh  
+transfer_input_files = $(X509_USER_PROXY), $(ConfigGEN), $(ConfigWmLHEGEN), $(ConfigSIM), $(ConfigDIGIPremix), $(ConfigHLT), $(ConfigRECO), $(ConfigMiniAOD), $(ConfigNanoAOD), $(ConfigNanoAODCustom)  
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 

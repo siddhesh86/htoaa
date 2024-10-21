@@ -75,15 +75,39 @@ RandomNumberSeed=$RANDOM                                # Ramdom seed for sample
 
 # GEN-filter efficiency
 GENLevelEfficiency=$(bc -l <<< '0.02500' )
-if   [ ${HiggsPtMin} -eq 150 ]; then
-    GENLevelEfficiency=$(bc -l <<< '0.057' )
-elif [ ${HiggsPtMin} -eq 250 ]; then
-    GENLevelEfficiency=$(bc -l <<< '0.0077' )
-elif [ ${HiggsPtMin} -eq 350 ]; then
-    GENLevelEfficiency=$(bc -l <<< '0.0030' )
-elif [ ${HiggsPtMin} -eq 450 ]; then
-    GENLevelEfficiency=$(bc -l <<< '0.00096' ) 
+if   [[ ${prodmode} == *"SUSY_GluGluH"* ]]; then
+    # GGH production mode
+    if   [ ${HiggsPtMin} -eq 150 ]; then
+        GENLevelEfficiency=$(bc -l <<< '0.057' )
+    elif [ ${HiggsPtMin} -eq 250 ]; then
+        GENLevelEfficiency=$(bc -l <<< '0.0077' )
+    elif [ ${HiggsPtMin} -eq 350 ]; then
+        GENLevelEfficiency=$(bc -l <<< '0.0030' )
+    elif [ ${HiggsPtMin} -eq 450 ]; then
+        GENLevelEfficiency=$(bc -l <<< '0.00096' ) 
+    fi
+elif [[ ${prodmode} == *"SUSY_VBFH"* ]]; then
+    # VBFH production mode
+    if   [ ${HiggsPtMin} -eq 150 ]; then
+        GENLevelEfficiency=$(bc -l <<< '0.173' )
+    fi
+elif [[ ${prodmode} == *"SUSY_WH"* ]]; then
+    # WH production mode
+    if   [ ${HiggsPtMin} -eq 150 ]; then
+        GENLevelEfficiency=$(bc -l <<< '0.132' )
+    fi
+elif [[ ${prodmode} == *"SUSY_ZH"* ]]; then
+    # ZH production mode
+    if   [ ${HiggsPtMin} -eq 150 ]; then
+        GENLevelEfficiency=$(bc -l <<< '0.129' )
+    fi
+elif [[ ${prodmode} == *"SUSY_TTH"* ]]; then
+    # TTH production mode
+    if   [ ${HiggsPtMin} -eq 150 ]; then
+        GENLevelEfficiency=$(bc -l <<< '0.285' )
+    fi
 fi
+
 
 NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
 NEventsAll=-1
