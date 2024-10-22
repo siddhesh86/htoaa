@@ -172,7 +172,7 @@ OpSubdirNum=$(printf "%04d" $((${iSample} / 100)) )
 # /eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/2018/MC/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-10.0_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/0017/MiniAODv2_1701_nEvents500.root
 MiniAODFile_Final_FileName=/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/${ERA}/${OpSubdirNum}/MiniAODv2_${iSample}_nEvents${NEvents}.root
 # /eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/2018/MC/PNet_v1_2023_10_06/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-10.0_TuneCP5_13TeV_madgraph_pythia8/r1/20240202_000000/0002/NanoAODv9Custom_203_nEvents500.root
-NanoAODFile_Final_FileName=/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/${EraYear}/MC/PNet_v1_2023_10_06/${SampleProcessName}_${SampleGeneratorDetails}/r1/20240202_000000/${OpSubdirNum}#/NanoAODv9Custom_${iSample}_nEvents${NEvents}.root
+NanoAODFile_Final_FileName=/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/${EraYear}/MC/PNet_v1_2023_10_06/${SampleProcessName}_${SampleGeneratorDetails}/r1/20240202_000000/${OpSubdirNum}/NanoAODv9Custom_${iSample}_nEvents${NEvents}.root
 ### -------------------------------------------------------------------------------------------------------------------
 
 

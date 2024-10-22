@@ -1,12 +1,5 @@
 #!/bin/bash
 
-######################################################################################
-# Script to generate DIGIPremix sample sourced from
-# https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/HIG-RunIISummer20UL18DIGIPremix-02032
-######################################################################################
-
-
-
 inputFile=${1}
 outputFile=${2}
 nEvents=${3}
@@ -29,52 +22,51 @@ pwd_=$(pwd)
 echo 'pwd: '
 pwd
 
+# Binds for singularity containers
+# Mount /afs, /eos, /cvmfs, /etc/grid-security for xrootd
+export APPTAINER_BINDPATH='/afs,/cvmfs,/cvmfs/grid.cern.ch/etc/grid-security:/etc/grid-security,/eos,/etc/pki/ca-trust,/run/user,/var/run/user'
 
+
+# Dump actual test code to a HIG-RunIISummer20UL17DIGIPremix-01985_test.sh file that can be run in Singularity
+cat <<'EndOfTestFile' > ${jobName}_test.sh
+#!/bin/bash
 
 export SCRAM_ARCH=slc7_amd64_gcc700
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-#if [ -r CMSSW_10_6_17_patch1/src ] ; then
-#  echo release CMSSW_10_6_17_patch1 already exists
-#else
-#  scram p CMSSW CMSSW_10_6_17_patch1
-#fi
 if [ -r CMSSW_10_6_17_patch1/src ] ; then
-    echo release CMSSW_10_6_17_patch1 already exists. Removing  it.
-    rm -rf CMSSW_10_6_17_patch1
+  echo release CMSSW_10_6_17_patch1 already exists
+  rm -rf CMSSW_10_6_17_patch1
 fi
 scram p CMSSW CMSSW_10_6_17_patch1
-
 cd CMSSW_10_6_17_patch1/src
 eval `scram runtime -sh`
 
+mv ../../Configuration .
 scram b
 cd ../..
 
 # Maximum validation duration: 28800s
 # Margin for validation duration: 30%
 # Validation duration with margin: 28800 * (1 - 0.30) = 20160s
-# Time per event for each sequence: 1.7300s
+# Time per event for each sequence: 1.5000s
 # Threads for each sequence: 4
-# Time per event for single thread for each sequence: 4 * 1.7300s = 6.9200s
-# Which adds up to 6.9200s per event
-# Single core events that fit in validation duration: 20160s / 6.9200s = 2913
+# Time per event for single thread for each sequence: 4 * 1.5000s = 6.0000s
+# Which adds up to 6.0000s per event
+# Single core events that fit in validation duration: 20160s / 6.0000s = 3360
 # Produced events limit in McM is 10000
 # According to 1.0000 efficiency, validation should run 10000 / 1.0000 = 10000 events to reach the limit of 10000
-# Take the minimum of 2913 and 10000, but more than 0 -> 2913
-# It is estimated that this validation will produce: 2913 * 1.0000 = 2913 events
-#EVENTS=2913
+# Take the minimum of 3360 and 10000, but more than 0 -> 3360
+# It is estimated that this validation will produce: 3360 * 1.0000 = 3360 events
+#EVENTS=3360
 EVENTS=${nEvents}
 
-if [ ! -d ${outputDir} ]
-then
-   mkdir -p ${outputDir}
-fi
-
 # cmsDriver command
-# cmsDriver.py  --python_filename HIG-RunIISummer20UL18DIGIPremix-02032_1_cfg.py --eventcontent PREMIXRAW --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-DIGI --fileout file:HIG-RunIISummer20UL18DIGIPremix-02032.root --pileup_input "dbs:/Neutrino_E-10_gun/RunIISummer20ULPrePremix-UL18_106X_upgrade2018_realistic_v11_L1v1-v2/PREMIX" --conditions 106X_upgrade2018_realistic_v11_L1v1 --step DIGI,DATAMIX,L1,DIGI2RAW --procModifiers premix_stage2 --geometry DB:Extended --filein file:HIG-RunIISummer20UL18SIM-02051.root --datamix PreMix --era Run2_2018 --runUnscheduled --no_exec --mc -n $EVENTS || exit $? ;
+#cmsDriver.py  --python_filename HIG-RunIISummer20UL17DIGIPremix-01985_1_cfg.py --eventcontent PREMIXRAW --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-DIGI --fileout file:HIG-RunIISummer20UL17DIGIPremix-01985.root --pileup_input "dbs:/Neutrino_E-10_gun/RunIISummer20ULPrePremix-UL17_106X_mc2017_realistic_v6-v3/PREMIX" --conditions 106X_mc2017_realistic_v6 --step DIGI,DATAMIX,L1,DIGI2RAW --procModifiers premix_stage2 --geometry DB:Extended --filein file:HIG-RunIISummer20UL17SIM-01985.root --datamix PreMix --era Run2_2017 --runUnscheduled --no_exec --mc -n $EVENTS || exit $? ;
 
-cmsDriver.py  --python_filename ${jobName}_1_cfg.py --eventcontent PREMIXRAW --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-DIGI --fileout file:${outputFile} --pileup_input "dbs:/Neutrino_E-10_gun/RunIISummer20ULPrePremix-UL18_106X_upgrade2018_realistic_v11_L1v1-v2/PREMIX" --conditions 106X_upgrade2018_realistic_v11_L1v1 --step DIGI,DATAMIX,L1,DIGI2RAW --procModifiers premix_stage2 --geometry DB:Extended --filein file:${inputFile}  --datamix PreMix --era Run2_2018 --runUnscheduled --no_exec --mc -n $EVENTS || exit $? ;
+echo "Run cmsDriver.py  --python_filename ${jobName}_1_cfg.py --eventcontent PREMIXRAW --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-DIGI --fileout file:${outputFile} --pileup_input \"dbs:/Neutrino_E-10_gun/RunIISummer20ULPrePremix-UL17_106X_mc2017_realistic_v6-v3/PREMIX\" --conditions 106X_mc2017_realistic_v6 --step DIGI,DATAMIX,L1,DIGI2RAW --procModifiers premix_stage2 --geometry DB:Extended --filein file:${inputFile} --datamix PreMix --era Run2_2017 --runUnscheduled --no_exec --mc -n $EVENTS || exit $? ;"
+cmsDriver.py  --python_filename ${jobName}_1_cfg.py --eventcontent PREMIXRAW --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-DIGI --fileout file:${outputFile} --pileup_input "dbs:/Neutrino_E-10_gun/RunIISummer20ULPrePremix-UL17_106X_mc2017_realistic_v6-v3/PREMIX" --conditions 106X_mc2017_realistic_v6 --step DIGI,DATAMIX,L1,DIGI2RAW --procModifiers premix_stage2 --geometry DB:Extended --filein file:${inputFile} --datamix PreMix --era Run2_2017 --runUnscheduled --no_exec --mc -n $EVENTS || exit $? ;
+
 
 # Run generated config
 REPORT_NAME=${jobName}_report.xml
@@ -121,3 +113,21 @@ echo "Size per event: "$(bc -l <<< "scale=4; ($totalSize * 1024 / $producedEvent
 echo "Time per event: "$(bc -l <<< "scale=4; (1 / $eventThroughput)")" s"
 echo "Filter efficiency percent: "$(bc -l <<< "scale=8; ($producedEvents * 100) / $processedEvents")" %"
 echo "Filter efficiency fraction: "$(bc -l <<< "scale=10; ($producedEvents) / $processedEvents")
+
+# End of ${jobName}_test.sh file
+EndOfTestFile
+
+# Make file executable
+chmod +x ${jobName}_test.sh
+
+if [ -e "/cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/el7:amd64" ]; then
+  CONTAINER_NAME="el7:amd64"
+elif [ -e "/cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/el7:x86_64" ]; then
+  CONTAINER_NAME="el7:x86_64"
+else
+  echo "Could not find amd64 or x86_64 for el7"
+  exit 1
+fi
+# Run in singularity container
+export SINGULARITY_CACHEDIR="/tmp/$(whoami)/singularity"
+singularity run --home $PWD:$PWD /cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/$CONTAINER_NAME $(echo $(pwd)/${jobName}_test.sh)

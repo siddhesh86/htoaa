@@ -12,11 +12,12 @@ nEvents=${3}
 jobID=${4}
 
 
-jobName="SUSY_GluGluH_01J_HToAATo4B_${jobID}_RunIISummer20UL18SIM"
+#jobName="SUSY_GluGluH_01J_HToAATo4B_${jobID}_RunIISummer20UL18SIM"
+jobName="${jobID}SIM"
 
 outputDir=$(echo ${outputFile} | sed 's|\(.*\)/.*|\1|')
 
-printf "\n\ngenerate_RunIISummer20ULSIM.sh:: \nArguments: $@ \n"
+printf "\n\ngenerate_RunIISummer20U18LSIM.sh:: \nArguments: $@ \n"
 echo "inputFile: ${inputFile} "
 echo "outputDir: ${outputDir} "
 echo "outputFile: ${outputFile}"

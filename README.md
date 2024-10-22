@@ -49,9 +49,13 @@ time ./gridpack_generation_HToAATo4B.sh 2>&1 | tee cout_tmp.txt
 
 # References:
 The followingMC configuration files taken from McM are used for MC production.
-- [SUSY_GluGluH_01J_HToAATo4B_Pt150 in RunIISummer20UL18](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?prepid=HIG-chain_RunIISummer20UL18wmLHEGEN_flowRunIISummer20UL18SIM_flowRunIISummer20UL18DIGIPremix_flowRunIISummer20UL18HLT_flowRunIISummer20UL18RECO_flowRunIISummer20UL18MiniAODv2_flowRunIISummer20UL18NanoAODv9-01966&page=0&shown=15)
-- [SUSY_VBFH_HToAATo4B_Pt150 in RunIISummer20UL18](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?contains=HIG-RunIISummer20UL18wmLHEGEN-02533&page=0&shown=15)
-- [SUSY_WH_WToAll_HToAATo4B_Pt150 in RunIISummer20UL18](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?contains=HIG-RunIISummer20UL18wmLHEGEN-02555&page=0&shown=15)
-- [SUSY_ZH_ZToAll_HToAATo4B_Pt150 in RunIISummer20UL18](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?contains=HIG-RunIISummer20UL18wmLHEGEN-02577&page=0&shown=15)
-- [SUSY_TTH_TTToAll_HToAATo4B_Pt150 in RunIISummer20UL18](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?contains=HIG-RunIISummer20UL18wmLHEGEN-02599&page=0&shown=15)
+- 2018:
+  - [SUSY_GluGluH_01J_HToAATo4B_Pt150 in RunIISummer20UL18](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?prepid=HIG-chain_RunIISummer20UL18wmLHEGEN_flowRunIISummer20UL18SIM_flowRunIISummer20UL18DIGIPremix_flowRunIISummer20UL18HLT_flowRunIISummer20UL18RECO_flowRunIISummer20UL18MiniAODv2_flowRunIISummer20UL18NanoAODv9-01966&page=0&shown=15)
+  - [SUSY_VBFH_HToAATo4B_Pt150 in RunIISummer20UL18](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?contains=HIG-RunIISummer20UL18wmLHEGEN-02533&page=0&shown=15)
+  - [SUSY_WH_WToAll_HToAATo4B_Pt150 in RunIISummer20UL18](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?contains=HIG-RunIISummer20UL18wmLHEGEN-02555&page=0&shown=15)
+  - [SUSY_ZH_ZToAll_HToAATo4B_Pt150 in RunIISummer20UL18](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?contains=HIG-RunIISummer20UL18wmLHEGEN-02577&page=0&shown=15)
+  - [SUSY_TTH_TTToAll_HToAATo4B_Pt150 in RunIISummer20UL18](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?contains=HIG-RunIISummer20UL18wmLHEGEN-02599&page=0&shown=15)
+
+- 2017:
+  - [SUSY_GluGluH_01J_HToAATo4B_Pt150 in RunIISummer20UL17](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?contains=HIG-RunIISummer20UL17wmLHEGEN-02463&page=0&shown=15)
 

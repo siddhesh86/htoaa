@@ -12,7 +12,7 @@ nEvents=${3}
 jobID=${4}
 
 
-jobName="SUSY_GluGluH_01J_HToAATo4B_${jobID}_RunIISummer20UL18RECO"
+jobName="${jobID}RECO"
 
 outputDir=$(echo ${outputFile} | sed 's|\(.*\)/.*|\1|')
 

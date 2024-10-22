@@ -1,10 +1,5 @@
 #!/bin/bash
 
-######################################################################################
-# Script to generate wmLHEGEN sample sourced from
-#     https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/${jobName}
-######################################################################################
-
 inputFile=${1}
 #outputDir=${2}
 outputFile=${2}
@@ -16,12 +11,11 @@ randomSeed=${6}
 prodmode=${7}
 HiggsPtMin=${8}
 
-#jobName="SUSY_GluGluH_01J_HToAATo4B_${jobID}_RunIISummer20UL18wmLHEGEN"
 jobName="${jobID}wmLHEGEN"
 
 outputDir=$(echo ${outputFile} | sed 's|\(.*\)/.*|\1|')
 
-printf "\n\ngenerate_RunIISummer20UL18wmLHEGEN.sh:: \nArguments: $@ \n"
+printf "\n\ngenerate_RunIISummer20UL17wmLHEGEN.sh:: \nArguments: $@ \n"
 printf "\ninputFile: ${inputFile} \n"
 echo "outputDir: ${outputDir} "
 echo "outputFile: ${outputFile}"
@@ -32,7 +26,7 @@ echo "sourceCodeDir: ${sourceCodeDir} "
 
 pwd_=$(pwd)
 
-echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 0: '
+echo 'pwd (generate_RunIISummer20UL17wmLHEGEN.sh) 0: '
 pwd
 
 inputDir=$(dirname "$inputFile")
@@ -45,12 +39,39 @@ if [[ -z "$inputDir" || "$inputDir" == "." ]] ; then
 fi
 
 
+
+# Binds for singularity containers
+# Mount /afs, /eos, /cvmfs, /etc/grid-security for xrootd
+export APPTAINER_BINDPATH='/afs,/cvmfs,/cvmfs/grid.cern.ch/etc/grid-security:/etc/grid-security,/eos,/etc/pki/ca-trust,/run/user,/var/run/user'
+
 : '
+cat <<'EndOfGenScriptFile' > ${jobName}_gen_script.sh
+#!/bin/bash
+
+echo "Running CMS GEN request script using cms-sw containers. Architecture: el9:x86_64"
+python3.9 -m venv cms_gen_venv_HIG-RunIISummer20UL17wmLHEGEN-02463 && source ./cms_gen_venv_HIG-RunIISummer20UL17wmLHEGEN-02463/bin/activate
+
+# Install the PdmV REST client
+pip install git+https://github.com/cms-PdmV/mcm_scripts &> /dev/null
+
+echo "Packages installed"
+pip freeze
+echo ""
+
 # GEN Script begin
 rm -f request_fragment_check.py
 wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/request_fragment_check.py
 chmod +x request_fragment_check.py
-./request_fragment_check.py --bypass_status --prepid ${jobName}
+
+./request_fragment_check.py --bypass_status --prepid HIG-RunIISummer20UL17wmLHEGEN-02463
+
+# End of CMS GEN script file: ${jobName}_gen_script.sh
+EndOfGenScriptFile
+chmod +x ${jobName}_gen_script.sh
+
+# Run in singularity container
+singularity run --home $PWD:$PWD /cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/el9:x86_64 $(echo $(pwd)/${jobName}_gen_script.sh)
+
 GEN_ERR=$?
 if [ $GEN_ERR -ne 0 ]; then
   echo "GEN Checking Script returned exit code $GEN_ERR which means there are $GEN_ERR errors"
@@ -62,40 +83,18 @@ echo "Running VALIDATION. GEN Request Checking Script returned no errors"
 # GEN Script end
 '
 
-export SCRAM_ARCH=slc7_amd64_gcc700
-
-
-
-source /cvmfs/cms.cern.ch/cmsset_default.sh
-#if [ -r CMSSW_10_6_27/src ] ; then
-#  echo release CMSSW_10_6_27 already exists
-#else
-#  scram p CMSSW CMSSW_10_6_27
-#fi
-if [ -r CMSSW_10_6_27/src ] ; then
-    echo release CMSSW_10_6_27 already exists. Removing it.
-    rm -rf CMSSW_10_6_27
-fi
-scram p CMSSW CMSSW_10_6_27
-
-cd CMSSW_10_6_27/src
-eval `scram runtime -sh`
 
 # Download fragment from McM
-#curl -s -k https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/HIG-RunIISummer20UL18wmLHEGEN-02511 --retry 3 --create-dirs -o Configuration/GenProduction/python/HIG-RunIISummer20UL18wmLHEGEN-02511-fragment.py
-#[ -s Configuration/GenProduction/python/HIG-RunIISummer20UL18wmLHEGEN-02511-fragment.py ] || exit $?;
-#curl -s -k https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/${jobName} --retry 3 --create-dirs -o Configuration/GenProduction/python/${jobName}-fragment.py
-#[ -s Configuration/GenProduction/python/${jobName}-fragment.py ] || exit $?;
+#curl -s -k https://cms-pdmv-prod.web.cern.ch/mcm/public/restapi/requests/get_fragment/HIG-RunIISummer20UL17wmLHEGEN-02463 --retry 3 --create-dirs -o Configuration/GenProduction/python/HIG-RunIISummer20UL17wmLHEGEN-02463-fragment.py
+#[ -s Configuration/GenProduction/python/HIG-RunIISummer20UL17wmLHEGEN-02463-fragment.py ] || exit $?;
 
-echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 1: '
+echo 'pwd (generate_RunIISummer20UL17wmLHEGEN.sh) 1: '
 pwd
-echo 'ls (generate_RunIISummer20UL18wmLHEGEN.sh) 1: '
+echo 'ls (generate_RunIISummer20UL17wmLHEGEN.sh) 1: '
 ls
-
 if [ ! -d Configuration/GenProduction/python/ ]; then
     mkdir -p Configuration/GenProduction/python/
 fi
-
 
 # Copy fragment
 #cp ${pwd_}/GENFragment_SUSY_GluGluH_01J_HToAATo4B.py Configuration/GenProduction/python/${jobName}-fragment.py
@@ -109,17 +108,16 @@ sed -i "s|INPUTGRIDPACK=\"\"|INPUTGRIDPACK=\"${inputFile}\"|g" Configuration/Gen
 # replace HiggsPtMin
 sed -i "s|HIGGSPTMIN=150|HIGGSPTMIN=${HiggsPtMin}|g" Configuration/GenProduction/python/${jobName}-fragment.py
 
-echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 2: '
+echo 'pwd (generate_RunIISummer20UL17wmLHEGEN.sh) 2: '
 pwd
-echo 'ls (generate_RunIISummer20UL18wmLHEGEN.sh) 2: '
+echo 'ls (generate_RunIISummer20UL17wmLHEGEN.sh) 2: '
 ls
-echo 'ls Configuration/GenProduction/python/ (generate_RunIISummer20UL18wmLHEGEN.sh) 2'
+echo 'ls Configuration/GenProduction/python/ (generate_RunIISummer20UL17wmLHEGEN.sh) 2'
 ls Configuration/GenProduction/python/
 
-printf "\n\n (generate_RunIISummer20UL18wmLHEGEN.sh) 2: cat Configuration/GenProduction/python/${jobName}-fragment.py: "
+printf "\n\n (generate_RunIISummer20UL17wmLHEGEN.sh) 2: cat Configuration/GenProduction/python/${jobName}-fragment.py: "
 cat Configuration/GenProduction/python/${jobName}-fragment.py
 printf "\n\n"
-
 
 # Check if fragment contais gridpack path ant that it is in cvmfs
 if grep -q "gridpacks" Configuration/GenProduction/python/${jobName}-fragment.py; then
@@ -128,6 +126,23 @@ if grep -q "gridpacks" Configuration/GenProduction/python/${jobName}-fragment.py
     exit -1
   fi
 fi
+
+# Dump actual test code to a HIG-RunIISummer20UL17wmLHEGEN-02463_test.sh file that can be run in Singularity
+cat <<'EndOfTestFile' > ${jobName}_test.sh
+#!/bin/bash
+
+export SCRAM_ARCH=slc7_amd64_gcc700
+
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+if [ -r CMSSW_10_6_27/src ] ; then
+  echo release CMSSW_10_6_27 already exists
+  rm -rf CMSSW_10_6_27
+fi
+scram p CMSSW CMSSW_10_6_27
+cd CMSSW_10_6_27/src
+eval `scram runtime -sh`
+
+mv ../../Configuration .
 scram b
 cd ../..
 
@@ -146,43 +161,32 @@ cd ../..
 #EVENTS=8064
 EVENTS=${nEvents}
 
-
 if [ ! -d ${outputDir} ]
 then
    mkdir -p ${outputDir}
 fi
 
-echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 3: '
+echo 'pwd (generate_RunIISummer20UL17wmLHEGEN.sh) 3: '
 pwd
-echo 'ls (generate_RunIISummer20UL18wmLHEGEN.sh) 3: '
+echo 'ls (generate_RunIISummer20UL17wmLHEGEN.sh) 3: '
 ls
-
 
 # cmsDriver command
-#cmsDriver.py Configuration/GenProduction/python/HIG-RunIISummer20UL18wmLHEGEN-02511-fragment.py --python_filename HIG-RunIISummer20UL18wmLHEGEN-02511_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:HIG-RunIISummer20UL18wmLHEGEN-02511.root --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(4000)" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
+#cmsDriver.py Configuration/GenProduction/python/HIG-RunIISummer20UL17wmLHEGEN-02463-fragment.py --python_filename HIG-RunIISummer20UL17wmLHEGEN-02463_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:HIG-RunIISummer20UL17wmLHEGEN-02463.root --conditions 106X_mc2017_realistic_v6 --beamspot Realistic25ns13TeVEarly2017Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(4000)" --step LHE,GEN --geometry DB:Extended --era Run2_2017 --no_exec --mc -n $EVENTS || exit $? ;
 
-#cmsDriver.py Configuration/GenProduction/python/${jobName}-fragment.py --python_filename ${jobName}_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(4000)" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
+echo "Run cmsDriver.py Configuration/GenProduction/python/${jobName}-fragment.py --python_filename ${jobName}_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:${outputFile} --conditions 106X_mc2017_realistic_v6 --beamspot Realistic25ns13TeVEarly2017Collision --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=\"cms.untracked.uint32(${randomSeed})\" --step LHE,GEN --geometry DB:Extended --era Run2_2017 --no_exec --mc -n $EVENTS || exit $? ;"
+cmsDriver.py Configuration/GenProduction/python/${jobName}-fragment.py --python_filename ${jobName}_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:${outputFile} --conditions 106X_mc2017_realistic_v6 --beamspot Realistic25ns13TeVEarly2017Collision --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed="cms.untracked.uint32(${randomSeed})" --step LHE,GEN --geometry DB:Extended --era Run2_2017 --no_exec --mc -n $EVENTS || exit $? ;
 
-echo "Run cmsDriver.py Configuration/GenProduction/python/${jobName}-fragment.py --python_filename ${jobName}_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=\"cms.untracked.uint32(${randomSeed})\" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;"
-
-cmsDriver.py Configuration/GenProduction/python/${jobName}-fragment.py --python_filename ${jobName}_1_cfg.py --eventcontent RAWSIM,LHE --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN,LHE --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed="cms.untracked.uint32(${randomSeed})" --step LHE,GEN --geometry DB:Extended --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
-
-
-echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 4: '
+echo 'pwd (generate_RunIISummer20UL17wmLHEGEN.sh) 4: '
 pwd
-echo 'ls (generate_RunIISummer20UL18wmLHEGEN.sh) 4: '
+echo 'ls (generate_RunIISummer20UL17wmLHEGEN.sh) 4: '
 ls
+
 
 # Run generated config
 REPORT_NAME=${jobName}_report.xml
 # Run the cmsRun
 cmsRun -e -j $REPORT_NAME ${jobName}_1_cfg.py || exit $? ;
-
-
-echo 'pwd (generate_RunIISummer20UL18wmLHEGEN.sh) 5: '
-pwd
-echo 'ls (generate_RunIISummer20UL18wmLHEGEN.sh) 5: '
-ls
 
 # Parse values from ${jobName}_report.xml report
 processedEvents=$(grep -Po "(?<=<Metric Name=\"NumberEvents\" Value=\")(.*)(?=\"/>)" $REPORT_NAME | tail -n 1)
@@ -224,3 +228,21 @@ echo "Size per event: "$(bc -l <<< "scale=4; ($totalSize * 1024 / $producedEvent
 echo "Time per event: "$(bc -l <<< "scale=4; (1 / $eventThroughput)")" s"
 echo "Filter efficiency percent: "$(bc -l <<< "scale=8; ($producedEvents * 100) / $processedEvents")" %"
 echo "Filter efficiency fraction: "$(bc -l <<< "scale=10; ($producedEvents) / $processedEvents")
+
+# End of ${jobName}_test.sh file
+EndOfTestFile
+
+# Make file executable
+chmod +x ${jobName}_test.sh
+
+if [ -e "/cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/el7:amd64" ]; then
+  CONTAINER_NAME="el7:amd64"
+elif [ -e "/cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/el7:x86_64" ]; then
+  CONTAINER_NAME="el7:x86_64"
+else
+  echo "Could not find amd64 or x86_64 for el7"
+  exit 1
+fi
+# Run in singularity container
+export SINGULARITY_CACHEDIR="/tmp/$(whoami)/singularity"
+singularity run --home $PWD:$PWD /cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/$CONTAINER_NAME $(echo $(pwd)/${jobName}_test.sh)

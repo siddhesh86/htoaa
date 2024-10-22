@@ -1,22 +1,16 @@
 #!/bin/bash
 
-######################################################################################
-# Script to generate NanoAODv9 sample sourced from
-# https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/HIG-RunIISummer20UL18NanoAODv9-02157
-######################################################################################
-
-
 inputFile=${1}
 outputFile=${2}
 nEvents=${3}
 jobID=${4}
 
 
-jobName="${jobID}NanoAOD"
+jobName="${jobID}MiniAOD"
 
 outputDir=$(echo ${outputFile} | sed 's|\(.*\)/.*|\1|')
 
-printf "\n\ngenerate_RunIISummer20ULNanoAODv9.sh:: \nArguments: $@ \n"
+printf "\n\ngenerate_RunIISummer20ULMiniAODv2.sh:: \nArguments: $@ \n"
 echo "inputFile: ${inputFile} "
 echo "outputDir: ${outputDir} "
 echo "outputFile: ${outputFile}"
@@ -28,38 +22,41 @@ pwd_=$(pwd)
 echo 'pwd: '
 pwd
 
+# Binds for singularity containers
+# Mount /afs, /eos, /cvmfs, /etc/grid-security for xrootd
+export APPTAINER_BINDPATH='/afs,/cvmfs,/cvmfs/grid.cern.ch/etc/grid-security:/etc/grid-security,/eos,/etc/pki/ca-trust,/run/user,/var/run/user'
+
+
+# Dump actual test code to a HIG-RunIISummer20UL17MiniAODv2-01985_test.sh file that can be run in Singularity
+cat <<'EndOfTestFile' > ${jobName}_test.sh
+#!/bin/bash
 
 export SCRAM_ARCH=slc7_amd64_gcc700
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-#if [ -r CMSSW_10_6_26/src ] ; then
-#  echo release CMSSW_10_6_26 already exists
-#else
-#  scram p CMSSW CMSSW_10_6_26
-#fi
-if [ -r CMSSW_10_6_26/src ] ; then
-    echo release CMSSW_10_6_26 already exists. Removing it.
-    rm -rf CMSSW_10_6_26
+if [ -r CMSSW_10_6_20/src ] ; then
+  echo release CMSSW_10_6_20 already exists
+  rm -rf CMSSW_10_6_20
 fi
-scram p CMSSW CMSSW_10_6_26
-
-cd CMSSW_10_6_26/src
+scram p CMSSW CMSSW_10_6_20
+cd CMSSW_10_6_20/src
 eval `scram runtime -sh`
 
+mv ../../Configuration .
 scram b
 cd ../..
 
 # Maximum validation duration: 28800s
 # Margin for validation duration: 30%
 # Validation duration with margin: 28800 * (1 - 0.30) = 20160s
-# Time per event for each sequence: 0.4300s
-# Threads for each sequence: 2
-# Time per event for single thread for each sequence: 2 * 0.4300s = 0.8600s
-# Which adds up to 0.8600s per event
-# Single core events that fit in validation duration: 20160s / 0.8600s = 23441
+# Time per event for each sequence: 0.3391s
+# Threads for each sequence: 4
+# Time per event for single thread for each sequence: 4 * 0.3391s = 1.3564s
+# Which adds up to 1.3564s per event
+# Single core events that fit in validation duration: 20160s / 1.3564s = 14862
 # Produced events limit in McM is 10000
 # According to 1.0000 efficiency, validation should run 10000 / 1.0000 = 10000 events to reach the limit of 10000
-# Take the minimum of 23441 and 10000, but more than 0 -> 10000
+# Take the minimum of 14862 and 10000, but more than 0 -> 10000
 # It is estimated that this validation will produce: 10000 * 1.0000 = 10000 events
 #EVENTS=10000
 EVENTS=${nEvents}
@@ -71,12 +68,10 @@ fi
 
 
 # cmsDriver command
-# cmsDriver.py  --python_filename HIG-RunIISummer20UL18NanoAODv9-02157_1_cfg.py --eventcontent NANOEDMAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier NANOAODSIM --fileout file:HIG-RunIISummer20UL18NanoAODv9-02157.root --conditions 106X_upgrade2018_realistic_v16_L1v1 --step NANO --filein "dbs:/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v1/MINIAODSIM" --era Run2_2018,run2_nanoAOD_106Xv2 --no_exec --mc -n $EVENTS || exit $? ;
+#cmsDriver.py  --python_filename HIG-RunIISummer20UL17MiniAODv2-01985_1_cfg.py --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:HIG-RunIISummer20UL17MiniAODv2-01985.root --conditions 106X_mc2017_realistic_v9 --step PAT --procModifiers run2_miniAOD_UL --geometry DB:Extended --filein "dbs:/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v6-v1/AODSIM" --era Run2_2017 --runUnscheduled --no_exec --mc -n $EVENTS || exit $? ;
 
-#cmsDriver.py  --python_filename ${jobName}_1_cfg.py --eventcontent NANOEDMAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier NANOAODSIM --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v16_L1v1 --step NANO --filein file:${inputFile}  --era Run2_2018,run2_nanoAOD_106Xv2 --no_exec --mc -n $EVENTS || exit $? ;
-
-# "NANOEDMAODSIM --> NANOAODSIM" for private NanoAODv9 production [https://cms-talk.web.cern.ch/t/private-nanoaod-v9-recipe/17335/2] 
-cmsDriver.py  --python_filename ${jobName}_1_cfg.py --eventcontent NANOAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier NANOAODSIM --fileout file:${outputFile} --conditions 106X_upgrade2018_realistic_v16_L1v1 --step NANO --filein file:${inputFile}  --era Run2_2018,run2_nanoAOD_106Xv2 --no_exec --mc -n $EVENTS || exit $? ;
+echo "Run cmsDriver.py  --python_filename ${jobName}_1_cfg.py --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:${outputFile} --conditions 106X_mc2017_realistic_v9 --step PAT --procModifiers run2_miniAOD_UL --geometry DB:Extended --filein file:${inputFile} --era Run2_2017 --runUnscheduled --no_exec --mc -n $EVENTS || exit $? ;"
+cmsDriver.py  --python_filename ${jobName}_1_cfg.py --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:${outputFile} --conditions 106X_mc2017_realistic_v9 --step PAT --procModifiers run2_miniAOD_UL --geometry DB:Extended --filein file:${inputFile} --era Run2_2017 --runUnscheduled --no_exec --mc -n $EVENTS || exit $? ;
 
 # Run generated config
 REPORT_NAME=${jobName}_report.xml
@@ -123,3 +118,21 @@ echo "Size per event: "$(bc -l <<< "scale=4; ($totalSize * 1024 / $producedEvent
 echo "Time per event: "$(bc -l <<< "scale=4; (1 / $eventThroughput)")" s"
 echo "Filter efficiency percent: "$(bc -l <<< "scale=8; ($producedEvents * 100) / $processedEvents")" %"
 echo "Filter efficiency fraction: "$(bc -l <<< "scale=10; ($producedEvents) / $processedEvents")
+
+# End of ${jobName}_test.sh file
+EndOfTestFile
+
+# Make file executable
+chmod +x ${jobName}_test.sh
+
+if [ -e "/cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/el7:amd64" ]; then
+  CONTAINER_NAME="el7:amd64"
+elif [ -e "/cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/el7:x86_64" ]; then
+  CONTAINER_NAME="el7:x86_64"
+else
+  echo "Could not find amd64 or x86_64 for el7"
+  exit 1
+fi
+# Run in singularity container
+export SINGULARITY_CACHEDIR="/tmp/$(whoami)/singularity"
+singularity run --home $PWD:$PWD /cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/$CONTAINER_NAME $(echo $(pwd)/${jobName}_test.sh)
