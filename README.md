@@ -7,8 +7,7 @@ git clone -b MCGeneration  git@github.com:siddhesh86/htoaa.git
 
 Set proxy every time before submitting HT condor jobs.
 ```
-voms-proxy-init --rfc --voms cms -valid 192:00
-cp /tmp/x509up_u108989 ~/
+oms-proxy-init -voms cms -rfc -valid 192:00 --out ~/x509Proxy
 ```
 
 ## To run on cms-connect:
@@ -22,7 +21,7 @@ Edit condor_submit_MCGeneration_HToAATo4B_M-x_cmsconnect.sh if you want to chang
 
 To submit HTCondor jobs:
 ```
-voms-proxy-init -voms cms -rfc -valid 192:00 --out ~/x509up_u108989
+voms-proxy-init -voms cms -rfc -valid 192:00 --out ~/x509Proxy
 condor_submit condor_submit_MCGeneration_HToAATo4B_M-x_cmsconnect.sh 
 ```
 

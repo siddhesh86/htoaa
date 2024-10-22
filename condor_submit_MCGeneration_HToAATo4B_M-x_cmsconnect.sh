@@ -1,6 +1,6 @@
 Universe = vanilla
 
-Proxy_filename=x509up_u108989
+Proxy_filename=x509Proxy
 #UserName=$(whoami)
 
 ConfigGEN=GENFragment_$(prodmode).py
@@ -20,7 +20,7 @@ X509_USER_PROXY=/home/$(UserName)/$(Proxy_filename)
 
 Executable = condor_exec_MCGeneration_HToAATo4B_M-x.sh
 #Arguments = $(X509_USER_PROXY) $(prodmode) $(HiggsPtMin) $(mA) $(DatasetERA) $(nEvents) $(iSample) $(XRootDRedirector) $(ipFile)
-Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(mA) $(wA) $(DatasetERA) $(nEvents) $(iSample) $(XRootDRedirector) $(ipFile) 
+Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(mA) $(wA) $(DatasetERA) $(nEvents) $(iSample) 
 
 
 transfer_input_files = $(X509_USER_PROXY), $(ConfigGEN), $(ConfigWmLHEGEN), $(ConfigSIM), $(ConfigDIGIPremix), $(ConfigHLT), $(ConfigRECO), $(ConfigMiniAOD), $(ConfigNanoAOD), $(ConfigNanoAODCustom)  
@@ -67,4 +67,5 @@ RequestCpus = 8
 # 86400 # 24*60*60 
 +MaxRuntime = 86400 
 
-Queue prodmode, HiggsPtMin, mA, wA, DatasetERA, nEvents, iSample, XRootDRedirector, ipFile, UserName from params_MCGeneration_HToAATo4B_M-x.txt
+#Queue prodmode, HiggsPtMin, mA, wA, DatasetERA, nEvents, iSample, XRootDRedirector, ipFile, UserName from params_MCGeneration_HToAATo4B_M-x.txt
+Queue prodmode, HiggsPtMin, mA, wA, DatasetERA, nEvents, iSample, UserName from params_MCGeneration_HToAATo4B_M-x.txt

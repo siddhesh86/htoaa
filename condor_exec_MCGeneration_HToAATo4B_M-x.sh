@@ -60,8 +60,8 @@ wA=$5
 ERA=$6
 NEvents=$7
 iSample=$8
-XRootDRedirector=$9
-MadgraphGridpackSample_EosFileName=${10}
+#XRootDRedirector=$9
+#MadgraphGridpackSample_EosFileName=${10}
 
 
 ### Settings -----------------------------------------------------------------------------------------------------------
@@ -74,6 +74,7 @@ xrdcpPort="1094"                                        # For e.g. xrdcp -f  tmp
 Dir_baseLocal=$(pwd)
 Dir_sourceCodes=$(pwd)                                  # GEN-fragment.py and other sample-generation-config files are transferred to 'pwd' by HT-Condor 
 RandomNumberSeed=$RANDOM                                # Ramdom seed for sample generation
+
 
 # GEN-filter efficiency
 GENLevelEfficiency=$(bc -l <<< '0.02500' )
@@ -114,7 +115,26 @@ fi
 NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
 NEventsAll=-1
 
+EraYear=2018
+if   [[ ${ERA} == *"2016"* ]]; then
+    EraYear=2016
+elif [[ ${ERA} == *"2017"* ]]; then
+    EraYear=2017
+elif [[ ${ERA} == *"2018"* ]]; then
+    EraYear=2018
+fi
+
 ## Input file:
+XRootDRedirector="xrootd-cms.infn.it"
+MadgraphGridpackSample_EosFileName="xyz.tar.xz"
+if (( $(echo "$wA < 0.5" |bc -l) )); then 
+    # for e.g. /store/user/ssawant/mc/SUSY_VBFH_HToAATo4B_M-47.5_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz
+    MadgraphGridpackSample_EosFileName="/store/user/ssawant/mc/${prodmode}_M-${mA}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
+else
+    # for e.g. /store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-70_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz
+    MadgraphGridpackSample_EosFileName="/store/user/ssawant/mc/${prodmode}_mH-70_mA-${mA}_wH-70_wA-${wA}_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
+fi
+
 # Madgraph input file full path
 # root://xrootd-cms.infn.it///store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_M-47.5_el9_amd64_gcc11_CMSSW_13_2_9_tarball.tar.xz
 MadgraphGridpackSample="root://${XRootDRedirector}/${MadgraphGridpackSample_EosFileName}"
@@ -141,13 +161,18 @@ NanoAODFile=${Dir_baseLocal}/${SampleProcessName}_${iSample}_nEvents${NEvents}_N
 # xrdcp output dir: For e.g.: root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-47.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18
 XRootDHostAndPort="root://${XRootDRedirector}:${xrdcpPort}"
 XRootDHostAndPort1="root://eosuser.cern.ch"
-OpDir_base=$(dirname $MadgraphGridpackSample_EosFileName)
-if [[ ${OpDir_base} == "/store/"* ]]; then
-    OpDir_base="/eos/cms${OpDir_base}"
-fi
-OpDir="${OpDir_base}/${SampleProcessName}_${SampleGeneratorDetails}/${ERA}" 
-MiniAODFile_Final_FileName=${OpDir}/MiniAODv2_${iSample}_nEvents${NEvents}.root
-NanoAODFile_Final_FileName=${OpDir}/NanoAODv9Custom_${iSample}_nEvents${NEvents}.root
+#OpDir_base=$(dirname $MadgraphGridpackSample_EosFileName)
+#if [[ ${OpDir_base} == "/store/"* ]]; then
+#    OpDir_base="/eos/cms${OpDir_base}"
+#fi
+#OpDir="${OpDir_base}/${SampleProcessName}_${SampleGeneratorDetails}/${ERA}" 
+#MiniAODFile_Final_FileName=${OpDir}/MiniAODv2_${iSample}_nEvents${NEvents}.root
+#NanoAODFile_Final_FileName=${OpDir}/NanoAODv9Custom_${iSample}_nEvents${NEvents}.root
+OpSubdirNum=$(printf "%04d" $((${iSample} / 100)) )
+# /eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/2018/MC/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-10.0_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/0017/MiniAODv2_1701_nEvents500.root
+MiniAODFile_Final_FileName=/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/${ERA}/${OpSubdirNum}/MiniAODv2_${iSample}_nEvents${NEvents}.root
+# /eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/2018/MC/PNet_v1_2023_10_06/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-10.0_TuneCP5_13TeV_madgraph_pythia8/r1/20240202_000000/0002/NanoAODv9Custom_203_nEvents500.root
+NanoAODFile_Final_FileName=/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/${EraYear}/MC/PNet_v1_2023_10_06/${SampleProcessName}_${SampleGeneratorDetails}/r1/20240202_000000/${OpSubdirNum}#/NanoAODv9Custom_${iSample}_nEvents${NEvents}.root
 ### -------------------------------------------------------------------------------------------------------------------
 
 

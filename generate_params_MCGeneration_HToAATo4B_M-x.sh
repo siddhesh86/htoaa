@@ -81,13 +81,14 @@ do
 		    #sIpFile="/store/user/ssawant/mc/${prod}_M-${mp}_el9_amd64_gcc11_CMSSW_13_2_9_tarball.tar.xz"
 		    # /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_M-47.5_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz
 		    sIpFile="/store/user/ssawant/mc/${prod}_M-${mA}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
-		    printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${XRootDRedirector}, ${sIpFile}, ${UserName}\n" >> ${sFParams}
+		    #printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${XRootDRedirector}, ${sIpFile}, ${UserName}\n" >> ${sFParams}
+			printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${UserName}\n" >> ${sFParams}
 		else
 		    ## Broader width signal samples
 		    # /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-10_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz
 		    sIpFile="/store/user/ssawant/mc/${prod}_mH-70_mA-${mA}_wH-70_wA-${wA}_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
-		    printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${XRootDRedirector}, ${sIpFile}, ${UserName}\n" >> ${sFParams}
-		    
+		    #printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${XRootDRedirector}, ${sIpFile}, ${UserName}\n" >> ${sFParams}
+		    printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${UserName}\n" >> ${sFParams}
 		fi
 	    done
 	done
