@@ -33,9 +33,9 @@ when_to_transfer_output = ON_EXIT
 #x509userproxy=$(X509_USER_PROXY)
 #use_x509userproxy = true
 
-Error = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_mA-$(mA)_wA-$(wA)_$(iSample)_nEvents$(nEvents).err
-Output = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_mA-$(mA)_wA-$(wA)_$(iSample)_nEvents$(nEvents).out 
-Log = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_mA-$(mA)_wA-$(wA)_$(iSample)_nEvents$(nEvents).log 
+Error = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_mA-$(mA)_wA-$(wA)_$(DatasetERA)_$(iSample)_nEvents$(nEvents).err
+Output = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_mA-$(mA)_wA-$(wA)_$(DatasetERA)_$(iSample)_nEvents$(nEvents).out 
+Log = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_mA-$(mA)_wA-$(wA)_$(DatasetERA)_$(iSample)_nEvents$(nEvents).log 
 
 # Use "rhel6", "rhel7" or "any" for RedHat6, RedHat7, or any of them, respectively.
 #+REQUIRED_OS = "rhel7"
