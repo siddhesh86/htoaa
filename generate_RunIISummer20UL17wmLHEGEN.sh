@@ -45,8 +45,8 @@ fi
 #export APPTAINER_BINDPATH='/afs,/cvmfs,/cvmfs/grid.cern.ch/etc/grid-security:/etc/grid-security,/eos,/etc/pki/ca-trust,/run/user,/var/run/user'
 
 : '
-cat <<'EndOfGenScriptFile' > ${jobName}_gen_script.sh
-#!/bin/bash
+#cat <<'EndOfGenScriptFile' > ${jobName}_gen_script.sh
+## #!/bin/bash
 
 echo "Running CMS GEN request script using cms-sw containers. Architecture: el9:x86_64"
 python3.9 -m venv cms_gen_venv_HIG-RunIISummer20UL17wmLHEGEN-02463 && source ./cms_gen_venv_HIG-RunIISummer20UL17wmLHEGEN-02463/bin/activate
