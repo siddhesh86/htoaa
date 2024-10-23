@@ -218,7 +218,7 @@ printf "ls -ltrh after ${DatasetType} step: \n"; ls -ltrh
 printf "rm -rf CMSSW*  lheevent \n"
 rm -rf CMSSW*  lheevent
 
-
+: '
 # SIM -------------------------------------------------------------------------
 DatasetType='SIM'
 inputFile=${wmLHEGENFile}
@@ -499,6 +499,8 @@ ls -ltrh
 
 printf "\n cd .. : \n"
 cd ..
+
+'
 
 echo "condor_exec_MCGeneration_HToAATo4B_M-x.sh done"
 echo "date: "
