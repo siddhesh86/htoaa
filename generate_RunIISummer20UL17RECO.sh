@@ -24,12 +24,12 @@ pwd
 
 # Binds for singularity containers
 # Mount /afs, /eos, /cvmfs, /etc/grid-security for xrootd
-export APPTAINER_BINDPATH='/afs,/cvmfs,/cvmfs/grid.cern.ch/etc/grid-security:/etc/grid-security,/eos,/etc/pki/ca-trust,/run/user,/var/run/user'
+#export APPTAINER_BINDPATH='/afs,/cvmfs,/cvmfs/grid.cern.ch/etc/grid-security:/etc/grid-security,/eos,/etc/pki/ca-trust,/run/user,/var/run/user'
 
 
 # Dump actual test code to a HIG-RunIISummer20UL17RECO-01985_test.sh file that can be run in Singularity
-cat <<'EndOfTestFile' > ${jobName}_test.sh
-#!/bin/bash
+#cat <<'EndOfTestFile' > ${jobName}_test.sh
+## #!/bin/bash
 
 export SCRAM_ARCH=slc7_amd64_gcc700
 
@@ -119,8 +119,9 @@ echo "Filter efficiency percent: "$(bc -l <<< "scale=8; ($producedEvents * 100) 
 echo "Filter efficiency fraction: "$(bc -l <<< "scale=10; ($producedEvents) / $processedEvents")
 
 # End of ${jobName}_test.sh file
-EndOfTestFile
+#EndOfTestFile
 
+: '
 # Make file executable
 chmod +x ${jobName}_test.sh
 
@@ -135,3 +136,4 @@ fi
 # Run in singularity container
 export SINGULARITY_CACHEDIR="/tmp/$(whoami)/singularity"
 singularity run --home $PWD:$PWD /cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/$CONTAINER_NAME $(echo $(pwd)/${jobName}_test.sh)
+'
