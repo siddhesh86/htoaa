@@ -22,12 +22,12 @@ mApoints=(47.5)
 wA=0 # 0 for narrow A width sample. 10 or 70 for broader A width samples. <<<<<<<<<< IMPORTANT <<<<<<<<<<<<<<
 
 # set first (SampleNumber_First) to last (SampleNumber_Last) MC sample file numbers to be produced in this round of submission/execution.
-SampleNumber_First=1
-SampleNumber_Last=1
+SampleNumber_First=0
+SampleNumber_Last=0
 
 
 ## Dataset ERA
-ERA="RunIISummer20UL18" # Options: "RunIISummer20UL18", "RunIISummer20UL17"
+ERA="RunIISummer20UL17" # Options: "RunIISummer20UL18", "RunIISummer20UL17"
 #NEvents=500 # NEvents set as per HiggsPtMin below
 #NEvents=10
 
