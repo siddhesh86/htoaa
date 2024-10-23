@@ -58,4 +58,9 @@ The followingMC configuration files taken from McM are used for MC production.
 
 - 2017:
   - [SUSY_GluGluH_01J_HToAATo4B_Pt150 in RunIISummer20UL17](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?contains=HIG-RunIISummer20UL17wmLHEGEN-02463&page=0&shown=15)
+- 2016:
+  - [SUSY_GluGluH_01J_HToAATo4B_Pt150 in RunIISummer20UL16](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?contains=HIG-RunIISummer20UL16wmLHEGEN-02538&page=0&shown=15)
+- 2016APV:
+  - [SUSY_GluGluH_01J_HToAATo4B_Pt150 in RunIISummer20UL16APV](https://cms-pdmv-prod.web.cern.ch/mcm/chained_requests?contains=HIG-RunIISummer20UL16wmLHEGENAPV-02022&page=0&shown=15)
+
 

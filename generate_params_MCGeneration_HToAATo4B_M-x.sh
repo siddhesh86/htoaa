@@ -27,7 +27,7 @@ SampleNumber_Last=0
 
 
 ## Dataset ERA
-ERA="RunIISummer20UL17" # Options: "RunIISummer20UL18", "RunIISummer20UL17"
+ERA="RunIISummer20UL17" # Options: "RunIISummer20UL18", "RunIISummer20UL17", "RunIISummer20UL16", "RunIISummer20UL16APV"
 #NEvents=500 # NEvents set as per HiggsPtMin below
 #NEvents=10
 

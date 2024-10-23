@@ -81,8 +81,8 @@ cp CMSSW_10_6_30/src/PhysicsTools/NanoAOD/test/Nano_MC_addHto4bPlus_crab_cfg.py 
 sed -i "s|DUMMY|file:${inputFile}|g" Nano_MC_addHto4bPlus_crab_cfg.py
 sed -i "s|PNet_v1.root|${outputFile}|g" Nano_MC_addHto4bPlus_crab_cfg.py
 
-sed -i "s|Run2_2018|Run2_2017|g" Nano_MC_addHto4bPlus_crab_cfg.py
-sed -i "s|106X_upgrade2018_realistic_v16_L1v1|106X_mc2017_realistic_v9|g" Nano_MC_addHto4bPlus_crab_cfg.py
+sed -i "s|Run2_2018|Run2_2016|g" Nano_MC_addHto4bPlus_crab_cfg.py
+sed -i "s|106X_upgrade2018_realistic_v16_L1v1|106X_mcRun2_asymptotic_v17|g" Nano_MC_addHto4bPlus_crab_cfg.py
 
 printf "\npwd: $(pwd) \nls:\n $(ls) \n\n cat Nano_MC_addHto4bPlus_crab_cfg.py: \n"; 
 cat Nano_MC_addHto4bPlus_crab_cfg.py
