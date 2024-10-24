@@ -1,6 +1,6 @@
 # Production of large width H->aa samples
 
-This private H->aa->4b MC generation setup has been tested on lxplus and cms-connect. Refer [cmsconnect](## To run on cms-connect) or [lxplus](## To run on lxplus) section depending up on your need. 
+This private H->aa->4b MC generation setup has been tested on lxplus and cms-connect. Refer [cmsconnect](#to-run-on-cms-connect) or [lxplus](#to-run-on-lxplus) section depending up on your need. 
 For MC sample production for the boosted H->aa->4b analysis, refer  [cmsconnect](## To run on cms-connect) section.
 
 ## Set up account on cms-connect:
@@ -32,7 +32,7 @@ Eras # Data taking era
 SampleNumber_First # MC sample file number: first
 SampleNumber_Last # MC sample file number: last 
 ```
-Setting 'SampleNumber_First=100' and 'SampleNumber_Last=199', HT Condor jobs will produce 100 files for a MC sample with sample file number 100 to 199. Each sample file would contain around [500 MC events](https://github.com/siddhesh86/htoaa/blob/a9d7f666fa4b10330484fe5e8dae9abf1b51a0b7/generate_params_MCGeneration_HToAATo4B_M-x.sh#L71-L80). 
+Setting 'SampleNumber_First=100' and 'SampleNumber_Last=199', HT Condor jobs will produce 100 files for a MC sample with sample file number 100 to 199. Each sample file would contain around [500 MC events](https://github.com/siddhesh86/htoaa/blob/0b52781cf00c74e50b9923bb647bd801727f08a9/generate_params_MCGeneration_HToAATo4B_M-x.sh#L71-L80). 
 
 Run generate_params_MCGeneration_HToAATo4B_M-x.sh to generate new params_MCGeneration_HToAATo4B_M-x.txt:
 ```
