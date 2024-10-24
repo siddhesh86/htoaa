@@ -27,7 +27,12 @@ SampleNumber_Last=0
 
 
 ## Dataset ERA
-ERA="RunIISummer20UL17" # Options: "RunIISummer20UL18", "RunIISummer20UL17", "RunIISummer20UL16", "RunIISummer20UL16APV"
+#ERA="RunIISummer20UL17" # Options: "RunIISummer20UL18", "RunIISummer20UL17", "RunIISummer20UL16", "RunIISummer20UL16APV"
+Eras=("RunIISummer20UL18",
+	  "RunIISummer20UL17",
+	  "RunIISummer20UL16",
+	  "RunIISummer20UL16APV")
+#Eras=("RunIISummer20UL18")
 #NEvents=500 # NEvents set as per HiggsPtMin below
 #NEvents=10
 
@@ -49,49 +54,53 @@ sFParams="params_MCGeneration_HToAATo4B_M-x.txt"
 printf "\n rm ${sFParams} : \n"
 rm ${sFParams}
 
-## Loop over all Higgs production modes
-for prod in "${prodmodes[@]}"
+## Data taking years
+for ERA in "${Eras[@]}"
 do
-    ## Loop over all "a" boson mass points
-    for mA in "${mApoints[@]}"
-    do
-
-	## Loop over HiggsPtMinList
-	for HiggsPtMin in "${HiggsPtMinList[@]}"
+	## Loop over all Higgs production modes
+	for prod in "${prodmodes[@]}"
 	do
+		## Loop over all "a" boson mass points
+		for mA in "${mApoints[@]}"
+		do
 
-	    NEvents=500
-	    if   [ ${HiggsPtMin} -eq 150 ]; then
-		    NEvents=500
-	    elif [ ${HiggsPtMin} -eq 250 ]; then
-			NEvents=180 #200
-	    elif [ ${HiggsPtMin} -eq 350 ]; then
-			NEvents=90
-	    elif [ ${HiggsPtMin} -eq 450 ]; then
-			NEvents=30        
-	    fi
+		## Loop over HiggsPtMinList
+		for HiggsPtMin in "${HiggsPtMinList[@]}"
+		do
 
-		NEvents=10
+			NEvents=500
+			if   [ ${HiggsPtMin} -eq 150 ]; then
+				NEvents=500
+			elif [ ${HiggsPtMin} -eq 250 ]; then
+				NEvents=180 #200
+			elif [ ${HiggsPtMin} -eq 350 ]; then
+				NEvents=90
+			elif [ ${HiggsPtMin} -eq 450 ]; then
+				NEvents=30        
+			fi
 
-	    for (( iSample=${SampleNumber_First}; iSample<=${SampleNumber_Last}; iSample++ ))
-	    do
-		if (( $(echo "$wA < 0.5" |bc -l) )); then 
-		    ## Narrow width signal samples
-		    # /store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_M-47.5_el9_amd64_gcc11_CMSSW_13_2_9_tarball.tar.xz
-		    #sIpFile="/store/user/ssawant/mc/${prod}_M-${mp}_el9_amd64_gcc11_CMSSW_13_2_9_tarball.tar.xz"
-		    # /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_M-47.5_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz
-		    sIpFile="/store/user/ssawant/mc/${prod}_M-${mA}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
-		    #printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${XRootDRedirector}, ${sIpFile}, ${UserName}\n" >> ${sFParams}
-			printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${UserName}\n" >> ${sFParams}
-		else
-		    ## Broader width signal samples
-		    # /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-10_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz
-		    sIpFile="/store/user/ssawant/mc/${prod}_mH-70_mA-${mA}_wH-70_wA-${wA}_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
-		    #printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${XRootDRedirector}, ${sIpFile}, ${UserName}\n" >> ${sFParams}
-		    printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${UserName}\n" >> ${sFParams}
-		fi
-	    done
+			NEvents=10
+
+			for (( iSample=${SampleNumber_First}; iSample<=${SampleNumber_Last}; iSample++ ))
+			do
+			if (( $(echo "$wA < 0.5" |bc -l) )); then 
+				## Narrow width signal samples
+				# /store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_M-47.5_el9_amd64_gcc11_CMSSW_13_2_9_tarball.tar.xz
+				#sIpFile="/store/user/ssawant/mc/${prod}_M-${mp}_el9_amd64_gcc11_CMSSW_13_2_9_tarball.tar.xz"
+				# /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_M-47.5_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz
+				sIpFile="/store/user/ssawant/mc/${prod}_M-${mA}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
+				#printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${XRootDRedirector}, ${sIpFile}, ${UserName}\n" >> ${sFParams}
+				printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${UserName}\n" >> ${sFParams}
+			else
+				## Broader width signal samples
+				# /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-10_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz
+				sIpFile="/store/user/ssawant/mc/${prod}_mH-70_mA-${mA}_wH-70_wA-${wA}_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
+				#printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${XRootDRedirector}, ${sIpFile}, ${UserName}\n" >> ${sFParams}
+				printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${UserName}\n" >> ${sFParams}
+			fi
+			done
+		done
+		done
 	done
-    done
 done
 	    

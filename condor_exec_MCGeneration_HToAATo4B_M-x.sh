@@ -116,8 +116,11 @@ NEvents_wmLHE=$(bc -l <<<"scale=0; $NEvents / $GENLevelEfficiency")
 NEventsAll=-1
 
 EraYear=2018
-if   [[ ${ERA} == *"16"* ]]; then # ERA: RunIISummer20UL17
-    EraYear=2016
+## ERA: RunIISummer20UL18, RunIISummer20UL17, RunIISummer20UL16, RunIISummer20UL16APV
+if   [[ ${ERA} == *"16"*  && ${ERA} == *"APV"* ]]; then 
+    EraYear="2016APV"
+elif [[ ${ERA} == *"16"* ]]; then 
+    EraYear="2016"
 elif [[ ${ERA} == *"17"* ]]; then
     EraYear=2017
 elif [[ ${ERA} == *"18"* ]]; then
@@ -186,8 +189,11 @@ printf "MadgraphGridpackSample_EosFileName: ${MadgraphGridpackSample_EosFileName
 #printf "(dirname $MadgraphGridpackSample_EosFileName)"
 printf "OpDir_base: ${OpDir_base} \n"
 printf "OpDir: ${OpDir} \n"
+printf "ERA: ${ERA} \n"
+printf "EraYear: ${EraYear} \n"
 printf "MiniAODFile_Final: ${MiniAODFile_Final_FileName} \n"
 printf "{XRootDHostAndPort}/{MiniAODFile_Final_FileName}: ${XRootDHostAndPort}/${MiniAODFile_Final_FileName} \n"
+printf "NanoAODFile_Final_FileName: ${NanoAODFile_Final_FileName} \n"
 
 echo "jobID 0: ${jobID}"
 jobID="${jobID/./p}"
