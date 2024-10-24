@@ -1,5 +1,18 @@
 # Production of large width H->aa samples
 
+This private H->aa->4b MC generation setup has been tested on lxplus and cms-connect. Refer [cmsconnect](## To run on cms-connect) or [lxplus](## To run on lxplus) section depending up on your need. 
+For MC sample production for the boosted H->aa->4b analysis, refer  [cmsconnect](## To run on cms-connect) section.
+
+## Set up account on cms-connect:
+Sign in to cms-connect account on [https://connect.uscms.org/](https://connect.uscms.org/). You need to provide your (US) institute details. More information about cms-connect can be found on [CMSConnect twiki](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookCMSConnect).
+
+To log in into cmsconnect:
+```
+ssh <user>@login.uscms.org
+```
+
+
+## Set up the git repository
 Clone the repository:
 ```
 git clone -b MCGeneration  git@github.com:siddhesh86/htoaa.git
@@ -10,14 +23,23 @@ Set proxy every time before submitting HT condor jobs.
 voms-proxy-init -voms cms -rfc -valid 192:00 --out ~/x509Proxy
 ```
 
-## To run on cms-connect:
-Edit generate_params_MCGeneration_HToAATo4B_M-x.sh to generate params_MCGeneration_HToAATo4B_M-x.txt with required sample parameters for MC sample generation.
+## To run on cms-connect
+'generate_params_MCGeneration_HToAATo4B_M-x.sh' script generates 'params_MCGeneration_HToAATo4B_M-x.txt' file containing the required sample parameters for HT Condor jobs. Set the following variables in 'generate_params_MCGeneration_HToAATo4B_M-x.sh' script.
+```
+prodmodes # Higgs production modes
+mApoints # 'a' boson mass points
+Eras # Data taking era
+SampleNumber_First # MC sample file number: first
+SampleNumber_Last # MC sample file number: last 
+```
+Setting 'SampleNumber_First=100' and 'SampleNumber_Last=199', HT Condor jobs will produce 100 files for a MC sample with sample file number 100 to 199. Each sample file would contain around [500 MC events](https://github.com/siddhesh86/htoaa/blob/a9d7f666fa4b10330484fe5e8dae9abf1b51a0b7/generate_params_MCGeneration_HToAATo4B_M-x.sh#L71-L80). 
+
 Run generate_params_MCGeneration_HToAATo4B_M-x.sh to generate new params_MCGeneration_HToAATo4B_M-x.txt:
 ```
-. generate_params_MCGeneration_HToAATo4B_M-x.sh
+source generate_params_MCGeneration_HToAATo4B_M-x.sh
 ```
 
-Edit condor_submit_MCGeneration_HToAATo4B_M-x_cmsconnect.sh if you want to change HTCondor job submission parameters.
+Edit 'condor_submit_MCGeneration_HToAATo4B_M-x_cmsconnect.sh' file if you want to change HTCondor job submission parameters. Mostly you would not need to do it.
 
 To submit HTCondor jobs:
 ```
@@ -27,7 +49,7 @@ condor_submit condor_submit_MCGeneration_HToAATo4B_M-x_cmsconnect.sh
 
 
 
-## To run on lxplus:
+## To run on lxplus
 **MCGeneration_wrapper.sh** produce scripts for MC sample production and submit them to run on HT Condor. Make the appropirate changes at
 [Set Higgs pT threshold point and sample file number range](https://github.com/siddhesh86/htoaa/blob/50d733bfe8790a526f168617b98b51b9e5b8ba4c/MCGeneration_wrapper.sh#L15-L29).
 

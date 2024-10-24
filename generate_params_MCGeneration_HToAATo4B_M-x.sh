@@ -15,16 +15,11 @@ HiggsPtMinList=(150)
 
 ## "a" boson mass points
 #mApoints=(12 15 20 25 30 35 40 45 50 55 60)
-#mApoints=(8.5 9.0 9.5 10.0 10.5 11.0 11.5 12.5 13.0 13.5 14.0 16.0 17.0 18.5 21.5 23.0 27.5 32.5 37.5 42.5 47.5 52.5 57.5 62.5)
-mApoints=(47.5)
+mApoints=(8.5 9.0 9.5 10.0 10.5 11.0 11.5 12.5 13.0 13.5 14.0 16.0 17.0 18.5 21.5 23.0 27.5 32.5 37.5 42.5 47.5 52.5 57.5 62.5)
+#mApoints=(47.5)
 
 # Decay width of a-boson
-wA=0 # 0 for narrow A width sample. 10 or 70 for broader A width samples. <<<<<<<<<< IMPORTANT <<<<<<<<<<<<<<
-
-# set first (SampleNumber_First) to last (SampleNumber_Last) MC sample file numbers to be produced in this round of submission/execution.
-SampleNumber_First=0
-SampleNumber_Last=0
-
+wA=0 # 0 for narrow A width sample. 10 or 70 for broader A width samples. 
 
 ## Dataset ERA
 #ERA="RunIISummer20UL17" # Options: "RunIISummer20UL18", "RunIISummer20UL17", "RunIISummer20UL16", "RunIISummer20UL16APV"
@@ -33,6 +28,11 @@ Eras=("RunIISummer20UL18"
 	  "RunIISummer20UL16"
 	  "RunIISummer20UL16APV")
 #Eras=("RunIISummer20UL18")
+
+# set first (SampleNumber_First) to last (SampleNumber_Last) MC sample file numbers to be produced in this round of submission/execution.
+SampleNumber_First=0
+SampleNumber_Last=0
+
 #NEvents=500 # NEvents set as per HiggsPtMin below
 #NEvents=10
 
@@ -79,7 +79,7 @@ do
 				NEvents=30        
 			fi
 
-			NEvents=10
+			#NEvents=10 # for test purpose
 
 			for (( iSample=${SampleNumber_First}; iSample<=${SampleNumber_Last}; iSample++ ))
 			do
