@@ -47,6 +47,14 @@ voms-proxy-init -voms cms -rfc -valid 192:00 --out ~/x509Proxy
 condor_submit condor_submit_MCGeneration_HToAATo4B_M-x_cmsconnect.sh 
 ```
 
+### Monitoring the MC production
+Command to monitor the status of the submitted HT Condor jobs:
+```
+condor_q
+```
+
+Once all the submitted jobs are done (as when 'condor_q' command show no running/submitted job), it would be easier to check the jobs' sucess status by counting the number of MiniAOD or NanoAOD files produce.
+
 MiniAOD and NanoAOD files of the MC samples generated in these HT Condor jobs are copied to lxplus. Output paths on lxplus are set [here](https://github.com/siddhesh86/htoaa/blob/1849ecf62d5352f3ecebbe932acd3ba5c909f5df/condor_exec_MCGeneration_HToAATo4B_M-x.sh#L176-L178). 
 Depending up on sample name and data taking era, miniAOD files output path on lxplus would be like
 ```
