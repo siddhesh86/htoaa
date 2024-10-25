@@ -3,12 +3,12 @@
 ### USERS settings ------------------------------------------------------------------------------------
 
 ## Higgs production mode
-prodmodes=("SUSY_GluGluH_01J_HToAATo4B"
-           "SUSY_VBFH_HToAATo4B"
-           "SUSY_WH_WToAll_HToAATo4B"
-           "SUSY_ZH_ZToAll_HToAATo4B"
-           "SUSY_TTH_TTToAll_HToAATo4B")
-#prodmodes=("SUSY_VBFH_HToAATo4B")
+#prodmodes=("SUSY_GluGluH_01J_HToAATo4B"
+#           "SUSY_VBFH_HToAATo4B"
+#           "SUSY_WH_WToAll_HToAATo4B"
+#           "SUSY_ZH_ZToAll_HToAATo4B"
+#           "SUSY_TTH_TTToAll_HToAATo4B")
+prodmodes=("SUSY_VBFH_HToAATo4B")
 
 #HiggsPtMinList=(150 250 350 450)
 HiggsPtMinList=(150)
@@ -23,15 +23,15 @@ wA=0 # 0 for narrow A width sample. 10 or 70 for broader A width samples.
 
 ## Dataset ERA
 #ERA="RunIISummer20UL17" # Options: "RunIISummer20UL18", "RunIISummer20UL17", "RunIISummer20UL16", "RunIISummer20UL16APV"
-Eras=("RunIISummer20UL18"
-	  "RunIISummer20UL17"
-	  "RunIISummer20UL16"
-	  "RunIISummer20UL16APV")
-#Eras=("RunIISummer20UL18")
+#Eras=("RunIISummer20UL18"
+#	  "RunIISummer20UL17"
+#	  "RunIISummer20UL16"
+#	  "RunIISummer20UL16APV")
+Eras=("RunIISummer20UL18")
 
 # set first (SampleNumber_First) to last (SampleNumber_Last) MC sample file numbers to be produced in this round of submission/execution.
 SampleNumber_First=0
-SampleNumber_Last=0
+SampleNumber_Last=99
 
 #NEvents=500 # NEvents set as per HiggsPtMin below
 #NEvents=10

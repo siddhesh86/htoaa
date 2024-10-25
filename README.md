@@ -1,7 +1,7 @@
 # Production of large width H->aa samples
 
 This private H->aa->4b MC generation setup has been tested on lxplus and cms-connect. Refer [cmsconnect](#to-run-on-cms-connect) or [lxplus](#to-run-on-lxplus) section depending up on your need. 
-For MC sample production for the boosted H->aa->4b analysis, refer  [cmsconnect](## To run on cms-connect) section.
+For MC sample production for the boosted H->aa->4b analysis, refer  [cmsconnect](#to-run-on-cms-connec) section.
 
 ## Set up account on cms-connect:
 Sign in to cms-connect account on [https://connect.uscms.org/](https://connect.uscms.org/). You need to provide your (US) institute details. More information about cms-connect can be found on [CMSConnect twiki](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookCMSConnect).
@@ -46,6 +46,18 @@ To submit HTCondor jobs:
 voms-proxy-init -voms cms -rfc -valid 192:00 --out ~/x509Proxy
 condor_submit condor_submit_MCGeneration_HToAATo4B_M-x_cmsconnect.sh 
 ```
+
+MiniAOD and NanoAOD files of the MC samples generated in these HT Condor jobs are copied to lxplus. Output paths on lxplus are set [here](https://github.com/siddhesh86/htoaa/blob/1849ecf62d5352f3ecebbe932acd3ba5c909f5df/condor_exec_MCGeneration_HToAATo4B_M-x.sh#L176-L178). 
+Depending up on sample name and data taking era, miniAOD files output path on lxplus would be like
+```
+/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/2018/MC/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-10.0_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/*/MiniAOD*_nEvents500.root
+```
+and nanoAOD files
+```
+/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/2018/MC/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18NanoAODv9/*/NanoAOD*_nEvents500.root.root
+```
+
+Count the number of MiniAOD (or NanoAOD) files produced so far, say k, and estimate the number of events produced as k x 500. Submit a few more jobs (by updating [SampleNumber_First and SampleNumber_Last](https://github.com/siddhesh86/htoaa/blob/1849ecf62d5352f3ecebbe932acd3ba5c909f5df/generate_params_MCGeneration_HToAATo4B_M-x.sh#L33-L34)) for the required 'a' boson mass points to produce the targetted total number of events for the MC samples.
 
 
 
