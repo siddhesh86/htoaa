@@ -39,7 +39,12 @@ Run generate_params_MCGeneration_HToAATo4B_M-x.sh to generate new params_MCGener
 source generate_params_MCGeneration_HToAATo4B_M-x.sh
 ```
 
-Edit 'condor_submit_MCGeneration_HToAATo4B_M-x_cmsconnect.sh' file if you want to change HTCondor job submission parameters. Mostly you would not need to do it.
+Edit 'condor_submit_MCGeneration_HToAATo4B_M-x_cmsconnect.sh' file if you want to change HTCondor job submission parameters. 
+Depending up on your institute or project you choose in creating cms-connect account, you **might** need to update the [following line](https://github.com/siddhesh86/htoaa/blob/d13064b084d0d9d951dec8aa29428a68edfe7452/condor_submit_MCGeneration_HToAATo4B_M-x_cmsconnect.sh#L48):
+```
++ProjectName="cms.org.baylor"    -->    +ProjectName="cms.org.cern"
+
+```
 
 To submit HTCondor jobs:
 ```
