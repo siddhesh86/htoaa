@@ -8,7 +8,8 @@
 #           "SUSY_WH_WToAll_HToAATo4B"
 #           "SUSY_ZH_ZToAll_HToAATo4B"
 #           "SUSY_TTH_TTToAll_HToAATo4B")
-prodmodes=("SUSY_VBFH_HToAATo4B")
+#prodmodes=("SUSY_TTH_TTToAll_HToAATo4B")
+prodmodes=("SUSY_GluGluH_01J_HToAATo4B")
 
 #HiggsPtMinList=(150 250 350 450)
 HiggsPtMinList=(150)
@@ -28,15 +29,59 @@ wA=0 # 0 for narrow A width sample. 10 or 70 for broader A width samples.
 #	  "RunIISummer20UL17"
 #	  "RunIISummer20UL16"
 #	  "RunIISummer20UL16APV")
-Eras=("RunIISummer20UL18")
+#Eras=("RunIISummer20UL18")
+Eras=("RunIISummer20UL17")
 
 # set first (SampleNumber_First) to last (SampleNumber_Last) MC sample file numbers to be produced in this round of submission/execution.
-SampleNumber_First=0
-SampleNumber_Last=99
+SampleNumber_First=500
+SampleNumber_Last=799
 
 #NEvents=500 # NEvents set as per HiggsPtMin below
 #NEvents=10
 
+
+#prodmodes=("SUSY_TTH_TTToAll_HToAATo4B")
+#Eras=("RunIISummer20UL18")
+#mApoints=(37.5 42.5 47.5)
+#SampleNumber_First=500
+#SampleNumber_Last=649
+
+#prodmodes=("SUSY_TTH_TTToAll_HToAATo4B")
+#Eras=("RunIISummer20UL18")
+#mApoints=(32.5)
+#SampleNumber_First=600 #500
+#SampleNumber_Last=699 #599
+
+#prodmodes=("SUSY_TTH_TTToAll_HToAATo4B")
+#Eras=("RunIISummer20UL18")
+#mApoints=(52.5)
+#SampleNumber_First=500
+#SampleNumber_Last=559
+
+prodmodes=("SUSY_GluGluH_01J_HToAATo4B")
+Eras=("RunIISummer20UL17")
+#mApoints=(11.0 11.5 12.5 13.0 13.5 14.0 16.0 17.0 18.5 21.5 23.0 27.5 32.5 37.5 42.5 47.5 52.5 57.5 62.5)
+#SampleNumber_First=500
+#SampleNumber_Last=799
+mApoints=(11.0)
+SampleNumber_First=800
+SampleNumber_Last=880
+
+#prodmodes=("SUSY_GluGluH_01J_HToAATo4B")
+#Eras=("RunIISummer20UL16")
+#mApoints=(11.0 11.5 12.5 13.0 13.5 14.0 16.0 17.0 18.5 21.5 23.0 27.5 32.5 37.5 42.5 47.5 52.5 57.5 62.5)
+#SampleNumber_First=0
+#SampleNumber_Last=320
+
+prodmodes=("SUSY_GluGluH_01J_HToAATo4B")
+Eras=("RunIISummer20UL16APV")
+#mApoints=(11.0 11.5 12.5 13.0 13.5 14.0 16.0 17.0 18.5 21.5 23.0 27.5 32.5 37.5 42.5 47.5 52.5 57.5 62.5)
+#SampleNumber_First=0
+#SampleNumber_Last=320
+mApoints=(11.0)
+SampleNumber_First=321
+SampleNumber_Last=370
+	  
 ### USERS settings ENDS --------------------------------------------------------------------------------
 
 ### Information
