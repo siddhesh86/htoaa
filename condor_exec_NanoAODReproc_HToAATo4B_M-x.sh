@@ -57,6 +57,7 @@ echo "dasgoclient --query=\"dataset=/ZeroBias*/*Run2022C*/*\" : "
 dasgoclient --query="dataset=/ZeroBias*/*Run2022C*/*" 
 
 # Set input variables :
+printf "Print all input arguments: $@"
 prodmode=$2
 HiggsPtMin=$3
 mA=$4
@@ -64,8 +65,13 @@ wA=$5
 ERA=$6
 NEvents=$7
 iSample=$8
+fMiniAODs=$9
 #XRootDRedirector=$9
 #MadgraphGridpackSample_EosFileName=${10}
+
+printf "\n ls ${fMiniAODs}: ${ls $fMiniAODs} \n"
+fMiniAODs=$(basename $fMiniAODs)
+printf "\n ls ${fMiniAODs}: ${ls $fMiniAODs} \n"
 
 
 ### Settings -----------------------------------------------------------------------------------------------------------
@@ -97,7 +103,7 @@ fi
 
 #fIpMiniAODSamples="miniAOD_files/miniAODs_SUSY_GluGluH_01J_HToAATo4B_Pt150_M-57.5_2018.txt"
 #fIpMiniAODSamples="miniAOD_files/miniAODs_${prodmode}_Pt${HiggsPtMin}_M-${mA}_${EraYear}.txt"
-fIpMiniAODSamples="miniAOD_files/test.txt"
+fIpMiniAODSamples=${fMiniAODs} #"miniAOD_files/test.txt"
 
 ## Input file:
 XRootDRedirector="xrootd-cms.infn.it"

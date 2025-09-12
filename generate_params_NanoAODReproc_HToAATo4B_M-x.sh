@@ -59,6 +59,19 @@ rm ${sFParams}
 ## Data taking years
 for ERA in "${Eras[@]}"
 do
+	
+	EraYear=2018
+	## ERA: RunIISummer20UL18, RunIISummer20UL17, RunIISummer20UL16, RunIISummer20UL16APV
+	if   [[ ${ERA} == *"16"*  && ${ERA} == *"APV"* ]]; then 
+		EraYear="2016APV"
+	elif [[ ${ERA} == *"16"* ]]; then 
+		EraYear="2016"
+	elif [[ ${ERA} == *"17"* ]]; then
+		EraYear=2017
+	elif [[ ${ERA} == *"18"* ]]; then
+		EraYear=2018
+	fi
+
 	## Loop over all Higgs production modes
 	for prod in "${prodmodes[@]}"
 	do
@@ -83,6 +96,9 @@ do
 
 			#NEvents=10 # for test purpose
 
+			# miniAOD_files/miniAODs_SUSY_GluGluH_01J_HToAATo4B_Pt150_M-11.5_2018.txt
+			fMiniAODlist="miniAOD_files/miniAODs_${prod}_Pt${HiggsPtMin}_M-${mA}_${EraYear}.txt" 
+
 			for (( iSample=${SampleNumber_First}; iSample<=${SampleNumber_Last}; iSample++ ))
 			do
 			if (( $(echo "$wA < 0.5" |bc -l) )); then 
@@ -92,7 +108,7 @@ do
 				# /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_M-47.5_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz
 				sIpFile="/store/user/ssawant/mc/${prod}_M-${mA}_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz"
 				#printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${XRootDRedirector}, ${sIpFile}, ${UserName}\n" >> ${sFParams}
-				printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${UserName}\n" >> ${sFParams}
+				printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${UserName} ${fMiniAODlist}\n" >> ${sFParams}
 			else
 				## Broader width signal samples
 				# /eos/cms/store/user/ssawant/mc/SUSY_GluGluH_01J_HToAATo4B_mH-70_mA-12_wH-70_wA-10_0_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz

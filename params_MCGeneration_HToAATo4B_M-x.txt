@@ -1,1 +1,1 @@
-SUSY_GluGluH_01J_HToAATo4B, 150, 13.5, 0, RunIISummer20UL18, 500, 0, ssawant
+SUSY_GluGluH_01J_HToAATo4B, 150, 47.5, 0, RunIISummer20UL18, 500, 0, ssawant miniAOD_files/miniAODs_SUSY_GluGluH_01J_HToAATo4B_Pt150_M-47.5_2018.txt

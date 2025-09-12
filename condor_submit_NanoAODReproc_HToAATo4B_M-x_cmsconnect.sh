@@ -20,10 +20,10 @@ X509_USER_PROXY=/home/$(UserName)/$(Proxy_filename)
 
 Executable = condor_exec_NanoAODReproc_HToAATo4B_M-x.sh
 #Arguments = $(X509_USER_PROXY) $(prodmode) $(HiggsPtMin) $(mA) $(DatasetERA) $(nEvents) $(iSample) $(XRootDRedirector) $(ipFile)
-Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(mA) $(wA) $(DatasetERA) $(nEvents) $(iSample) 
+Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(mA) $(wA) $(DatasetERA) $(nEvents) $(iSample) $(fMiniAODs)
 
 
-transfer_input_files = $(X509_USER_PROXY), $(ConfigGEN), $(ConfigWmLHEGEN), $(ConfigSIM), $(ConfigDIGIPremix), $(ConfigHLT), $(ConfigRECO), $(ConfigMiniAOD), $(ConfigNanoAOD), $(ConfigNanoAODCustom), $(ConfigNanoAODCustom1)  
+transfer_input_files = $(X509_USER_PROXY), $(ConfigGEN), $(ConfigWmLHEGEN), $(ConfigSIM), $(ConfigDIGIPremix), $(ConfigHLT), $(ConfigRECO), $(ConfigMiniAOD), $(ConfigNanoAOD), $(ConfigNanoAODCustom), $(ConfigNanoAODCustom1), $(fMiniAODs)  
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 
@@ -70,4 +70,4 @@ Requirements = HAS_SINGULARITY == True
 #+MaxRuntime = 86400 
 
 #Queue prodmode, HiggsPtMin, mA, wA, DatasetERA, nEvents, iSample, XRootDRedirector, ipFile, UserName from params_MCGeneration_HToAATo4B_M-x.txt
-Queue prodmode, HiggsPtMin, mA, wA, DatasetERA, nEvents, iSample, UserName from params_MCGeneration_HToAATo4B_M-x.txt
+Queue prodmode, HiggsPtMin, mA, wA, DatasetERA, nEvents, iSample, UserName, fMiniAODs from params_MCGeneration_HToAATo4B_M-x.txt
