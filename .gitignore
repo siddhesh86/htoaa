@@ -11,3 +11,4 @@ condor_submit_MCGeneration_HToAATo4B_M-x_tmp.sh
 condor_exec.exe
 .LOG_.gwms-user-job-wrapper.sh.*.txt
 *~
+localhost:1080
