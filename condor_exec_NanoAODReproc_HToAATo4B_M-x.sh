@@ -69,9 +69,9 @@ fMiniAODs=$9
 #XRootDRedirector=$9
 #MadgraphGridpackSample_EosFileName=${10}
 
-printf "\n ls ${fMiniAODs}: ${ls $fMiniAODs} \n"
+printf "\n ls ${fMiniAODs}: $(ls $fMiniAODs) \n"
 fMiniAODs=$(basename $fMiniAODs)
-printf "\n ls ${fMiniAODs}: ${ls $fMiniAODs} \n"
+printf "\n ls ${fMiniAODs}: $(ls $fMiniAODs) \n"
 
 
 ### Settings -----------------------------------------------------------------------------------------------------------
