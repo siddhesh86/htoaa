@@ -3,6 +3,9 @@
 #inputFile=${1}
 inputFilesList=${1}
 outputFile=${2}
+EraYear=${3}
+
+printf "\n\ngenerate_RunIISummer20UL18NanoAODv9Customv2.sh:: ${inputFilesList}, ${outputFile}, ${EraYear} \n"
 
 githubUsername=siddhesh86
 
@@ -79,18 +82,18 @@ scram b -j 6
 
 cd $Dir0
 
-printf "\npwd: $(pwd) \nls:\n $(ls) \n cp CMSSW_10_6_30/src/PhysicsTools/NanoAODTools/crab_haa4b_NanoAOD_2018_mc/Nano_Hto4bPlus_2018MC_cfg.py .: \n"; 
-cp CMSSW_10_6_30/src/PhysicsTools/NanoAODTools/crab_haa4b_NanoAOD_2018_mc/Nano_Hto4bPlus_2018MC_cfg.py .
-sed -i "s|fileNames = cms.untracked.vstring(in_files),|fileNames = cms.untracked.vstring(${inputFilesList}),|g" Nano_Hto4bPlus_2018MC_cfg.py
-sed -i "s|PNet_v1.root|${outputFile}|g" Nano_Hto4bPlus_2018MC_cfg.py
-printf "\npwd: $(pwd) \nls:\n $(ls) \n\n cat Nano_Hto4bPlus_2018MC_cfg.py: \n"; 
-cat Nano_Hto4bPlus_2018MC_cfg.py
-printf "\npwd: $(pwd) \nls:\n $(ls) \n\n cmsRun Nano_Hto4bPlus_2018MC_cfg.py: \n"; 
-cmsRun Nano_Hto4bPlus_2018MC_cfg.py
-printf "\npwd: $(pwd) \nls:\n $(ls) \n\n DONE cmsRun Nano_Hto4bPlus_2018MC_cfg.py **** \n"; 
+printf "\npwd: $(pwd) \nls:\n $(ls) \n cp CMSSW_10_6_30/src/PhysicsTools/NanoAODTools/crab_haa4b_NanoAOD_${EraYear}_mc/Nano_Hto4bPlus_${EraYear}MC_cfg.py .: \n"; 
+cp CMSSW_10_6_30/src/PhysicsTools/NanoAODTools/crab_haa4b_NanoAOD_${EraYear}_mc/Nano_Hto4bPlus_${EraYear}MC_cfg.py .
+sed -i "s|fileNames = cms.untracked.vstring(in_files),|fileNames = cms.untracked.vstring(${inputFilesList}),|g" Nano_Hto4bPlus_${EraYear}MC_cfg.py
+sed -i "s|PNet_v1.root|${outputFile}|g" Nano_Hto4bPlus_${EraYear}MC_cfg.py
+printf "\npwd: $(pwd) \nls:\n $(ls) \n\n cat Nano_Hto4bPlus_${EraYear}MC_cfg.py: \n"; 
+cat Nano_Hto4bPlus_${EraYear}MC_cfg.py
+printf "\npwd: $(pwd) \nls:\n $(ls) \n\n cmsRun Nano_Hto4bPlus_${EraYear}MC_cfg.py: \n"; 
+cmsRun Nano_Hto4bPlus_${EraYear}MC_cfg.py
+printf "\npwd: $(pwd) \nls:\n $(ls) \n\n DONE cmsRun Nano_Hto4bPlus_${EraYear}MC_cfg.py **** \n"; 
 
-printf "\npwd: $(pwd) \nls:\n $(ls) \n cp CMSSW_10_6_30/src/PhysicsTools/NanoAODTools/crab_haa4b_NanoAOD_2018_mc/Hto4b_postproc.py .: \n"; 
-cp CMSSW_10_6_30/src/PhysicsTools/NanoAODTools/crab_haa4b_NanoAOD_2018_mc/Hto4b_postproc.py .
+printf "\npwd: $(pwd) \nls:\n $(ls) \n cp CMSSW_10_6_30/src/PhysicsTools/NanoAODTools/crab_haa4b_NanoAOD_${EraYear}_mc/Hto4b_postproc.py .: \n"; 
+cp CMSSW_10_6_30/src/PhysicsTools/NanoAODTools/crab_haa4b_NanoAOD_${EraYear}_mc/Hto4b_postproc.py .
 sed -i "s|PNet_v1.root|${outputFile}|g" Hto4b_postproc.py
 sed -i "s|runLocally = False|runLocally = True|g" Hto4b_postproc.py
 printf "\npwd: $(pwd) \nls:\n $(ls) \n\n cat Hto4b_postproc.py: \n"; 
