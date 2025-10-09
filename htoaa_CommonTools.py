@@ -55,7 +55,8 @@ def calculate_deltaPhi(phi1, phi2):
     return (phi1 - phi2 + np.pi) % (2 * np.pi) - np.pi
 
 def calculate_AbsDeltaPhi(phi1, phi2):
-    return calculate_deltaPhi(phi1, phi2)
+    #return calculate_deltaPhi(phi1, phi2)
+    return np.absolute(calculate_deltaPhi(phi1, phi2))
 
 
 def getSampleHTRange(sample_datasetNameFull):
@@ -528,25 +529,27 @@ def selectMETFilters(flags_list, era, isMC):
 def selectFatJets(FatJets, pT_Thsh=170, eta_Thsh=2.4, Msd_Thsh=20, JetID=6, shift_syst=None):
 
     maskJetsSelected = (
-        (FatJets.pt_toUse  >  pT_Thsh)    &
-        (abs(FatJets.eta)  <  eta_Thsh)   &
-        (FatJets.msoftdrop >  Msd_Thsh)   &
-        (FatJets.jetId     >= int(JetID)) 
+        (FatJets.pt_toUse      >  pT_Thsh)    &
+        (abs(FatJets.eta)      <  eta_Thsh)   &
+        (FatJets.msoftdrop_nom >  Msd_Thsh)   &
+        (FatJets.jetId         >= int(JetID)) 
     )
     return FatJets[maskJetsSelected]
 
 
-def getCandidateHiggs(FatJets, Xbb_Thsh=0):
+def getCandidateHiggs(FatJets, Xbb_Thsh=0, pT_Thsh=250):
     if 'particleNetMD_XbbvsQCD' not in FatJets.fields:
         logging.error(f'htoaa_CommonTools::getCandidateHiggs():: FatJet has no "particleNetMD_XbbvsQCD" branch. \n{FatJets.fields = }\n The code is not compatible with the input NanoAODs. \t\t **** ERROR **** \n\n')
         exit(0)
 
     maskJetsSelected = (
+        (FatJets.pt_toUse               >  pT_Thsh)    &
         (FatJets.particleNetMD_XbbvsQCD > Xbb_Thsh)
     )
     candHs = FatJets[maskJetsSelected]
     if 'PNet_X4b_v2a_Haa34b_score' in FatJets.fields: # NanoAOD v2
-        candHs_PNet_X4b_v2_Haa34b = candHs.PNet_X4b_v2a_Haa34b_score + candHs.PNet_X4b_v2b_Haa34b_score
+        #candHs_PNet_X4b_v2_Haa34b = candHs.PNet_X4b_v2a_Haa34b_score + candHs.PNet_X4b_v2b_Haa34b_score
+        candHs_PNet_X4b_v2_Haa34b = 0.5*(candHs.PNet_X4b_v2a_Haa4b_score + candHs.PNet_X4b_v2b_Haa4b_score)
         idx_candHs_PNet_X4b_v2_Haa34b_max = ak.argmax(candHs_PNet_X4b_v2_Haa34b, axis=-1, keepdims=True)
         candH = ak.firsts(candHs[idx_candHs_PNet_X4b_v2_Haa34b_max])
 
@@ -1739,6 +1742,10 @@ def get_L1TPrefiringWgt(L1PreFiringWeight):
     return wgt_L1TPrefiring_dict
     
     
+def get_QCDPtWgt(pt_HiggsCandidateAK8Jet):
+    return 0.11697 + np.exp(-3.311E-04 * pt_HiggsCandidateAK8Jet)
+
+
 def selGenPartsWithStatusFlag(GenPart_StatusFlags_list, statusFlag_toSelect):  
     # Check if statusFlag_toSelect th bit is 1 in binary version of GenPart_StatusFlags
     return ( GenPart_StatusFlags_list & (2 ** int(statusFlag_toSelect)) ) > 0  
