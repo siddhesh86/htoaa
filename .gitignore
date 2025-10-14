@@ -1,5 +1,5 @@
 tmp1/
-__pycache__/
+1;95;0c__pycache__/
 *.log
 *.out
 *.error
@@ -14,3 +14,4 @@ corrections/*.root
 .vscode/settings.json
 test.py
 test.root
+localhost:1080

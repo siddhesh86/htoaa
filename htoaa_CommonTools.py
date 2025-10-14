@@ -917,7 +917,13 @@ def getHiggsPtRewgtForGGH_HToAATo4B(GenHiggsPt_list): # GenHiggsPt_list
         "HiggsPtRewgt %s %s" % (
             Corrections['HiggsPtRewgt']['GGH_HToAATo4B']['histogramName'],
             Corrections['HiggsPtRewgt']['GGH_HToAATo4B']['inputFile']
-            )
+            ),
+
+        "HiggsPtRewgtUncertainty %s %s" % (
+            Corrections['HiggsPtRewgt']['GGH_HToAATo4B']['histogramNameForUncertainty'],
+            Corrections['HiggsPtRewgt']['GGH_HToAATo4B']['inputFile']
+            ),
+        
         ])    
     extractor_.finalize()
     evaluator_ = extractor_.make_evaluator()
@@ -939,10 +945,13 @@ def getHiggsPtRewgtForGGH_HToAATo4B(GenHiggsPt_list): # GenHiggsPt_list
     ) 
 
     wgt_HiggsPt            = evaluator_['HiggsPtRewgt'](Higgs_pt_toUse)
+    wgtUncert_HiggsPt      = evaluator_['HiggsPtRewgtUncertainty'](Higgs_pt_toUse)
 
     # Up: wgt^2
-    wgt_HiggsPtSystVarUp   = np.ones_like(wgt_HiggsPt)
-    wgt_HiggsPtSystVarDown = wgt_HiggsPt * wgt_HiggsPt
+    #wgt_HiggsPtSystVarUp   = np.ones_like(wgt_HiggsPt)
+    #wgt_HiggsPtSystVarDown = wgt_HiggsPt * wgt_HiggsPt
+    wgt_HiggsPtSystVarUp   = wgt_HiggsPt * wgtUncert_HiggsPt
+    wgt_HiggsPtSystVarDown = wgt_HiggsPt / wgtUncert_HiggsPt
 
     #printVariable('htoaa_CommonTools::getHiggsPtRewgtForGGH_HToAATo4B(): ', ak.zip([GenHiggsPt_list, wgt_HiggsPt, wgt_HiggsPtSystVarUp, wgt_HiggsPtSystVarDown]))
 

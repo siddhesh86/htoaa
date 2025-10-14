@@ -890,7 +890,8 @@ Corrections = {
     "HiggsPtRewgt": {
         "GGH_HToAATo4B": {
             'inputFile':     'data/correction/mc/HiggsPtRewgt/2018/ggHHiggsPtRewgt_HToAATo4B_TH1D.root', #'/eos/cms/store/user/ssawant/htoaa/analysis/HiggsPtRewgts/2018/ggHHiggsPtRewgt_HToAATo4B.root', 
-            'histogramName': 'hGenHiggsPt_Nom_Wgt_Hqt',
+            'histogramName':               'hGenHiggsPt_Nom_Wgt_Hqt',
+            'histogramNameForUncertainty': 'hGenHiggsPt_Nom_Wgt_NLO_to_Hqt',
             'xAxisRange': [20, 800], # pT(GenHiggs)
         },
         "VBFH_HToAATo4B": {
@@ -1074,6 +1075,12 @@ SystNameConvs = {
     'METJES':             'CMS_scale_met_$YEAR', 
     'METJER':             'CMS_res_met_$YEAR', 
     'METUnclE':           'CMS_scale_met_unclustered_energy_$YEAR', 
+
+    'HiggsJMS':           'CMS_NPS25005_scale_fj_massH_$YEAR',
+    'HiggsJMR':           'CMS_NPS25005_res_fj_massH_$YEAR',
+    'aBosonJMS':          'CMS_NPS25005_scale_fj_massA_$YEAR',
+    'aBosonJMR':          'CMS_NPS25005_res_fj_massA_$YEAR',
+    
 
     ## Theoretical 
     'ggHPtRewgt':         'higgs_pt_reweighting_ggH',

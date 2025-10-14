@@ -327,7 +327,7 @@ if __name__ == "__main__":
     os.makedirs( os.path.dirname( os.path.realpath(sFOutHiggsPtRewgt) ), exist_ok=True )
     if os.path.exists(sFOutHiggsPtRewgt): os.remove(sFOutHiggsPtRewgt) # Delete output file if it exists
 
-    if productionMode == 'ggH' and 1==1:
+    if productionMode == 'ggH' and 0==1:
         # Read Hqt Higgs Pt spectrum and store it into histogram
         makeHqt_HiggsPt_Hist(sFInHqtHiggsSpectrum_mTopInfinite, sFOutHqtHiggsHist_mTopInfinite)
         makeHqt_HiggsPt_Hist(sFInHqtHiggsSpectrum_mTopFinite,   sFOutHqtHiggsHist_mTopFinite)
@@ -430,6 +430,7 @@ if __name__ == "__main__":
             ## GGFH NNLO MC (Yihui) histogram
             hGGFH_NNLO = readHistFromFile(sFInHiggsSpectrum_GGH_NNLO, sHistNameShort, nRebinX=nRebinX)
             hGGFH_NNLO.Scale( 1./hGGFH_NNLO.Integral() ) # Normalize Hqt histogram to unit area
+            hGGFH_NNLO.SetName('%s_GGFHTo2B_NNLO' % (hGGFH_NNLO.GetName()))
 
 
             
@@ -519,7 +520,11 @@ if __name__ == "__main__":
                 )
             hGGFHiggsPtReweights_Hqt_stitched_fit = hGGFHiggsPtReweights_Hqt_stitched.Clone('%s_fit'%(hGGFHiggsPtReweights_Hqt_stitched.GetName()))
         
-
+            hGGFHiggsPtReweights_NLO_to_Hqt = makeRatioHist(
+                hNume      = hGGFH_Hqt_stitched, 
+                hDenom     = hHiggsNLO, 
+                sRatioName = '%s_Wgt_NLO_to_Hqt'%(sHistNameShort)
+                )
         
         
         cFitWeights = fitHistogram(
@@ -557,6 +562,8 @@ if __name__ == "__main__":
             #hGGFHTo2B_Stitch.Write()          
             
         hHiggsNLO.Write()
+        if productionMode == 'ggH':
+            hGGFH_NNLO.Write()
 
         hGGFHiggsPtReweights_NLO.Write()
         hGGFHiggsPtReweights_NLO_fit.Write()
@@ -565,6 +572,7 @@ if __name__ == "__main__":
             hGGFH_Hqt_stitched.Write()
             hGGFHiggsPtReweights_Hqt_stitched.Write()
             hGGFHiggsPtReweights_Hqt_stitched_fit.Write()
+            hGGFHiggsPtReweights_NLO_to_Hqt.Write()
             #cCompareSamplesXSNorm.Write()
             #cCompareSamplesXSCumul.Write()
             #cCompareSamplesXSCumul_1.Write()
