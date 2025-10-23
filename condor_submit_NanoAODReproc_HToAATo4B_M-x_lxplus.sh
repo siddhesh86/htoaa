@@ -18,12 +18,12 @@ X509_USER_PROXY=/afs/cern.ch/user/s/$(UserName)/$(Proxy_filename)
 #X509_USER_PROXY=/home/ssawant/$(Proxy_filename)
 #X509_USER_PROXY=/home/$(UserName)/$(Proxy_filename)
 
-Executable = condor_exec_NanoAODReproc_HToAATo4B_M-x.sh
+Executable = condor_exec_NanoAODReproc_HToAATo4B_M-x_lxplus.sh
 #Arguments = $(X509_USER_PROXY) $(prodmode) $(HiggsPtMin) $(mA) $(DatasetERA) $(nEvents) $(iSample) $(XRootDRedirector) $(ipFile)
 Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(mA) $(wA) $(DatasetERA) $(nEvents) $(iSample) $(fMiniAODs)
 
 
-transfer_input_files = $(X509_USER_PROXY), $(ConfigGEN), $(ConfigWmLHEGEN), $(ConfigSIM), $(ConfigDIGIPremix), $(ConfigHLT), $(ConfigRECO), $(ConfigMiniAOD), $(ConfigNanoAOD), $(ConfigNanoAODCustom), $(ConfigNanoAODCustom1), $(fMiniAODs)  
+transfer_input_files = $(X509_USER_PROXY), start_el7_lxplus.sh, $(ConfigGEN), $(ConfigWmLHEGEN), $(ConfigSIM), $(ConfigDIGIPremix), $(ConfigHLT), $(ConfigRECO), $(ConfigMiniAOD), $(ConfigNanoAOD), $(ConfigNanoAODCustom), $(ConfigNanoAODCustom1), $(fMiniAODs)  
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 
@@ -40,13 +40,16 @@ Log = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_mA-$(mA)_wA-$(wA)_$(Da
 # Use "rhel6", "rhel7" or "any" for RedHat6, RedHat7, or any of them, respectively.
 #+REQUIRED_OS = "rhel7"
 #+REQUIRED_OS = "any"
-Requirements = HAS_SINGULARITY == True
+#Requirements = HAS_SINGULARITY == True
 #+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el6:latest"
-+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el7:latest"
+#+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el7:latest"
 #MY.WantOS = "el7"
+#MY.SingularityImage = "/cvmfs/unpacked.cern.ch/gitlab-registry.cern.ch/cms-cat/cmssw-lxplus/cmssw-el7-lxplus:latest/"
+
 
 # +ProjectName is the name of the project reported to the OSG accounting system 
 #+ProjectName="cms.org.baylor"
+#+ProjectName="cms.org.cern"
 
 # Global Pool parameters
 #+DESIRED_Sites = "T3_US_Colorado,T2_US_Caltech,T2_US_Florida,T2_US_MIT,T2_US_Nebraska,T2_US_Vanderbilt,T2_US_Wisconsin,T2_CH_CERN,T1_US_FNAL"
