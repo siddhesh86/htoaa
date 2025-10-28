@@ -11,7 +11,7 @@ ConfigHLT=generate_$(DatasetERA)HLT.sh
 ConfigRECO=generate_$(DatasetERA)RECO.sh
 ConfigMiniAOD=generate_$(DatasetERA)MiniAODv2.sh
 ConfigNanoAOD=generate_$(DatasetERA)NanoAODv9.sh
-ConfigNanoAODCustom=generate_$(DatasetERA)NanoAODv9Customv2.sh
+#ConfigNanoAODCustom=generate_$(DatasetERA)NanoAODv9Customv2.sh
 ConfigNanoAODCustom1=generate_$(DatasetERA)NanoAODv9Customv2p1.sh
 
 X509_USER_PROXY=/afs/cern.ch/user/s/$(UserName)/$(Proxy_filename)
@@ -23,7 +23,7 @@ Executable = condor_exec_NanoAODReproc_HToAATo4B_M-x_lxplus.sh
 Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(mA) $(wA) $(DatasetERA) $(nEvents) $(iSample) $(fMiniAODs)
 
 
-transfer_input_files = $(X509_USER_PROXY), start_el7_lxplus.sh, $(ConfigGEN), $(ConfigWmLHEGEN), $(ConfigSIM), $(ConfigDIGIPremix), $(ConfigHLT), $(ConfigRECO), $(ConfigMiniAOD), $(ConfigNanoAOD), $(ConfigNanoAODCustom), $(ConfigNanoAODCustom1), $(fMiniAODs)  
+transfer_input_files = $(X509_USER_PROXY), start_el7_lxplus.sh, $(ConfigGEN), $(ConfigWmLHEGEN), $(ConfigSIM), $(ConfigDIGIPremix), $(ConfigHLT), $(ConfigRECO), $(ConfigMiniAOD), $(ConfigNanoAOD), $(ConfigNanoAODCustom1), $(fMiniAODs)  
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 

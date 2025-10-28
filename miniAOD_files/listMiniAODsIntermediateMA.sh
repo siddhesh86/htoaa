@@ -29,8 +29,11 @@ wA=0 # 0 for narrow A width sample. 10 or 70 for broader A width samples.
 #	  "RunIISummer20UL17"
 #	  "RunIISummer20UL16"
 #	  "RunIISummer20UL16APV")
-Eras=("RunIISummer20UL18")
+#Eras=("RunIISummer20UL18")
 #Eras=("RunIISummer20UL17")
+Eras=("RunIISummer20UL17"
+	  "RunIISummer20UL16"
+	  "RunIISummer20UL16APV")
 
 fListMiniAODsIntermediateMA="miniAODs"
 
