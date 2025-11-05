@@ -322,7 +322,9 @@ rm -rf ${RECOFile}
 
 
 # NanoAODv9 -------------------------------------------------------------------------
-DatasetType='NanoAODv9'
+#DatasetType='NanoAODv9'
+#DatasetType='NanoAODv9Customv2'
+DatasetType='NanoAODv9Customv2p1'
 inputFile=${MiniAODFile}
 outputFile=${NanoAODFile}
 NEvents_toUse=${NEventsAll}

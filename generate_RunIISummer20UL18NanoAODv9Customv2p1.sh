@@ -10,7 +10,7 @@ printf "\n\ngenerate_RunIISummer20UL18NanoAODv9Customv2p1.sh:: ${inputFilesList}
 githubUsername=siddhesh86
 
 Dir0=$(pwd)
-Dir_CMSSWSrc="/afs/cern.ch/work/s/ssawant/private/htoaa/NanoAODProduction_wPNetHToAATo4B/haa4b_NanoAODv2/r2/CMSSW_10_6_30/src"
+Dir_CMSSWSrc="/afs/cern.ch/work/s/ssawant/private/htoaa/NanoAODProduction_wPNetHToAATo4B/haa4b_NanoAODv2/r2/CMSSW_10_6_30/src" # change it to CMSSW area you used to re-process NanoAODv2
 
 echo "Dir0: $Dir0"
 printf "Dir_CMSSWSrc: ${Dir_CMSSWSrc} \n"
@@ -30,6 +30,7 @@ printf "\npwd: $(pwd) \nls:\n $(ls) \n cp ${Dir_CMSSWSrc}/PhysicsTools/NanoAODTo
 cp ${Dir_CMSSWSrc}/PhysicsTools/NanoAODTools/crab_haa4b_NanoAOD_${EraYear}_mc/Nano_Hto4bPlus_${EraYear}MC_cfg.py .
 sed -i "s|fileNames = cms.untracked.vstring(in_files),|fileNames = cms.untracked.vstring(${inputFilesList}),|g" Nano_Hto4bPlus_${EraYear}MC_cfg.py
 sed -i "s|PNet_v1.root|${outputFile}|g" Nano_Hto4bPlus_${EraYear}MC_cfg.py
+sed -i "s|input = cms.untracked.int32(MAX_EVT)|input = cms.untracked.int32(-1)|g" Nano_Hto4bPlus_${EraYear}MC_cfg.py
 printf "\npwd: $(pwd) \nls:\n $(ls) \n\n cat Nano_Hto4bPlus_${EraYear}MC_cfg.py: \n"; 
 cat Nano_Hto4bPlus_${EraYear}MC_cfg.py
 printf "\npwd: $(pwd) \nls:\n $(ls) \n\n cmsRun Nano_Hto4bPlus_${EraYear}MC_cfg.py: \n"; 
