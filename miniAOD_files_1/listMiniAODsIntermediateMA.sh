@@ -9,7 +9,7 @@ prodmodes=("SUSY_GluGluH_01J_HToAATo4B"
            "SUSY_ZH_ZToAll_HToAATo4B"
            "SUSY_TTH_TTToAll_HToAATo4B")
 #prodmodes=("SUSY_TTH_TTToAll_HToAATo4B")
-prodmodes=("SUSY_GluGluH_01J_HToAATo4B")
+#prodmodes=("SUSY_GluGluH_01J_HToAATo4B")
 
 #HiggsPtMinList=(150 250 350 450)
 HiggsPtMinList=(150)
@@ -18,22 +18,22 @@ HiggsPtMinList=(150)
 #mApoints=(12 15 20 25 30 35 40 45 50 55 60)
 #mApoints=(8.5 9.0 9.5 10.0 10.5 11.0 11.5 12.5 13.0 13.5 14.0 16.0 17.0 18.5 21.5 23.0 27.5 32.5 37.5 42.5 47.5 52.5 57.5 62.5)
 mApoints=(11.0 11.5 12.5 13.0 13.5 14.0 16.0 17.0 18.5 21.5 23.0 27.5 32.5 37.5 42.5 47.5 52.5 57.5 62.5)
-mApoints=(47.5)
+#mApoints=(47.5)
 
 # Decay width of a-boson
 wA=0 # 0 for narrow A width sample. 10 or 70 for broader A width samples. 
 
 ## Dataset ERA
 #ERA="RunIISummer20UL17" # Options: "RunIISummer20UL18", "RunIISummer20UL17", "RunIISummer20UL16", "RunIISummer20UL16APV"
-#Eras=("RunIISummer20UL18"
-#	  "RunIISummer20UL17"
-#	  "RunIISummer20UL16"
-#	  "RunIISummer20UL16APV")
-Eras=("RunIISummer20UL18")
+Eras=("RunIISummer20UL18"
+	  "RunIISummer20UL17"
+	  "RunIISummer20UL16"
+	  "RunIISummer20UL16APV")
+#Eras=("RunIISummer20UL18")
 #Eras=("RunIISummer20UL17")
 
 fListMiniAODsIntermediateMA="miniAODs"
-MaxMiniAODFilesPerSet=20
+MaxMiniAODFilesPerSet=40
 
 ### USERS settings ENDS --------------------------------------------------------------------------------
 

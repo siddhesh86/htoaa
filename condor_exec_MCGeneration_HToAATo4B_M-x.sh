@@ -329,23 +329,25 @@ inputFile=${MiniAODFile}
 outputFile=${NanoAODFile}
 NEvents_toUse=${NEventsAll}
 
-printf "\n\nRun time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} \n"
-time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} 
-printf "\n***Done time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} \n"
-printf "rm -rf CMSSW* \n"
-rm -rf CMSSW*
-
-# NanoAODv9Custom -------------------------------------------------------------------------
-#DatasetType='NanoAODv9Custom'
-#inputFile=${MiniAODFile}
-#outputFile=${NanoAODFile}
-#NEvents_toUse=${NEventsAll}
-
-#printf "\n\nRun time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  \n"
-#time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  
-#printf "\n***Done time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  \n"
+#printf "\n\nRun time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} \n"
+#time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} 
+#printf "\n***Done time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} \n"
 #printf "rm -rf CMSSW* \n"
 #rm -rf CMSSW*
+
+# NanoAODv9Custom -------------------------------------------------------------------------
+#DatasetType='NanoAODv9'
+DatasetType='NanoAODv9Customv2'
+#DatasetType='NanoAODv9Customv2p1'
+inputFile=${MiniAODFile}
+outputFile=${NanoAODFile}
+NEvents_toUse=${NEventsAll}
+
+printf "\n\nRun time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${EraYear}  \n"
+time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${EraYear}
+printf "\n***Done time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${EraYear}  \n"
+printf "rm -rf CMSSW* \n"
+rm -rf CMSSW*
 
 
 

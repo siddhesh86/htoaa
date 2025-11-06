@@ -1,0 +1,3 @@
+/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/2017/MC/SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-47.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL17/0003/MiniAODv2_318_nEvents500.root
+/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/2017/MC/SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-47.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL17/0003/MiniAODv2_319_nEvents500.root
+/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/2017/MC/SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-47.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL17/0003/MiniAODv2_320_nEvents500.root
