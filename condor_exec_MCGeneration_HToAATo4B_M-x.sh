@@ -339,7 +339,8 @@ NEvents_toUse=${NEventsAll}
 #DatasetType='NanoAODv9'
 DatasetType='NanoAODv9Customv2'
 #DatasetType='NanoAODv9Customv2p1'
-inputFile=${MiniAODFile}
+#inputFile=${MiniAODFile}
+inputFile="['file:${MiniAODFile}']"
 outputFile=${NanoAODFile}
 NEvents_toUse=${NEventsAll}
 

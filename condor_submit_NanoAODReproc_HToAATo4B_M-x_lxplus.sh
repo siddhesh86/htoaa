@@ -68,9 +68,9 @@ RequestCpus = 4
 
 #+JobFlavour = "espresso"
 # 7200 # 2*60*60
-+MaxRuntime = 7200
+#+MaxRuntime = 7200
 # 8*60*60 = 28800
-#+MaxRuntime = 28800
++MaxRuntime = 28800
 # 86400 # 24*60*60 
 #+MaxRuntime = 86400 
 
