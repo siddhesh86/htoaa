@@ -262,6 +262,8 @@ histograms_dict = OD([
     ("hnAk4JetsCentral_nonbTag_nonoverlaping_leadingFatJet", {sXLabel: 'No. of non-b central AK4 jets outside H->4b Fatjet', sYLabel: 'Events', sXRange: [-0.5, 6.5] }),
     ("hnAk4JetsCentral_bTag_awayFrom_leadingFatJet", {sXLabel: 'No. of b-tag AK4 jets, dR>1.2 from H->4b Fatjet', sYLabel: 'Events', sXRange: [-0.5, 6.5] }),
     
+    ("hLeadingFatJetPhi_EtaLtm1p1", {sXLabel: r'$\phi$(Higgs candidate AK8 jet, \eta < -1.1)', sYLabel: 'Events', sXRange: [-3.14, 3.14], sNRebinX: 2 }),
+
 
     #("", {sXLabel: '', sYLabel: 'Events'}),
 

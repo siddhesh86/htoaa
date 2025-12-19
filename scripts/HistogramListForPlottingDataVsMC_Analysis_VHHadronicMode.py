@@ -230,6 +230,8 @@ histograms_dict = OD([
     ("hLeadingNonHto4bFatJetPNet_WZvsQCD", {sXLabel: r'W/Z vs QCD tagger score(W/Z candidate AK8 jet)', sYLabel: 'Events', sXRange: [0.95, 1], sNRebinX:  2 }),
     ("hLeadingNonHto4bTopFatJetPNet_TvsQCD", {sXLabel: r'T vs QCD tagger score(Top candidate AK8 jet)', sYLabel: 'Events', sXRange: [0.80, 1], sNRebinX: 20 }),
     
+    ("hLeadingFatJetPhi_EtaLtm1p1", {sXLabel: r'$\phi$(Higgs candidate AK8 jet, \eta < -1.1)', sYLabel: 'Events', sXRange: [-3.14, 3.14], sNRebinX: 2 }),
+    ("hLeadingNonHto4bFatJetPhi_EtaLtm1p1", {sXLabel: r'$\phi$(W/Z candidate AK8 jet, \eta < -1.1)', sYLabel: 'Events', sXRange: [-3.14, 3.14], sNRebinX: 2 }),
 
     #("", {sXLabel: '', sYLabel: 'Events'}),
 ])

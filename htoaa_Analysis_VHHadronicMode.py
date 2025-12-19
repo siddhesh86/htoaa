@@ -71,11 +71,12 @@ from htoaa_CommonTools import (
     getHiggsPtRewgtForWH_HToAATo4B, getHiggsPtRewgtForZH_HToAATo4B,
     getHiggsPtRewgtForTTH_HToAATo4B, 
     getTopPtRewgt, getPURewgts, getHTReweight,
-    getPURewgts_variation, get_jetTriggerSF, get_PSWeight, add_pdf_as_weight, get_QCDScaleWeight,
+    getPURewgts_variation, get_jetTriggerSF, get_PSWeight, add_pdf_as_weight, get_QCDScaleWeight, add_HiggsEW_kFactors,
     get_JER_and_JES,
     get_Ak4BtagSF, get_L1TPrefiringWgt,
     get_PNet_WZvsQCD_EffiSF,
     get_QCDPtWgt,
+    calculatePNet_MassH_MassA_cor_and_syst,
     calculateAverageOfArrays, calculateMaxOfTwoArrays, calculateMaxOfArrays,  array_PutLowerBound,
     ak_drop_none,
     fillCoffeaHist, fillCoffeaHist_1,
@@ -420,6 +421,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 "bjetVetoDR",
             ]),
         ])
+        '''
         self.sel_names_all["Presel_VjjHi"] = [
             "nPV",
             "METFilters",
@@ -456,6 +458,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             "bjetVetoDR",
             "VFatJetPt_VjjLo"
         ]
+        '''
 
         
         if runMode_OptimizePNetTaggerCut:
@@ -518,29 +521,6 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         for sCatName, catSels in categories_dict.items():
             if self.datasetInfo['histogramSaveLevel'] >= 1:
                 self.sel_names_all["%s" % (sCatName)] = catSels
-            
-            if CrossCheckEvtYieldsWithAndrew:
-                self.sel_names_all["%s_SRWP60" % (sCatName)] = catSels + [
-                    "leadingFatJetPNet_Xto4bv1_Htoaa4bOverQCD_WP60"
-                ]    
-            '''        
-            self.sel_names_all["%s_SRWP60" % (sCatName)] = catSels + [
-                "leadingFatJetPNet_Xto4bv1_Htoaa4bOverQCD_WP60"
-            ]
-            self.sel_names_all["%s_SRWP80" % (sCatName)] = catSels + [
-                "leadingFatJetPNet_Xto4bv1_Htoaa4bOverQCD_WP80"
-            ]
-            self.sel_names_all["%s_SBWP80to40" % (sCatName)] = catSels + [
-                "leadingFatJetPNet_Xto4bv1_Htoaa4bOverQCD_WP80to40"
-            ]
-            self.sel_names_all["%s_SBWP95to60" % (sCatName)] = catSels + [
-                "leadingFatJetPNet_Xto4bv1_Htoaa4bOverQCD_WP95to60"
-            ]
-            self.sel_names_all["%s_SBWP99to80" % (sCatName)] = catSels + [
-                "leadingFatJetPNet_Xto4bv1_Htoaa4bOverQCD_WP99to80"
-            ]
-            '''
-
             
             for wp_ in self.objectSelector.FatJetPNetXto4bv2WorkingPoints: 
                 self.sel_names_all["%s_Xto4bv2_SRWP%s" % (sCatName, wp_)] = catSels + [ # signal region
@@ -665,8 +645,6 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         self.systNameAK8JetJER = SystNameConvs['AK8JetJER'].replace('$YEAR', self.datasetInfo["era"]) 
         self.systNameAK4JetJES = SystNameConvs['AK4JetJES'].replace('$YEAR', self.datasetInfo["era"]) 
         self.systNameAK4JetJER = SystNameConvs['AK4JetJER'].replace('$YEAR', self.datasetInfo["era"]) 
-        self.systNameMETJES = SystNameConvs['METJES'].replace('$YEAR', self.datasetInfo["era"]) 
-        self.systNameMETJER = SystNameConvs['METJER'].replace('$YEAR', self.datasetInfo["era"]) 
         self.systNameMETUnclE = SystNameConvs['METUnclE'].replace('$YEAR', self.datasetInfo["era"]) 
         
 
@@ -679,10 +657,14 @@ class HToAATo4bProcessor(processor.ProcessorABC):
 
         self.systNameTopPtReWeight = SystNameConvs['TopPtReWeight']
 
+        self.systNameHiggsJMS  = SystNameConvs['HiggsJMS'].replace('$YEAR', self.datasetInfo["era"])
+        self.systNameHiggsJMR  = SystNameConvs['HiggsJMR'].replace('$YEAR', self.datasetInfo["era"])
+        self.systNameaBosonJMS = SystNameConvs['aBosonJMS'].replace('$YEAR', self.datasetInfo["era"])
+        self.systNameaBosonJMR = SystNameConvs['aBosonJMR'].replace('$YEAR', self.datasetInfo["era"])        
+
         self.systNameISR = SystNameConvs['ISR']
         self.systNameFSR = SystNameConvs['FSR']
-        self.systNameQCDFactr = SystNameConvs['QCDFactr']
-        self.systNameQCDRenorm = SystNameConvs['QCDRenorm']
+        self.systNameQCDScale = SystNameConvs['QCDScale']
         self.systNamePDF = SystNameConvs['PDF']
             
 
@@ -896,10 +878,8 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         ('hEventWeight_QCDPdfUp'+sHExt,                        {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_QCDPdfUp'}),
                         ('hEventWeight_QCDPdfDown'+sHExt,                      {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_QCDPdfDown'}),
                         ('hEventWeight_QCDScale_Nom'+sHExt,                    {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_QCDScale_Nom'}),
-                        ('hEventWeight_QCDScale_RenormUp'+sHExt,               {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_QCDScale_RenormUp'}),
-                        ('hEventWeight_QCDScale_RenormDown'+sHExt,             {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_QCDScale_RenormDown'}),
-                        ('hEventWeight_QCDScale_FactorizationUp'+sHExt,        {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_QCDScale_FactorizationUp'}),
-                        ('hEventWeight_QCDScale_FactorizationDown'+sHExt,      {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_QCDScale_FactorizationDown'}),
+                        ('hEventWeight_QCDScale_Up'+sHExt,               {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_QCDScale_Up'}),
+                        ('hEventWeight_QCDScale_Down'+sHExt,             {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_QCDScale_Down'}),
                         ('hEventWeight_QCDPDFNom'+sHExt,                       {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_QCDPDFNom'}),
                         ('hEventWeight_QCDPDFUp'+sHExt,                        {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_QCDPDFUp'}),
                         ('hEventWeight_QCDPDFDown'+sHExt,                      {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_QCDPDFDown'}),
@@ -954,6 +934,10 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             ('hEventWeight_TTHHiggsPtUp'+sHExt,                      {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_GGHHiggsPtUp'}),
                             ('hEventWeight_TTHHiggsPtDown'+sHExt,                    {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_GGHHiggsPtDown'}),
                             
+                        ]))
+                    if self.datasetInfo['isSignal'] and (not self.datasetInfo['isSignalGGH']) : 
+                        histos.update(OD([
+                            ('hEventWeight_HiggsEW'+sHExt,                        {sXaxis: Weight_axis,    sXaxisLabel: 'hEventWeight_HiggsEW'}),
                         ]))
                     if self.datasetInfo['isQCD_bGen']:
                         histos.update(OD([
@@ -1026,6 +1010,12 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         {sXaxis: mass_axis,       sXaxisLabel: r"LeadingFatJetPNet_massH",
                         sYaxis: mass_axis2,       sYaxisLabel: r"hLeadingFatJetPNet_massA34d"}),                        
                          
+                        ('hLeadingFatJetMassH_v2b'+sHExt,           {sXaxis: mass_axis,        sXaxisLabel: r"m (leading FatJet MassH_v2b) [GeV]"}),
+                        ('hLeadingFatJetPNet_34massAa'+sHExt,       {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_34massAa"}), 
+                        ('hLeadingFatJetPNet_34massAd'+sHExt,       {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_34massAd"}), 
+                        ('hLeadingNonHto4bFatJetMSoftDrop'+sHExt,             {sXaxis: mass_axis,         sXaxisLabel: r"m_{soft drop} (leading NonHto4bFatJet) [GeV]"}),
+                        
+                         
                     ]))
 
 
@@ -1037,6 +1027,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         ('hLeadingFatJetPt'+sHExt,                          {sXaxis: pt_axis,         sXaxisLabel: r"$p_{T}(leading FatJet)$ [GeV]"}),
                         ('hLeadingFatJetEta'+sHExt,                         {sXaxis: eta_axis,        sXaxisLabel: r"\eta (leading FatJet)"}),
                         ('hLeadingFatJetPhi'+sHExt,                         {sXaxis: phi_axis,        sXaxisLabel: r"\phi (leading FatJet)"}),
+                        ('hLeadingFatJetPhi_EtaLtm1p1'+sHExt,               {sXaxis: phi_axis,        sXaxisLabel: r"\phi (leading FatJet) eta < -1.1"}),
                         ('hLeadingFatJetMass'+sHExt,                        {sXaxis: mass_axis,       sXaxisLabel: r"m (leading FatJet) [GeV]"}),
                         ('hLeadingFatJetMSoftDrop'+sHExt,                   {sXaxis: mass_axis,       sXaxisLabel: r"m_{soft drop} (leading FatJet) [GeV]"}),
                         
@@ -1055,7 +1046,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         #
                         #('hLeadingFatJetMassH_v1'+sHExt,                    {sXaxis: mass_axis,       sXaxisLabel: r"m (leading FatJet MassH_1) [GeV]"}),
                         #('hLeadingFatJetMassH_v2a'+sHExt,                   {sXaxis: mass_axis,       sXaxisLabel: r"m (leading FatJet MassH_v2a) [GeV]"}),
-                        ('hLeadingFatJetMassH_v2b'+sHExt,                   {sXaxis: mass_axis,       sXaxisLabel: r"m (leading FatJet MassH_v2b) [GeV]"}),
+                        #('hLeadingFatJetMassH_v2b'+sHExt,                   {sXaxis: mass_axis,       sXaxisLabel: r"m (leading FatJet MassH_v2b) [GeV]"}),
                         #('hLeadingFatJetMassH_v2c'+sHExt,                   {sXaxis: mass_axis,       sXaxisLabel: r"m (leading FatJet MassH_v2c) [GeV]"}),
                         #('hLeadingFatJetMassH_v2d'+sHExt,                   {sXaxis: mass_axis,       sXaxisLabel: r"m (leading FatJet MassH_v2d) [GeV]"}),
                         #('hLeadingFatJetMassH_avg'+sHExt,                   {sXaxis: mass_axis,       sXaxisLabel: r"m (leading FatJet MassH_avg) [GeV]"}),
@@ -1067,10 +1058,10 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         #('hLeadingFatJetPNet_massAd'+sHExt,         {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_massAd"}), 
                         #('hLeadingFatJetPNet_massA_avg'+sHExt,      {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_massA_avg"}), 
                         #('hLeadingFatJetPNet_massA_std'+sHExt,      {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_massA_std"}), 
-                        ('hLeadingFatJetPNet_34massAa'+sHExt,       {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_34massAa"}), 
+                        #('hLeadingFatJetPNet_34massAa'+sHExt,       {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_34massAa"}), 
                         ('hLeadingFatJetPNet_34massAb'+sHExt,       {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_34massAb"}), 
                         #('hLeadingFatJetPNet_34massAc'+sHExt,       {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_34massAc"}), 
-                        ('hLeadingFatJetPNet_34massAd'+sHExt,       {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_34massAd"}), 
+                        #('hLeadingFatJetPNet_34massAd'+sHExt,       {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_34massAd"}), 
                         ('hLeadingFatJetPNet_massA1'+sHExt,         {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_massA1"}), 
                         ('hLeadingFatJetPNet_massA2'+sHExt,         {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_massA2"}), 
                         ('hLeadingFatJetPNet_massAA'+sHExt,         {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetPNet_massAA"}), 
@@ -1081,8 +1072,9 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         ('hLeadingNonHto4bFatJetPt'+sHExt,                    {sXaxis: pt_axis,           sXaxisLabel: r"$p_{T}(leading NonHto4bFatJet)$ [GeV]"}),
                         ('hLeadingNonHto4bFatJetEta'+sHExt,                   {sXaxis: eta_axis,          sXaxisLabel: r"\eta (leading NonHto4bFatJet)"}),
                         ('hLeadingNonHto4bFatJetPhi'+sHExt,                   {sXaxis: phi_axis,          sXaxisLabel: r"\phi (leading NonHto4bFatJet)"}),
+                        ('hLeadingNonHto4bFatJetPhi_EtaLtm1p1'+sHExt,                   {sXaxis: phi_axis,          sXaxisLabel: r"\phi (leading NonHto4bFatJet) for eta < -1.1"}),
                         ('hLeadingNonHto4bFatJetMass'+sHExt,                  {sXaxis: mass_axis,         sXaxisLabel: r"m (leading NonHto4bFatJet) [GeV]"}),
-                        ('hLeadingNonHto4bFatJetMSoftDrop'+sHExt,             {sXaxis: mass_axis,         sXaxisLabel: r"m_{soft drop} (leading NonHto4bFatJet) [GeV]"}),
+                        #('hLeadingNonHto4bFatJetMSoftDrop'+sHExt,             {sXaxis: mass_axis,         sXaxisLabel: r"m_{soft drop} (leading NonHto4bFatJet) [GeV]"}),
                         ('hdPhi_LeadingFJ_LeadingNonHto4bFJ'+sHExt,           {sXaxis: deltaPhi_axis,     sXaxisLabel: r"hdPhi_LeadingFJ_LeadingNonHto4bFJ"}),
                         ('hLeadingNonHto4bFatJetPNet_WZvsQCD'+sHExt,          {sXaxis: mlScore_axis1k,    sXaxisLabel: r"LeadingNonHto4bFatJet_PNet_WZvsQCD"}),
                         ('hLeadingNonHto4bTopFatJetPNet_TvsQCD'+sHExt,        {sXaxis: mlScore_axis1k,    sXaxisLabel: r"LeadingNonHto4bTopFatJetPNet_TvsQCD"}),
@@ -1471,10 +1463,6 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     ] )
                 if stringHasSubstring(self.datasetInfo['systematicsToRun'], ['met', 'full'] ): 
                     systematics_shift.extend( [
-                        self.systNameMETJES+SystNameConvUp,
-                        self.systNameMETJES+SystNameConvDown,
-                        self.systNameMETJER+SystNameConvUp,
-                        self.systNameMETJER+SystNameConvDown,
                         self.systNameMETUnclE+SystNameConvUp,
                         self.systNameMETUnclE+SystNameConvDown,
                     ] )
@@ -1504,8 +1492,6 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         output = self.accumulator.identity()
         dataset = events.metadata["dataset"] # dataset label
         print(f"process_shift():: {shift_syst = } dataset: {dataset}", flush=flushStdout)
-        if stringHasSubstring(self.datasetInfo['systematicsToRun'], ['full'] ): 
-            self.datasetInfo['histogramSaveLevel'] = 0
 
 
         
@@ -1575,19 +1561,19 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             else:                                                                JetsToUse['mass_toUse'] = JetsToUse.mass_nom
 
             # MET pt
-            if   shift_syst == self.systNameMETJES+SystNameConvUp:               METToUse['pt_toUse'] = METToUse.T1_pt_jesTotalUp
-            elif shift_syst == self.systNameMETJES+SystNameConvDown:             METToUse['pt_toUse'] = METToUse.T1_pt_jesTotalDown
-            elif shift_syst == self.systNameMETJER+SystNameConvUp:               METToUse['pt_toUse'] = METToUse.T1_pt_jerUp
-            elif shift_syst == self.systNameMETJER+SystNameConvDown:             METToUse['pt_toUse'] = METToUse.T1_pt_jerDown
+            if   shift_syst == self.systNameAK4JetJES+SystNameConvUp:            METToUse['pt_toUse'] = METToUse.T1_pt_jesTotalUp
+            elif shift_syst == self.systNameAK4JetJES+SystNameConvDown:          METToUse['pt_toUse'] = METToUse.T1_pt_jesTotalDown
+            elif shift_syst == self.systNameAK4JetJER+SystNameConvUp:            METToUse['pt_toUse'] = METToUse.T1_pt_jerUp
+            elif shift_syst == self.systNameAK4JetJER+SystNameConvDown:          METToUse['pt_toUse'] = METToUse.T1_pt_jerDown
             elif shift_syst == self.systNameMETUnclE+SystNameConvUp:             METToUse['pt_toUse'] = METToUse.T1_pt_unclustEnUp
             elif shift_syst == self.systNameMETUnclE+SystNameConvDown:           METToUse['pt_toUse'] = METToUse.T1_pt_unclustEnDown
             elif not self.datasetInfo['isMC']:                                   METToUse['pt_toUse'] = METToUse.T1_pt
             else:                                                                METToUse['pt_toUse'] = METToUse.T1_pt               
             # MET phi
-            if   shift_syst == self.systNameMETJES+SystNameConvUp:               METToUse['phi_toUse'] = METToUse.T1_phi_jesTotalUp
-            elif shift_syst == self.systNameMETJES+SystNameConvDown:             METToUse['phi_toUse'] = METToUse.T1_phi_jesTotalDown
-            elif shift_syst == self.systNameMETJER+SystNameConvUp:               METToUse['phi_toUse'] = METToUse.T1_phi_jerUp
-            elif shift_syst == self.systNameMETJER+SystNameConvDown:             METToUse['phi_toUse'] = METToUse.T1_phi_jerDown
+            if   shift_syst == self.systNameAK4JetJES+SystNameConvUp:            METToUse['phi_toUse'] = METToUse.T1_phi_jesTotalUp
+            elif shift_syst == self.systNameAK4JetJES+SystNameConvDown:          METToUse['phi_toUse'] = METToUse.T1_phi_jesTotalDown
+            elif shift_syst == self.systNameAK4JetJER+SystNameConvUp:            METToUse['phi_toUse'] = METToUse.T1_phi_jerUp
+            elif shift_syst == self.systNameAK4JetJER+SystNameConvDown:          METToUse['phi_toUse'] = METToUse.T1_phi_jerDown
             elif shift_syst == self.systNameMETUnclE+SystNameConvUp:             METToUse['phi_toUse'] = METToUse.T1_phi_unclustEnUp
             elif shift_syst == self.systNameMETUnclE+SystNameConvDown:           METToUse['phi_toUse'] = METToUse.T1_phi_unclustEnDown
             elif not self.datasetInfo['isMC']:                                   METToUse['phi_toUse'] = METToUse.T1_phi
@@ -2160,6 +2146,9 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             Xbb_Thsh = self.objectSelector.FatJetParticleNetMD_XbbvsQCD_Thsh,
             pT_Thsh  = self.objectSelector.FatJetHiggsPt_Thsh
         )
+        # H and a mass systematics: https://docs.google.com/document/d/1E564fD6iu8rHWvVh9Ibgo1mDhaY_Z-QsiDjBK_msoN8/edit?tab=t.0
+        calculatePNet_MassH_MassA_cor_and_syst(leadingFatJet)
+
         LV_leadingFatJet_wMass      = getLorentVector(leadingFatJet, 'pt_toUse', 'eta', 'phi', 'mass_toUse')   
         LV_leadingFatJet_wMsoftdrop = getLorentVector(leadingFatJet, 'pt_toUse', 'eta', 'phi', 'msoftdrop_toUse') 
         if  'PNet_X4b_v2a_Haa34b_score' in leadingFatJet.fields: # NanoAOD v2
@@ -3129,20 +3118,24 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 wgt_VBFHaa_HiggsPt, wgt_VBFHaa_HiggsPtUp, wgt_VBFHaa_HiggsPtDown = getHiggsPtRewgtForVBFH_HToAATo4B(
                     GenHiggsPt_list = genHiggs.pt
                 )
+                EWcorr = add_HiggsEW_kFactors(events.GenPart, dataset = "VBF")
             if self.datasetInfo['isSignalWH']:
                 wgt_WHaa_HiggsPt, wgt_WHaa_HiggsPtUp, wgt_WHaa_HiggsPtDown = getHiggsPtRewgtForWH_HToAATo4B(
                     genHiggs = genHiggs,
                     genW = genW
                 )
+                EWcorr = add_HiggsEW_kFactors(events.GenPart, dataset = "WH")
             if self.datasetInfo['isSignalZH']:
                 wgt_ZHaa_HiggsPt, wgt_ZHaa_HiggsPtUp, wgt_ZHaa_HiggsPtDown = getHiggsPtRewgtForZH_HToAATo4B(
                     genHiggs = genHiggs,
                     genZ = genZ
                 )
+                EWcorr = add_HiggsEW_kFactors(events.GenPart, dataset = "ZH")
             if self.datasetInfo['isSignalTTH']:
                 wgt_TTHaa_HiggsPt, wgt_TTHaa_HiggsPtUp, wgt_TTHaa_HiggsPtDown = getHiggsPtRewgtForTTH_HToAATo4B(
                     GenHiggsPt_list = genHiggs.pt
                 )
+                EWcorr = add_HiggsEW_kFactors(events.GenPart, dataset = "TTH")
 
             # MC QCD_bGen HT reweight ---------------------
             wgt_HT = None
@@ -3194,7 +3187,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             )
 
             # MC QCD alphaS renormalization and factorization uncertainty
-            wgt_QCDScale_Nom, wgt_QCDScale_RenormUp, wgt_QCDScale_RenormDown, wgt_QCDScale_FactorizationUp, wgt_QCDScale_FactorizationDown = get_QCDScaleWeight(
+            wgt_QCDScale_Nom, wgt_QCDScale_Up, wgt_QCDScale_Down = get_QCDScaleWeight(
                 events = events,
                 dataset = self.datasetInfo['datasetName']
             )
@@ -3207,12 +3200,13 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             )
 
             # PNet_WZvsQCD tagger SF
-            wgt_Ak8PNet_WZvsQCDtag_Nom, wgt_Ak8PNet_WZvsQCDtag_Up, wgt_Ak8PNet_WZvsQCDtag_Down = get_PNet_WZvsQCD_EffiSF(
-                pt                      = leadingNonHto4bFatJet.pt_toUse, 
-                eta                     = leadingNonHto4bFatJet.eta, 
-                year                    = self.datasetInfo["era"], 
-                isGenParticleOvlpFatJet = isGenVOvlpVFatJet
-            )
+            if self.datasetInfo['isSignalWH'] or self.datasetInfo['isSignalZH']:
+                wgt_Ak8PNet_WZvsQCDtag_Nom, wgt_Ak8PNet_WZvsQCDtag_Up, wgt_Ak8PNet_WZvsQCDtag_Down = get_PNet_WZvsQCD_EffiSF(
+                    pt                      = leadingNonHto4bFatJet.pt_toUse, 
+                    eta                     = leadingNonHto4bFatJet.eta, 
+                    year                    = self.datasetInfo["era"], 
+                    isGenParticleOvlpFatJet = isGenVOvlpVFatJet
+                )
 
 
             # L1 prefiring
@@ -3317,6 +3311,11 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     weightUp   = copy.deepcopy(wgt_TTHaa_HiggsPtUp),
                     weightDown = copy.deepcopy(wgt_TTHaa_HiggsPtDown)
                 )              
+            if self.datasetInfo['isSignal'] and (not self.datasetInfo['isSignalGGH']) :  
+                weights.add(
+                    "HiggsEW_kFactors",
+                    weight = EWcorr
+                )
             if self.datasetInfo['isQCD_bGen']:
                 weights.add(
                     "HTRewgt",
@@ -3349,17 +3348,11 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 weightDown = copy.deepcopy(wgt_PS_FSRDown)
             )
             weights.add(
-                self.systNameQCDRenorm,
+                self.systNameQCDScale,
                 weight     = copy.deepcopy(wgt_QCDScale_Nom),
-                weightUp   = copy.deepcopy(wgt_QCDScale_RenormUp),
-                weightDown = copy.deepcopy(wgt_QCDScale_RenormDown)
+                weightUp   = copy.deepcopy(wgt_QCDScale_Up),
+                weightDown = copy.deepcopy(wgt_QCDScale_Down)
             )
-            weights.add(
-                self.systNameQCDFactr,
-                weight     = copy.deepcopy(wgt_QCDScale_Nom),
-                weightUp   = copy.deepcopy(wgt_QCDScale_FactorizationUp),
-                weightDown = copy.deepcopy(wgt_QCDScale_FactorizationDown)
-            )            
             weights.add(
                 self.systNamePDF,
                 weight     = copy.deepcopy(wgt_QCDPdfNom),
@@ -3392,7 +3385,14 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     "QCDPtRewgt",
                     weight = copy.deepcopy(wgt_QCDPtRewgt)
                 )
-                
+
+            if self.datasetInfo['isSignalWH'] or self.datasetInfo['isSignalZH']:
+                weights.add(
+                    self.systNameAK8JetPNetWZTag,
+                    weight     = copy.deepcopy(wgt_Ak8PNet_WZvsQCDtag_Nom),
+                    weightUp   = copy.deepcopy(wgt_Ak8PNet_WZvsQCDtag_Up),
+                    weightDown = copy.deepcopy(wgt_Ak8PNet_WZvsQCDtag_Down)
+                ) 
 
 
             
@@ -3507,16 +3507,10 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 weightDown = copy.deepcopy(wgt_PS_FSRDown)
             )
             weights_woHEM1516Fix.add(
-                self.systNameQCDRenorm,
+                self.systNameQCDScale,
                 weight     = copy.deepcopy(wgt_QCDScale_Nom),
-                weightUp   = copy.deepcopy(wgt_QCDScale_RenormUp),
-                weightDown = copy.deepcopy(wgt_QCDScale_RenormDown)
-            )
-            weights_woHEM1516Fix.add(
-                self.systNameQCDFactr,
-                weight     = copy.deepcopy(wgt_QCDScale_Nom),
-                weightUp   = copy.deepcopy(wgt_QCDScale_FactorizationUp),
-                weightDown = copy.deepcopy(wgt_QCDScale_FactorizationDown)
+                weightUp   = copy.deepcopy(wgt_QCDScale_Up),
+                weightDown = copy.deepcopy(wgt_QCDScale_Down)
             )            
             weights_woHEM1516Fix.add(
                 self.systNamePDF,
@@ -3544,6 +3538,13 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     weightUp   = copy.deepcopy(wgt_Ak4Btag_dict['Upcorrelated']),
                     weightDown = copy.deepcopy(wgt_Ak4Btag_dict['Downcorrelated'])
                 )
+            if self.datasetInfo['isSignalWH'] or self.datasetInfo['isSignalZH']:
+                weights_woHEM1516Fix.add(
+                    self.systNameAK8JetPNetWZTag,
+                    weight     = copy.deepcopy(wgt_Ak8PNet_WZvsQCDtag_Nom),
+                    weightUp   = copy.deepcopy(wgt_Ak8PNet_WZvsQCDtag_Up),
+                    weightDown = copy.deepcopy(wgt_Ak8PNet_WZvsQCDtag_Down)
+                ) 
             
             
 
@@ -3679,16 +3680,11 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             self.systNameFSR+SystNameConvUp,
                             self.systNameFSR+SystNameConvDown,
                         ] )
-                    if stringHasSubstring(self.datasetInfo['systematicsToRun'], ['qcdrenorm', 'full'] ):
+                    if stringHasSubstring(self.datasetInfo['systematicsToRun'], ['qcdscale', 'full'] ):
                         systList.extend( [
-                            self.systNameQCDRenorm+SystNameConvUp,
-                            self.systNameQCDRenorm+SystNameConvDown,
+                            self.systNameQCDScale+SystNameConvUp,
+                            self.systNameQCDScale+SystNameConvDown,
                         ] )
-                    if stringHasSubstring(self.datasetInfo['systematicsToRun'], ['qcdfactr', 'full'] ):
-                        systList.extend( [
-                            self.systNameQCDFactr+SystNameConvUp,
-                            self.systNameQCDFactr+SystNameConvDown,
-                        ] )                        
                     if stringHasSubstring(self.datasetInfo['systematicsToRun'], ['pdf', 'full'] ):
                         systList.extend( [
                             self.systNamePDF+SystNameConvUp,
@@ -3712,7 +3708,27 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             self.systNameL1Prefire+SystNameConvUp,
                             self.systNameL1Prefire+SystNameConvDown,
                         ] )
-                    if stringHasSubstring(self.datasetInfo['systematicsToRun'], [self.systNameAK8JetPNetWZTag, 'full'] ):
+                    if stringHasSubstring(self.datasetInfo['systematicsToRun'], ['higgsjms', 'full'] ) and self.datasetInfo['isSignal']:
+                        systList.extend( [
+                            self.systNameHiggsJMS+SystNameConvUp,
+                            self.systNameHiggsJMS+SystNameConvDown,
+                        ] ) 
+                    if stringHasSubstring(self.datasetInfo['systematicsToRun'], ['higgsjmr', 'full'] ) and self.datasetInfo['isSignal']:
+                        systList.extend( [
+                            self.systNameHiggsJMR+SystNameConvUp,
+                            self.systNameHiggsJMR+SystNameConvDown,
+                        ] ) 
+                    if stringHasSubstring(self.datasetInfo['systematicsToRun'], ['abosonjms', 'full'] ) and self.datasetInfo['isSignal']:
+                        systList.extend( [
+                            self.systNameaBosonJMS+SystNameConvUp,
+                            self.systNameaBosonJMS+SystNameConvDown,
+                        ] ) 
+                    if stringHasSubstring(self.datasetInfo['systematicsToRun'], ['abosonjmr', 'full'] ) and self.datasetInfo['isSignal']:
+                        systList.extend( [
+                            self.systNameaBosonJMR+SystNameConvUp,
+                            self.systNameaBosonJMR+SystNameConvDown,
+                        ] ) 
+                    if stringHasSubstring(self.datasetInfo['systematicsToRun'], [self.systNameAK8JetPNetWZTag, 'full'] ) and (self.datasetInfo['isSignalWH'] or self.datasetInfo['isSignalZH']):
                         systList.extend( [
                             self.systNameAK8JetPNetWZTag+SystNameConvUp,
                             self.systNameAK8JetPNetWZTag+SystNameConvDown,
@@ -3777,6 +3793,68 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         printVariable('\n %s'%(sWgt), wgt_list_[0])
                 printVariable('\n weights.weight(None)', weights.weight(None))
 
+
+        if (printLevel >= 0) and (storeIndividualEvtWgts):
+            nEvents = len(events)
+            print(f"\n\n{ak.sum(weights.weight()) / nEvents = }\n\n")
+            print(f"\n\n{ak.sum(weights.partial_weight(exclude=['2018HEM1516IssueWgt'])) / nEvents = }\n\n")
+            print(f"\n\n{ak.sum(weights.partial_weight(exclude=[self.systNameJetTrigEffi])) / nEvents = }\n\n")
+            print(f"\n\n{ak.sum(weights.partial_weight(exclude=[self.systNameAK8JetPNetWZTag])) / nEvents = }\n\n")
+            print(f"\n\n{ak.sum(weights.partial_weight(exclude=['2018HEM1516IssueWgt', self.systNameJetTrigEffi])) / nEvents = }\n\n")
+            print(f"\n\n{ak.sum(weights.partial_weight(exclude=['2018HEM1516IssueWgt', self.systNameJetTrigEffi, self.systNameAK8JetPNetWZTag])) / nEvents = }\n\n")
+            print(f"\n\n{ak.sum(weights.partial_weight(exclude=['2018HEM1516IssueWgt', self.systNameJetTrigEffi, self.systNameAK8JetPNetWZTag, self.systNameBtagUncorr])) / nEvents = }\n\n")
+            
+            sWeightsList = [
+                "lumiWeight",
+                "genWeight",
+                "2018HEM1516IssueWgt",
+                self.systNamePU,
+                self.systNameJetTrigEffi,
+                #
+                self.systNameISR,
+                self.systNameFSR,
+                self.systNameQCDScale,
+                self.systNamePDF,
+                #
+                self.systNameAK8JetPNetWZTag
+            ]
+            if self.datasetInfo["era"] != Era_2018:
+                sWeightsList.extend([self.systNameL1Prefire])
+            if self.datasetInfo['isSignal']:
+                sWeightsList.extend([self.systNameLPRewgt])
+            if self.datasetInfo['isSignalGGH']:
+                sWeightsList.extend([self.systNameGGHPtRewgt])
+            if self.datasetInfo['isSignalVBFH']:
+                sWeightsList.extend([self.systNameVBFHPtRewgt])
+            if self.datasetInfo['isSignalWH']:
+                sWeightsList.extend([self.systNameWHPtRewgt])
+            if self.datasetInfo['isSignalZH']:
+                sWeightsList.extend([self.systNameZHPtRewgt])
+            if self.datasetInfo['isSignalTTH']:
+                sWeightsList.extend([self.systNameTTHPtRewgt])
+            if self.datasetInfo['isSignal'] and (not self.datasetInfo['isSignalGGH']) :
+                sWeightsList.extend(["HiggsEW_kFactors"])
+            if  kDatasetToAnalyze == DatasetToAnalyze.SingleYear:
+                sWeightsList.extend([self.systNameBtag])
+            elif kDatasetToAnalyze == DatasetToAnalyze.FullRun2:
+                sWeightsList.extend([self.systNameBtagUncorr, self.systNameBtagCorr,])
+
+            wgtTotal_ = np.ones(len(events))
+            for sWeight in sWeightsList:
+                wgtTotal_ *= weights.partial_weight(include=[sWeight])
+                print(f"\t {sWeight} = {weights.partial_weight(include=[sWeight]).sum() / nEvents},  wgtTotal: {wgtTotal_.sum() / nEvents}")
+            print(f"{weights.weight().sum() / nEvents = }, {wgtTotal_.sum() / nEvents = }")
+
+            for sel_name in ["VjjHi", "VjjLo"]:
+                wgtTotal_ = np.ones(len(events))
+                sel_SR_toUse = selection.all(* self.sel_names_all[sel_name])                
+                nEvents      = sel_SR_toUse.sum()
+                print(f"\n\n{sel_name = }:: {nEvents = }")
+                for sWeight in sWeightsList:
+                    wgtTotal_ *= weights.partial_weight(include=[sWeight])
+                    print(f"\t {sWeight} = {weights.partial_weight(include=[sWeight])[sel_SR_toUse].sum() / nEvents}")
+                print(f"{weights.weight()[sel_SR_toUse].sum() / nEvents = }, {wgtTotal_[sel_SR_toUse].sum() / nEvents = }")
+
      
         if printLevel >= 0:
             print(f"{systList = }")
@@ -3800,15 +3878,21 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 self.systNameAK4JetJES+SystNameConvUp,
                 self.systNameAK4JetJES+SystNameConvDown,
 
-                self.systNameMETJES+SystNameConvUp,
-                self.systNameMETJES+SystNameConvDown,
-                self.systNameMETJER+SystNameConvUp,
-                self.systNameMETJER+SystNameConvDown,
                 self.systNameMETUnclE+SystNameConvUp,
                 self.systNameMETUnclE+SystNameConvDown,     
 
                 self.systName2018HEM1516Issue+SystNameConvUp,
-                self.systName2018HEM1516Issue+SystNameConvDown,                                                                                   
+                self.systName2018HEM1516Issue+SystNameConvDown, 
+
+                self.systNameHiggsJMS+SystNameConvUp,
+                self.systNameHiggsJMS+SystNameConvDown,
+                self.systNameHiggsJMR+SystNameConvUp,
+                self.systNameHiggsJMR+SystNameConvDown,
+                self.systNameaBosonJMS+SystNameConvUp,
+                self.systNameaBosonJMS+SystNameConvDown,
+                self.systNameaBosonJMR+SystNameConvUp,
+                self.systNameaBosonJMR+SystNameConvDown,
+                                                                                          
             ])
             if syst in skipWgtSystVariation_list:
                 weightSyst = None
@@ -3822,6 +3906,34 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 evtWeight_woHEM1516Fix   = weights_woHEM1516Fix.weight(weightSyst)
                 if syst == "Nom":
                     evtWeight_gen            = weights_gen.weight(weightSyst)
+
+            # H mass touse for systematics variations
+            if   syst == self.systNameHiggsJMS+SystNameConvUp:
+                leadingFatJet['PNet_massH_v2b_cor_toUse'] = leadingFatJet['PNet_massH_v2b_cor_JMSUp']
+            elif syst == self.systNameHiggsJMS+SystNameConvDown:
+                leadingFatJet['PNet_massH_v2b_cor_toUse'] = leadingFatJet['PNet_massH_v2b_cor_JMSDown']
+            elif syst == self.systNameHiggsJMR+SystNameConvUp:
+                leadingFatJet['PNet_massH_v2b_cor_toUse'] = leadingFatJet['PNet_massH_v2b_cor_JMRUp']
+            elif syst == self.systNameHiggsJMR+SystNameConvDown:
+                leadingFatJet['PNet_massH_v2b_cor_toUse'] = leadingFatJet['PNet_massH_v2b_cor_JMRDown']
+            else:
+                leadingFatJet['PNet_massH_v2b_cor_toUse'] = leadingFatJet['PNet_massH_v2b_cor']
+            # a boson mass touse for systematics variations
+            if   syst == self.systNameaBosonJMS+SystNameConvUp:
+                leadingFatJet['PNet_34massAa_toUse'] = leadingFatJet['PNet_34massAa_JMSUp']
+                leadingFatJet['PNet_34massAd_toUse'] = leadingFatJet['PNet_34massAd_JMSUp']
+            elif syst == self.systNameaBosonJMS+SystNameConvDown:
+                leadingFatJet['PNet_34massAa_toUse'] = leadingFatJet['PNet_34massAa_JMSDown']
+                leadingFatJet['PNet_34massAd_toUse'] = leadingFatJet['PNet_34massAd_JMSDown']
+            elif syst == self.systNameaBosonJMR+SystNameConvUp:
+                leadingFatJet['PNet_34massAa_toUse'] = leadingFatJet['PNet_34massAa_JMRUp']
+                leadingFatJet['PNet_34massAd_toUse'] = leadingFatJet['PNet_34massAd_JMRUp']
+            elif syst == self.systNameaBosonJMR+SystNameConvDown:
+                leadingFatJet['PNet_34massAa_toUse'] = leadingFatJet['PNet_34massAa_JMRDown']
+                leadingFatJet['PNet_34massAd_toUse'] = leadingFatJet['PNet_34massAd_JMRDown']
+            else:
+                leadingFatJet['PNet_34massAa_toUse'] = leadingFatJet['PNet_34massAa']
+                leadingFatJet['PNet_34massAd_toUse'] = leadingFatJet['PNet_34massAd']
 
 
             if self.datasetInfo['histogramSaveLevel'] >= 1: # hCutFlowPerCat
@@ -4465,7 +4577,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             # mH vs mAa for different mH versions
                             output['hLeadingFatJetPNet_massH_v2b_vs_massAa'+sHExt].fill(
                                 dataset=dataset,
-                                Mass=(leadingFatJet.PNet_massH_v2b[sel_SR_forHExt]),
+                                Mass=(leadingFatJet['PNet_massH_v2b_cor_toUse'][sel_SR_forHExt]),
                                 Mass2=(leadingFatJet.PNet_massAa[sel_SR_forHExt]),
                                 systematic=syst,
                                 weight=evtWeight[sel_SR_forHExt]
@@ -4488,22 +4600,22 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             # mH vs mA34a for different mH versions
                             output['hLeadingFatJetPNet_massH_v2b_vs_massA34a'+sHExt].fill(
                                 dataset=dataset,
-                                Mass=(leadingFatJet.PNet_massH_v2b[sel_SR_forHExt]),
-                                Mass2=(leadingFatJet.PNet_34massAa[sel_SR_forHExt]),
+                                Mass=(leadingFatJet['PNet_massH_v2b_cor_toUse'][sel_SR_forHExt]),
+                                Mass2=(leadingFatJet['PNet_34massAa_toUse'][sel_SR_forHExt]),
                                 systematic=syst,
                                 weight=evtWeight[sel_SR_forHExt]
                             )                    
                             output['hLeadingFatJetMass_vs_massA34a'+sHExt].fill(
                                 dataset=dataset,
                                 Mass=(leadingFatJet.mass_toUse[sel_SR_forHExt]),
-                                Mass2=(leadingFatJet.PNet_34massAa[sel_SR_forHExt]),
+                                Mass2=(leadingFatJet['PNet_34massAa_toUse'][sel_SR_forHExt]),
                                 systematic=syst,
                                 weight=evtWeight[sel_SR_forHExt]
                             ) 
                             output['hLeadingFatJetMSoftDrop_vs_massA34a'+sHExt].fill(
                                 dataset=dataset,
                                 Mass=(leadingFatJet.msoftdrop_toUse[sel_SR_forHExt]),
-                                Mass2=(leadingFatJet.PNet_34massAa[sel_SR_forHExt]),
+                                Mass2=(leadingFatJet['PNet_34massAa_toUse'][sel_SR_forHExt]),
                                 systematic=syst,
                                 weight=evtWeight[sel_SR_forHExt]
                             )
@@ -4520,7 +4632,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             output['hLeadingFatJetMass_vs_massA34d'+sHExt].fill(
                                 dataset=dataset,
                                 Mass=(leadingFatJet.mass_toUse[sel_SR_forHExt]),
-                                Mass2=(leadingFatJet.PNet_34massAd[sel_SR_forHExt]),
+                                Mass2=(leadingFatJet['PNet_34massAd_toUse'][sel_SR_forHExt]),
                                 systematic=syst,
                                 weight=evtWeight[sel_SR_forHExt]
                             )
@@ -4537,24 +4649,52 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             output['hLeadingFatJetMass_vs_massA34d'+sHExt].fill(
                                 dataset=dataset,
                                 Mass=(leadingFatJet.mass_toUse[sel_SR_forHExt]),
-                                Mass2=(leadingFatJet.PNet_34massAd[sel_SR_forHExt]),
+                                Mass2=(leadingFatJet['PNet_34massAd_toUse'][sel_SR_forHExt]),
                                 systematic=syst,
                                 weight=evtWeight[sel_SR_forHExt]
                             ) 
                             output['hLeadingFatJetMSoftDrop_vs_massA34d'+sHExt].fill(
                                 dataset=dataset,
                                 Mass=(leadingFatJet.msoftdrop_toUse[sel_SR_forHExt]),
-                                Mass2=(leadingFatJet.PNet_34massAd[sel_SR_forHExt]),
+                                Mass2=(leadingFatJet['PNet_34massAd_toUse'][sel_SR_forHExt]),
                                 systematic=syst,
                                 weight=evtWeight[sel_SR_forHExt]
                             )
                             output['hLeadingFatJetPNet_massH_v2b_vs_massA34d'+sHExt].fill(
                                 dataset=dataset,
-                                Mass=(leadingFatJet.PNet_massH_v2b[sel_SR_forHExt]),
-                                Mass2=(leadingFatJet.PNet_34massAd[sel_SR_forHExt]),
+                                Mass=(leadingFatJet['PNet_massH_v2b_cor_toUse'][sel_SR_forHExt]),
+                                Mass2=(leadingFatJet['PNet_34massAd_toUse'][sel_SR_forHExt]),
                                 systematic=syst,
                                 weight=evtWeight[sel_SR_forHExt]
                             )
+
+                            output['hLeadingFatJetMassH_v2b'+sHExt].fill(
+                                dataset=dataset,
+                                Mass=(leadingFatJet['PNet_massH_v2b_cor_toUse'][sel_SR_forHExt]),
+                                systematic=syst,
+                                weight=evtWeight[sel_SR_forHExt]                                
+                            )
+                            output['hLeadingFatJetPNet_34massAa'+sHExt].fill(
+                                dataset=dataset,
+                                Mass1=(leadingFatJet['PNet_34massAa_toUse'][sel_SR_forHExt]),
+                                systematic=syst,
+                                weight=evtWeight[sel_SR_forHExt]
+                            ) 
+                            output['hLeadingFatJetPNet_34massAd'+sHExt].fill(
+                                dataset=dataset,
+                                Mass1=(leadingFatJet['PNet_34massAd_toUse'][sel_SR_forHExt]),
+                                systematic=syst,
+                                weight=evtWeight[sel_SR_forHExt]
+                            )
+
+                        output['hLeadingNonHto4bFatJetMSoftDrop'+sHExt].fill(
+                            dataset=dataset,
+                            Mass=(leadingNonHto4bFatJet.msoftdrop[sel_SR_forHExt]),
+                            systematic=syst,
+                            weight=evtWeight[sel_SR_forHExt]
+                        )
+                        
+                            
                             
 
 
@@ -4637,6 +4777,24 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                                 dataset=dataset,
                                 Weight=wgt_ZHaa_HiggsPtDown[sel_SR_forHExt]
                             )
+                        if self.datasetInfo['isSignalTTH']:
+                            output['hEventWeight_TTHHiggsPt'+sHExt].fill(
+                                dataset=dataset,
+                                Weight=wgt_TTHaa_HiggsPt[sel_SR_forHExt]
+                            )
+                            output['hEventWeight_TTHHiggsPtUp'+sHExt].fill(
+                                dataset=dataset,
+                                Weight=wgt_TTHaa_HiggsPtUp[sel_SR_forHExt]
+                            )
+                            output['hEventWeight_TTHHiggsPtDown'+sHExt].fill(
+                                dataset=dataset,
+                                Weight=wgt_TTHaa_HiggsPtDown[sel_SR_forHExt]
+                            )
+                        if self.datasetInfo['isSignal'] and (not self.datasetInfo['isSignalGGH']) :
+                            output['hEventWeight_HiggsEW'+sHExt].fill(
+                                dataset=dataset,
+                                Weight=EWcorr[sel_SR_forHExt]
+                            )
                             
                         if self.datasetInfo['isQCD_bGen']:
                             output['hEventWeight_QCDHT'+sHExt].fill(
@@ -4692,21 +4850,13 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             dataset=dataset,
                             Weight=wgt_QCDScale_Nom[sel_SR_forHExt]
                         )
-                        output['hEventWeight_QCDScale_RenormUp'+sHExt].fill(
+                        output['hEventWeight_QCDScale_Up'+sHExt].fill(
                             dataset=dataset,
-                            Weight=wgt_QCDScale_RenormUp[sel_SR_forHExt]
+                            Weight=wgt_QCDScale_Up[sel_SR_forHExt]
                         )
-                        output['hEventWeight_QCDScale_RenormDown'+sHExt].fill(
+                        output['hEventWeight_QCDScale_Down'+sHExt].fill(
                             dataset=dataset,
-                            Weight=wgt_QCDScale_RenormDown[sel_SR_forHExt]
-                        )
-                        output['hEventWeight_QCDScale_FactorizationUp'+sHExt].fill(
-                            dataset=dataset,
-                            Weight=wgt_QCDScale_FactorizationUp[sel_SR_forHExt]
-                        )
-                        output['hEventWeight_QCDScale_FactorizationDown'+sHExt].fill(
-                            dataset=dataset,
-                            Weight=wgt_QCDScale_FactorizationDown[sel_SR_forHExt]
+                            Weight=wgt_QCDScale_Down[sel_SR_forHExt]
                         )
                         output['hEventWeight_QCDPDFNom'+sHExt].fill(
                             dataset=dataset,
@@ -4779,6 +4929,12 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             Phi=(leadingFatJet.phi[sel_SR_forHExt]),
                             systematic=syst,
                             weight=evtWeight[sel_SR_forHExt]
+                        )
+                        output['hLeadingFatJetPhi_EtaLtm1p1'+sHExt].fill(
+                            dataset=dataset,
+                            Phi=(leadingFatJet.phi[sel_SR_forHExt & ak.fill_none((leadingFatJet.eta < -1.1), False)]),
+                            systematic=syst,
+                            weight=evtWeight[sel_SR_forHExt & ak.fill_none((leadingFatJet.eta < -1.1), False)]
                         )
                         output['hLeadingFatJetMass'+sHExt].fill(
                             dataset=dataset,
@@ -4894,12 +5050,6 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                                 systematic=syst,
                                 weight=evtWeight[sel_SR_forHExt]                                
                             ) '''
-                            output['hLeadingFatJetMassH_v2b'+sHExt].fill(
-                                dataset=dataset,
-                                Mass=(leadingFatJet.PNet_massH_v2b[sel_SR_forHExt]),
-                                systematic=syst,
-                                weight=evtWeight[sel_SR_forHExt]                                
-                            )
                             ''' output['hLeadingFatJetMassH_v2c'+sHExt].fill(
                                 dataset=dataset,
                                 Mass=(leadingFatJet.PNet_massH_v2c[sel_SR_forHExt]),
@@ -4962,12 +5112,6 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                                 systematic=syst,
                                 weight=evtWeight[sel_SR_forHExt]
                             ) '''
-                            output['hLeadingFatJetPNet_34massAa'+sHExt].fill(
-                                dataset=dataset,
-                                Mass1=(leadingFatJet.PNet_34massAa[sel_SR_forHExt]),
-                                systematic=syst,
-                                weight=evtWeight[sel_SR_forHExt]
-                            ) 
                             output['hLeadingFatJetPNet_34massAb'+sHExt].fill(
                                 dataset=dataset,
                                 Mass1=(leadingFatJet.PNet_34massAb[sel_SR_forHExt]),
@@ -4980,12 +5124,6 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                                 systematic=syst,
                                 weight=evtWeight[sel_SR_forHExt]
                             ) '''
-                            output['hLeadingFatJetPNet_34massAd'+sHExt].fill(
-                                dataset=dataset,
-                                Mass1=(leadingFatJet.PNet_34massAd[sel_SR_forHExt]),
-                                systematic=syst,
-                                weight=evtWeight[sel_SR_forHExt]
-                            ) 
                             output['hLeadingFatJetPNet_massA1'+sHExt].fill(
                                 dataset=dataset,
                                 Mass1=(leadingFatJet.PNet_massA1[sel_SR_forHExt]),
@@ -5037,15 +5175,15 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             systematic=syst,
                             weight=evtWeight[sel_SR_forHExt]
                         )
+                        output['hLeadingNonHto4bFatJetPhi_EtaLtm1p1'+sHExt].fill(
+                            dataset=dataset,
+                            Phi=(leadingNonHto4bFatJet.phi[sel_SR_forHExt & ak.fill_none((leadingNonHto4bFatJet.eta < -1.1), False)]),
+                            systematic=syst,
+                            weight=evtWeight[sel_SR_forHExt & ak.fill_none((leadingNonHto4bFatJet.eta < -1.1), False)]
+                        )
                         output['hLeadingNonHto4bFatJetMass'+sHExt].fill(
                             dataset=dataset,
                             Mass=(leadingNonHto4bFatJet.mass[sel_SR_forHExt]),
-                            systematic=syst,
-                            weight=evtWeight[sel_SR_forHExt]
-                        )
-                        output['hLeadingNonHto4bFatJetMSoftDrop'+sHExt].fill(
-                            dataset=dataset,
-                            Mass=(leadingNonHto4bFatJet.msoftdrop[sel_SR_forHExt]),
                             systematic=syst,
                             weight=evtWeight[sel_SR_forHExt]
                         )

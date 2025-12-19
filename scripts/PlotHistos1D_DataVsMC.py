@@ -96,11 +96,11 @@ sOpDirNameShort = 'plots'
 
 subCats = []
 if   'gg0l'     in CAT:
-    subCats = ["gg0lIncl", "gg0lHi", "gg0lLo", "gg0l0bLo", "gg0l0bHi", "gg0l1bLo", "gg0l1bHi"]
+    subCats = ["gg0lIncl", "gg0lHi", "gg0lLo"]
 elif 'VBF'      in CAT:    
     subCats = ["VBFHi", "VBFLo"]
 elif 'Vjj'      in CAT:    
-    subCats = ["VjjIncl", "VjjHi", "VjjLo", "VjjHi350", "VjjLo350", "VjjHi400", "VjjLo400"]
+    subCats = ["VjjIncl", "VjjHi", "VjjLo", ]
 elif 'Zvv'      in CAT:    
     subCats = ["ZvvIncl", "ZvvHi", "ZvvLo"]
 elif 'tt0l'      in CAT:    

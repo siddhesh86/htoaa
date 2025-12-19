@@ -132,21 +132,17 @@ CATAGORIES_VBFjj = {
 }
 CATAGORIES_Vjj = {
     #"VjjIncl" : "VjjIncl_Xto4bv2", 
-    #"VjjHi"   : "VjjHi_Xto4bv2", 
-    #"VjjLo"   : "VjjLo_Xto4bv2",       
-    "VjjHi350"   : "VjjHi350_Xto4bv2", 
-    "VjjLo350"   : "VjjLo350_Xto4bv2",      
-    "VjjHi400"   : "VjjHi400_Xto4bv2", 
-    "VjjLo400"   : "VjjLo400_Xto4bv2",  
+    "VjjHi"   : "VjjHi_Xto4bv2", 
+    "VjjLo"   : "VjjLo_Xto4bv2",       
 }
 CATAGORIES_Zvv = {
-    "ZvvIncl" : "ZvvIncl_Xto4bv2",
+    #"ZvvIncl" : "ZvvIncl_Xto4bv2",
     "ZvvHi" :   "ZvvHi_Xto4bv2",
     "ZvvLo" :   "ZvvLo_Xto4bv2",    
 }
 CATAGORIES_tt0l = {
     #"tt0l" : "tt0l_1TFJ_ge0BOutsideSelFJ_Xto4bv2",   
-    "tt0lIncl" : "tt0l_1TFJ_ge0BOutsideSelFJ_Xto4bv2",   
+    #"tt0lIncl" : "tt0l_1TFJ_ge0BOutsideSelFJ_Xto4bv2",   
     "tt0l0b" : "tt0l_1TFJ_0BOutsideSelFJ_Xto4bv2",   
     "tt0l1b" : "tt0l_1TFJ_ge1BOutsideSelFJ_Xto4bv2",   
 }
@@ -320,14 +316,15 @@ systematics_dict = {'Nom': 'Nom',}
 for systNameShort, systName0  in SystNameConvs.items(): 
     #systName_ = systName0.replace('$YEAR', Year_4Letters)
     systName_ = systName0.replace('$YEAR', Era)
-    if systNameShort == 'BtagCorr':
-        systName_ = systName0
+    #if systNameShort == 'BtagCorr':
+    #    systName_ = systName0
     systematics_dict[systNameShort+SystNameConvUp  ] = systName_+SystNameConvUp
     systematics_dict[systNameShort+SystNameConvDown] = systName_+SystNameConvDown    
 print(f"{systematics_dict = }")
 
 
 systNameShort_MCNom = ['Nom']
+'''
 systNameShort_MCAll = [
     'PU', 'AK8JetJES', 'AK8JetJER', 'AK4JetJES', 'AK4JetJER', 
     'ISR', 'FSR', 'QCDFactr', 'QCDRenorm', 'PDF', 
@@ -353,6 +350,39 @@ systNameShort_MCSignalVBFH = ['VBFHPtRewgt']
 systNameShort_MCSignalWH   = ['WHPtRewgt']
 systNameShort_MCSignalZH   = ['ZHPtRewgt']
 systNameShort_MCSignalTTH  = ['ttHPtRewgt']
+'''
+systNameShort_MCSignalH    = ['LPRewgt', 'HiggsJMS', 'HiggsJMR', 'aBosonJMS', 'aBosonJMR']
+systNameShort_MCSignalGGH  = ['ggHPtRewgt']
+systNameShort_MCSignalVBFH = ['VBFHPtRewgt']
+systNameShort_MCSignalWH   = ['WHPtRewgt']
+systNameShort_MCSignalZH   = ['ZHPtRewgt']
+systNameShort_MCSignalTTH  = ['ttHPtRewgt']
+
+systNameShort_MCAll = [
+    'PU', 'AK8JetJES', 'AK8JetJER', 'AK4JetJES', 'AK4JetJER', 
+    'ISR', 'FSR', 'QCDScale', 'PDF', 
+    ]
+if 'Zvv'       in CAT0:
+    systNameShort_MCAll.extend( ['MetTrigEffi', 'METUnclE', ])
+else:
+    systNameShort_MCAll.extend( ['JetTrigEffi'])
+if Year == '2018':
+    systNameShort_MCAll.extend( ['2018HEM1516Issue'])
+else: 
+    systNameShort_MCAll.extend( ['L1Prefire'])
+if kDatasetToAnalyze == DatasetToAnalyze.SingleYear:
+    systNameShort_MCAll.extend( ['Btag'])
+else:
+    systNameShort_MCAll.extend( ['BtagCorr', 'BtagUncorr'])
+    
+if 'Vjj'  in CAT0:
+    systNameShort_MCSignalWH.extend( ['AK8JetPNetWZTag'] )
+    systNameShort_MCSignalZH.extend( ['AK8JetPNetWZTag'] )
+elif 'tt0l'  in CAT0:
+    systNameShort_MCSignalTTH.extend( ['AK8JetPNetTopTag'] )    
+
+systNameShort_MCTT = ['TopPtReWeight']
+
 
 
 systematics_perProcess = {

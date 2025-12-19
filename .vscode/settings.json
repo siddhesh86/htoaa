@@ -55,6 +55,8 @@
         "ratioHisto.C": "cpp",
         "PlotHistos1D.C": "cpp",
         "plot_HiggsPtRewgts.C": "cpp",
-        "PlotHisto2D.C": "cpp"
+        "PlotHisto2D.C": "cpp",
+        "countTreeNEvents.C": "cpp",
+        "countTreeEntries.C": "cpp"
     }
 }

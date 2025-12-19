@@ -195,12 +195,15 @@ def getNanoAODFile(
             return fileName_EOS, True
 
         # os.path.exists() for files on /eos are always return False. So try 'eos cp' to check if the file on eos exists or not
-        if  xrdcpFile(fileName_EOS, fileNameLocal, nTry = 3, cp_command = 'eos cp'):
-            print(f"Forced xrdcp for {fileName_EOS = } successful.")
+        if   xrdcpFile(fileName_EOS, fileNameLocal, nTry = 3, cp_command = 'eos cp'):
+            print(f"Forced eos cp for {fileName_EOS = } successful.")
             print(f"htoaa_CommonTools::getNanoAODFile() here3 {datetime.now() = }"); sys.stdout.flush()
+        elif xrdcpFile(fileName_EOS, fileNameLocal, nTry = 3, cp_command = 'xrdcp'):
+            print(f"Forced xrdcp for {fileName_EOS = } successful.")
+            print(f"htoaa_CommonTools::getNanoAODFile() here3p1 {datetime.now() = }"); sys.stdout.flush()
         print(f"{fileNameLocal = }: {os.path.exists(fileNameLocal) = } ")            
-        print(f"List directory {os.path.dirname(fileNameLocal) = }:  {os.listdir(os.path.dirname(fileNameLocal)) = }")
         if os.path.exists(fileNameLocal):
+            print(f"List directory {os.path.dirname(fileNameLocal) = }:  {os.listdir(os.path.dirname(fileNameLocal)) = }")
             return fileNameLocal, True
 
     print(f"htoaa_CommonTools::getNanoAODFile() here4 {datetime.now() = }"); sys.stdout.flush()
@@ -241,6 +244,8 @@ def getNanoAODFile(
             print(f"htoaa_CommonTools::getNanoAODFile() here7 {datetime.now() = }"); sys.stdout.flush()
         print(f"htoaa_CommonTools::getNanoAODFile() here8 {datetime.now() = }"); sys.stdout.flush()
         return fileName_toUse, True
+
+    return fileName_toUse, False
 
 
 
@@ -1265,24 +1270,36 @@ def add_pdf_as_weight(events, dataset):
 
 def get_QCDScaleWeight(events, dataset):
     nEvents = len(events)
-    nom  = renorm_up = renorm_down = factr_up = factr_down = np.ones(nEvents)
+    nom  = up = down = np.ones(nEvents)
 
     if hasattr(events, 'LHEScaleWeight') and "HToAATo4B" in dataset:
         if len(events.LHEScaleWeight[0]) == 9:
             # https://cms-nanoaod-integration.web.cern.ch/autoDoc/NanoAODv9/2018UL/doc_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1.html#LHEPdfWeight
-            # LHEScaleWeight	Float_t	LHE scale variation weights (w_var / w_nominal); [0] is renscfact=0.5d0 facscfact=0.5d0 ; [1] is renscfact=0.5d0 facscfact=1d0 ; [2] is renscfact=0.5d0 facscfact=2d0 ; [3] is renscfact=1d0 facscfact=0.5d0 ; [4] is renscfact=1d0 facscfact=1d0 ; [5] is renscfact=1d0 facscfact=2d0 ; [6] is renscfact=2d0 facscfact=0.5d0 ; [7] is renscfact=2d0 facscfact=1d0 ; [8] is renscfact=2d0 facscfact=2d0
-            # [1] is renscfact=0.5d0 facscfact=1d0.      [7] is renscfact=2d0 facscfact=1d0
-            # [3] is renscfact=1d0 facscfact=0.5d0.      [5] is renscfact=1d0 facscfact=2d0 ;
-            # renorm_up = 1, down = 7.   fact_up = 3, down = 5
-            renorm_up   = events.LHEScaleWeight[:, 1]
-            renorm_down = events.LHEScaleWeight[:, 7]
-            factr_up    = events.LHEScaleWeight[:, 3]
-            factr_down  = events.LHEScaleWeight[:, 5]
-        
-        elif len(events.nLHEScaleWeight[0]) > 1:
-            print("LHEScaleWeight  vector has length ", len(events.nLHEScaleWeight[0]))
-            
-    return [nom, renorm_up, renorm_down, factr_up, factr_down]
+            # LHEScaleWeight	Float_t	LHE scale variation weights (w_var / w_nominal);
+            #[0] is renscfact=0.5d0 facscfact=0.5d0 ;
+            #[1] is renscfact=0.5d0 facscfact=1d0 ;
+            #[2] is renscfact=0.5d0 facscfact=2d0 ;
+            #[3] is renscfact=1d0 facscfact=0.5d0 ;
+            #[4] is renscfact=1d0 facscfact=1d0 ;
+            #[5] is renscfact=1d0 facscfact=2d0 ;
+            #[6] is renscfact=2d0 facscfact=0.5d0 ;
+            #[7] is renscfact=2d0 facscfact=1d0 ;
+            #[8] is renscfact=2d0 facscfact=2d0
+            #[1] is renscfact=0.5d0 facscfact=1d0. 
+            #[3] is renscfact=1d0 facscfact=0.5d0. 
+            # Define relevant indices for each channel
+            vbf_vh_indices  = [0, 8]  # VBF, WH, ZH
+            ggh_tth_indices = [0, 1, 3, 5, 7, 8]  # ggH, ttH
+            if any(x in dataset for x in ["VBF", "WH", "ZH"]):
+                up   = np.maximum.reduce([events.LHEScaleWeight[:, i] for i in vbf_vh_indices])
+                down = np.minimum.reduce([events.LHEScaleWeight[:, i] for i in vbf_vh_indices])
+            elif any(x in dataset for x in ["TTH", "GluGluH"]):
+                up   = np.maximum.reduce([events.LHEScaleWeight[:, i] for i in ggh_tth_indices])
+                down = np.minimum.reduce([events.LHEScaleWeight[:, i] for i in ggh_tth_indices])
+            elif len(events.nLHEScaleWeight[0]) > 1:
+                print("LHEScaleWeight vector has length", len(events.nLHEScaleWeight[0]))
+
+    return [nom, up, down]
 
 
 def add_HiggsEW_kFactors(genHiggs, dataset):
@@ -1297,22 +1314,21 @@ def add_HiggsEW_kFactors(genHiggs, dataset):
 
     if "VBF" in dataset:
         hpt = get_hpt()
-        ewkcorr = hew_kfactors["VBF_EW"]
+        ewkcorr = hew_kfactors["VBF"]
         ewknom = ewkcorr.evaluate(hpt)
-        return  "VBF_EW", ewknom
+        return  ewknom
 
     elif "WH" in dataset or "ZH" in dataset:
         hpt = get_hpt()
-        ewkcorr = hew_kfactors["VH_EW"]
+        ewkcorr = hew_kfactors["VH"]
         ewknom = ewkcorr.evaluate(hpt)
-        return "VH_EW", ewknom
-    
+        return ewknom    
 
-    elif "ttH" in dataset:
+    elif "TTH" in dataset:
         hpt = get_hpt()
-        ewkcorr = hew_kfactors["ttH_EW"]
+        ewkcorr = hew_kfactors["ttH"]
         ewknom = ewkcorr.evaluate(hpt)
-        return "ttH_EW", ewknom
+        return ewknom
     else :
         return None
 
@@ -1740,6 +1756,54 @@ def get_PNet_TvsQCD_EffiSF(pt, eta, year, isGenParticleOvlpFatJet): # ParticleNe
     #printVariable('\n pt, isGenParticleOvlpFatJet, TvsQCD_SFs', ak.zip([pt, isGenParticleOvlpFatJet, wgt_nom, wgt_up, wgt_down]))
         
     return [wgt_nom, wgt_up, wgt_down]
+
+
+def calculatePNet_MassH_MassA_cor_and_syst(leadingFatJet):
+    nEvents = len(leadingFatJet)    
+    # H and a mass systematics: https://docs.google.com/document/d/1E564fD6iu8rHWvVh9Ibgo1mDhaY_Z-QsiDjBK_msoN8/edit?tab=t.0
+    # ParticleNet mass(H) regression mass scale: Nominal mass scaling -0.8%, uncertainties +/-1.0% from nominal scaling
+    leadingFatJet['PNet_massH_v2b_cor']         = leadingFatJet.PNet_massH_v2b * 0.992 
+    leadingFatJet['PNet_massH_v2b_cor_JMSUp']   = leadingFatJet['PNet_massH_v2b_cor'] * 1.01
+    leadingFatJet['PNet_massH_v2b_cor_JMSDown'] = leadingFatJet['PNet_massH_v2b_cor'] * 0.99
+    # ParticleNet mass(H) mass resolution uncertainties:
+    #    Nominal width 10 GeV, want Up variation of +7%, Down variation -7%
+    #    Up: (1.0 + 0.030 * randon.normal)
+    leadingFatJet['PNet_massH_v2b_cor_JMRUp']   = leadingFatJet['PNet_massH_v2b_cor'] * \
+        (1 + (0.030 * np.random.normal(0, 1, nEvents)) )
+    leadingFatJet['PNet_massH_v2b_cor_JMRDown'] = leadingFatJet['PNet_massH_v2b_cor'] * leadingFatJet['PNet_massH_v2b_cor'] / leadingFatJet['PNet_massH_v2b_cor_JMRUp']
+    # ParticleNet mass(a) regression mass scale
+    #    Uncertainties +/-5.0% from nominal value
+    #    To account for 11 and 63 GeV “endpoints”, implement as:
+    #      Up : mA_scaled = min( mA_nom*1.05, 0.5*(mA_nom + 63) )
+    #      Down : mA_scaled = max( mA_nom*0.95, 0.5*(mA_nom + 11) )
+    leadingFatJet['PNet_34massAa_JMSUp']   = np.minimum( leadingFatJet['PNet_34massAa']*1.05,  0.5*(leadingFatJet['PNet_34massAa'] + 63) )
+    leadingFatJet['PNet_34massAa_JMSDown'] = np.maximum( leadingFatJet['PNet_34massAa']*0.95,  0.5*(leadingFatJet['PNet_34massAa'] + 11) )
+    leadingFatJet['PNet_34massAd_JMSUp']   = np.minimum( leadingFatJet['PNet_34massAd']*1.05,  0.5*(leadingFatJet['PNet_34massAd'] + 63) )
+    leadingFatJet['PNet_34massAd_JMSDown'] = np.maximum( leadingFatJet['PNet_34massAd']*0.95,  0.5*(leadingFatJet['PNet_34massAd'] + 11) )
+    # ParticleNet mass(a) mass resolution uncertainties:
+    #    Nominal width about 7%, want Up variation to be 20% wider (i.e. 8.4%)
+    #    As per test_smearing.py, for Up variation scale mass(a) event-by-event by
+    #    1.0 + 0.045 * rand, where “rand” is sampled from a gaussian centered at 0 with width 1.0.  The Down variation will be taken from the Nominal template multiplied by the ratio of the Nominal / Up templates, to be done in 2DAlphabet workflow.
+    #    To account for 11 and 63 GeV “endpoints” implement as:
+    #    Up : mA_smeared = min( max( mA_nom*(1.0 + 0.045 * rand), 0.5*(mA_nom + 11) ), 0.5*(mA_nom + 63) )
+    leadingFatJet['PNet_34massAa_JMRUp']   = np.minimum( \
+        np.maximum( \
+            leadingFatJet['PNet_34massAa'] * (1 + (0.045 * np.random.normal(0, 1, nEvents)) ),
+            0.5*(leadingFatJet['PNet_34massAa'] + 11)                                                  
+        ),
+        0.5*(leadingFatJet['PNet_34massAa'] + 63)
+    )
+    leadingFatJet['PNet_34massAa_JMRDown'] = leadingFatJet['PNet_34massAa'] * leadingFatJet['PNet_34massAa']  / leadingFatJet['PNet_34massAa_JMRUp'] 
+    leadingFatJet['PNet_34massAd_JMRUp']   = np.minimum( \
+        np.maximum( \
+            leadingFatJet['PNet_34massAd'] * (1 + (0.045 * np.random.normal(0, 1, nEvents)) ),
+            0.5*(leadingFatJet['PNet_34massAd'] + 11)                                                  
+        ),
+        0.5*(leadingFatJet['PNet_34massAd'] + 63)
+    )
+    leadingFatJet['PNet_34massAd_JMRDown'] = leadingFatJet['PNet_34massAd'] * leadingFatJet['PNet_34massAd']  / leadingFatJet['PNet_34massAd_JMRUp'] 
+
+    #return leadingFatJet
 
 
 def get_L1TPrefiringWgt(L1PreFiringWeight):
