@@ -16,3 +16,5 @@ test.py
 test.root
 localhost:1080
 scripts/datasetNamesForRucioRequest.txt
+__pycache__/SamplesCrosssection_Catalogue.cpython-310.pyc
+__pycache__/htoaa_Settings.cpython-310.pyc

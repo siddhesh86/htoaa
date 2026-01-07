@@ -234,18 +234,18 @@ list_XSs = OD([
     ("SUSY_GluGluH_01J_HToAATo4B_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61}),
     ("SUSY_GluGluH_01J_HToAATo4B_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61}),
 
-    # SUSY_GluGluH_01J_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8	Filter efficiency (event-level)= (308) / (5379) = 5.726e-02 +- 3.168e-03	Matching efficiency = 0.5 +/- 0.0     Cross-section = 48.61 pb * 0.057	
-    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.057 ,  }), # filter efficiency 0.05
-    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-15_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.057 ,  }),
-    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-20_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.057 ,  }),
-    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-25_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.057 ,  }),
-    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-30_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.057 ,  }),
-    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.057 ,  }),
-    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-40_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.057 ,  }),
-    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-45_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.057 ,  }),
-    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-50_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.057 ,  }),
-    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.057 ,  }),
-    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.057 ,  }),
+    # SUSY_GluGluH_01J_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8	Filter efficiency (event-level)= (308) / (5379) = 5.726e-02 +- 3.168e-03	Matching efficiency = 0.5 +/- 0.0     Cross-section = 48.61 (N3LO QCD + NLO EW) (YL2019) * 0.054449 pb
+    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.054449 ,  }), # filter efficiency 0.05
+    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-15_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.054449 ,  }),
+    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-20_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.054449 ,  }),
+    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-25_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.054449 ,  }),
+    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-30_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.054449 ,  }),
+    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.054449 ,  }),
+    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-40_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.054449 ,  }),
+    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-45_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.054449 ,  }),
+    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-50_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.054449 ,  }),
+    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.054449 ,  }),
+    ("SUSY_GluGluH_01J_HToAATo4B_Pt150_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 48.61 * 0.054449 ,  }),
 
 
     ## VBF HToAATo4B_M-* and VBF HToAATo4B_Pt150_M-*
@@ -262,18 +262,18 @@ list_XSs = OD([
     ("SUSY_VBFH_HToAATo4B_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 }),
     ("SUSY_VBFH_HToAATo4B_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 }),
 
-    # SUSY_VBFH_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8		Filter efficiency (event-level)= (1730) / (10000) = 1.730e-01 +- 3.782e-03	Matching efficiency = 1.0 +/- 0.0 	Cross-section = 3.766 pb * 0.173 
-    ("SUSY_VBFH_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173 ,  }),
-    ("SUSY_VBFH_HToAATo4B_Pt150_M-15_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173 ,  }),
-    ("SUSY_VBFH_HToAATo4B_Pt150_M-20_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173 ,  }),
-    ("SUSY_VBFH_HToAATo4B_Pt150_M-25_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173 ,  }),
-    ("SUSY_VBFH_HToAATo4B_Pt150_M-30_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173 ,  }),
-    ("SUSY_VBFH_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173 ,  }),
-    ("SUSY_VBFH_HToAATo4B_Pt150_M-40_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173 ,  }),
-    ("SUSY_VBFH_HToAATo4B_Pt150_M-45_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173 ,  }),
-    ("SUSY_VBFH_HToAATo4B_Pt150_M-50_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173 ,  }),
-    ("SUSY_VBFH_HToAATo4B_Pt150_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173 ,  }),
-    ("SUSY_VBFH_HToAATo4B_Pt150_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173 ,  }),
+    # SUSY_VBFH_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8		Filter efficiency (event-level)= (1730) / (10000) = 1.730e-01 +- 3.782e-03	Matching efficiency = 1.0 +/- 0.0 	Cross-section = 0.65491 = 3.766 * 0.173901 (NNLO QCD + NLO EW) (YL2019) pb
+    ("SUSY_VBFH_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173901,  }),
+    ("SUSY_VBFH_HToAATo4B_Pt150_M-15_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173901,  }),
+    ("SUSY_VBFH_HToAATo4B_Pt150_M-20_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173901,  }),
+    ("SUSY_VBFH_HToAATo4B_Pt150_M-25_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173901,  }),
+    ("SUSY_VBFH_HToAATo4B_Pt150_M-30_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173901,  }),
+    ("SUSY_VBFH_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173901,  }),
+    ("SUSY_VBFH_HToAATo4B_Pt150_M-40_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173901,  }),
+    ("SUSY_VBFH_HToAATo4B_Pt150_M-45_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173901,  }),
+    ("SUSY_VBFH_HToAATo4B_Pt150_M-50_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173901,  }),
+    ("SUSY_VBFH_HToAATo4B_Pt150_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173901,  }),
+    ("SUSY_VBFH_HToAATo4B_Pt150_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 3.766 * 0.173901,  }),
 
 
     ## WH HToAATo4B-M-* and WH HToAATo4B_Pt150_-M-*
@@ -290,18 +290,18 @@ list_XSs = OD([
     ("SUSY_WH_WToAll_HToAATo4B_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358}),
     ("SUSY_WH_WToAll_HToAATo4B_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358}),
 
-    # SUSY_WH_WToAll_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8	Filter efficiency (event-level)= (1317) / (10000) = 1.317e-01 +- 3.382e-03	Matching efficiency = 1.0 +/- 0.0	Cross-section = 1.358 pb * 0.132 
-    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.132 ,  }),
-    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-15_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.132 ,  }),
-    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-20_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.132 ,  }),
-    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-25_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.132 ,  }),
-    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-30_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.132 ,  }),
-    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.132 ,  }),
-    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-40_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.132 ,  }),
-    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-45_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.132 ,  }),
-    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-50_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.132 ,  }),
-    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.132 ,  }),
-    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.132 ,  }),
+    # SUSY_WH_WToAll_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8	Filter efficiency (event-level)= (1317) / (10000) = 1.317e-01 +- 3.382e-03	Matching efficiency = 1.0 +/- 0.0	Cross-section = 0.17560 = 1.358 * 0.129307 (NNLO QCD + NLO EW) (YL2019) pb
+    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.129307,  }),
+    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-15_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.129307,  }),
+    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-20_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.129307,  }),
+    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-25_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.129307,  }),
+    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-30_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.129307,  }),
+    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.129307,  }),
+    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-40_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.129307,  }),
+    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-45_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.129307,  }),
+    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-50_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.129307,  }),
+    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.129307,  }),
+    ("SUSY_WH_WToAll_HToAATo4B_Pt150_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  1.358 * 0.129307,  }),
 
 
     ## ZH HToAATo4B-M-* and ZH HToAATo4B_Pt150_-M-*
@@ -318,18 +318,18 @@ list_XSs = OD([
     ("SUSY_ZH_ZToAll_HToAATo4B_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 }),
     ("SUSY_ZH_ZToAll_HToAATo4B_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 }),
     
-    # SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8	Filter efficiency (event-level)= (1289) / (10000) = 1.289e-01 +- 3.351e-03	Matching efficiency = 1.0 +/- 0.0		Cross-section = 0.880 pb * 0.129 
-    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.129 ,  }),
-    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-15_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.129 ,  }),
-    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-20_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.129 ,  }),
-    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-25_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.129 ,  }),
-    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-30_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.129 ,  }),
-    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.129 ,  }),
-    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-40_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.129 ,  }),
-    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-45_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.129 ,  }),
-    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-50_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.129 ,  }),
-    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.129 ,  }),
-    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.129 ,  }),
+    # SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8	Filter efficiency (event-level)= (1289) / (10000) = 1.289e-01 +- 3.351e-03	Matching efficiency = 1.0 +/- 0.0		Cross-section = 0.11515 = 0.880 * 0.130851 (NNLO QCD + NLO EW) (YL2019) pb 
+    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.130851,  }),
+    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-15_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.130851,  }),
+    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-20_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.130851,  }),
+    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-25_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.130851,  }),
+    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-30_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.130851,  }),
+    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.130851,  }),
+    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-40_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.130851,  }),
+    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-45_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.130851,  }),
+    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-50_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.130851,  }),
+    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.130851,  }),
+    ("SUSY_ZH_ZToAll_HToAATo4B_Pt150_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV:  0.880 * 0.130851,  }),
 
 
     ## ttH HToAATo4B_M-* and HToAATo4B_Pt150_M-*
@@ -346,18 +346,18 @@ list_XSs = OD([
     ("SUSY_TTH_TTToAll_HToAATo4B_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071  }),
     ("SUSY_TTH_TTToAll_HToAATo4B_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071  }),
 
-    # SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8	Filter efficiency (event-level)= (2850) / (10000) = 2.850e-01 +- 4.514e-03	Matching efficiency = 1.0 +/- 0.0 Cross-section = 0.5071 pb * 0.285 
-    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.285 ,  }),
-    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-15_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.285 ,  }),
-    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-20_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.285 ,  }),
-    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-25_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.285 ,  }),
-    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-30_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.285 ,  }),
-    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.285 ,  }),
-    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-40_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.285 ,  }),
-    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-45_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.285 ,  }),
-    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-50_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.285 ,  }),
-    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.285 ,  }),
-    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.285 ,  }),
+    # SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8	Filter efficiency (event-level)= (2850) / (10000) = 2.850e-01 +- 4.514e-03	Matching efficiency = 1.0 +/- 0.0 Cross-section = 0.14447 = 0.5071 * 0.284899  (NLO QCD + EW) (Table 229 on p. 738 of the LHC Higgs Xsec WG) pb
+    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.284899,  }),
+    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-15_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.284899,  }),
+    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-20_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.284899,  }),
+    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-25_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.284899,  }),
+    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-30_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.284899,  }),
+    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-35_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.284899,  }),
+    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-40_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.284899,  }),
+    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-45_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.284899,  }),
+    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-50_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.284899,  }),
+    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-55_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.284899,  }),
+    ("SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-60_TuneCP5_13TeV_madgraph_pythia8", {sXS13TeV: 0.5071 * 0.284899,  }),
     
 
     ## H->aa->4Tau
