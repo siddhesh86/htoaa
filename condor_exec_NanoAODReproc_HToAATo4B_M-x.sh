@@ -56,6 +56,10 @@ dasgoclient --version
 echo "dasgoclient --query=\"dataset=/ZeroBias*/*Run2022C*/*\" : "
 dasgoclient --query="dataset=/ZeroBias*/*Run2022C*/*" 
 
+printf "\n\n cat /etc/os-release: \n"
+cat /etc/os-release
+printf "\n\n"
+
 # Set input variables :
 printf "Print all input arguments: $@"
 prodmode=$2
@@ -159,8 +163,8 @@ MiniAODFile_Final_FileName=/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/${Er
 # /eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/2018/MC/PNet_v2_2024_11_22/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-60_TuneCP5_13TeV_madgraph_pythia8/r1/241123_175526/0000
 #NanoAODFile_Final_FileName0=/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/${EraYear}/MC/PNet_v2_2024_11_22/${SampleProcessName}_${SampleGeneratorDetails}/r1/20250510_000000/${OpSubdirNum}/PNet_v1_${iSample}.root
 #NanoAODFile_Final_FileName=/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/${EraYear}/MC/PNet_v2_2024_11_22/${SampleProcessName}_${SampleGeneratorDetails}/r1/20250510_000000/${OpSubdirNum}/PNet_v1_${iSample}_Skim.root
-NanoAODFile_Final_FileName0=/eos/cms/store/user/ssawant/tmp/HToaaTo4b/NanoAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/r1/20250510_000000/${OpSubdirNum}/PNet_v1_${iSample}.root
-NanoAODFile_Final_FileName=/eos/cms/store/user/ssawant/tmp/HToaaTo4b/NanoAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/r1/20250510_000000/${OpSubdirNum}/PNet_v1_${iSample}_Skim.root
+NanoAODFile_Final_FileName0=/eos/cms/store/user/ssawant/tmp/HToaaTo4b/NanoAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/r1/20260121_000000_test/${OpSubdirNum}/PNet_v1_${iSample}.root
+NanoAODFile_Final_FileName=/eos/cms/store/user/ssawant/tmp/HToaaTo4b/NanoAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/r1/20260121_000000_test/${OpSubdirNum}/PNet_v1_${iSample}_Skim.root
 ### -------------------------------------------------------------------------------------------------------------------
 
 
