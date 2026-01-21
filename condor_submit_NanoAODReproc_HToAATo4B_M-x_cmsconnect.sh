@@ -58,10 +58,10 @@ Requirements = HAS_SINGULARITY == True
 ## Specify CPU,Memory and Disk
 ## Default units if not specified: 2gb of memory and 20gb of disk space. 2gb / core 
 ## Disk: Kb, Memory:Mb
-#RequestMemory = 15600
-#RequestCpus = 8
-RequestMemory = 7800
-RequestCpus = 4
+RequestMemory = 15600
+RequestCpus = 8
+#RequestMemory = 7800
+#RequestCpus = 4
 
 #+JobFlavour = "espresso"
 # 7200 # 2*60*60
