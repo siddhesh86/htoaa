@@ -24,8 +24,8 @@ printf "\n mkdir ${Dir_1} : \n"
 mkdir ${Dir_1}
 printf "\n cd ${Dir_1} : \n"
 cd ${Dir_1}
-printf "\n cp ../* . : \n"
-cp ../* .
+printf "\n cp -r ../* . : \n"
+cp -r ../* .
 printf "\n cp -r ${Dir_SourceCode_0}/* . : \n"
 cp -r ${Dir_SourceCode_0}/* .
 printf "\n pwd : \n"
@@ -161,8 +161,8 @@ MiniAODFile_Final_FileName=/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/${Er
 #NanoAODFile_Final_FileName=/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/${EraYear}/MC/PNet_v1_2023_10_06/${SampleProcessName}_${SampleGeneratorDetails}/r1/20240202_000000/${OpSubdirNum}/NanoAODv9Custom_${iSample}_nEvents${NEvents}.root
 # Central NanoAOD /eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/2018/MC/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18NanoAODv9/08905042-1C08-314E-8753-61FFF45D1F2A.root
 # /eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/2018/MC/PNet_v2_2024_11_22/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-60_TuneCP5_13TeV_madgraph_pythia8/r1/241123_175526/0000
-#NanoAODFile_Final_FileName0=/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/${EraYear}/MC/PNet_v2_2024_11_22/${SampleProcessName}_${SampleGeneratorDetails}/r1/20250510_000000/${OpSubdirNum}/PNet_v1_${iSample}.root
-#NanoAODFile_Final_FileName=/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/${EraYear}/MC/PNet_v2_2024_11_22/${SampleProcessName}_${SampleGeneratorDetails}/r1/20250510_000000/${OpSubdirNum}/PNet_v1_${iSample}_Skim.root
+#NanoAODFile_Final_FileName0=/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/${EraYear}/MC/PNet_v2_2024_11_22/${SampleProcessName}_${SampleGeneratorDetails}/r1/20260121_000000/${OpSubdirNum}/PNet_v1_${iSample}.root
+#NanoAODFile_Final_FileName=/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/${EraYear}/MC/PNet_v2_2024_11_22/${SampleProcessName}_${SampleGeneratorDetails}/r1/20260121_000000/${OpSubdirNum}/PNet_v1_${iSample}_Skim.root
 NanoAODFile_Final_FileName0=/eos/cms/store/user/ssawant/tmp/HToaaTo4b/NanoAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/r1/20260121_000000_test/${OpSubdirNum}/PNet_v1_${iSample}.root
 NanoAODFile_Final_FileName=/eos/cms/store/user/ssawant/tmp/HToaaTo4b/NanoAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/r1/20260121_000000_test/${OpSubdirNum}/PNet_v1_${iSample}_Skim.root
 ### -------------------------------------------------------------------------------------------------------------------
@@ -214,6 +214,10 @@ NanoAODStep_inputFilesList="${NanoAODStep_inputFilesList}]"
 printf "Done with reading MiniAOD samples \n"
 printf "NanoAODStep_inputFilesList: >>>${NanoAODStep_inputFilesList}<<<"
 
+echo "pwd: "
+pwd
+echo "ls -ltrh: "
+ls -ltrh
 
 # NanoAODv9 -------------------------------------------------------------------------
 #DatasetType='NanoAODv9'

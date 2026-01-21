@@ -112,7 +112,7 @@ do
 				fMiniAODlist="miniAOD_files_1/miniAODs_${prod}_Pt${HiggsPtMin}_M-${mA}_${EraYear}_${iSample}.txt"
 				printf "iSample: ${iSample} ${fMiniAODlist} \n"
 
-				printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${UserName} ${fMiniAODlist}\n" >> ${sFParams}
+				printf "${prod}, ${HiggsPtMin}, ${mA}, ${wA}, ${ERA}, ${NEvents}, ${iSample}, ${UserName}, ${fMiniAODlist}\n" >> ${sFParams}
 			done
 
 			
