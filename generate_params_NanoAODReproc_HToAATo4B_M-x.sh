@@ -29,7 +29,9 @@ wA=0 # 0 for narrow A width sample. 10 or 70 for broader A width samples.
 #	  "RunIISummer20UL17"
 #	  "RunIISummer20UL16"
 #	  "RunIISummer20UL16APV")
-Eras=("RunIISummer20UL18")
+Eras=("RunIISummer20UL17"
+	"RunIISummer20UL16"
+	"RunIISummer20UL16APV")
 
 # set first (SampleNumber_First) to last (SampleNumber_Last) MC sample file numbers to be produced in this round of submission/execution.
 SampleNumber_First=0
