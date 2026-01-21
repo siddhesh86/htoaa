@@ -12,3 +12,4 @@ condor_exec.exe
 .LOG_.gwms-user-job-wrapper.sh.*.txt
 *~
 localhost:1080
+miniAOD_files_1/miniAODs_SUSY_GluGluH_01J_HToAATo4B_Pt150_M-11.0_2017_0_test.txt
