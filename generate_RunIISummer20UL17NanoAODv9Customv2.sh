@@ -101,4 +101,4 @@ printf "\npwd: $(pwd) \nls:\n $(ls) \n\n cat Hto4b_postproc.py: \n";
 cat Hto4b_postproc.py
 printf "\npython Hto4b_postproc.py : \n"
 python Hto4b_postproc.py
-printf "\npwd: $(pwd) \nls:\n $(ls) \n\n
+printf "\npwd: $(pwd) \nls:\n $(ls) \n\n"

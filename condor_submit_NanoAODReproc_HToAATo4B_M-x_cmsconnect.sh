@@ -23,7 +23,6 @@ Executable = condor_exec_NanoAODReproc_HToAATo4B_M-x.sh
 Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(mA) $(wA) $(DatasetERA) $(nEvents) $(iSample) $(fMiniAODs)
 #Arguments = $(Proxy_filenam) $(prodmode) $(HiggsPtMin) $(mA) $(wA) $(DatasetERA) $(nEvents) $(iSample) $(fMiniAODs)
 
-
 transfer_input_files = $(X509_USER_PROXY), $(ConfigGEN), $(ConfigWmLHEGEN), $(ConfigSIM), $(ConfigDIGIPremix), $(ConfigHLT), $(ConfigRECO), $(ConfigMiniAOD), $(ConfigNanoAOD), $(ConfigNanoAODCustom), $(ConfigNanoAODCustom1), $(fMiniAODs)  
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
