@@ -741,3 +741,4 @@ SUSY_TTH_TTToAll_HToAATo4B, 150, 62.5, 0, RunIISummer20UL17, 500, 3, ssawant, mi
 SUSY_TTH_TTToAll_HToAATo4B, 150, 62.5, 0, RunIISummer20UL17, 500, 4, ssawant, miniAOD_files_1/miniAODs_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-62.5_2017_4.txt
 SUSY_TTH_TTToAll_HToAATo4B, 150, 62.5, 0, RunIISummer20UL17, 500, 5, ssawant, miniAOD_files_1/miniAODs_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-62.5_2017_5.txt
 SUSY_TTH_TTToAll_HToAATo4B, 150, 62.5, 0, RunIISummer20UL17, 500, 6, ssawant, miniAOD_files_1/miniAODs_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-62.5_2017_6.txt
+
