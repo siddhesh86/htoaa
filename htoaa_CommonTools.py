@@ -988,7 +988,7 @@ def getHiggsPtRewgtForGGH_HToAATo4B(GenHiggsPt_list): # GenHiggsPt_list
     ) 
 
     wgt_HiggsPt            = evaluator_['HiggsPtRewgt'](Higgs_pt_toUse)
-    wgt_HiggsPtSystVarDown = wgt_HiggsPt * (0.927853 - (7.60259e-05 * Higgs_pt_toUse pT))
+    wgt_HiggsPtSystVarDown = wgt_HiggsPt * (0.927853 - (7.60259e-05 * Higgs_pt_toUse))
     wgt_HiggsPtSystVarUp   = wgt_HiggsPt * wgt_HiggsPt / wgt_HiggsPtSystVarDown
 
     #printVariable('htoaa_CommonTools::getHiggsPtRewgtForGGH_HToAATo4B(): ', ak.zip([GenHiggsPt_list, wgt_HiggsPt, wgt_HiggsPtSystVarUp, wgt_HiggsPtSystVarDown]))
