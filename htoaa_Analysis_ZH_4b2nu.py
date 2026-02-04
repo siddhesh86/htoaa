@@ -2904,13 +2904,15 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             if self.datasetInfo['isSignalWH']:
                 wgt_WHaa_HiggsPt, wgt_WHaa_HiggsPtUp, wgt_WHaa_HiggsPtDown = getHiggsPtRewgtForWH_HToAATo4B(
                     genHiggs = genHiggs,
-                    genW = genW
+                    genW = genW,
+                    Era = self.datasetInfo["era"]
                 )
                 EWcorr = add_HiggsEW_kFactors(events.GenPart, dataset = "WH")
             if self.datasetInfo['isSignalZH']:
                 wgt_ZHaa_HiggsPt, wgt_ZHaa_HiggsPtUp, wgt_ZHaa_HiggsPtDown = getHiggsPtRewgtForZH_HToAATo4B(
                     genHiggs = genHiggs,
-                    genZ = genZ
+                    genZ = genZ,
+                    Era = self.datasetInfo["era"]
                 )
                 EWcorr = add_HiggsEW_kFactors(events.GenPart, dataset = "ZH")
             if self.datasetInfo['isSignalTTH']:

@@ -1036,14 +1036,23 @@ def getHiggsPtRewgtForVBFH_HToAATo4B(GenHiggsPt_list): # GenHiggsPt_list
     return [wgt_HiggsPt, wgt_HiggsPtSystVarUp, wgt_HiggsPtSystVarDown]
     
 
-def getHiggsPtRewgtForWH_HToAATo4B(genHiggs, genW):
+def getHiggsPtRewgtForWH_HToAATo4B(genHiggs, genW, Era):
     # v0: Higgs pT reweights calculated by Hichem
     
+    EraYear='18'
+    if   "16" in Era and "APV" in Era:  EraYear = "16APV"
+    elif "16" in Era:                   EraYear = "16"
+    elif "17" in Era:                   EraYear = "17"
+    elif "18" in Era:                   EraYear = "18"
+
+    inputFile_ = Corrections['HiggsPtRewgt']['WH_HToAATo4B']['inputFile']
+    inputFile_ = inputFile_.replace('$ERA', EraYear)
+
     extractor_ = extractor()
     extractor_.add_weight_sets([
         "HiggsPtRewgt %s %s" % (
             Corrections['HiggsPtRewgt']['WH_HToAATo4B']['histogramName'],
-            Corrections['HiggsPtRewgt']['WH_HToAATo4B']['inputFile']
+            inputFile_ #Corrections['HiggsPtRewgt']['WH_HToAATo4B']['inputFile']
             )
         ])    
     extractor_.finalize()
@@ -1096,14 +1105,23 @@ def getHiggsPtRewgtForWH_HToAATo4B(genHiggs, genW):
     return [wgt_HiggsPt, wgt_HiggsPtSystVarUp, wgt_HiggsPtSystVarDown]    
     
 
-def getHiggsPtRewgtForZH_HToAATo4B(genHiggs, genZ):
+def getHiggsPtRewgtForZH_HToAATo4B(genHiggs, genZ, Era):
     # v0: Higgs pT reweights calculated by Hichem
+    
+    EraYear='18'
+    if   "16" in Era and "APV" in Era:  EraYear = "16APV"
+    elif "16" in Era:                   EraYear = "16"
+    elif "17" in Era:                   EraYear = "17"
+    elif "18" in Era:                   EraYear = "18"
+
+    inputFile_ = Corrections['HiggsPtRewgt']['WH_HToAATo4B']['inputFile']
+    inputFile_ = inputFile_.replace('$ERA', EraYear)
     
     extractor_ = extractor()
     extractor_.add_weight_sets([
         "HiggsPtRewgt %s %s" % (
             Corrections['HiggsPtRewgt']['ZH_HToAATo4B']['histogramName'],
-            Corrections['HiggsPtRewgt']['ZH_HToAATo4B']['inputFile']
+            inputFile_ #Corrections['HiggsPtRewgt']['ZH_HToAATo4B']['inputFile']
             )
         ])    
     extractor_.finalize()
