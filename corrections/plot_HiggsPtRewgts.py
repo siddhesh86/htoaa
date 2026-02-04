@@ -112,6 +112,7 @@ if __name__ == "__main__":
     sHistName_kFct             = 'hGenHiggsPt_Nom_Wgt_Hqt'
     sHistName_kFct_NLO         = 'hGenHiggsPt_Nom_Wgt_NLO'
     sHistName_kFct_NLO_to_NNLO = 'hGenHiggsPt_Nom_Wgt_NLO_to_Hqt'
+    sHistName_kFct_NNLOMC       = 'hGenHiggsPt_Nom_Wgt_NNLOMC'    
     sOpPlot_pt     = '%s/HiggsPt_ggH.png' % (sOpDir)
     sOpPlot_kFct   = '%s/kFactor_ggH.png' % (sOpDir)
     nRebinsX = 2
@@ -119,10 +120,10 @@ if __name__ == "__main__":
     
     # Pt
     h_dict = {
-        r'gg #rightarrow H signal (LO)': readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_Sig,      nRebinX=nRebinsX, maintainScale=1),
-        r'SM gg #rightarrow H (NLO)':    readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_Ref_NLO,  nRebinX=nRebinsX, maintainScale=1),
-        r'SM gg #rightarrow H (NNLO)':   readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_Ref_NNLO, nRebinX=nRebinsX, maintainScale=1),
-        r'Hqt v2.0':                     readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_Ref,      nRebinX=nRebinsX, maintainScale=1),
+        r'gg #rightarrow H (LO MC)':           readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_Sig,      nRebinX=nRebinsX, maintainScale=1),
+        r'gg #rightarrow H (NLO MC)':          readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_Ref_NLO,  nRebinX=nRebinsX, maintainScale=1),
+        r'gg #rightarrow H (NNLO MC)':         readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_Ref_NNLO, nRebinX=nRebinsX, maintainScale=1),
+        r'gg #rightarrow H (NNLO Hqt v2.0)':   readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_Ref,      nRebinX=nRebinsX, maintainScale=1),
     }
     plotHistograms(
         histogram_dict = h_dict, 
@@ -139,9 +140,10 @@ if __name__ == "__main__":
     # kFactor
     nRebinsX = 5
     h_dict = {
-        r'gg #rightarrow H signal: LO  #rightarrow NNLO': readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_kFct,             nRebinX=nRebinsX, maintainScale=1),
-        r'gg #rightarrow H signal: LO  #rightarrow NLO': readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_kFct_NLO,         nRebinX=nRebinsX, maintainScale=1),
-        r'SM gg #rightarrow H: NLO  #rightarrow NNLO': readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_kFct_NLO_to_NNLO, nRebinX=nRebinsX, maintainScale=1)
+        r'LO  #rightarrow NLO':           readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_kFct_NLO,         nRebinX=nRebinsX, maintainScale=1),
+        r'LO  #rightarrow NNLO MC':       readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_kFct_NNLOMC,      nRebinX=nRebinsX, maintainScale=1),
+        r'LO  #rightarrow NNLO Hqt v2.0': readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_kFct,             nRebinX=nRebinsX, maintainScale=1),
+        #r'SM gg #rightarrow H: NLO  #rightarrow NNLO': readHistFromFile(sFile=sFIn, sHistNameFull=sHistName_kFct_NLO_to_NNLO, nRebinX=nRebinsX, maintainScale=1)
 
     }
     plotHistograms(

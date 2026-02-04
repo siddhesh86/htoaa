@@ -18,3 +18,10 @@ localhost:1080
 scripts/datasetNamesForRucioRequest.txt
 __pycache__/SamplesCrosssection_Catalogue.cpython-310.pyc
 __pycache__/htoaa_Settings.cpython-310.pyc
+__pycache__/*
+__pycache__/DASQueryHelper.cpython-310.pyc
+__pycache__/SamplesCrosssection_Catalogue.cpython-310.pyc
+__pycache__/Samples_2016postVFP_Catalogue.cpython-310.pyc
+__pycache__/Samples_2016preVFP_Catalogue.cpython-310.pyc
+__pycache__/Samples_2017_Catalogue.cpython-310.pyc
+__pycache__/Samples_2018_Catalogue.cpython-310.pyc

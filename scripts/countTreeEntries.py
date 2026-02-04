@@ -55,8 +55,14 @@ if __name__ == "__main__":
         "RunIISummer20UL16",
         "RunIISummer20UL16APV",
     ]
+    #Eras=["RunIISummer20UL16",]
     #Eras=["RunIISummer20UL18",]
 
+    countEntriesNanoAOD = False # Default: True
+
+    #sFNEvts="nEvents_SignalIntermediateMassPoints.txt"
+    #print(f"\n rm ${sFNEvts} : \n")
+    #rm ${sFParams}
 
     nEvents_dict = {}
     for Era in Eras:
@@ -77,15 +83,22 @@ if __name__ == "__main__":
                 # /eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/2018/MC/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-11.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/0018/MiniAODv2_1898_nEvents500.root
                 sMiniAOD = f"/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/{EraYear}/MC/{prodmode}_Pt150_M-{mA}_TuneCP5_13TeV_madgraph_pythia8/{Era}/*/MiniAODv2_*.root"
 
+                if EraYear == "2018":
+                    crabDir_timeStamp="20251107_000000"
+                else:
+                    crabDir_timeStamp="20260121_000000"
                 # /eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/2018/MC/PNet_v2_2024_11_22/SUSY_VBFH_HToAATo4B_Pt150_M-18.5_TuneCP5_13TeV_madgraph_pythia8/r1/20251107_000000/0000/PNet_v1_14_Skim.root
-                sNanoAOD_0 = f"/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/{EraYear}/MC/PNet_v2_2024_11_22/{prodmode}_Pt150_M-{mA}_TuneCP5_13TeV_madgraph_pythia8/r1/20251107_000000/*/PNet_*_Skim.root"
+                sNanoAOD_0 = f"/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/{EraYear}/MC/PNet_v2_2024_11_22/{prodmode}_Pt150_M-{mA}_TuneCP5_13TeV_madgraph_pythia8/r1/{crabDir_timeStamp}/*/PNet_*_Skim.root"
                 # /eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/2018/MC/PNet_v2_2024_11_22/SUSY_VBFH_HToAATo4B_Pt150_M-18.5_TuneCP5_13TeV_madgraph_pythia8/r1/PNet_v1_Skim_0.root
                 sNanoAOD_hadded = f"/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/{EraYear}/MC/PNet_v2_2024_11_22/{prodmode}_Pt150_M-{mA}_TuneCP5_13TeV_madgraph_pythia8/r1/PNet_v1_Skim_*.root"
 
 
                 nEvents_MiniAOD   = countTotalEntriesFromTrees(sMiniAOD)
-                nEvents_NanoAOD_0 = countTotalEntriesFromTrees(sNanoAOD_0)
-                nEvents_NanoAOD   = countTotalEntriesFromTrees(sNanoAOD_hadded)
+                nEvents_NanoAOD_0 = -1
+                nEvents_NanoAOD   = -1
+                if countEntriesNanoAOD:
+                    nEvents_NanoAOD_0 = countTotalEntriesFromTrees(sNanoAOD_0)
+                    nEvents_NanoAOD   = countTotalEntriesFromTrees(sNanoAOD_hadded)
                 print(f"\t {mA = }: \t {nEvents_MiniAOD} \t {nEvents_NanoAOD_0} \t {nEvents_NanoAOD}", flush=True)
 
                 nEvents_dict[EraYear][prodmode][mA] = {'MiniAOD': nEvents_MiniAOD, 'NanoAOD': nEvents_NanoAOD, 'NanoAOD_0': nEvents_NanoAOD}
@@ -103,6 +116,26 @@ if __name__ == "__main__":
             for mA in mApoints:
                 print(f"{prodmode}_Pt150_M-{mA} \t {nEvents_dict[EraYear][prodmode][mA]['MiniAOD']} \t {nEvents_dict[EraYear][prodmode][mA]['NanoAOD']} \t {nEvents_dict[EraYear][prodmode][mA]['NanoAOD_0']}", flush=True)
 
+
+
+    print(f"\n\n\n\nPrint for sample dictionary")
+    for Era in Eras:
+        EraYear='2018'
+        if   "16" in Era and "APV" in Era:  EraYear = "2016APV"
+        elif "16" in Era:                   EraYear = "2016"
+        elif "17" in Era:                   EraYear = "2017"
+        elif "18" in Era:                   EraYear = "2018"
+
+        if   "16" in Era and "APV" in Era:  DatasetNamePart2 = "RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1"
+        elif "16" in Era:                   DatasetNamePart2 = "RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1"
+        elif "17" in Era:                   DatasetNamePart2 = "RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1"
+        elif "18" in Era:                   DatasetNamePart2 = "RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1"
+
+        print(f"\n{EraYear:}")
+        for prodmode in prodmodes:                        
+            for mA in mApoints:
+                print('    ("/%s_Pt150_M-%s_TuneCP5_13TeV_madgraph_pythia8/%s/NANOAODSIM", {sNEvtSkimv2: %d, sSumEvtSkimv2: %d}),'%(prodmode,mA,DatasetNamePart2, nEvents_dict[EraYear][prodmode][mA]['MiniAOD'],nEvents_dict[EraYear][prodmode][mA]['MiniAOD']));
+            print(' ')
 
                 
         

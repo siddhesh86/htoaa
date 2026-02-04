@@ -1105,9 +1105,9 @@ Corrections = {
     "HiggsPtRewgt": {
         "GGH_HToAATo4B": {
             'inputFile':     'data/correction/mc/HiggsPtRewgt/2018/ggHHiggsPtRewgt_HToAATo4B_TH1D.root', #'/eos/cms/store/user/ssawant/htoaa/analysis/HiggsPtRewgts/2018/ggHHiggsPtRewgt_HToAATo4B.root', 
-            'histogramName':               'hGenHiggsPt_Nom_Wgt_Hqt',
-            'histogramNameForUncertainty': 'hGenHiggsPt_Nom_Wgt_NLO_to_Hqt',
-            'xAxisRange': [20, 800], # pT(GenHiggs)
+            'histogramName':               'hGenHiggsPt_Nom_Wgt_NLO',
+            #'histogramNameForUncertainty': 'hGenHiggsPt_Nom_Wgt_NLO_to_Hqt', # Down: Nom * (0.927853 - (7.60259e-05 * Higgs pT)), Up: Nom^2/Down
+            'xAxisRange': [150, 1000], # pT(GenHiggs)
         },
         "VBFH_HToAATo4B": {
             'inputFile':     'data/correction/mc/HiggsPtRewgt/2018/VBFHHiggsPtRewgt_HToAATo4B_TH1D.root', # /eos/cms/store/user/ssawant/htoaa/analysis/HiggsPtRewgts/2018/VBFHHiggsPtRewgt_HToAATo4B.root
@@ -1119,12 +1119,14 @@ Corrections = {
             'histogramName': 'WH_weights_histo',
             'xAxisRange': [-1.10, 1.10], # log2( (2*pT_H) / (pT_H + pT_W) )
             'yAxisRange': [ 7.0 , 9.6 ], # log2( pT_H )
+            'kFactorNLONorm': 1.035, # https://hboucham.web.cern.ch/Haa4b_plots/index.html#04/01/2025
         },
         "ZH_HToAATo4B": {
             'inputFile':     'data/correction/mc/HiggsPtRewgt/WH_ZH_wgts_Hichem/ZH_2D_weight_18.root', # Hichem's file share on 01/07/2025: /afs/cern.ch/user/h/hboucham/public/commonFiles/VH_pt_SF/
             'histogramName': 'ZH_weights_histo',
             'xAxisRange': [-1.10, 1.10], # log2( (2*pT_H) / (pT_H + pT_W) )
             'yAxisRange': [ 7.0 , 9.6 ], # log2( pT_H )
+            'kFactorNLONorm': 1.042, # https://hboucham.web.cern.ch/Haa4b_plots/index.html#04/01/2025
         },
         "TTH_HToAATo4B": {
             'inputFile':     'data/correction/mc/HiggsPtRewgt/2018/ttHHiggsPtRewgt_HToAATo4B_TH1D.root', # /eos/cms/store/user/ssawant/htoaa/analysis/HiggsPtRewgts/2018/ttHHiggsPtRewgt_HToAATo4B.root.
