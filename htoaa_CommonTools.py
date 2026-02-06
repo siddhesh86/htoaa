@@ -1114,7 +1114,7 @@ def getHiggsPtRewgtForZH_HToAATo4B(genHiggs, genZ, Era):
     elif "17" in Era:                   EraYear = "17"
     elif "18" in Era:                   EraYear = "18"
 
-    inputFile_ = Corrections['HiggsPtRewgt']['WH_HToAATo4B']['inputFile']
+    inputFile_ = Corrections['HiggsPtRewgt']['ZH_HToAATo4B']['inputFile']
     inputFile_ = inputFile_.replace('$ERA', EraYear)
     
     extractor_ = extractor()
@@ -1829,14 +1829,14 @@ def calculatePNet_MassH_MassA_cor_and_syst(leadingFatJet):
         (1 + (0.030 * np.random.normal(0, 1, nEvents)) )
     leadingFatJet['PNet_massH_v2b_cor_JMRDown'] = leadingFatJet['PNet_massH_v2b_cor'] * leadingFatJet['PNet_massH_v2b_cor'] / leadingFatJet['PNet_massH_v2b_cor_JMRUp']
     # ParticleNet mass(a) regression mass scale
-    #    Uncertainties +/-5.0% from nominal value
+    #    Uncertainties +/-2.50% from nominal value
     #    To account for 11 and 63 GeV “endpoints”, implement as:
-    #      Up : mA_scaled = min( mA_nom*1.05, 0.5*(mA_nom + 63) )
-    #      Down : mA_scaled = max( mA_nom*0.95, 0.5*(mA_nom + 11) )
-    leadingFatJet['PNet_34massAa_JMSUp']   = np.minimum( leadingFatJet['PNet_34massAa']*1.05,  0.5*(leadingFatJet['PNet_34massAa'] + 63) )
-    leadingFatJet['PNet_34massAa_JMSDown'] = np.maximum( leadingFatJet['PNet_34massAa']*0.95,  0.5*(leadingFatJet['PNet_34massAa'] + 11) )
-    leadingFatJet['PNet_34massAd_JMSUp']   = np.minimum( leadingFatJet['PNet_34massAd']*1.05,  0.5*(leadingFatJet['PNet_34massAd'] + 63) )
-    leadingFatJet['PNet_34massAd_JMSDown'] = np.maximum( leadingFatJet['PNet_34massAd']*0.95,  0.5*(leadingFatJet['PNet_34massAd'] + 11) )
+    #      Up : mA_scaled = min( mA_nom*1.025, 0.5*(mA_nom + 63) )
+    #      Down : mA_scaled = max( mA_nom*0.975, 0.5*(mA_nom + 11) )
+    leadingFatJet['PNet_34massAa_JMSUp']   = np.minimum( leadingFatJet['PNet_34massAa']*1.025,  0.5*(leadingFatJet['PNet_34massAa'] + 63) )
+    leadingFatJet['PNet_34massAa_JMSDown'] = np.maximum( leadingFatJet['PNet_34massAa']*0.975,  0.5*(leadingFatJet['PNet_34massAa'] + 11) )
+    leadingFatJet['PNet_34massAd_JMSUp']   = np.minimum( leadingFatJet['PNet_34massAd']*1.025,  0.5*(leadingFatJet['PNet_34massAd'] + 63) )
+    leadingFatJet['PNet_34massAd_JMSDown'] = np.maximum( leadingFatJet['PNet_34massAd']*0.975,  0.5*(leadingFatJet['PNet_34massAd'] + 11) )
     # ParticleNet mass(a) mass resolution uncertainties:
     #    Nominal width about 7%, want Up variation to be 20% wider (i.e. 8.4%)
     #    As per test_smearing.py, for Up variation scale mass(a) event-by-event by
