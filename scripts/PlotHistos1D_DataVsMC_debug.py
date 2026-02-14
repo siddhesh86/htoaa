@@ -91,7 +91,7 @@ print(f"{YearsToRun_dict = }, \n{Years = }")
 sIpFiles = {}
 for Era in Years:
     sIpFiles[Era] = '%s/%s/%s/analyze_htoaa_stage1.root' % (sAnaDir, Era, anaSuperCat) # 20250612_gg0lDataMC_1, 20250613_gg0lDataMC_1, 20250617_gg0lDataMC, 20250617_gg0lDataMC_1
-sOpDirNameShort = 'plots'
+sOpDirNameShort = 'plots_test'
 
 
 subCats = []
@@ -104,14 +104,15 @@ elif 'Vjj'      in CAT:
 elif 'Zvv'      in CAT:    
     subCats = ["ZvvIncl", "ZvvHi", "ZvvLo"]
 elif 'tt0l'      in CAT:    
-    subCats = ["tt0l_1TFJ_ge0BOutsideSelFJ", "tt0l_1TFJ_0BOutsideSelFJ", "tt0l_1TFJ_ge1BOutsideSelFJ"]
+    #subCats = ["tt0l_1TFJ_ge0BOutsideSelFJ", "tt0l_1TFJ_0BOutsideSelFJ", "tt0l_1TFJ_ge1BOutsideSelFJ"]
+    subCats = ["tt0l_1TFJ_ge0BOutsideSelFJ"]
 
 ## Set selection tags
 selectionTags = []
 for subCat_ in subCats:
     selectionTags.extend( [subCat_,] ) # '%sMsdLt50' % (CAT),'%sMsdGt50' % (CAT)]
     if 'gg0l' in CAT: selectionTags.extend([ '%s_Xto4bv2_SBplusSRWP40' % (subCat_),] )
-    else:             selectionTags.extend([ '%s_Xto4bv2_SBplusSRWP60' % (subCat_), ] )
+    else:             selectionTags = ['%s_Xto4bv2_SBplusSRWP60' % (subCat_), ] #selectionTags.extend([ '%s_Xto4bv2_SBplusSRWP60' % (subCat_), ] )
 if 'trigEffi' in CAT: 
     selectionTags = ['JetTrgEffiDenom', 'JetTrgEffiNume_Trg_Combo_AK4AK8Jet_HT_VBF']
 elif 'CR_QCD4b'      in CAT: 
@@ -160,8 +161,8 @@ for DatasetName_, YearsToRun_list_ in YearsToRun_dict.items():
 
 
 
-RunMode = '' # '', 'test'
-printLevel = 0 # 0
+RunMode = 'test' # '', 'test'
+printLevel = 10 # 0
 
 
 print(f"{selectionTags = }")
@@ -375,7 +376,7 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
             histo_name_toUse = '%s_%s' % (histo_name, selectionTag)
             if printLevel >= 1: print(f"\n\n {sDatasetName} {histo_name_toUse = }")            
             for systematic in systematics_list:
-                YaxisScaleToRun = ['linearY', 'logY'] if RunMode.lower() != 'test' else ['linearY', 'logY']
+                YaxisScaleToRun = ['linearY', 'logY'] if RunMode.lower() != 'test' else ['linearY']
                 for yAxisScale in YaxisScaleToRun: #['linearY', ]: # ['linearY', 'logY']
                     xAxisRange = histograms_dict[histo_name][sXRange] if sXRange in histograms_dict[histo_name].keys() else None
                     yAxisRange = histograms_dict[histo_name][sYRange] if sYRange in histograms_dict[histo_name].keys() else None
@@ -438,12 +439,12 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                                 if hData == None: hData = h
                                 else:             hData = hData + h    
                                 if printLevel >= 9:
-                                    print(f"\t\t\t{Year_} {DataObs_DirName}: {h.values().sum()},    hData {hData.values().sum()}")                             
+                                    print(f"\t\t\t{Year_} {DataObs_DirName}: {h.values().sum()} +- {np.sqrt(h.variances().sum())},    hData {hData.values().sum()} +- {np.sqrt(hData.variances().sum())}")                             
 
                         hData = rebinTH1(hData, nRebinX) if nHistoDimemsions == 1 else rebinTH2(hData, nRebinX, nRebinY)
                         nDataTotal = hData.values().sum()
                         if printLevel >= 6:
-                            print(f"\t\thData {hData.values().sum()}\n")                             
+                            print(f"\t\thData {hData.values().sum()} +- {np.sqrt(hData.variances().sum())}\n")                             
 
 
                     
@@ -478,7 +479,7 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                                     else:          h = h + h_i
                             
                                     if printLevel >= 9:
-                                        print(f"\t\t\t\t{MCBkgNameShort} {dataset} {Year_}: {h_i.values().sum()},    hBkg {h.values().sum()}")                             
+                                        print(f"\t\t\t\t{MCBkgNameShort} {dataset} {Year_}: {h_i.values().sum()} +- {np.sqrt(h_i.variances().sum())},    hBkg {h.values().sum()} +- {np.sqrt(h.variances().sum())}")                             
                                 
 
                             h = h * luminosity_Scaling_toUse
@@ -490,7 +491,7 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                                 hBkgTot = hBkgTot + h 
                             '''
                             if printLevel >= 6:
-                                print(f"\t\t\t{MCBkgNameShort}: hBkg {h.values().sum()}, \t {luminosity_Scaling_toUse = }")                             
+                                print(f"\t\t\t{MCBkgNameShort}: hBkg {h.values().sum()} +- {np.sqrt(h.variances().sum())}, \t {luminosity_Scaling_toUse = }")                             
 
 
                             nTot_ = h.values().sum()
@@ -641,8 +642,8 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                                 #else:           h = h + h_i
                                 if h == None: h = h_i
                                 else:         h = h + h_i
-                                if printLevel >= 9:
-                                    print(f"\t\t\t\t{dataset} {Year_}: {h_i.values().sum()},    hSig {h.values().sum()}")                             
+                                if printLevel >= 9: 
+                                    print(f"\t\t\t\t{dataset} {Year_}: {h_i.values().sum()} +- {np.sqrt(h_i.variances().sum())},    hSig {h.values().sum()} +- {np.sqrt(h.variances().sum())}")                             
 
                             h = h * luminosity_Scaling_toUse
 
@@ -662,7 +663,7 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                             if printLevel >= 30:
                                 print(f"{iSig = }, {dataset = } {nSig = }, {nBkgTot = }")
                             if printLevel >= 6:
-                                print(f"\t\t\thSig {dataset}: {nSig}, \t {luminosity_Scaling_toUse}")                             
+                                print(f"\t\t\thSig {dataset}: {nSig} +- {np.sqrt(h.variances().sum())}, \t {luminosity_Scaling_toUse}")                             
 
                             label_MCSig = dataset
                             label_MCSig = sLableSig[iSig]
@@ -850,7 +851,8 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                         ratio_error  = np.divide(ratio_error, hBkgTot_values, where=hBkgTot_values!=0, out=np.zeros(hData.shape))
                         ratio_syst   = np.sqrt(hBkgTot_variance)
                         ratio_syst   = np.divide(ratio_syst, hBkgTot_values, where=hBkgTot_values!=0, out=np.zeros(hData.shape))
-                        ratio_syst_CMS = ratio_uncertainty(hData_values_toUse, hBkgTot_values, 'poisson-ratio')
+                        #ratio_syst_CMS = ratio_uncertainty(hData_values_toUse, hBkgTot_values, 'poisson-ratio')
+                        ratio_syst_CMS = ratio_uncertainty(hData.values(), hBkgTot_values, 'poisson-ratio')
                         ratio_syst_unct_low  = ratio_syst_CMS[0]
                         ratio_syst_unct_high = ratio_syst_CMS[1]
                         ratio_syst_unct_low = np.where(
@@ -863,11 +865,16 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                             ratio_syst_unct_high,
                             ratio_syst
                         )   
-                        
+
                         #print(f"{ratio_syst      = }")
                         #print(f"{ratio_syst_CMS = }")
 
-                        #print(f"{list(zip(ratio_syst, ratio_syst_CMS[0], ratio_syst_CMS[1])) = }")
+                        if printLevel >= 10:
+                            print(f"{ratio_syst      = }")
+                            print(f"{ratio_syst_CMS = }")
+                            print(f"{ratio_syst_unct_low = }")
+                            print(f"{ratio_syst_unct_high = }")                            
+                            print(f"{list(zip(hData.axes[0].centers,hData.values(), np.sqrt(hData.variances()), hData_values_toUse, hData_errors_toUse, hBkgTot_values, np.sqrt(hBkgTot_variance), ratio_syst, ratio_syst_unct_low, ratio_syst_unct_high)) = }")
 
                         #print(f"ratio_values ({ratio_values.shape}): {ratio_values}")
                         if nHistoDimemsions == 1:
@@ -914,8 +921,7 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                                 **errps
                                 )
                             '''
-                            #axRatio.stairs(1+ratio_syst_CMS[1], edges=hData.axes[0].edges, baseline=1-ratio_syst_CMS[0], **errps)
-                            axRatio.stairs(1+ratio_syst_unct_high, edges=hData.axes[0].edges, baseline=1-ratio_syst_unct_low, **errps)                            
+                            axRatio.stairs(1+ratio_syst_unct_high, edges=hData.axes[0].edges, baseline=1-ratio_syst_unct_low, **errps)
                             
                             # highlight blinded bins
                             if dataBlindOption != DataBlindingOptions.Unblind: 

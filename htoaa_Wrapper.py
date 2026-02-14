@@ -859,7 +859,7 @@ if __name__ == '__main__':
         sOpRootFile_stage1 = sOpRootFile_stage1.replace('_$STAGE',   '_stage1')
         sOpRootFile_stage1 = sOpRootFile_stage1.replace('_$IJOB',    '')
 
-        isOpRootFileExist = os.path.isfile(sOpRootFile_stage1) and (os.path.getsize(sOpRootFile_stage1) > 2e4)
+        isOpRootFileExist = os.path.isfile(sOpRootFile_stage1) and (os.path.getsize(sOpRootFile_stage1) > 2e3) # 2e4
 
         if isOpRootFileExist:
             print('%s %s already exists. \n' % (datetime.now().strftime("%Y/%m/%d %H:%M:%S"), sOpRootFile_stage1))
@@ -905,7 +905,7 @@ if __name__ == '__main__':
             executeBashCommand("ls -lh *.root")
 
             # Delete sOpRootFile_stage1_batches to save disk space
-            isOpRootFileExist = os.path.isfile(sOpRootFile_stage1) and (os.path.getsize(sOpRootFile_stage1) > 5e4)
+            isOpRootFileExist = os.path.isfile(sOpRootFile_stage1) and (os.path.getsize(sOpRootFile_stage1) > 2e3) # 5e4
             if isOpRootFileExist:
                 for opFileName in sOpRootFile_stage1_batches:
                     cmd_rm = 'rm %s' % (opFileName)
@@ -916,7 +916,7 @@ if __name__ == '__main__':
                 executeBashCommand("pwd")
                 executeBashCommand("ls -lh *.root")
 
-        isOpRootFileExist     = os.path.isfile(sOpRootFile_stage1) and (os.path.getsize(sOpRootFile_stage1) > 2e4)
+        isOpRootFileExist     = os.path.isfile(sOpRootFile_stage1) and (os.path.getsize(sOpRootFile_stage1) > 2e3) # 2e4
 
 
         ## Make Data vs MC plots
@@ -941,6 +941,13 @@ if __name__ == '__main__':
             cmd_2DAlphabetInputs = 'python3 scripts/makeHistogramsFor2DAlphabetMthod.py %s %s %s' % (EosAnaVersionDir, era, sAnaCat)
             cmd_2DAlphabetInputs_stdout = executeBashCommand(cmd_2DAlphabetInputs)
             fJobSubLog.write('\n %s: \n%s \n' % (cmd_2DAlphabetInputs, cmd_2DAlphabetInputs_stdout))
+            
+            sFile2DAlphabetOp = '%s/1_2DAlphabetOutput_%s_%s.log'%(os.path.dirname(sFileJobSubLog), era,sAnaCat)
+            with open(sFile2DAlphabetOp, 'w') as fOp2DAlphabet:
+                fOp2DAlphabet.write(cmd_2DAlphabetInputs_stdout)
+            print(f"\n2DAlphabet log for {era} {sAnaCat} written to {sFile2DAlphabetOp}\n")
+
+
 
             os.chdir( EosDestinationDir )
             executeBashCommand("pwd")

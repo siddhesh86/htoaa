@@ -1458,12 +1458,14 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         
         if printLevel >= 20:
             print(f"nEvents: {len(events)}")
-        if printLevel >= 1:
+        if printLevel >= 0:
             print(f"\n events.fields ({type(events.fields)}): {events.fields}"); sys.stdout.flush()
+            #printVariable('\nevents.LHEPdfWeight', events.LHEPdfWeight)
              
         if nEventsToAnalyze != -1:
             #print(f"\n (run:ls:event): {ak.zip([events.run, events.luminosityBlock, events.event])}") 
-            printVariable('\n (run:ls:event): ', ak.zip([events.run, events.luminosityBlock, events.event])); #sys.stdout.flush()     
+            printVariable('\n (run:ls:event): ', ak.zip([events.run, events.luminosityBlock, events.event])); #sys.stdout.flush()  
+
         #printVariable('\n (run:ls:event): ', ak.zip([events.run, events.luminosityBlock, events.event])[:20]); #sys.stdout.flush()        
 
         
