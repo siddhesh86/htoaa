@@ -1,7 +1,7 @@
 #!/bin/bash
 
-Eras=("2016preVFP") #("2016preVFP" "2016postVFP" "2017" "2018")
-Cats=("gg0l" "Vjj" "tt0l" "Zvv")
+Eras=("2016postVFP" "2017" "2018") #("2016preVFP" "2016postVFP" "2017" "2018")
+Cats=("Zvv") #("gg0l" "Vjj" "tt0l" "Zvv")
 SourceDir=/eos/cms/store/user/ssawant/htoaa/analysis/20251015_DatacardsFullSyst
 DestinationDir=/eos/cms/store/user/ssawant/htoaa/analysis/20260206_DatacardsFullSystSigs_1
 

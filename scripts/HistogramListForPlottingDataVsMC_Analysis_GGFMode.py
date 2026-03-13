@@ -65,6 +65,18 @@ MCBkg_dict = {
     'SM Higgs': ['GluGluHToBB_Pt-200ToInf', 'VBFH_dipoleRecoilOn', 'WplusHToBBQQ', 'WplusHToBBLNu', 'WminusHToBBQQ', 'WminusHToBBLNu', 'ZHToBBX', 'ttHToBB'],
     #'': [],
 }
+MCBkg_dict = {
+    'QCD': ["QCD_bEnr", "QCD_BGen", "QCD_Incl"],
+    r't$\bar{t}$+jets': ["TT0l", "TT1l", "TT2l"],
+    #'Wlv': ["Wlv"],
+    'V+jets': ["Zqq", "Zvv", "Zll", "Wqq", "Wlv", ],
+    'Other': ["STop_t", "STbar_t", "ST_s_0l", "ST_s_1l", "STop_tW_Incl", "STbar_tW_Incl",
+              "ZZ", "WZ", "WW", 
+              "ttZ", "ttW", "tZq",   "ZZZ", "WZZ", "WWZ", "WWW",
+              'GluGluHToBB_Pt-200ToInf', 'VBFH_dipoleRecoilOn', 'WplusHToBBQQ', 'WplusHToBBLNu', 'WminusHToBBQQ', 'WminusHToBBLNu', 'ZHToBBX', 'ttHToBB'
+              ],
+    #'': [],
+}
 MCSig_list = [
     #'SUSY_GluGluH_01J_HToAATo4B_M-15_HPtAbv150', 
     #'SUSY_GluGluH_01J_HToAATo4B_M-20_HPtAbv150', 
@@ -73,9 +85,9 @@ MCSig_list = [
     #'SUSY_GluGluH_01J_HToAATo4B_M-50_HPtAbv150', 
     #'SUSY_GluGluH_01J_HToAATo4B_M-55_HPtAbv150', 
     #'ggHtoaato4b_mA_20'
-    'ggHtoaato4b_mA_15',
-    'ggHtoaato4b_mA_30',
-    'ggHtoaato4b_mA_55',
+    'ggHtoaato4b_mA_15p0',
+    'ggHtoaato4b_mA_30p0',
+    'ggHtoaato4b_mA_55p0',
     
 ]
 sLableSig = [
@@ -106,7 +118,7 @@ scale_MCSig_dict = {
     'gg0lHi': 20,
     'gg0lHi_Xto4bv2_SBplusSRWP40': 5,       
 }
-yRatioLimit = [0., 2.] #[0.4, 1.6]
+yRatioLimit = [0.5, 1.5] #[0., 2.] #[0.4, 1.6]
 ySignfLimit = [1e-1, 5e2]
 
 logYMinScaleFactor = 10 # 100 # 1 # scale yMin by factor logYMinScaleFactor to not concentrate lowest stats background processes
@@ -380,7 +392,11 @@ histograms_dict = OD([
     #("hLeadingFatJetPt", {sXLabel: r'$p_{T}$(Higgs candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [180, 1000], sNRebinX: 4 }),
     #("hCutFlowPerCat", {sXLabel: r'Event cut flow', sYLabel: 'Events', sXRange: [-0.5, 20.5], sNRebinX: 1 }),
     #("hnAk4JetsCentral_bTag_awayFrom_leadingFatJet", {sXLabel: 'No. of b-tag AK4 jets, dR>1.2 from H->4b Fatjet', sYLabel: 'Events', sXRange: [-0.5, 6.5] }),
-    ("hLeadingFatJetMassH_v2b", {sXLabel: r'Mass$_{PNet\, X\to 4b}$(Higgs candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [0, 240], sNRebinX: 1}),
+    #("hLeadingFatJetMassH_v2b", {sXLabel: r'Mass$_{PNet\, X\to 4b}$(Higgs candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [0, 240], sNRebinX: 1}),
+    ("hLeadingFatJetMass", {sXLabel: r'Mass(Higgs candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [0, 240], sNRebinX: 1}),
+    #("hLeadingFatJetMSoftDrop", {sXLabel: r'Mass$_{Soft\, drop}$(Higgs candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [0, 240], sNRebinX: 1 }),
+    
     
 ])
 '''
+

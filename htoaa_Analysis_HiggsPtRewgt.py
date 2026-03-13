@@ -443,11 +443,12 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     lumiScale: {self.datasetInfo["lumiScale"] }')
 
             # MC PURewgt --------------------------------------------------------------------------------------------------
+            '''
             print(f'MC {self.datasetInfo["era"]} PU reweighting:: ip file: {Corrections["PURewgt"][self.datasetInfo["era"]]["inputFile"]}, histogram: {Corrections["PURewgt"][self.datasetInfo["era"]]["histogramName"]} ')
             with uproot.open(Corrections["PURewgt"][self.datasetInfo["era"]]["inputFile"]) as f_:
                 #print(f"{f_.keys() = }"); sys.stdout.flush() 
                 self.hPURewgt = f_['%s' % Corrections["PURewgt"][self.datasetInfo["era"]]["histogramName"]].to_hist()
-                
+            '''
         
             # set self.pdgId_BHadrons for 'QCD_bGenFilter' sample requirement ---------------------------------------------
             self.pdgId_BHadrons = []
@@ -564,7 +565,11 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             histos.update(OD([
                 ('hGenHiggsPt',                           {sXaxis: pt2TeV_axis,     sXaxisLabel: r"$p_{T}(GEN Higgs)$ [GeV]"}),
                 ('hGenHiggsLog2Pt',                       {sXaxis: log2Pt2TeV_axis, sXaxisLabel: r"$log2 p_{T}(GEN Higgs))$ [GeV]"}),
-                ('hGenHiggsMass',                         {sXaxis: mass_axis,      sXaxisLabel: r"$Mass(GEN Higgs)$ [GeV]"}),
+                ('hGenHiggsMass',                         {sXaxis: mass_axis,       sXaxisLabel: r"$Mass(GEN Higgs)$ [GeV]"}),
+                ('hGenHiggsEta',                          {sXaxis: eta_axis,        sXaxisLabel: r"$eta(GEN Higgs)$"}),
+                ('hGenHiggsEta_HiggsPt250to350',          {sXaxis: eta_axis,        sXaxisLabel: r"$eta(GEN Higgs)$"}),
+                ('hGenHiggsEta_HiggsPt350to450',          {sXaxis: eta_axis,        sXaxisLabel: r"$eta(GEN Higgs)$"}),
+                ('hGenHiggsEta_HiggsPtGt450',             {sXaxis: eta_axis,        sXaxisLabel: r"$eta(GEN Higgs)$"}),
                 ('hGenZPt',                               {sXaxis: pt2TeV_axis,     sXaxisLabel: r"$p_{T}(GEN Z)$ [GeV]"}),
                 ('hGenZLog2Pt',                           {sXaxis: log2Pt2TeV_axis, sXaxisLabel: r"$log2 p_{T}(GEN Z))$ [GeV]"}),
                 ('hGenZMass',                             {sXaxis: mass_axis,      sXaxisLabel: r"$Mass(GEN Z)$ [GeV]"}),
@@ -1389,6 +1394,34 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     systematic=syst,
                     weight=evtWeight_gen
                 )
+                output['hGenHiggsEta'].fill(
+                    dataset=dataset,
+                    Eta=(genHiggs.eta),
+                    systematic=syst,
+                    weight=evtWeight_gen
+                )
+                mask_ = ((genHiggs.pt > 250.) & (genHiggs.pt <= 350.))
+                output['hGenHiggsEta_HiggsPt250to350'].fill(
+                    dataset=dataset,
+                    Eta=(genHiggs.eta)[mask_],
+                    systematic=syst,
+                    weight=evtWeight_gen[mask_]
+                )
+                mask_ = ((genHiggs.pt > 350.) & (genHiggs.pt <= 450.))
+                output['hGenHiggsEta_HiggsPt350to450'].fill(
+                    dataset=dataset,
+                    Eta=(genHiggs.eta)[mask_],
+                    systematic=syst,
+                    weight=evtWeight_gen[mask_]
+                )
+                mask_ = (genHiggs.pt > 450.) 
+                output['hGenHiggsEta_HiggsPtGt450'].fill(
+                    dataset=dataset,
+                    Eta=(genHiggs.eta)[mask_],
+                    systematic=syst,
+                    weight=evtWeight_gen[mask_]
+                )
+                
                 mask_ = nGenZ > 0
                 output['hGenZPt'].fill(
                     dataset=dataset,

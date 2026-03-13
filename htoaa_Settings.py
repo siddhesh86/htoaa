@@ -19,7 +19,7 @@ sampleFormat = "nanoAOD"
 ### Miscellaneous constants
 kPt_Max     = 99999.0
 kLHE_HT_Max = 99999.0
-NanoAODFileSize_Min = 0.3 # in MB
+NanoAODFileSize_Min = 0.05 #0.3 # in MB
 #------------------------------------
 
 Era_2016        = '2016'

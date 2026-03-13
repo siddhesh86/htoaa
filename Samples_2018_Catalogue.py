@@ -319,7 +319,7 @@ list_datasets_2018 = OD([
     ("/SUSY_VBFH_HToAATo4B_Pt150_M-21.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM", {sNEvtSkimv2: 289270, sSumEvtSkimv2: 289270}),
     ("/SUSY_VBFH_HToAATo4B_Pt150_M-23.0_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM", {sNEvtSkimv2: 278222, sSumEvtSkimv2: 278222}),
     ("/SUSY_VBFH_HToAATo4B_Pt150_M-27.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM", {sNEvtSkimv2: 262841, sSumEvtSkimv2: 262841}),
-    ("/SUSY_VBFH_HToAATo4B_Pt150_M-32.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM", {sNEvtSkimv2: 225766, sSumEvtSkimv2: 225766}),
+    ("/SUSY_VBFH_HToAATo4B_Pt150_M-32.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM", {sNEvtSkimv2: 225766*(1.-(116./58420)), sSumEvtSkimv2: 225766*(1.-(116./58420))}),
     ("/SUSY_VBFH_HToAATo4B_Pt150_M-37.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM", {sNEvtSkimv2: 225349, sSumEvtSkimv2: 225349}),
     ("/SUSY_VBFH_HToAATo4B_Pt150_M-42.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM", {sNEvtSkimv2: 226984, sSumEvtSkimv2: 226984}),
     ("/SUSY_VBFH_HToAATo4B_Pt150_M-47.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM", {sNEvtSkimv2: 227532, sSumEvtSkimv2: 227532}),

@@ -45,9 +45,9 @@ class DataBlindingOptions(enum.Enum):
     Unblind        = ' '
 
 
-sAnaDir = sys.argv[1]
-Dataset     = sys.argv[2]
-CAT         = sys.argv[3]
+sAnaDir = sys.argv[1]       # e.g. /eos/cms/store/user/ssawant/htoaa/analysis/20260212_DataMC
+Dataset     = sys.argv[2]   # Run2 
+CAT         = sys.argv[3]   # gg0l
 
 # Set Dataset: '2016preVFP', '2016postVFP', '2017', '2018', 'Run2', 'All'
 #sAnaDir = '20250721_DataMC';    Dataset         = 'All';
@@ -91,7 +91,7 @@ print(f"{YearsToRun_dict = }, \n{Years = }")
 sIpFiles = {}
 for Era in Years:
     sIpFiles[Era] = '%s/%s/%s/analyze_htoaa_stage1.root' % (sAnaDir, Era, anaSuperCat) # 20250612_gg0lDataMC_1, 20250613_gg0lDataMC_1, 20250617_gg0lDataMC, 20250617_gg0lDataMC_1
-sOpDirNameShort = 'plots'
+sOpDirNameShort = 'plots_proposal2' #'plots_UniversalColorScheme'
 
 
 subCats = []
@@ -132,9 +132,12 @@ dataBlindOption                = DataBlindingOptions.Unblind # DataBlindingOptio
 significantThshForDataBlinding = 10 # for significance Z
 scaleMCBkgToData               = True # Scale MC backgrounds to match data integral
 useScaleMCSigAuto              = True
+useHToAATo4bColorScheme        = True
 
 PlotRatioPlot = True
 PlotSignificancePlot = False #True
+SetyRatioLimitForcefully = True # Set y-axis range for ratio plot as specified with 'yRatioLimit'  
+SetRationOvrUdrflow = True # Set ratio plot Under- / Over-flow as 'yRatioLimit' 
 
 
 DataObs_DirName_dict = {}
@@ -168,8 +171,6 @@ print(f"{selectionTags = }")
 print(f"{sIpFiles = } ")
 
 #print(f"{DataObs_DirName_dict = }")
-print("DataObs_DirName_dict: ", json.dumps(DataObs_DirName_dict, indent=4))
-print(f"{luminosity_total_dict = }")
 
 
 
@@ -326,9 +327,92 @@ colors_sig_list = [
     
 ]
 
+'''
+# H->aa->4b universal color scheme: https://mattermost.web.cern.ch/cms-exp/pl/5rw1uso89fguuetkyphgporndh
+OK, for a "universal" color scheme for the data vs. MC plots (in particular the plots in Sec. 4 and Sec. 6), what do people think of the following:
+
+QCD : [4] Light Gray (#94a4a2)
+Zll : [10] Light Blue (#92dadd)
+Wlv : [1] Dark Blue (#3f90da)
+Also used for hadronic "V+X" and any other "V" backgrounds
+ttlv : [2] Light orange (#ffa90e)
+ttll : [7] Dark Orange (#e76300)
+Other : [9] Dark Gray (#717581)
+Signal outlines (for mA = 15, 30, 55)
+[3] Dark Red (#bd1f01)
+[5] Purple (#832db6)
+[1] Dark Blue (#3f90da) in di-lepton categories
+[7] Dark Orange (#e76300) in non-di-lepton categories
+For the remaining backgrounds you would start with:
+
+[6] Brown (#a96b59)
+[8] Tan (#b9ac70)
+'''
+colors_bkg_dict = {
+    # 'key': ['color', <transperent>, '<fill pattern>'],
+    'QCD': ["#94a4a2",    1,  ''],
+    'Zll': ["#92dadd",    1,  ''],
+    #'Wlv': ["#3f90da",    1,  ''],
+    'V+X': ["#3f90da",    1,  ''],
+    'TT1l': ["#ffa90e",    1,  ''],
+    'TT2l': ["#e76300",    1,  ''],
+    'TT0l': ["#a96b59",    1,  ''],
+    'Other': ["#717581",    1,  ''],
+    'SM Higgs': ["#b9ac70",    1,  ''],
+    #'': [],    
+}
+colors_bkg_dict = {
+    # 'key': ['color', <transperent>, '<fill pattern>'],
+    'QCD': ["#94a4a2",    1,  ''],
+    r't$\bar{t}$+jets': ["#a96b59",    1,  ''],
+    'V+jets': ["#3f90da",    1,  ''],
+    'Other': ["#717581",    1,  ''],  
+}
+''' It's same as colors_sig_list. Hence not needed.
+colors_sig_dict = {
+    0: ["#bd1f01",    1,  ''],
+    1: ["#832db6",    1,  ''],
+    2: ["#e76300",    1,  ''],
+}
+'''
+'''
+#plots_tmp1: Andrew's new proposal Friday
+colors_bkg_dict = {
+    # 'key': ['color', <transperent>, '<fill pattern>'],
+    'QCD': ["#832db6",    1,  ''], # [5] Purple (#832db6)
+    r't$\bar{t}$+jets': ["#a96b59",    1,  ''], # [6] Brown (#a96b59)
+    'V+jets': ["#3f90da",    1,  ''], # [1] Dark Blue (#3f90da)
+    'Other': ["#717581",    1,  ''], # [9] Dark Gray (#717581)
+}
+colors_sig_list = [
+    # ['color', <transperent>, '<fill pattern>', ]
+    ["#bd1f01",    1,  ''], # [3] Dark Red (#bd1f01)
+    ["#92dadd",    1,  ''], # [10] Light Blue (#92dadd)
+    ["#3f90da",    1,  ''],# [1] Dark Blue (#3f90da)
+    
+]
+'''
+#plots_tmp1: New proposal Friday: proposal2
+colors_bkg_dict = {
+    # 'key': ['color', <transperent>, '<fill pattern>'],
+    'QCD': ["#b9ac70",    1,  ''], # [8] Tan (#b9ac70)
+    r't$\bar{t}$+jets': ["#ffa90e",    1,  ''], # [2] Light orange (#ffa90e)
+    'V+jets': ["#92dadd",    1,  ''], # [10] Light Blue (#92dadd)
+    'Other': ["#717581",    1,  ''], # [9] Dark Gray (#717581)
+}
+colors_sig_list = [
+    # ['color', <transperent>, '<fill pattern>', ]
+    ["#bd1f01",    1,  ''], # [3] Dark Red (#bd1f01)
+    ["#832db6",    1,  ''], # [5] Purple (#832db6)
+    ["#3f90da",    1,  ''],# [1] Dark Blue (#3f90da)
+    
+]
+
+
 #errps = {'hatch':'////', 'facecolor':'none', 'lw': 0, 'edgecolor': 'k', 'alpha': 0.5}
 errps = {'hatch':'////', 'facecolor':'none', 'linewidth': 0, 'edgecolor': 'k', 'alpha': 0.5}
 
+print(f"{colors_bkg_dict = }")
 
 
 hep.style.use("CMS")
@@ -578,10 +662,28 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
 
                         nHists = len(list(MCBkg_dict.keys()))
                         #print(f"{nHists = }", flush=True)
-                        colors_toUse = [ colors_bkg_list[i][0] for i in range(nHists) ]
-                        alpha_toUse  = [ colors_bkg_list[i][1] for i in range(nHists) ]
-                        hatch_toUse  = [ colors_bkg_list[i][2] for i in range(nHists) ]
+                        if useHToAATo4bColorScheme:
+                            colors_toUse = []
+                            alpha_toUse  = []
+                            hatch_toUse  = []
+                            for idx in idx_hBkg_sortedByIntegral:
+                                sMCBkgNameShort_ = sBkg_list[idx]
+                                if sMCBkgNameShort_ not in colors_bkg_dict:
+                                    print(f"{sMCBkgNameShort_ = } not in {colors_bkg_dict = }. \t\t **** ERROR **** \nTerminating...")
+                                    exit(0)
+                                colors_toUse.append( colors_bkg_dict[sMCBkgNameShort_][0]  )
+                                alpha_toUse.append(  colors_bkg_dict[sMCBkgNameShort_][1]  )
+                                hatch_toUse.append(  colors_bkg_dict[sMCBkgNameShort_][2]  )
+                                #print(f"\t {idx = }, {sMCBkgNameShort_}, {colors_bkg_dict[sMCBkgNameShort_]}")
 
+                        else:
+                            colors_toUse = [ colors_bkg_list[i][0] for i in range(nHists) ]
+                            alpha_toUse  = [ colors_bkg_list[i][1] for i in range(nHists) ]
+                            hatch_toUse  = [ colors_bkg_list[i][2] for i in range(nHists) ]
+                        if printLevel >= 100:
+                            listTmp_ = [ (sBkg_list[idx_hBkg_sortedByIntegral[idx]], colors_toUse[idx])  for idx in range(nHists)]
+                            print(f"(Bkg, color) = {listTmp_}")
+                            #print(f"{colors_bkg_dict = }")
                        
                         if nHistoDimemsions == 1: # 1-D histogram
                             hep.histplot(
@@ -869,6 +971,20 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
 
                         #print(f"{list(zip(ratio_syst, ratio_syst_CMS[0], ratio_syst_CMS[1])) = }")
 
+                        # Set ratio plot Under- / Over-flow as 'yRatioLimit' 
+                        if SetRationOvrUdrflow and SetyRatioLimitForcefully:
+                            ratio_values_toUse = np.where(
+                                (ratio_values_toUse <  yRatioLimit[0]),
+                                np.full_like(ratio_values_toUse, yRatioLimit[0]),
+                                ratio_values_toUse
+                            )
+                            ratio_values_toUse = np.where(
+                                (ratio_values_toUse >  yRatioLimit[1]),
+                                np.full_like(ratio_values_toUse, yRatioLimit[1]),
+                                ratio_values_toUse
+                            )
+
+
                         #print(f"ratio_values ({ratio_values.shape}): {ratio_values}")
                         if nHistoDimemsions == 1:
                             yMin_ = getNonZeroMin( ratio_values[mask_XRange] - ratio_error[mask_XRange])
@@ -1023,6 +1139,7 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                     yRatioAxisRange_cal[0] = max(yRatioAxisRange_cal[0], 0)
                     if xAxisRange: axRatio.set_xlim(xAxisRange[0], xAxisRange[1]) 
                     axRatio.set_ylim(yRatioAxisRange_cal[0], yRatioAxisRange_cal[1])
+                    if SetyRatioLimitForcefully: axRatio.set_ylim(yRatioLimit[0], yRatioLimit[1])
                     if printLevel >= 15: print(f"{yRatioAxisRange_cal = }") 
 
                     if xAxisLabel: axRatio.set_xlabel(xAxisLabel)
@@ -1055,7 +1172,7 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                     hep.cms.label(ax=axTop, data=isData, year=sDatasetName, lumi=sLumiToPrint, label=cmsWorkStatus)
                     #hep.cms.label("Work in Progress", ax=axTop, data=isData, year=Year, lumi=luminosity_toUse, )
 
-                    labelCat_ = [0.75, 0.53] #[0.75, 0.57] #[0.8, 0.45] #[0.8, 0.51]
+                    labelCat_ = [0.75, 0.51] #[0.75, 0.53] #[0.75, 0.57] #[0.8, 0.45] #[0.8, 0.51]
                     axTop.text(labelCat_[0], labelCat_[1], 'Cat. %s'%(selectionTag.replace('_Xto4bv2','')), #selectionTag, # CAT
                             fontsize=18, fontstyle='italic',
                             horizontalalignment='center',

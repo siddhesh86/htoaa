@@ -49,6 +49,33 @@ MCBkg_dict = {
     'SM Higgs': ['GluGluHToBB_Pt-200ToInf', 'VBFH_dipoleRecoilOn', 'WplusHToBBQQ', 'WplusHToBBLNu', 'WminusHToBBQQ', 'WminusHToBBLNu', 'ZHToBBX', 'ttHToBB'],
     #'': [],
 }
+MCBkg_dict = {
+    'QCD': ["QCD_bEnr", "QCD_BGen", "QCD_Incl"],
+    'Zll': ["Zll", ],
+    #'Wlv': ["Wlv"],
+    'V+X': ["Zqq", "Zvv", "Wqq", "Wlv", "ZZ", "WZ", "WW"],
+    'TT1l': ["TT1l"],
+    'TT2l': ["TT2l"],
+    'TT0l': ["TT0l"],
+    'Other': ["STop_t", "STbar_t", "ST_s_0l", "ST_s_1l", "STop_tW_Incl", "STbar_tW_Incl",
+              "ttZ", "ttW", "tZq",   "ZZZ", "WZZ", "WWZ", "WWW",
+              ],
+    'SM Higgs': ['GluGluHToBB_Pt-200ToInf', 'VBFH_dipoleRecoilOn', 'WplusHToBBQQ', 'WplusHToBBLNu', 'WminusHToBBQQ', 'WminusHToBBLNu', 'ZHToBBX', 'ttHToBB'],
+    #'': [],
+}
+MCBkg_dict = {
+    'QCD': ["QCD_bEnr", "QCD_BGen", "QCD_Incl"],
+    r't$\bar{t}$+jets': ["TT0l", "TT1l", "TT2l"],
+    #'Wlv': ["Wlv"],
+    'V+jets': ["Zqq", "Zvv", "Zll", "Wqq", "Wlv", ],
+    'Other': ["STop_t", "STbar_t", "ST_s_0l", "ST_s_1l", "STop_tW_Incl", "STbar_tW_Incl",
+              "ZZ", "WZ", "WW", 
+              "ttZ", "ttW", "tZq",   "ZZZ", "WZZ", "WWZ", "WWW",
+              'GluGluHToBB_Pt-200ToInf', 'VBFH_dipoleRecoilOn', 'WplusHToBBQQ', 'WplusHToBBLNu', 'WminusHToBBQQ', 'WminusHToBBLNu', 'ZHToBBX', 'ttHToBB'
+              ],
+    #'': [],
+}
+
 MCSig_list = [
     #'SUSY_GluGluH_01J_HToAATo4B_M-15_HPtAbv150', 
     #'SUSY_GluGluH_01J_HToAATo4B_M-20_HPtAbv150', 
@@ -58,9 +85,9 @@ MCSig_list = [
     #'SUSY_GluGluH_01J_HToAATo4B_M-55_HPtAbv150', 
     #'SUSY_WH_WToAll_HToAATo4B_M-20_HPtAbv150',
     #'SUSY_ZH_ZToAll_HToAATo4B_M-20_HPtAbv150'
-    'ttHtoaato4b_mA_15',
-    'ttHtoaato4b_mA_30',
-    'ttHtoaato4b_mA_55',    
+    'ttHtoaato4b_mA_15p0',
+    'ttHtoaato4b_mA_30p0',
+    'ttHtoaato4b_mA_55p0',    
     ]
 sLableSig = [
     #'HToAATo4B_M-15', 
@@ -91,7 +118,7 @@ scale_MCSig_dict = {
     'tt0l_1TFJ_ge0BOutsideSelFJ': 20,
     'tt0l_1TFJ_ge0BOutsideSelFJ_Xto4bv2_SBplusSRWP60': 5,       
 }
-yRatioLimit = [0., 2.] #[0.4, 1.6]
+yRatioLimit = [0.5, 1.5] #[0., 2.] #[0.4, 1.6]
 ySignfLimit = [1e-1, 5e2]
 
 logYMinScaleFactor = 10 # 100 # 1 # scale yMin by factor logYMinScaleFactor to not concentrate lowest stats background processes
@@ -400,9 +427,10 @@ histograms_dict  = OD([
 
 ])
 '''
-
+'''
 histograms_dict  = OD([
     #("hnAK4JetsCentral_NonoverlapSelFatJets", {sXLabel: 'No. of AK4 jets outside selected AK8 jets', sYLabel: 'Events', sXRange: [-0.5, 10.5]  }),
     ("hnAK4JetsCentral_NonoverlapSelFatJets", {sXLabel: 'No. of AK4 jets outside selected AK8 jets', sYLabel: 'Events', sXRange: [-0.5, 6.5],  }),
     
 ])
+'''

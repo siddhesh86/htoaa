@@ -104,6 +104,7 @@ nEventsToAnalyze = -1 # 1000 # 100000 # -1
 storeIndividualEvtWgts = False # True: Store individual event weight components for debugging.  False: otherwise
 saveRunLsEvt = False
 flushStdout = True
+isDebugMode = True # False
 #pd.set_option('display.max_columns', None)  
 
 CrossCheckEvtYieldsWithAndrew = False
@@ -138,6 +139,128 @@ RunOnSelectedEvents_rle = [
     '1:69:405588',
     
     
+]
+#RunOnSelectedEvents_rle = []
+RunOnSelectedEvents_rle = [
+    '1:1:63',
+    '1:1:163',
+    '1:1:143',
+    '1:1:173',
+    '1:1:177',
+    '1:1:207',
+    '1:1:238',
+    '1:1:188',
+    '1:1:224',
+    '1:1:270',
+    '1:1:268',
+    '1:1:276',
+    '1:1:243',
+    '1:1:246',
+    '1:1:278',
+    '1:1:332',
+    '1:1:310',
+    '1:1:290',
+    '1:1:334',
+    '1:1:338',
+    '1:1:411',
+    '1:1:434',
+    '1:1:476',
+    '1:1:507',
+    '1:1:513',
+    '1:1:459',
+    '1:1:541',
+    '1:1:552',
+    '1:1:591',
+    '1:1:566',
+    '1:1:622',
+    '1:1:605',
+    '1:1:682',
+    '1:1:659',
+    '1:1:693',
+    '1:1:714',
+    '1:1:718',
+    '1:1:748',
+    '1:1:767',
+    '1:1:805',
+    '1:1:770',
+    '1:1:809',
+    '1:1:827',
+    '1:1:818',
+    '1:1:829',
+    '1:1:860',
+    '1:1:870',
+    '1:1:854',
+    '1:1:924',
+    '1:1:918',
+    '1:1:948',
+    '1:1:1005',
+    '1:1:1027',
+    '1:1:952',
+    '1:1:1048',
+    '1:1:1059',
+    '1:1:1207',
+    '1:1:1250',
+    '1:1:1211',
+    '1:1:1246',
+    '1:1:1251',
+    '1:1:1254',
+    '1:1:1299',
+    '1:1:1353',
+    '1:1:1294',
+    '1:1:1372',
+    '1:1:1433',
+    '1:1:1445',
+    '1:1:1483',
+    '1:1:1497',
+    '1:1:1527',
+    '1:1:1548',
+    '1:1:1536',
+    '1:1:1519',
+    '1:1:1568',
+    '1:1:1721',
+    '1:1:1719',
+    '1:1:1825',
+    '1:1:1785',
+    '1:1:1936',
+    '1:1:1837',
+    '1:1:1964',
+    '1:1:1978',
+    '1:1:2009',
+    '1:1:2020',
+    '1:1:2033',
+    '1:1:2105',
+    '1:1:2134',
+    '1:1:2155',
+    '1:1:2170',
+    '1:1:2174',
+    '1:1:2172',
+    '1:1:2224',
+    '1:1:2197',
+    '1:1:2300',
+    '1:1:2325',
+    '1:1:2321',
+    '1:1:2312',
+    '1:1:2329',
+    '1:1:2361',
+    '1:1:2526',
+    '1:1:2428',
+    '1:1:2534',
+    '1:1:2508',
+    '1:1:2538',
+    '1:1:2550',
+    '1:1:2551',
+    '1:1:2740',
+    '1:1:2742',
+    '1:1:2615',
+    '1:1:2768',
+    '1:1:2780',
+    '1:1:2769',
+    '1:1:2798',
+    '1:1:2847',
+    '1:1:2835',
+    '1:1:2857',
+    '1:1:2839',
+    '1:1:2886',    
 ]
 RunOnSelectedEvents_rle = []
 
@@ -532,21 +655,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 self.sel_names_all["Presel"] = insertInListBeforeThisElement(
                     list1                  = self.sel_names_all["Presel"], 
                     sConditionToAdd        = "QCDStitch", 
-                    addBeforeThisCondition = "METFilters")  
-
-            # The following NanoAOD v2 skimmed samples have events with empty LHEPdfWeight and LHEScaleWeight branches. 
-            # Skip those events. No. of raw events for luminosity normalization have been adjusted for those buggy events.
-            #   Samples : 
-            #           rle_BlackList_2017_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5_TuneCP5_13TeV_madgraph_pythia8_PNet_v2_2024_11_22.txt
-            #           rle_BlackList_2017_SUSY_VBFH_HToAATo4B_Pt150_M-21.5_TuneCP5_13TeV_madgraph_pythia8_PNet_v2_2024_11_22.txt
-            #           rle_BlackList_2018_SUSY_VBFH_HToAATo4B_Pt150_M-32.5_TuneCP5_13TeV_madgraph_pythia8_PNet_v2_2024_11_22.txt
-            if ((('SUSY_VBFH_HToAATo4B_Pt150_M-21.5'        in self.datasetInfo['datasetName']) and (self.datasetInfo["era"] == Era_2017)) or 
-                (('SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5' in self.datasetInfo['datasetName']) and (self.datasetInfo["era"] == Era_2017)) or 
-                (('SUSY_VBFH_HToAATo4B_Pt150_M-32.5'        in self.datasetInfo['datasetName']) and (self.datasetInfo["era"] == Era_2018))    ):
-                self.sel_names_all["Presel"] = insertInListBeforeThisElement(
-                    list1                  = self.sel_names_all["Presel"], 
-                    sConditionToAdd        = "BlackListedEvts", 
-                    addBeforeThisCondition = "METFilters")                           
+                    addBeforeThisCondition = "METFilters")                
                
 
         if self.datasetInfo["era"] == Era_2018:
@@ -1472,7 +1581,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         
         if printLevel >= 20:
             print(f"nEvents: {len(events)}")
-        if printLevel >= 0:
+        if printLevel >= 10:
             print(f"\n events.fields ({type(events.fields)}): {events.fields}"); sys.stdout.flush()
             #printVariable('\nevents.LHEPdfWeight', events.LHEPdfWeight)
              
@@ -1481,8 +1590,46 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             printVariable('\n (run:ls:event): ', ak.zip([events.run, events.luminosityBlock, events.event])); #sys.stdout.flush()  
 
         #printVariable('\n (run:ls:event): ', ak.zip([events.run, events.luminosityBlock, events.event])[:20]); #sys.stdout.flush()        
-
         
+        if isDebugMode:
+            rle_zip = ak.zip([events.run, events.luminosityBlock, events.event])
+            #printVariable('\n (run:ls:event): ', ak.zip([events.run, events.luminosityBlock, events.event])); sys.stdout.flush()  
+            #printVariable('\nevents.LHEPdfWeight', events.LHEPdfWeight); sys.stdout.flush() 
+            #printVariable('ak.count(events.LHEPdfWeight, axis=1)', ak.count(events.LHEPdfWeight, axis=1)) 
+            #printVariable('\nevents.LHEScaleWeight', events.LHEScaleWeight); sys.stdout.flush()  
+            #printVariable('ak.count(events.LHEScaleWeight, axis=1)', ak.count(events.LHEScaleWeight, axis=1)) 
+
+            if "LHEPdfWeight" not in events.fields:
+                print("LHEPdfWeight branch does not exists", flush=True)
+            else:
+                #printVariable("ak.count(events.LHEPdfWeight, axis=1)", ak.count(events.LHEPdfWeight, axis=1))
+                mask_LHEPdfWeight = (ak.count(events.LHEPdfWeight, axis=1) != 101)
+                rle_LHEPdfWeight_issue = rle_zip[mask_LHEPdfWeight]
+                if len(rle_LHEPdfWeight_issue) > 0:
+                    printVariable("rle_LHEPdfWeight_issue", rle_LHEPdfWeight_issue)
+                    
+                    sPrint_ = "rle_LHEPdfWeight_issue (%d):\n" % (len(rle_LHEPdfWeight_issue))
+                    for i_ in range(len(rle_LHEPdfWeight_issue)):
+                        sPrint_ += "\'%d:%d:%d\',\n" % (ak.to_numpy(rle_LHEPdfWeight_issue)[i_][0], ak.to_numpy(rle_LHEPdfWeight_issue)[i_][1], ak.to_numpy(rle_LHEPdfWeight_issue)[i_][2])
+                    print('\n\n'+sPrint_+'\n\n')
+                    printVariable('events.LHEPdfWeight[mask_LHEPdfWeight]', events.LHEPdfWeight[mask_LHEPdfWeight])
+                    
+
+            if "LHEScaleWeight" not in events.fields:
+                print("LHEScaleWeight branch does not exists", flush=True)
+            else:
+                #printVariable("ak.count(events.LHEPdfWeight, axis=1)", ak.count(events.LHEPdfWeight, axis=1))
+                mask_LHEScaleWeight = (ak.count(events.LHEScaleWeight, axis=1) != 9)
+                rle_LHEScaleWeight_issue = rle_zip[mask_LHEScaleWeight]
+                if len(rle_LHEScaleWeight_issue) > 0:
+                    printVariable("rle_LHEScaleWeight_issue", rle_LHEScaleWeight_issue)
+                    sPrint_ = "rle_LHEScaleWeight_issue (%d):\n" % (len(rle_LHEScaleWeight_issue))
+                    for i_ in range(len(rle_LHEScaleWeight_issue)):
+                        sPrint_ += "\'%d:%d:%d\',\n" % (ak.to_numpy(rle_LHEScaleWeight_issue)[i_][0], ak.to_numpy(rle_LHEScaleWeight_issue)[i_][1], ak.to_numpy(rle_LHEScaleWeight_issue)[i_][2])
+                    print('\n\n'+sPrint_+'\n\n')
+                    printVariable('events.LHEScaleWeight[mask_LHEScaleWeight]', events.LHEScaleWeight[mask_LHEScaleWeight])
+                    
+
         if self.datasetInfo['isMC']:
             output = self.accumulator.identity()
             
@@ -2581,24 +2728,6 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 luminosityBlock_list = events.luminosityBlock 
                 ))
 
-        # The following NanoAOD v2 skimmed samples have events with empty LHEPdfWeight and LHEScaleWeight branches. 
-        # Skip those events. No. of raw events for luminosity normalization have been adjusted for those buggy events.
-        #   Samples : 
-        #           rle_BlackList_2017_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5_TuneCP5_13TeV_madgraph_pythia8_PNet_v2_2024_11_22.txt
-        #           rle_BlackList_2017_SUSY_VBFH_HToAATo4B_Pt150_M-21.5_TuneCP5_13TeV_madgraph_pythia8_PNet_v2_2024_11_22.txt
-        #           rle_BlackList_2018_SUSY_VBFH_HToAATo4B_Pt150_M-32.5_TuneCP5_13TeV_madgraph_pythia8_PNet_v2_2024_11_22.txt
-        if "BlackListedEvts" in self.sel_conditions_all_list:
-            if ((('SUSY_VBFH_HToAATo4B_Pt150_M-21.5'        in self.datasetInfo['datasetName']) and (self.datasetInfo["era"] == Era_2017)) or 
-                (('SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5' in self.datasetInfo['datasetName']) and (self.datasetInfo["era"] == Era_2017)) or 
-                (('SUSY_VBFH_HToAATo4B_Pt150_M-32.5'        in self.datasetInfo['datasetName']) and (self.datasetInfo["era"] == Era_2018))    ):
-                mask_LHEPdfWeight   = (ak.count(events.LHEPdfWeight,   axis=1) == 101)
-                mask_LHEScaleWeight = (ak.count(events.LHEScaleWeight, axis=1) == 9)
-                mask_BlackListedEvts = (mask_LHEPdfWeight & mask_LHEScaleWeight)
-                # BlackListedEvts
-                selection.add("BlackListedEvts", mask_BlackListedEvts)
-
-
-
         if "nPV" in self.sel_conditions_all_list:
             # nPVGood >= 1
             selection.add("nPV", events.PV.npvsGood >= 1)
@@ -3145,7 +3274,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
 
             # MC HToAATo4B signal LundPlane reweighting
             wgt_LundPlane_Nom = wgt_LundPlane_Up = wgt_LundPlane_Down = None 
-            if self.datasetInfo['isSignal']:
+            if self.datasetInfo['isSignal'] and 0==1:
                 wgt_LundPlane_Nom, wgt_LundPlane_Up, wgt_LundPlane_Down = getHToAATo4BLundPlaneRewgt(
                     events = events
                 )
@@ -3224,17 +3353,23 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             )
 
             # MC QCD PDF uncertianty
+            wgt_QCDPdfNom = wgt_QCDPdfUp = wgt_QCDPdfDown = np.ones(len(events))                    
+            '''
             wgt_QCDPdfNom, wgt_QCDPdfUp, wgt_QCDPdfDown = add_pdf_as_weight(
                 events = events,
                 #pdf_weights = events.LHEPdfWeight,
                 dataset = self.datasetInfo['datasetName']
             )
+            '''
 
             # MC QCD alphaS renormalization and factorization uncertainty
+            wgt_QCDScale_Nom = wgt_QCDScale_Up = wgt_QCDScale_Down = np.ones(len(events))   
+            '''
             wgt_QCDScale_Nom, wgt_QCDScale_Up, wgt_QCDScale_Down = get_QCDScaleWeight(
                 events = events,
                 dataset = self.datasetInfo['datasetName']
             )
+            '''
                 
             # btagSF
             wgt_Ak4Btag_dict = get_Ak4BtagSF(
@@ -3302,7 +3437,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     weightDown = copy.deepcopy(wgt_L1TPrefiring_dict['Down'])
                 )
             
-            if self.datasetInfo['isSignal']:
+            if self.datasetInfo['isSignal'] and 0==1:
                 weights.add(
                     self.systNameLPRewgt,
                     weight     = copy.deepcopy(wgt_LundPlane_Nom),
@@ -3460,7 +3595,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     weightUp   = copy.deepcopy(wgt_L1TPrefiring_dict['Up']),
                     weightDown = copy.deepcopy(wgt_L1TPrefiring_dict['Down'])
                 )
-            if self.datasetInfo['isSignal']:
+            if self.datasetInfo['isSignal'] and 0==1:
                 weights_woHEM1516Fix.add(
                     self.systNameLPRewgt,
                     weight     = copy.deepcopy(wgt_LundPlane_Nom),
@@ -3818,6 +3953,8 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     (events.event           == event_)                     
                 )
                 rle_ = ak.to_list(ak.zip([events.run, events.luminosityBlock, events.event])[mask_rle])
+                #print(f"{s_rle = }, {weights.weight()[mask_rle] = }, \n{rle_ = }")
+                '''
                 sWeightsList = [
                     "lumiWeight",
                     "genWeight",
@@ -3850,8 +3987,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     sWeightsList.extend([self.systNameBtag])
                 elif kDatasetToAnalyze == DatasetToAnalyze.FullRun2:
                     sWeightsList.extend([self.systNameBtagUncorr, self.systNameBtagCorr,])
-
-                print(f"{s_rle = }, {weights.weight()[mask_rle] = }, \n{rle_ = }")
+                
                 wgtTotal_ = np.ones(len(events))
                 for sWeight in sWeightsList:
                     wgtTotal_ *= weights.partial_weight(include=[sWeight])
@@ -3860,15 +3996,20 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 print(f"{(weights.weight()/weights.partial_weight(include=['2018HEM1516IssueWgt']))[mask_rle] = },  ")
                 print(f"{mask_HEM1516Issue[mask_rle] = }")
                 print(f"{wgt_HEM1516Issue[mask_rle] = }")
+                '''
+
+                #printVariable('events.LHEPdfWeight[mask_rle]', events.LHEPdfWeight[mask_rle])
+                #printVariable('events.LHEScaleWeight[mask_rle]', events.LHEScaleWeight[mask_rle])
                 
                             
     
-
+            '''
             print(f"\n\n{ak.sum(weights.weight()) = }\n\n")
             print(f"\n\n{ak.sum(weights.weight() / weights.partial_weight(include=['2018HEM1516IssueWgt'])) = }\n\n")
             printVariable("\n rleWgt:\n", ak.to_list(ak.zip([events.run, events.luminosityBlock, events.event, weights.weight()])))
         #print(f"\n\n{ak.sum(weights.weight() / weights.partial_weight(include=['2018HEM1516IssueWgt'])) = }\n\n")
             # sel_SR_toUse = selection.all(* self.sel_names_all[sel_name])
+            '''
 
         if (printLevel >= 0) and (storeIndividualEvtWgts):
             for sel_name in ["gg0lHi", "gg0lLo"]:
@@ -5053,7 +5194,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             dataset=dataset,
                             Weight=wgt_PUDown[sel_SR_forHExt]
                         )
-                        if self.datasetInfo['isSignal']:
+                        if self.datasetInfo['isSignal'] and 0==1:
                             output['hEventWeight_LundPlane_Nom'+sHExt].fill(
                                 dataset=dataset,
                                 Weight=wgt_LundPlane_Nom[sel_SR_forHExt]

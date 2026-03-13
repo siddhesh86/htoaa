@@ -1292,15 +1292,33 @@ def add_pdf_as_weight(events, dataset):
     # Eq. 21 of https://arxiv.org/pdf/1510.03865v1.pdf                                   
     #print (" no. of PDF column  ",len(pdf_weights[0]))
     if hasattr(events, 'LHEPdfWeight') and "HToAATo4B" in dataset:
-        #docstring = pdf_weights.__doc__
-        #docstring = events.LHEPdfWeight.__doc__
-        #arg = pdf_weights[:,1:]-np.ones((len(events),100)) #np.ones((len(events),100))
-        arg = events.LHEPdfWeight[:,1:]-np.ones((len(events),100)) #np.ones((len(events),100))
+        # Few intermediate mA signal samples have events with empty events.LHEPdfWeight.
+        # Workaround is to skip such events, and set PDF weights and uncertainties to 1 for those events for safety
+        mask_LHEPdfWeight   = (ak.count(events.LHEPdfWeight, axis=1) == 101)
+        events_LHEPdfWeight = ak.mask(events.LHEPdfWeight, mask_LHEPdfWeight)
+        '''
+        events_LHEPdfWeight = ak.where(
+            (~ mask_LHEPdfWeight), 
+            np.ones((len(events),101)),
+            events_LHEPdfWeight
+        )
+        '''
+
+        #arg = events.LHEPdfWeight[:,1:]-np.ones((len(events),100)) #np.ones((len(events),100))
+        arg = events_LHEPdfWeight[:,1:]-np.ones((len(events),100)) #np.ones((len(events),100))
         summed = ak.sum(np.square(arg),axis=1)
         #pdf_unc = np.sqrt( (1./99.) * summed )
         pdf_unc = np.sqrt( summed )
         up_pdf   = nom + pdf_unc
         down_pdf = nom - pdf_unc
+
+        # set PDF weights and uncertainties to 1 for those buggy events with empty events.LHEPdfWeight for safety
+        for wgt_  in [up_pdf, down_pdf]:
+            wgt_ = ak.where(
+                (~ mask_LHEPdfWeight),
+                np.ones(len(events)),
+                wgt_
+            )        
 
     #anther pdf unc definition 
     #pdfUnc = ak.std(events.LHEPdfWeight,axis=1)/ak.mean(events.LHEPdfWeight,axis=1) 
@@ -1330,7 +1348,15 @@ def get_QCDScaleWeight(events, dataset):
     nom  = up = down = np.ones(nEvents)
 
     if hasattr(events, 'LHEScaleWeight') and "HToAATo4B" in dataset:
-        if len(events.LHEScaleWeight[0]) == 9:
+        # Few intermediate mA signal samples have events with empty events.LHEPdfWeight.
+        # Workaround is to skip such events, and set PDF weights and uncertainties to 1 for those events for safety
+        mask_LHEScaleWeight   = (ak.count(events.LHEScaleWeight, axis=1) == 9)
+        events_LHEScaleWeight = ak.mask(events.LHEScaleWeight, mask_LHEScaleWeight)
+
+        printVariable('events.LHEScaleWeight', events.LHEScaleWeight); sys.stdout.flush;
+        printVariable('events_LHEScaleWeight', events_LHEScaleWeight); sys.stdout.flush;
+
+        if len(events_LHEScaleWeight[0]) == 9:
             # https://cms-nanoaod-integration.web.cern.ch/autoDoc/NanoAODv9/2018UL/doc_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1.html#LHEPdfWeight
             # LHEScaleWeight	Float_t	LHE scale variation weights (w_var / w_nominal);
             #[0] is renscfact=0.5d0 facscfact=0.5d0 ;
@@ -1348,13 +1374,29 @@ def get_QCDScaleWeight(events, dataset):
             vbf_vh_indices  = [0, 8]  # VBF, WH, ZH
             ggh_tth_indices = [0, 1, 3, 5, 7, 8]  # ggH, ttH
             if any(x in dataset for x in ["VBF", "WH", "ZH"]):
-                up   = np.maximum.reduce([events.LHEScaleWeight[:, i] for i in vbf_vh_indices])
-                down = np.minimum.reduce([events.LHEScaleWeight[:, i] for i in vbf_vh_indices])
+                a_ = [events_LHEScaleWeight[:, i] for i in vbf_vh_indices]
+                printVariable('a_', a_); sys.stdout.flush;
+                print(f"{ak.to_list(a_) = }", flush=True)
+                a1_= ak.to_numpy(a_)
+                printVariable('a1_', a1_); sys.stdout.flush;
+                up   = np.maximum.reduce(a1_)
+                
+
+
+                up   = np.maximum.reduce([events_LHEScaleWeight[:, i] for i in vbf_vh_indices])
+                down = np.minimum.reduce([events_LHEScaleWeight[:, i] for i in vbf_vh_indices])
             elif any(x in dataset for x in ["TTH", "GluGluH"]):
-                up   = np.maximum.reduce([events.LHEScaleWeight[:, i] for i in ggh_tth_indices])
-                down = np.minimum.reduce([events.LHEScaleWeight[:, i] for i in ggh_tth_indices])
-            elif len(events.nLHEScaleWeight[0]) > 1:
-                print("LHEScaleWeight vector has length", len(events.nLHEScaleWeight[0]))
+                up   = np.maximum.reduce([events_LHEScaleWeight[:, i] for i in ggh_tth_indices])
+                down = np.minimum.reduce([events_LHEScaleWeight[:, i] for i in ggh_tth_indices])
+
+            for wgt_ in [up, down]:
+                wgt_ = ak.where(
+                    (~ mask_LHEScaleWeight),
+                    np.ones(len(events)),
+                    wgt_
+                ) 
+        elif len(events.nLHEScaleWeight[0]) > 1:
+            print("LHEScaleWeight vector has length", len(events.nLHEScaleWeight[0]))
 
     return [nom, up, down]
 

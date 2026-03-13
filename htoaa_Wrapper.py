@@ -416,11 +416,11 @@ if __name__ == '__main__':
 
         if sAnalysis in ["htoaa_Analysis_HiggsPtRewgt.py"]:
             selSamplesToRun_list.extend( [
-                #'GluGluHToBB_Incl', 'GluGluHToBB_Pt-200ToInf', 
-                #'VBFHToBB_powheg', 'VBFH_dipoleRecoilOn', 'VBFHToTauTau_powheg', #'VBFHToBB_herwig', 
-                #'WplusHToBBQQ', 'WplusHToBBLNu', 'WminusHToBBQQ', 'WminusHToBBLNu', 'WHToMuMuG', 'WplusHToTauTau', 'WminusHToTauTau', 
-                #'ZHToBBX', 'ZHToMuMuG', 'ZHToTauTau', 
-                #'ttHToBB', 'ttHToTauTau', 
+                'GluGluHToBB_Incl', 'GluGluHToBB_Pt-200ToInf', 
+                'VBFH_dipoleRecoilOn',#'VBFHToBB_powheg', 'VBFH_dipoleRecoilOn', 'VBFHToTauTau_powheg', #'VBFHToBB_herwig', 
+                'WplusHToBBQQ', 'WplusHToBBLNu', 'WminusHToBBQQ', 'WminusHToBBLNu', 'WHToMuMuG', 'WplusHToTauTau', 'WminusHToTauTau', 
+                'ZHToBBX', 'ZHToMuMuG', 'ZHToTauTau', 
+                'ttHToBB', 'ttHToTauTau', 
                 "ggHtoaato4b_mA",      "VBFHtoaato4b_mA",      "WHtoaato4b_mA",      "ZHtoaato4b_mA",      "ttHtoaato4b_mA", 
                 #"ggHtoaato4b_Incl_mA", "VBFHtoaato4b_Incl_mA", "WHtoaato4b_Incl_mA", "ZHtoaato4b_Incl_mA", "ttHtoaato4b_Incl_mA", 
                 #
