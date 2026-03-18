@@ -1353,9 +1353,6 @@ def get_QCDScaleWeight(events, dataset):
         mask_LHEScaleWeight   = (ak.count(events.LHEScaleWeight, axis=1) == 9)
         events_LHEScaleWeight = ak.mask(events.LHEScaleWeight, mask_LHEScaleWeight)
 
-        printVariable('events.LHEScaleWeight', events.LHEScaleWeight); sys.stdout.flush;
-        printVariable('events_LHEScaleWeight', events_LHEScaleWeight); sys.stdout.flush;
-
         if len(events_LHEScaleWeight[0]) == 9:
             # https://cms-nanoaod-integration.web.cern.ch/autoDoc/NanoAODv9/2018UL/doc_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1.html#LHEPdfWeight
             # LHEScaleWeight	Float_t	LHE scale variation weights (w_var / w_nominal);
@@ -1373,6 +1370,22 @@ def get_QCDScaleWeight(events, dataset):
             # Define relevant indices for each channel
             vbf_vh_indices  = [0, 8]  # VBF, WH, ZH
             ggh_tth_indices = [0, 1, 3, 5, 7, 8]  # ggH, ttH
+            indices_touse = None
+            if   any(x in dataset for x in ["VBF", "WH", "ZH"]):  indices_touse = vbf_vh_indices
+            elif any(x in dataset for x in ["TTH", "GluGluH"]):   indices_touse = ggh_tth_indices
+
+            # up: maximum of scale variation
+            max_wgt_ = np.full_like(nom, -99999.0)
+            min_wgt_ = np.full_like(nom,  99999.0)     
+            for i in indices_touse:
+                max_wgt_ = np.maximum(events_LHEScaleWeight[:, i], max_wgt_)
+                min_wgt_ = np.minimum(events_LHEScaleWeight[:, i], min_wgt_)            
+
+            up   = max_wgt_
+            down = min_wgt_
+
+
+            '''
             if any(x in dataset for x in ["VBF", "WH", "ZH"]):
                 a_ = [events_LHEScaleWeight[:, i] for i in vbf_vh_indices]
                 printVariable('a_', a_); sys.stdout.flush;
@@ -1388,6 +1401,7 @@ def get_QCDScaleWeight(events, dataset):
             elif any(x in dataset for x in ["TTH", "GluGluH"]):
                 up   = np.maximum.reduce([events_LHEScaleWeight[:, i] for i in ggh_tth_indices])
                 down = np.minimum.reduce([events_LHEScaleWeight[:, i] for i in ggh_tth_indices])
+            '''
 
             for wgt_ in [up, down]:
                 wgt_ = ak.where(
@@ -1397,6 +1411,7 @@ def get_QCDScaleWeight(events, dataset):
                 ) 
         elif len(events.nLHEScaleWeight[0]) > 1:
             print("LHEScaleWeight vector has length", len(events.nLHEScaleWeight[0]))
+    
 
     return [nom, up, down]
 

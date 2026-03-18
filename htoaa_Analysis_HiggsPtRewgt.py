@@ -673,6 +673,10 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         
                 ('hGenHiggsPt_wHiggsPtRewgt',             {sXaxis: pt2TeV_axis,     sXaxisLabel: r"$p_{T}(GEN Higgs)$ [GeV]"}),
                 ('hGenHiggsLog2Pt_wHiggsPtRewgt',         {sXaxis: log2Pt2TeV_axis, sXaxisLabel: r"$log2 p_{T}(GEN Higgs))$ [GeV]"}),
+                ('hGenHiggsEta_wHiggsPtRewgt',                          {sXaxis: eta_axis,        sXaxisLabel: r"$eta(GEN Higgs)$"}),
+                ('hGenHiggsEta_HiggsPt250to350_wHiggsPtRewgt',          {sXaxis: eta_axis,        sXaxisLabel: r"$eta(GEN Higgs)$"}),
+                ('hGenHiggsEta_HiggsPt350to450_wHiggsPtRewgt',          {sXaxis: eta_axis,        sXaxisLabel: r"$eta(GEN Higgs)$"}),
+                ('hGenHiggsEta_HiggsPtGt450_wHiggsPtRewgt',             {sXaxis: eta_axis,        sXaxisLabel: r"$eta(GEN Higgs)$"}),
                 ('hGenZPt_wHiggsPtRewgt',                               {sXaxis: pt2TeV_axis,     sXaxisLabel: r"$p_{T}(GEN Z)$ [GeV]"}),
                 ('hGenZLog2Pt_wHiggsPtRewgt',                           {sXaxis: log2Pt2TeV_axis, sXaxisLabel: r"$log2 p_{T}(GEN Z))$ [GeV]"}),
                 ('hGenWPt_wHiggsPtRewgt',                               {sXaxis: pt2TeV_axis,     sXaxisLabel: r"$p_{T}(GEN W)$ [GeV]"}),
@@ -1215,13 +1219,15 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             if self.datasetInfo['isSignalWH']:
                 wgt_WHaa_HiggsPt, wgt_WHaa_HiggsPtUp, wgt_WHaa_HiggsPtDown = getHiggsPtRewgtForWH_HToAATo4B(
                     genHiggs = genHiggs,
-                    genW = genW
+                    genW = genW,
+                    Era = self.datasetInfo["era"]
                 )
                 EWcorr = add_HiggsEW_kFactors(events.GenPart, dataset = "WH")
             if self.datasetInfo['isSignalZH']:
                 wgt_ZHaa_HiggsPt, wgt_ZHaa_HiggsPtUp, wgt_ZHaa_HiggsPtDown = getHiggsPtRewgtForZH_HToAATo4B(
                     genHiggs = genHiggs,
-                    genZ = genZ
+                    genZ = genZ,
+                    Era = self.datasetInfo["era"]
                 )
                 EWcorr = add_HiggsEW_kFactors(events.GenPart, dataset = "ZH")
             if self.datasetInfo['isSignalTTH']:
@@ -1734,6 +1740,33 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     systematic=syst,
                     weight=evtWeight
                 ) 
+                output['hGenHiggsEta_wHiggsPtRewgt'].fill(
+                    dataset=dataset,
+                    Eta=(genHiggs.eta),
+                    systematic=syst,
+                    weight=evtWeight
+                )
+                mask_ = ((genHiggs.pt > 250.) & (genHiggs.pt <= 350.))
+                output['hGenHiggsEta_HiggsPt250to350_wHiggsPtRewgt'].fill(
+                    dataset=dataset,
+                    Eta=(genHiggs.eta)[mask_],
+                    systematic=syst,
+                    weight=evtWeight[mask_]
+                )
+                mask_ = ((genHiggs.pt > 350.) & (genHiggs.pt <= 450.))
+                output['hGenHiggsEta_HiggsPt350to450_wHiggsPtRewgt'].fill(
+                    dataset=dataset,
+                    Eta=(genHiggs.eta)[mask_],
+                    systematic=syst,
+                    weight=evtWeight[mask_]
+                )
+                mask_ = (genHiggs.pt > 450.) 
+                output['hGenHiggsEta_HiggsPtGt450_wHiggsPtRewgt'].fill(
+                    dataset=dataset,
+                    Eta=(genHiggs.eta)[mask_],
+                    systematic=syst,
+                    weight=evtWeight[mask_]
+                )
                 mask_ = nGenZ > 0
                 output['hGenZPt_wHiggsPtRewgt'].fill(
                     dataset=dataset,

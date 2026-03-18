@@ -23,18 +23,19 @@ sHistName   = 'histogramName'
 def readHistFromFile(sFile, sHistNameFull, nRebinX=1, nRebinY=1):
     h = None
     f = TFile(sFile)
+    
     if not f.IsOpen():
-        print(f"{sFile} could not open")
+        print(f"{sFile} could not open", flush=True)
         exit(0)
     
     h = copy.deepcopy( f.Get(sHistNameFull) )
     if h == None:
-        print(f"Could not read {sHistNameFull} histogram from {sFile} file. \t\t\t *** ERROR ***")
+        print(f"Could not read {sHistNameFull} histogram from {sFile} file. \t\t\t *** ERROR ***", flush=True)
         return h
         #exit(0)
     f.Close()
     h.Rebin(nRebinX)
-    return h
+    return copy.deepcopy(h)
 
 def readAndAddHistsFromFile(histograms_list, hTotName, nRebinX=1, nRebinY=1):
     hAdded = None
@@ -46,9 +47,9 @@ def readAndAddHistsFromFile(histograms_list, hTotName, nRebinX=1, nRebinY=1):
 
         if hAdded == None: hAdded = hTmp_.Clone(hTotName)
         else:              hAdded.Add(hTmp_)
-        #print(f"{sHistName_}: {hTmp_.Integral()}, {hAdded.Integral()}, ")
+        #print(f"{sHistName_}: {hTmp_.Integral()}, {hAdded.Integral()}, ", flush=True)
 
-    return hAdded
+    return copy.deepcopy(hAdded)
 
 def histIntegralAbvX(h, x1):
     integral = h.Integral(h.FindBin(x1), h.GetNbinsX())
@@ -146,6 +147,7 @@ def plotHistograms(histogram_dict, sCanvasName, xLable='', yLable='', setLogY=1,
     return copy.deepcopy( c1 )
 
 def plotHistogramsAndRatios(histogram_dict, sCanvasName, xLable='', yLable='', setLogY=1, xRange=[]):
+    print(f"plotHistogramsAndRatios():: {sCanvasName = }, {xLable = }, {yLable = }, {setLogY = }, {xRange = }")
     colors_list = [1, 2, 4, 6, 28, 46, 7, 3]
 
     c1 = TCanvas(sCanvasName, sCanvasName, 600,500)
@@ -203,41 +205,43 @@ def plotHistogramsAndRatios(histogram_dict, sCanvasName, xLable='', yLable='', s
     sDenom = list(histogram_dict.keys())[0]
     hDenom = histogram_dict[sDenom]
     i = 0
+    hRatio_ = {}
     for sHistName, h_ in histogram_dict.items():
         if sHistName == sDenom: 
             i += 1
             continue
 
-        hRatio_ = h_.Clone('%s_ratio'%(h_.GetName()))
-        hRatio_.Divide(h_, hDenom)
+        hRatio_[i] = copy.deepcopy( h_.Clone('%s_ratio'%(h_.GetName())) )
+        hRatio_[i].Divide(h_, hDenom)
 
-        hRatio_.SetMarkerStyle(20)
-        hRatio_.SetMarkerSize(0.5)
-        hRatio_.SetMarkerColor(colors_list[i])
-        hRatio_.SetLineColor(colors_list[i]) 
-        hRatio_.SetStats(0)  
+        hRatio_[i].SetMarkerStyle(20)
+        hRatio_[i].SetMarkerSize(0.5)
+        hRatio_[i].SetMarkerColor(colors_list[i])
+        hRatio_[i].SetLineColor(colors_list[i]) 
+        hRatio_[i].SetStats(0)  
         if i==1:   
-            if  xLable != '': hRatio_.GetXaxis().SetTitle(xLable)
-            #if  yLable != '': hRatio_.GetYaxis().SetTitle(yLable)  
-            hRatio_.GetYaxis().SetTitle('Ratio') 
-            if len(xRange)>0: hRatio_.GetXaxis().SetRangeUser(xRange[0], xRange[1])  
-            hRatio_.GetYaxis().SetRangeUser(0, 2)
-            hRatio_.GetYaxis().SetNdivisions(505)
-            hRatio_.GetXaxis().SetTitleSize(0.12)
-            hRatio_.GetYaxis().SetTitleSize(0.12)
-            hRatio_.GetXaxis().SetTitleOffset(0.7)
-            hRatio_.GetXaxis().SetLabelSize(0.1)
-            hRatio_.GetYaxis().SetLabelSize(0.1)
-            hRatio_.GetYaxis().SetTitleOffset(0.3)
+            print(f"plotHistogramsAndRatios():: hRatio {i = }")
+            if  xLable != '': hRatio_[i].GetXaxis().SetTitle(xLable)
+            #if  yLable != '': hRatio_[i].GetYaxis().SetTitle(yLable)  
+            hRatio_[i].GetYaxis().SetTitle(r'$\frac{LO}{NLO}$') 
+            if len(xRange)>0: hRatio_[i].GetXaxis().SetRangeUser(xRange[0], xRange[1])  
+            hRatio_[i].GetYaxis().SetRangeUser(0, 2)
+            hRatio_[i].GetYaxis().SetNdivisions(505)
+            hRatio_[i].GetXaxis().SetTitleSize(0.12)
+            hRatio_[i].GetYaxis().SetTitleSize(0.12)
+            hRatio_[i].GetXaxis().SetTitleOffset(0.7)
+            hRatio_[i].GetXaxis().SetLabelSize(0.1)
+            hRatio_[i].GetYaxis().SetLabelSize(0.1)
+            hRatio_[i].GetYaxis().SetTitleOffset(0.3)
 
         sDrawOption = ''
         sLegendOption = ''
-        if i == 0: sDrawOption = ''
+        if i == 1: sDrawOption = ''
         else:      sDrawOption = 'same'
         if isinstance(h_, type(function_tmp_)): sDrawOption += 'R'
         if isinstance(h_, type(function_tmp_)): sLegendOption = 'l'
         else:                                   sLegendOption = 'lep'
-        hRatio_.Draw(sDrawOption)
+        hRatio_[i].Draw(sDrawOption)
         i += 1
 
     return copy.deepcopy( c1 )
@@ -398,9 +402,10 @@ if __name__ == "__main__":
     productionMode          = args.prodMode   
     useHToAATo4TauSignal    = args.useHToAATo4TauSignal # Default: False
     
-    sOutDir                           = "/eos/cms/store/user/ssawant/htoaa/analysis/HiggsPtRewgts_v2/%s" % (era)
+    sOutDir                           = "/eos/cms/store/user/ssawant/htoaa/analysis/HiggsPtRewgts_v2p1/%s" % (era)
 
-    sIpFileAllHist = '/eos/cms/store/user/ssawant/htoaa/analysis/20260312_HiggsPtReweighting/2018/analyze_htoaa_stage1.root'
+    #sIpFileAllHist = '/eos/cms/store/user/ssawant/htoaa/analysis/20260312_HiggsPtReweighting/2018/analyze_htoaa_stage1.root'
+    sIpFileAllHist = '/eos/cms/store/user/ssawant/htoaa/analysis/20260317_HiigsPtRewgt/2018/analyze_htoaa_stage1.root'
     sHistNameShort_list = ['hGenHiggsEta_Nom', 'hGenHiggsEta_HiggsPt250to350_Nom', 'hGenHiggsEta_HiggsPt350to450_Nom', 'hGenHiggsEta_HiggsPtGt450_Nom'] # ['hGenHiggsPt_Nom', 'hGenHiggsLog2Pt_Nom']  'hGenHiggsPt_Nom', 'hGenHiggsPt_wHiggsPtRewgt_Nom'
     nRebinX_dict = {'hGenHiggsPt_Nom': 50, 'hGenHiggsLog2Pt_Nom': 4, 'hGenHiggsEta_Nom': 4, 'hGenHiggsEta_HiggsPt250to350_Nom': 4, 'hGenHiggsEta_HiggsPt350to450_Nom': 4, 'hGenHiggsEta_HiggsPtGt450_Nom': 4}
     xRange_dict = {'hGenHiggsPt_Nom': [200., 1000.], 'hGenHiggsLog2Pt_Nom': [math.log2(250.), math.log2(1200.)], 'hGenHiggsEta_Nom': [-5, 5], 'hGenHiggsEta_HiggsPt250to350_Nom': [-5, 5], 'hGenHiggsEta_HiggsPt350to450_Nom': [-5, 5], 'hGenHiggsEta_HiggsPtGt450_Nom': [-5, 5]}
@@ -458,7 +463,9 @@ if __name__ == "__main__":
     for iHistNameShort, sHistNameShort in enumerate(sHistNameShort_list):
         hHToAATo4B_Excl_list = []
         hHToAATo4B_Incl_list     = []
+        hHToAATo4B_Excl_rewgt_list = []
         mAs = [ '12p0', '15p0', '20p0', '25p0', '30p0', '35p0', '40p0', '45p0', '50p0', '55p0', '60p0'  ]
+        #mAs = [ '12p0', ]
         sHistName_HToAATo4B_Excl_0 = 'evt/%stoaato4b_mA_%s/%s'
         sHistName_HToAATo4B_Incl_0 = 'evt/%stoaato4b_Incl_mA_%s/%s'
         if useHToAATo4TauSignal:
@@ -476,6 +483,14 @@ if __name__ == "__main__":
                 sIpFileName: sIpFileAllHist,
                 sHistName:  sHistName_HToAATo4B_Incl_0     % (sProcessesHiggsLO,mA, sHistNameShort)
             }) '''
+            
+            hHToAATo4B_Excl_rewgt_list.append({
+                sIpFileName: sIpFileAllHist,
+                sHistName:  sHistName_HToAATo4B_Excl_0     % (sProcessesHiggsLO,mA, sHistNameShort.replace('_Nom', '_wHiggsPtRewgt_Nom'))
+            }) 
+        print(f'{hHToAATo4B_Excl_list = }\n\n', flush=True)
+        print(f'{hHToAATo4B_Excl_rewgt_list = }', flush=True)
+            
 
         hGGFHTo2B_Excl_list = [
             {
@@ -509,6 +524,11 @@ if __name__ == "__main__":
             HiggsPt_fitRange_toUse                      = np.log2(HiggsPt_fitRange_toUse)
             HiggsPt_fullRange_toUse                     = np.log2(HiggsPt_fullRange)
 
+        '''
+        print(f"Test here1", flush=True)
+        f = TFile('/eos/cms/store/user/ssawant/htoaa/analysis/20260317_HiigsPtRewgt/2018/analyze_htoaa_stage1.root')
+        print(f"Test here2", flush=True)
+        '''
 
         ## HToAATo4B histogram ------------
         print(f"\n\nWorking with HToAATo4B")
@@ -525,6 +545,11 @@ if __name__ == "__main__":
             print(f"After: {histIntegralAndError(hHToAATo4B_Incl) = }, {histIntegralAndError(hHToAATo4B_Excl) = }, {histIntegralAndError(hHToAATo4B_Stitch) = }, ")
             '''
             hHToAATo4B_Stitch = hHToAATo4B_Excl
+            print(f"{hHToAATo4B_Stitch.Integral() = }", flush=True)
+            
+            hHToAATo4B_Excl_rewgt = readAndAddHistsFromFile(hHToAATo4B_Excl_rewgt_list, '%s_HToAATo4B_Excl_rewgt'%(sHistNameShort), nRebinX=nRebinX)
+            hHToAATo4B_rewgt_Stitch = hHToAATo4B_Excl_rewgt
+            print(f"{hHToAATo4B_rewgt_Stitch.Integral() = }", flush=True)
         else:
             hHToAATo4B_Stitch = readAndAddHistsFromFile(hHToAATo4B_Incl_list, '%s_HToAATo4Tau_mA_All'%(sHistNameShort), nRebinX=nRebinX)
             hHToAATo4B_Stitch.Scale( 1./hHToAATo4B_Stitch.Integral() )
@@ -555,7 +580,7 @@ if __name__ == "__main__":
         # Normalized histograms to particular cross-section
         xs_toUse     = xsHiggs_dict[productionMode] if productionMode in xsHiggs_dict else 1
         sXs_toUse    = r' \sigma = %.0f fb' % xsHiggs_dict[productionMode] if productionMode in xsHiggs_dict else ''
-        for h_ in [hHToAATo4B_Stitch, hHiggsNLO]: 
+        for h_ in [hHToAATo4B_Stitch, hHiggsNLO, hHToAATo4B_rewgt_Stitch]: 
             h_.Scale( xs_toUse/h_.Integral() )
 
         # Cross-section: EFT QCD+EWK
@@ -575,8 +600,9 @@ if __name__ == "__main__":
             sLegend_ProdMode = r"\text{tt}"
             
         histograms_dict_ = {
-            r"%s \text{ H (LO MC), } %s" % (sLegend_ProdMode, sXs_toUse):            hHToAATo4B_Stitch,
             r"%s \text{ H (NLO MC), } %s" % (sLegend_ProdMode, sXs_toUse):               hHiggsNLO,
+            r"%s \text{ H (LO MC), } %s" % (sLegend_ProdMode, sXs_toUse):            hHToAATo4B_Stitch,
+            r"%s \text{ H (LO reweighted MC), } %s" % (sLegend_ProdMode, sXs_toUse):            hHToAATo4B_rewgt_Stitch,
             #r"\text{gg}\rightarrow \text{H (EFT NNLO MC), } %s" % (sXs_toUse):       hHiggsEFT_QCD,
             
         }
@@ -585,6 +611,7 @@ if __name__ == "__main__":
         xLable_toUse = xLabel_dict[sHistNameShort] if sHistNameShort in xLabel_dict else ''    
         print(f"{xLable_toUse = }")    
         cCompareSamples[iHistNameShort] = plotHistogramsAndRatios(histograms_dict_, 'c%s_%s_CompareSamples'%(productionMode, sHistNameShort), xLable=xLable_toUse, yLable=yLable_toUse, xRange=xRange_toUse)            
+        cCompareSamples[iHistNameShort].SaveAs('%s/%s_%s.png'%(sOutDir, productionMode, sHistNameShort))
 
         ## Higgs Pt reweights: w/ NLO
         hHiggsPtReweights_NLO[iHistNameShort] = makeRatioHist(
