@@ -502,6 +502,20 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     sConditionToAdd        = "QCDStitch", 
                     addBeforeThisCondition = "METFilters")                
 
+            # The following NanoAOD v2 skimmed samples have events with empty LHEPdfWeight and LHEScaleWeight branches. 
+            # Skip those events. No. of raw events for luminosity normalization have been adjusted for those buggy events.
+            #   Samples : 
+            #           rle_BlackList_2017_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5_TuneCP5_13TeV_madgraph_pythia8_PNet_v2_2024_11_22.txt
+            #           rle_BlackList_2017_SUSY_VBFH_HToAATo4B_Pt150_M-21.5_TuneCP5_13TeV_madgraph_pythia8_PNet_v2_2024_11_22.txt
+            #           rle_BlackList_2018_SUSY_VBFH_HToAATo4B_Pt150_M-32.5_TuneCP5_13TeV_madgraph_pythia8_PNet_v2_2024_11_22.txt
+            if ((('SUSY_VBFH_HToAATo4B_Pt150_M-21.5'        in self.datasetInfo['datasetName']) and (self.datasetInfo["era"] == Era_2017)) or 
+                (('SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5' in self.datasetInfo['datasetName']) and (self.datasetInfo["era"] == Era_2017)) or 
+                (('SUSY_VBFH_HToAATo4B_Pt150_M-32.5'        in self.datasetInfo['datasetName']) and (self.datasetInfo["era"] == Era_2018))    ):
+                self.sel_names_all["Presel"] = insertInListBeforeThisElement(
+                    list1                  = self.sel_names_all["Presel"], 
+                    sConditionToAdd        = "BlackListedEvts", 
+                    addBeforeThisCondition = "METFilters")                           
+
         if self.datasetInfo["era"] == Era_2018:
             # 2018HEM1516Issue ----------------
             #self.sel_names_all["Presel"].append("2018HEM1516Issue")
@@ -2509,6 +2523,23 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 runNumber_list       = events.run, 
                 luminosityBlock_list = events.luminosityBlock 
                 ))
+
+        # The following NanoAOD v2 skimmed samples have events with empty LHEPdfWeight and LHEScaleWeight branches. 
+        # Skip those events. No. of raw events for luminosity normalization have been adjusted for those buggy events.
+        #   Samples : 
+        #           rle_BlackList_2017_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5_TuneCP5_13TeV_madgraph_pythia8_PNet_v2_2024_11_22.txt
+        #           rle_BlackList_2017_SUSY_VBFH_HToAATo4B_Pt150_M-21.5_TuneCP5_13TeV_madgraph_pythia8_PNet_v2_2024_11_22.txt
+        #           rle_BlackList_2018_SUSY_VBFH_HToAATo4B_Pt150_M-32.5_TuneCP5_13TeV_madgraph_pythia8_PNet_v2_2024_11_22.txt
+        if "BlackListedEvts" in self.sel_conditions_all_list:
+            if ((('SUSY_VBFH_HToAATo4B_Pt150_M-21.5'        in self.datasetInfo['datasetName']) and (self.datasetInfo["era"] == Era_2017)) or 
+                (('SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5' in self.datasetInfo['datasetName']) and (self.datasetInfo["era"] == Era_2017)) or 
+                (('SUSY_VBFH_HToAATo4B_Pt150_M-32.5'        in self.datasetInfo['datasetName']) and (self.datasetInfo["era"] == Era_2018))    ):
+                mask_LHEPdfWeight   = (ak.count(events.LHEPdfWeight,   axis=1) == 101)
+                mask_LHEScaleWeight = (ak.count(events.LHEScaleWeight, axis=1) == 9)
+                mask_BlackListedEvts = (mask_LHEPdfWeight & mask_LHEScaleWeight)
+                # BlackListedEvts
+                selection.add("BlackListedEvts", mask_BlackListedEvts)
+
 
         if "nPV" in self.sel_conditions_all_list:
             # nPVGood >= 1
