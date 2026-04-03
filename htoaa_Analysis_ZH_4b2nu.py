@@ -146,7 +146,7 @@ class ObjectSelection:
         self.FatJetZHbb_plus_Xbb_Thsh = 0.4
         self.FatJetZHbb_Xbb_avg_Thsh  = 0.4
         self.FatJetZHbb_Thsh          = 0.7
-        self.FatJetPNetXto4bv2WorkingPoints = ['60'] #['40', '45a', '45b', '50', '60', '65', '70', '80']  # ['40', '50', '60', '65', '70', '80']   ['40', '60', '80']
+        self.FatJetPNetXto4bv2WorkingPoints = ['40', '60'] #['40', '45a', '45b', '50', '60', '65', '70', '80']  # ['40', '50', '60', '65', '70', '80']   ['40', '60', '80']
 
         self.nSV_matched_leadingFatJet_Thsh = 3
 
