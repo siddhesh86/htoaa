@@ -91,6 +91,13 @@ sFilesGoldenJSON = {
     Era_2018:        'https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions18/13TeV/Legacy_2018/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt',   # /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions18/13TeV/Legacy_2018/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt
 }
 
+RunRangePerEra = {
+    Era_2016preVFP:  [273150, 278807],
+    Era_2016postVFP: [278769, 284044],
+    Era_2017:        [297047, 306460],
+    Era_2018:        [315257, 325175]    
+}
+
 YearsAndEras_dict = {
     Era_2016:        ['B-ver2_HIPM', 'C-HIPM', 'D-HIPM', 'E-HIPM', 'F-HIPM', 'F', 'G', 'H'],
     Era_2016preVFP:  ['B-ver2_HIPM', 'C-HIPM', 'D-HIPM', 'E-HIPM', 'F-HIPM'],

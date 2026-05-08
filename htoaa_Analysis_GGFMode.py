@@ -98,7 +98,7 @@ print(f"htoaa_Analysis_GGFMode:: here13 {datetime.now() = }"); sys.stdout.flush(
 
 
 printLevel = 0
-histogramSaveLevel_0 = 1 # 0: hSignal extraction, 1: basic Data-MC validation, 2:..
+histogramSaveLevel_0 = 0 # 0: hSignal extraction, 1: basic Data-MC validation, 2:..
 nEventToReadInBatch = 2*10**4 # 0.5*10**5 # 0.5*10**6 # 2500000 #  1000 # 2500000
 nEventsToAnalyze = -1 # 1000 # 100000 # -1
 storeIndividualEvtWgts = False # True: Store individual event weight components for debugging.  False: otherwise
@@ -261,6 +261,28 @@ class ObjectSelection:
         self.nFatJetMin = 1
         self.GenHTThsh  = 100.0
         self.LHEHTThsh  = 100.0
+
+        # UnblinidngCheck step3p1
+        self.mH_mA_regions_unblindingChkStp3p1 = {
+            'mA15_SR':     {'mH': [110.0, 140.], 'mA': [14.0, 16.]},
+            'mA15_SBmHLo': {'mH': [100.0, 110.], 'mA': [14.0, 16.]},
+            'mA15_SBmHHi': {'mH': [140.0, 160.], 'mA': [14.0, 16.]},
+            'mA15_SBmALo': {'mH': [110.0, 140.], 'mA': [12.0, 14.]},
+            'mA15_SBmAHi': {'mH': [110.0, 140.], 'mA': [16.0, 18.]},
+
+            'mA18p5_SR':     {'mH': [110.0, 140.], 'mA': [17.0, 20.0]},
+            'mA18p5_SBmHLo': {'mH': [100.0, 110.0], 'mA': [17.0, 20.0]},
+            'mA18p5_SBmHHi': {'mH': [140.0, 160.0], 'mA': [17.0, 20.0]},
+            'mA18p5_SBmALo': {'mH': [110.0, 140.], 'mA': [15.0, 17.0]},
+            'mA18p5_SBmAHi': {'mH': [110.0, 140.], 'mA': [20.0, 22.0]},  
+
+            'mA55_SR':     {'mH': [110.0, 140.], 'mA': [52.0, 58.0]},
+            'mA55_SBmHLo': {'mH': [100.0, 110.0], 'mA': [52.0, 58.0]},
+            'mA55_SBmHHi': {'mH': [140.0, 160.0], 'mA': [52.0, 58.0]},
+            'mA55_SBmALo': {'mH': [110.0, 140.], 'mA': [46.0, 52.0]},
+            'mA55_SBmAHi': {'mH': [110.0, 140.], 'mA': [58.0, 63.0]},
+
+        }
         
 
 
@@ -583,6 +605,17 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     "leadingFatJetPNet_Xto4bv2_Htoaa4b_SBplusSRWP%s" % (wp_)
                 ]
 
+                for mH_mA_region_unblindingChkStp3p1 in self.objectSelector.mH_mA_regions_unblindingChkStp3p1:
+                    self.sel_names_all["%s_Xto4bv2_SRWP%s_%s" % (sCatName, wp_, mH_mA_region_unblindingChkStp3p1)] = catSels + [ # signal region
+                        "leadingFatJetPNet_Xto4bv2_Htoaa4b_SRWP%s" % (wp_),
+                        mH_mA_region_unblindingChkStp3p1
+                    ]
+                    self.sel_names_all["%s_Xto4bv2_SBWP%s_%s" % (sCatName, wp_, mH_mA_region_unblindingChkStp3p1)] = catSels + [ # side band
+                        "leadingFatJetPNet_Xto4bv2_Htoaa4b_SBWP%s" % (wp_),
+                        mH_mA_region_unblindingChkStp3p1
+                    ]                
+                
+
         if self.datasetInfo['saveRunLsEvt']:
             global sCat_save_rle; sCat_save_rle = "gg0lIncl_Xto4bv2_SBplusSRWP40";
             print(f"HToAATo4bProcessor::init(): {sCat_save_rle = }")
@@ -779,7 +812,8 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         Ratio_axis            = hist.Bin("Ratio",                  r"Ratio",                     100,     0.0,    2.0)
         Weight_axis           = hist.Bin("Weight",                 r"Event weight",              [-10,-3,*np.arange(-2,2,0.05), 3, 10])
         log10Weight_axis      = hist.Bin("Log10Weight",            r"Event weight",               90,    np.log10(1e-5),    np.log10(1e4))
-        
+        runNumber_axis        = hist.Bin("runNumber",              r"runNumber",                 100,  RunRangePerEra[Era_2016preVFP][0], RunRangePerEra[Era_2018][1])
+
         sXaxis      = 'xAxis'
         sXaxisLabel = 'xAxisLabel'
         sYaxis      = 'yAxis'
@@ -1067,7 +1101,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 
 
 
-                if self.datasetInfo['histogramSaveLevel'] >= 1:
+                if self.datasetInfo['histogramSaveLevel'] >= 0:
                     histos.update(OD([
 
                         ('hPV_npvsGood'+sHExt,                           {sXaxis: PU_axis,                sXaxisLabel: r"No. of good primary vertices - signal region"}),
@@ -1080,6 +1114,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         ('hLeadingFatJetMSoftDrop'+sHExt,                   {sXaxis: mass_axis,       sXaxisLabel: r"m_{soft drop} (leading FatJet) [GeV]"}),
                         ('hLeadingFatJetParticleNet_massH_Hto4b_avg_v0123'+sHExt,     {sXaxis: mass_axis,       sXaxisLabel: r"LeadingFatJetParticleNet_massH_Hto4b_avg_v0123"}), ## selected
                         ('hLeadingFatJetParticleNet_massA_Hto4b_avg_v013'+sHExt,      {sXaxis: mass_axis1,       sXaxisLabel: r"hLeadingFatJetParticleNet_massA_Hto4b_avg_v013"}), ## selected
+                        ('hLeadingFatJetParticleNetMD_XbbOverQCD'+sHExt,    {sXaxis: mlScore_axis,    sXaxisLabel: r"LeadingFatJetParticleNetMD Xbb/(Xbb + QCD)"}),
                         
                         ('hnleadingNonHto4bFatJet_WZvsQCD'+sHExt,             {sXaxis: nObject10_axis,  sXaxisLabel: r"No. of leading non-Hto4b fat jets WZvsQCD-tagged"}),
                         ('hnAk4JetsCentral_nonoverlaping_leadingFatJet'+sHExt,         {sXaxis: nObject10_axis,  sXaxisLabel: r"No. of central AK4 jets outside H->4b"}),
@@ -1128,6 +1163,8 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         #('hIsThereLeadingNonHto4bVFatJet'+sHExt,     {sXaxis: boolean_axis,  sXaxisLabel: r"No. of leading non-Hto4b fat jets WZvsQCD-tagged"}),                        
                         #('hLeadingFatJetPNet_WZvsQCD_score'+sHExt,   {sXaxis: mlScore_axis1k,  sXaxisLabel: r"hLeadingFatJetPNet_X4b_v2ab_Haa34b_score"}),                        
                         
+                        ('hRunNumber'+sHExt,                      {sXaxis: runNumber_axis,                sXaxisLabel: r"No. of good primary vertices - signal region"}),
+
                         
                     ]))
 
@@ -1184,7 +1221,6 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         ('hLeadingFatJetParticleNetMD_Xcc'+sHExt,           {sXaxis: mlScore_axis,    sXaxisLabel: r"LeadingFatJetParticleNetMD_Xcc"}),
                         ('hLeadingFatJetParticleNetMD_Xqq'+sHExt,           {sXaxis: mlScore_axis,    sXaxisLabel: r"LeadingFatJetParticleNetMD_Xqq"}),
 
-                        ('hLeadingFatJetParticleNetMD_XbbOverQCD'+sHExt,    {sXaxis: mlScore_axis,    sXaxisLabel: r"LeadingFatJetParticleNetMD Xbb/(Xbb + QCD)"}),
                         ('hLeadingFatJetParticleNetMD_XccOverQCD'+sHExt,    {sXaxis: mlScore_axis,    sXaxisLabel: r"LeadingFatJetParticleNetMD Xbb/(Xcc + QCD)"}),
                         ('hLeadingFatJetParticleNetMD_XqqOverQCD'+sHExt,    {sXaxis: mlScore_axis,    sXaxisLabel: r"LeadingFatJetParticleNetMD Xbb/(Xqq + QCD)"}),
 
@@ -2315,6 +2351,8 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                                                          leadingFatJet.PNet_X4b_v2b_Haa4b_score) / 2.0
             leadingFatJet_PNet_Xto34bv2_Htoaa4b       = (leadingFatJet.PNet_X4b_v2a_Haa34b_score + \
                                                          leadingFatJet.PNet_X4b_v2b_Haa34b_score) / 2.0
+
+            leadingFatJetParticleNetMD_XbbvsQCD = leadingFatJet.particleNetMD_XbbvsQCD
             
 
 
@@ -2567,7 +2605,8 @@ class HToAATo4bProcessor(processor.ProcessorABC):
        
         # create a PackedSelection object
         # this will help us later in composing the boolean selections easily
-        selection = PackedSelection(dtype='uint32')
+        #selection = PackedSelection(dtype='uint32')
+        selection = PackedSelection(dtype='uint64')
 
         if "run:ls" in self.sel_conditions_all_list:
             # self.datasetInfo['dataLSSelGoldenJSON']
@@ -3031,6 +3070,18 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             )
 
 
+        for mH_mA_regionName, mH_mA_regionName_dict  in self.objectSelector.mH_mA_regions_unblindingChkStp3p1.items():
+            if mH_mA_regionName in self.sel_conditions_all_list:
+                mH_range_ = mH_mA_regionName_dict['mH']
+                mA_range_ = mH_mA_regionName_dict['mA']                
+                selection.add(
+                    mH_mA_regionName,
+                    ( (leadingFatJet['PNet_massH_v2b_cor'] >= mH_range_[0]) &
+                      (leadingFatJet['PNet_massH_v2b_cor'] <  mH_range_[1]) &
+                      (leadingFatJet['PNet_34massAa']      >= mA_range_[0]) & 
+                      (leadingFatJet['PNet_34massAa']      < mA_range_[1])
+                    )
+                )
 
             
         
@@ -5246,7 +5297,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         
                         
 
-                    if self.datasetInfo['histogramSaveLevel'] >= 1: 
+                    if self.datasetInfo['histogramSaveLevel'] >= 0: 
                         output['hPV_npvsGood'+sHExt].fill(
                             dataset=dataset,
                             PU=(events.PV.npvsGood[sel_SR_forHExt]),
@@ -5289,6 +5340,13 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             systematic=syst,
                             weight=evtWeight[sel_SR_forHExt]
                         )
+                        output['hLeadingFatJetParticleNetMD_XbbOverQCD'+sHExt].fill(
+                            dataset=dataset,
+                            MLScore=(leadingFatJetParticleNetMD_XbbvsQCD[sel_SR_forHExt]),
+                            systematic=syst,
+                            weight=evtWeight[sel_SR_forHExt]
+                        )
+                        
 
                         output['hnleadingNonHto4bFatJet_WZvsQCD'+sHExt].fill(
                             dataset=dataset,
@@ -5541,7 +5599,18 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             weight=evtWeight[sel_SR_forHExt & (~ak.is_none(leadingNonHto4bVFatJet))]
                         )
                         '''                            
-                                                      
+
+                        output['hRunNumber'+sHExt].fill(
+                            dataset=dataset,
+                            runNumber=(events.run[sel_SR_forHExt]),
+                            systematic=syst,
+                            weight=evtWeight[sel_SR_forHExt]
+                        )     
+
+                        
+                                       
+
+
                             
                     if self.datasetInfo['histogramSaveLevel'] >= 1 and self.datasetInfo['isMC'] and 'LHE' in events.fields:    
                         output['hGenLHE_HT'+sHExt].fill(
@@ -5772,12 +5841,6 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         output['hLeadingFatJetParticleNetMD_Xqq'+sHExt].fill(
                             dataset=dataset,
                             MLScore=(leadingFatJet.particleNetMD_Xqq[sel_SR_forHExt]),
-                            systematic=syst,
-                            weight=evtWeight[sel_SR_forHExt]
-                        )
-                        output['hLeadingFatJetParticleNetMD_XbbOverQCD'+sHExt].fill(
-                            dataset=dataset,
-                            MLScore=(leadingFatJetParticleNetMD_XbbvsQCD[sel_SR_forHExt]),
                             systematic=syst,
                             weight=evtWeight[sel_SR_forHExt]
                         )

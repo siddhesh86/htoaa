@@ -116,10 +116,16 @@ scale_MCSig = 10 # 20 #50 #1000
 scale_MCSig_dict = {
     'VjjIncl': 40,
     'VjjIncl_Xto4bv2_SBplusSRWP60': 10,
+    'VjjIncl_Xto4bv2_SBWP60': 10,
+    'VjjIncl_Xto4bv2_SRWP60': 10,
     'VjjLo': 40,
     'VjjLo_Xto4bv2_SBplusSRWP60': 10,
+    'VjjLo_Xto4bv2_SBP60': 10,
+    'VjjLo_Xto4bv2_SRWP60': 10,
     'VjjHi': 40,
-    'VjjHi_Xto4bv2_SBplusSRWP60': 10,       
+    'VjjHi_Xto4bv2_SBplusSRWP60': 10,  
+    'VjjHi_Xto4bv2_SBWP60': 10,
+    'VjjHi_Xto4bv2_SRWP60': 10,
 }
 yRatioLimit = [0.5, 1.5] #[0., 2.] #[0.4, 1.6]
 ySignfLimit = [1e-1, 5e2]

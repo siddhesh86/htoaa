@@ -91,7 +91,7 @@ print(f"{YearsToRun_dict = }, \n{Years = }")
 sIpFiles = {}
 for Era in Years:
     sIpFiles[Era] = '%s/%s/%s/analyze_htoaa_stage1.root' % (sAnaDir, Era, anaSuperCat) # 20250612_gg0lDataMC_1, 20250613_gg0lDataMC_1, 20250617_gg0lDataMC, 20250617_gg0lDataMC_1
-sOpDirNameShort = 'plots_proposal2' #'plots_UniversalColorScheme'
+sOpDirNameShort = 'plots_proposal2_ext1' #'plots_UniversalColorScheme'
 
 
 subCats = []
@@ -109,9 +109,10 @@ elif 'tt0l'      in CAT:
 ## Set selection tags
 selectionTags = []
 for subCat_ in subCats:
+    sWP_ = '40' if 'gg0l' in CAT else '60'
     selectionTags.extend( [subCat_,] ) # '%sMsdLt50' % (CAT),'%sMsdGt50' % (CAT)]
-    if 'gg0l' in CAT: selectionTags.extend([ '%s_Xto4bv2_SBplusSRWP40' % (subCat_),] )
-    else:             selectionTags.extend([ '%s_Xto4bv2_SBplusSRWP60' % (subCat_), ] )
+    #selectionTags.extend([ '%s_Xto4bv2_SBplusSRWP%s' % (subCat_,sWP_), '%s_Xto4bv2_SRWP%s' % (subCat_,sWP_), '%s_Xto4bv2_SBWP%s' % (subCat_,sWP_), ] )
+    selectionTags.extend([ '%s_Xto4bv2_SRWP%s' % (subCat_,sWP_), ] )
 if 'trigEffi' in CAT: 
     selectionTags = ['JetTrgEffiDenom', 'JetTrgEffiNume_Trg_Combo_AK4AK8Jet_HT_VBF']
 elif 'CR_QCD4b'      in CAT: 
@@ -138,7 +139,7 @@ PlotRatioPlot = True
 PlotSignificancePlot = False #True
 SetyRatioLimitForcefully = True # Set y-axis range for ratio plot as specified with 'yRatioLimit'  
 SetRationOvrUdrflow = True # Set ratio plot Under- / Over-flow as 'yRatioLimit' 
-
+autoAdjustRebinxForSRWP = True
 
 DataObs_DirName_dict = {}
 luminosity_total_dict = {}
@@ -470,7 +471,9 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                     XRebinning = histograms_dict[histo_name][sXRebinning] if sXRebinning in histograms_dict[histo_name].keys() else None
                     YRebinning = histograms_dict[histo_name][sYRebinning] if sYRebinning in histograms_dict[histo_name].keys() else None
                     if yAxisRange and yAxisRange[0] > yAxisRange[1]:
-                        yAxisRange = None                        
+                        yAxisRange = None    
+                    if autoAdjustRebinxForSRWP and ('_SRWP' in selectionTag) and (nRebinX > 1):
+                        nRebinX *= 2                    
 
                     nHistoDimemsions    = None
                     yAxisRange_cal      = [1e20, -1e10]
