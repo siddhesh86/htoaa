@@ -187,7 +187,7 @@ class ObjectSelection:
         self.FatJetZHbb_plus_Xbb_Thsh = 0.4
         self.FatJetZHbb_Xbb_avg_Thsh  = 0.4
         self.FatJetZHbb_Thsh          = 0.7
-        self.FatJetPNetXto4bv2WorkingPoints = ['40', '60'] #['40', '60', '80'] #['40', '45a', '45b', '50', '60', '65', '70', '80']  # ['40', '50', '60', '65', '70', '80']   ['40', '60', '80']
+        self.FatJetPNetXto4bv2WorkingPoints = ['40'] #['40', '60'] #['40', '60', '80'] #['40', '45a', '45b', '50', '60', '65', '70', '80']  # ['40', '50', '60', '65', '70', '80']   ['40', '60', '80']
         
         self.nSV_matched_leadingFatJet_Thsh = 3
 
@@ -262,27 +262,13 @@ class ObjectSelection:
         self.GenHTThsh  = 100.0
         self.LHEHTThsh  = 100.0
 
-        # UnblinidngCheck step3p1
-        self.mH_mA_regions_unblindingChkStp3p1 = {
-            'mA15_SR':     {'mH': [110.0, 140.], 'mA': [14.0, 16.]},
-            'mA15_SBmHLo': {'mH': [100.0, 110.], 'mA': [14.0, 16.]},
-            'mA15_SBmHHi': {'mH': [140.0, 160.], 'mA': [14.0, 16.]},
-            'mA15_SBmALo': {'mH': [110.0, 140.], 'mA': [12.0, 14.]},
-            'mA15_SBmAHi': {'mH': [110.0, 140.], 'mA': [16.0, 18.]},
 
-            'mA18p5_SR':     {'mH': [110.0, 140.], 'mA': [17.0, 20.0]},
-            'mA18p5_SBmHLo': {'mH': [100.0, 110.0], 'mA': [17.0, 20.0]},
-            'mA18p5_SBmHHi': {'mH': [140.0, 160.0], 'mA': [17.0, 20.0]},
-            'mA18p5_SBmALo': {'mH': [110.0, 140.], 'mA': [15.0, 17.0]},
-            'mA18p5_SBmAHi': {'mH': [110.0, 140.], 'mA': [20.0, 22.0]},  
-
-            'mA55_SR':     {'mH': [110.0, 140.], 'mA': [52.0, 58.0]},
-            'mA55_SBmHLo': {'mH': [100.0, 110.0], 'mA': [52.0, 58.0]},
-            'mA55_SBmHHi': {'mH': [140.0, 160.0], 'mA': [52.0, 58.0]},
-            'mA55_SBmALo': {'mH': [110.0, 140.], 'mA': [46.0, 52.0]},
-            'mA55_SBmAHi': {'mH': [110.0, 140.], 'mA': [58.0, 63.0]},
-
+        ## ARC review 06/05/2026
+        self.mHWindows = {
+            'mHInclusive': [70, 9999.],
+            'mHHiggs':     [110, 140.],
         }
+
         
 
 
@@ -588,6 +574,10 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         categories_dict["gg0lLo"]   = [ "leadingFatJetPt_gg0lLo"   if s_ == "leadingFatJetPt" else s_     for s_ in self.sel_names_all["Presel"] ]
         categories_dict["gg0lHi"]   = [ "leadingFatJetPt_gg0lHi"   if s_ == "leadingFatJetPt" else s_     for s_ in self.sel_names_all["Presel"] ]
         
+        ## NoTrg categories for ARC review 06/05/2026
+        for sCat_ in ["gg0lIncl", "gg0lLo", "gg0lHi"]:
+            sCatNoTrg_ = '%sNoTrg' % sCat_
+            categories_dict[sCatNoTrg_] = [s_ for s_ in categories_dict[sCat_]  if s_ != sTrgSelection]
         
 
         for sCatName, catSels in categories_dict.items():
@@ -605,15 +595,16 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     "leadingFatJetPNet_Xto4bv2_Htoaa4b_SBplusSRWP%s" % (wp_)
                 ]
 
-                for mH_mA_region_unblindingChkStp3p1 in self.objectSelector.mH_mA_regions_unblindingChkStp3p1:
-                    self.sel_names_all["%s_Xto4bv2_SRWP%s_%s" % (sCatName, wp_, mH_mA_region_unblindingChkStp3p1)] = catSels + [ # signal region
-                        "leadingFatJetPNet_Xto4bv2_Htoaa4b_SRWP%s" % (wp_),
-                        mH_mA_region_unblindingChkStp3p1
-                    ]
-                    self.sel_names_all["%s_Xto4bv2_SBWP%s_%s" % (sCatName, wp_, mH_mA_region_unblindingChkStp3p1)] = catSels + [ # side band
-                        "leadingFatJetPNet_Xto4bv2_Htoaa4b_SBWP%s" % (wp_),
-                        mH_mA_region_unblindingChkStp3p1
-                    ]                
+
+            ## ARC review 06/05/2026
+            for sMHWindow_ in self.objectSelector.mHWindows:
+                self.sel_names_all["%s_%s" % (sCatName, sMHWindow_)] = catSels + [ 
+                    "leadingFatJetPNet_massH_%s" % (sMHWindow_)
+                ]                
+            
+
+
+                     
                 
 
         if self.datasetInfo['saveRunLsEvt']:
@@ -1288,7 +1279,6 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                         ('hLeadingFatJetParticleNet_massH_Hto4b_v3'+sHExt,            {sXaxis: mass_axis,       sXaxisLabel: r"LeadingFatJetParticleNet_massH_Hto4b_v3"}),
                         ('hLeadingFatJetParticleNet_massH_Hto4b_v4'+sHExt,            {sXaxis: mass_axis,       sXaxisLabel: r"LeadingFatJetParticleNet_massH_Hto4b_v4"}),
 
-                        ('hLeadingFatJetParticleNet_massH_Hto4b_avg_v0123'+sHExt,     {sXaxis: mass_axis,       sXaxisLabel: r"LeadingFatJetParticleNet_massH_Hto4b_avg_v0123"}), ## selected
                         
                         #(''+sHExt,    {sXaxis: mlScore_axis1k,  sXaxisLabel: r"LeadingFatJetParticleNetMD Hto4b"}),
                         
@@ -3070,17 +3060,15 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             )
 
 
-        for mH_mA_regionName, mH_mA_regionName_dict  in self.objectSelector.mH_mA_regions_unblindingChkStp3p1.items():
-            if mH_mA_regionName in self.sel_conditions_all_list:
-                mH_range_ = mH_mA_regionName_dict['mH']
-                mA_range_ = mH_mA_regionName_dict['mA']                
+        ## ARC review 06/05/2026
+        for sMHWindow_, mHWindowRange_ in self.objectSelector.mHWindows.items():  
+            if "leadingFatJetPNet_massH_%s" % (sMHWindow_) in self.sel_conditions_all_list:      
                 selection.add(
-                    mH_mA_regionName,
-                    ( (leadingFatJet['PNet_massH_v2b_cor'] >= mH_range_[0]) &
-                      (leadingFatJet['PNet_massH_v2b_cor'] <  mH_range_[1]) &
-                      (leadingFatJet['PNet_34massAa']      >= mA_range_[0]) & 
-                      (leadingFatJet['PNet_34massAa']      < mA_range_[1])
-                    )
+                   "leadingFatJetPNet_massH_%s" % (sMHWindow_),
+                   (
+                       (leadingFatJet['PNet_massH_v2b_cor'] > mHWindowRange_[0]) & 
+                       (leadingFatJet['PNet_massH_v2b_cor'] < mHWindowRange_[1])
+                   ) 
                 )
 
             
