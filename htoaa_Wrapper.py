@@ -20,6 +20,7 @@ import time
 from datetime import datetime
 import copy
 import enum
+import random
 
 
 from htoaa_Settings import *
@@ -62,10 +63,11 @@ class JobStatus(enum.Enum):
 
 def writeCondorExecFile(
         condor_exec_file,
+        SourceCode_tarball_to_use,
         sConfig_to_use,
         sOpFileList_to_use,
         EosDestinationDir_to_use,
-        inpurFiles_to_use,
+        inputFiles_to_use,
         server,
         saveRunLsEvt
 ):
@@ -100,17 +102,29 @@ def writeCondorExecFile(
             f.write("conda activate %s \n" % (myCondaEnv))
             #f.write("time conda env list \n")
 
+            f.write("printf \"pwd: \\n\" \n")
+            f.write("pwd \n")
+            f.write("printf \"ls: \\n\" \n")
+            f.write("ls \n")
+
+
             #f.write("time conda list \n")
             #f.write("which python3 \n")
             #f.write("python3 -V \n")
             #f.write(" \n")
             #f.write("conda activate ana_htoaa \n")
-            f.write("\ncp -r %s/* . \n" % (SourceCodeDir))
-
-            f.write("printf \"pwd: \\n\" \n")
-            f.write("pwd \n")
+            #f.write("\ncp -r %s/* . \n" % (SourceCodeDir_to_use))
+            #for SourceCodeSubdir in SourceCodeSubdirs_list_to_use:
+            #    f.write("\ncp -r %s/%s . \n" % (SourceCodeDir_to_use, SourceCodeSubdir))
+            SourceCode_tarball_baseName = os.path.basename(SourceCode_tarball_to_use)
+            cmd_untar_sourceCode_tarball = 'tar -xvzf %s' % (SourceCode_tarball_baseName)
+            f.write("printf \"ls -ltrh %s: \\n\" \n" % (SourceCode_tarball_baseName))
+            f.write("ls -ltrh %s\n" % (SourceCode_tarball_baseName))
+            f.write("printf \"%s: \\n\" \n" % (cmd_untar_sourceCode_tarball))
+            f.write("%s\n" % (cmd_untar_sourceCode_tarball))
             f.write("printf \"ls: \\n\" \n")
             f.write("ls \n")
+            
             f.write("echo \"$1 \" $1 \n")
             f.write("echo \"$2 \" $2 \n")
             
@@ -134,7 +148,7 @@ def writeCondorExecFile(
             for sOpFile_to_use in sOpFileList_to_use:
                 f.write("time %s %s %s   \n" % (cp_commandToUse, sOpFile_to_use, EosDestinationDir_to_use) )
             #f.write("rm -rf ./inputFiles \n")
-            for sInputFile in inpurFiles_to_use:
+            for sInputFile in inputFiles_to_use:
                 sFileLocal = './inputFiles/%s' %(os.path.basename(sInputFile))
                 f.write("rm -rf %s \n" % (sFileLocal))
             #f.write(" \n")
@@ -151,6 +165,7 @@ def writeCondorSumitFile(
         sCondorOutput_to_use,
         sCondorError_to_use,
         sIpConfig_to_use,
+        SourceCode_tarball_to_use,
         increaseJobFlavour=False
 ):
     '''
@@ -177,6 +192,8 @@ def writeCondorSumitFile(
     #iJobFlavour = 1 # 1, 'microcentury' 
     if increaseJobFlavour: iJobFlavour += 1
     
+    if SourceCode_tarball_to_use.startswith('/eos/'):
+        SourceCode_tarball_to_use = 'root://eosuser.cern.ch/%s' % (SourceCode_tarball_to_use)
     
     #if not os.path.isfile(condor_submit_file):
     with open(condor_submit_file, 'w') as f:
@@ -193,7 +210,7 @@ def writeCondorSumitFile(
         f.write("log = %s \n" % (sCondorLog_to_use))
         f.write("output = %s \n" % (sCondorOutput_to_use))
         f.write("error = %s \n" % (sCondorError_to_use))
-        f.write("transfer_input_files = $(X509_USER_PROXY), %s \n" % (sIpConfig_to_use) )
+        f.write("transfer_input_files = $(X509_USER_PROXY), %s, %s \n" % (sIpConfig_to_use, SourceCode_tarball_to_use) )
         f.write("transfer_output_files = \"\" \n")
         f.write("notification = never \n")
         f.write("should_transfer_files = YES \n")
@@ -318,6 +335,7 @@ if __name__ == '__main__':
 
         os.chdir( SourceCodeBaseDir )
         SourceCodeDir     = os.getcwd()
+        SourceCodeSubdirs_list = [  sAnalysis, 'data', 'htoaa_Settings.py', 'htoaa_CommonTools.py', 'htoaa_Samples.py', ]
         DestinationDir    = "../analysis/%s" % (AnaOpDirName)
         EosDestinationDir = "/eos/cms/store/user/%s/htoaa/analysis/%s" % (UserName, AnaOpDirName) 
         EosAnaVersionDir  = "/eos/cms/store/user/%s/htoaa/analysis/%s" % (UserName, anaVersion)
@@ -332,6 +350,16 @@ if __name__ == '__main__':
             os.makedirs( EosDestinationDir, exist_ok=True )
         except:
             EosDestinationDir = DestinationDirAbsolute # if /eos area for user is not available then save histograms in DestinationDir
+
+        # make tarball of source code files
+        os.chdir( SourceCodeDir )
+        SourceCode_tarball = '%s/htoaa_SourceCode_%d.tar.gz' % (EosAnaVersionDir, random.randrange(1, 1000))
+        cmd_SourceCode_tarball = "tar -czvf %s" % (SourceCode_tarball)
+        for SourceCodeSubdir in SourceCodeSubdirs_list: cmd_SourceCode_tarball += " %s" % (SourceCodeSubdir)
+        print(f"{cmd_SourceCode_tarball = }")
+        result_SourceCode_tarball = subprocess.run(cmd_SourceCode_tarball.split(" "), capture_output=True, text=True, check=True)
+        print('result_SourceCode_tarball: %s'% (result_SourceCode_tarball.stdout))
+        
 
         os.chdir( SourceCodeDir )
         samplesList = None
@@ -744,6 +772,7 @@ if __name__ == '__main__':
 
                             writeCondorExecFile(
                                 sCondorExec_to_use,
+                                SourceCode_tarball,
                                 sConfig_to_use,
                                 sOpFileList_to_use,
                                 OpRootFileFinalDir,
@@ -773,6 +802,7 @@ if __name__ == '__main__':
                                 sCondorOutput_to_use,
                                 sCondorError_to_use,
                                 sConfig_to_use,
+                                SourceCode_tarball,
                                 increaseJobFlavour)
 
 

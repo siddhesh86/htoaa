@@ -152,7 +152,7 @@ class ObjectSelection:
         self.FatJetZHbb_plus_Xbb_Thsh = 0.4
         self.FatJetZHbb_Xbb_avg_Thsh  = 0.4
         self.FatJetZHbb_Thsh          = 0.7
-        self.FatJetPNetXto4bv2WorkingPoints = ['40', '60'] #['40', '45a', '45b', '50', '60', '65', '70', '80']  # ['40', '50', '60', '65', '70', '80']   ['40', '60', '80']
+        self.FatJetPNetXto4bv2WorkingPoints = ['60'] #['40', '60'] #['40', '45a', '45b', '50', '60', '65', '70', '80']  # ['40', '50', '60', '65', '70', '80']   ['40', '60', '80']
 
         self.nSV_matched_leadingFatJet_Thsh = 3
 
@@ -211,21 +211,13 @@ class ObjectSelection:
         self.GenHTThsh  = 100.0
         self.LHEHTThsh  = 100.0
 
-        # UnblinidngCheck step3p1
-        self.mH_mA_regions_unblindingChkStp3p1 = {
-            'mA23_SR':     {'mH': [110.0, 140.], 'mA': [21.0, 25.0]},
-            'mA23_SBmHLo': {'mH': [100.0, 110.0], 'mA': [21.0, 25.0]},
-            'mA23_SBmHHi': {'mH': [140.0, 160.0], 'mA': [21.0, 25.0]},
-            'mA23_SBmALo': {'mH': [110.0, 140.], 'mA': [17.0, 21.0]},
-            'mA23_SBmAHi': {'mH': [110.0, 140.], 'mA': [25.0, 29.0]},   
-
-            'mA42to48_SR':     {'mH': [110.0, 140.], 'mA': [42.0, 48.0]},
-            'mA42to48_SBmHLo': {'mH': [100.0, 110.0], 'mA': [42.0, 48.0]},
-            'mA42to48_SBmHHi': {'mH': [140.0, 160.0], 'mA': [42.0, 48.0]},
-            'mA42to48_SBmALo': {'mH': [110.0, 140.], 'mA': [36.0, 42.0]},
-            'mA42to48_SBmAHi': {'mH': [110.0, 140.], 'mA': [48.0, 54.0]},
-
+        ## ARC review 06/05/2026
+        self.mHWindows = {
+            'mHInclusive': [70, 9999.],
+            'mHHiggs':     [110, 140.],
         }
+
+
         
 
 
@@ -498,8 +490,11 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             "ge0BNonoverlappingSelFatJets",
         ]
 
-        
-        
+        ## NoTrg categories for ARC review 06/05/2026
+        cat0_list_ = list(categories_dict.keys())
+        for sCat_ in cat0_list_: 
+            sCatNoTrg_ = '%sNoTrg' % sCat_
+            categories_dict[sCatNoTrg_] = [s_ for s_ in categories_dict[sCat_]  if s_ != sTrgSelection]
         
 
         for sCatName, catSels in categories_dict.items():
@@ -517,15 +512,13 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     "leadingFatJetPNet_Xto4bv2_Htoaa4b_SBplusSRWP%s" % (wp_)
                 ]
 
-                for mH_mA_region_unblindingChkStp3p1 in self.objectSelector.mH_mA_regions_unblindingChkStp3p1:
-                    self.sel_names_all["%s_Xto4bv2_SRWP%s_%s" % (sCatName, wp_, mH_mA_region_unblindingChkStp3p1)] = catSels + [ # signal region
-                        "leadingFatJetPNet_Xto4bv2_Htoaa4b_SRWP%s" % (wp_),
-                        mH_mA_region_unblindingChkStp3p1
-                    ]
-                    self.sel_names_all["%s_Xto4bv2_SBWP%s_%s" % (sCatName, wp_, mH_mA_region_unblindingChkStp3p1)] = catSels + [ # side band
-                        "leadingFatJetPNet_Xto4bv2_Htoaa4b_SBWP%s" % (wp_),
-                        mH_mA_region_unblindingChkStp3p1
-                    ]                
+            ## ARC review 06/05/2026
+            for sMHWindow_ in self.objectSelector.mHWindows:
+                self.sel_names_all["%s_%s" % (sCatName, sMHWindow_)] = catSels + [ 
+                    "leadingFatJetPNet_massH_%s" % (sMHWindow_)
+                ]                
+
+            
 
         if self.datasetInfo['saveRunLsEvt']:
             global sCat_save_rle; sCat_save_rle = "gg0lIncl_Xto4bv2_SBplusSRWP40";
@@ -3006,18 +2999,18 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 mask_QCD_stitch_eventwise
             )
 
-        for mH_mA_regionName, mH_mA_regionName_dict  in self.objectSelector.mH_mA_regions_unblindingChkStp3p1.items():
-            if mH_mA_regionName in self.sel_conditions_all_list:
-                mH_range_ = mH_mA_regionName_dict['mH']
-                mA_range_ = mH_mA_regionName_dict['mA']                
+        ## ARC review 06/05/2026
+        for sMHWindow_, mHWindowRange_ in self.objectSelector.mHWindows.items():  
+            if "leadingFatJetPNet_massH_%s" % (sMHWindow_) in self.sel_conditions_all_list:      
                 selection.add(
-                    mH_mA_regionName,
-                    ( (leadingFatJet['PNet_massH_v2b_cor'] >= mH_range_[0]) &
-                      (leadingFatJet['PNet_massH_v2b_cor'] <  mH_range_[1]) &
-                      (leadingFatJet['PNet_34massAa']      >= mA_range_[0]) & 
-                      (leadingFatJet['PNet_34massAa']      < mA_range_[1])
-                    )
+                   "leadingFatJetPNet_massH_%s" % (sMHWindow_),
+                   (
+                       (leadingFatJet['PNet_massH_v2b_cor'] > mHWindowRange_[0]) & 
+                       (leadingFatJet['PNet_massH_v2b_cor'] < mHWindowRange_[1])
+                   ) 
                 )
+
+
 
 
 

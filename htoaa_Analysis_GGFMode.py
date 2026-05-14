@@ -575,7 +575,8 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         categories_dict["gg0lHi"]   = [ "leadingFatJetPt_gg0lHi"   if s_ == "leadingFatJetPt" else s_     for s_ in self.sel_names_all["Presel"] ]
         
         ## NoTrg categories for ARC review 06/05/2026
-        for sCat_ in ["gg0lIncl", "gg0lLo", "gg0lHi"]:
+        cat0_list_ = list(categories_dict.keys())
+        for sCat_ in cat0_list_: #["gg0lIncl", "gg0lLo", "gg0lHi"]:
             sCatNoTrg_ = '%sNoTrg' % sCat_
             categories_dict[sCatNoTrg_] = [s_ for s_ in categories_dict[sCat_]  if s_ != sTrgSelection]
         
@@ -2984,6 +2985,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                             np.full_like(wgt_HEM1516Issue_Trgwise, wgt_HEM1516Issue_i),
                             wgt_HEM1516Issue_Trgwise
                         )
+            
 
             nPDs = len(self.datasetInfo["primaryDatasets"])
             if ( (not self.datasetInfo['isMC']) and \
@@ -3027,7 +3029,14 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 mask_Trgs
             )
 
-
+            ## For events not fired by any triggers from trigger soup, set luminosity to maximum luminosity for that year
+            luminosity_max_forEra_ = Luminosities_TotalPerYear[self.datasetInfo["era"]][sTrgSelection][0]
+            luminosity_firedTrgs = np.where(
+                ((~mask_Trgs) & (luminosity_firedTrgs < 1e-6)),
+                np.full_like(luminosity_firedTrgs, luminosity_max_forEra_),
+                luminosity_firedTrgs
+            )
+            
 
         if "2018HEM1516Issue" in self.sel_conditions_all_list:
             if not self.datasetInfo['isMC']: # 2018 data
@@ -3819,6 +3828,37 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 output['cutflow'][iName] += sel_i.sum()
                 output['cutflow'][sWeighted+iName] +=  weights.weight()[sel_i].sum()
 
+                if printLevel >= 200 and ( (iSelection=='gg0lIncl_Xto4bv2_SBplusSRWP40') or (iSelection=='gg0lInclNoTrg_Xto4bv2_SBplusSRWP40')):
+                    print(f"{sel_i.sum()} {weights.weight()[sel_i].sum()} {iName}, ")
+                    printVariable('sel_i', sel_i)
+                    printVariable('weights.weight()[sel_i]', weights.weight()[sel_i])
+
+            if printLevel >= 200:
+                sel_0 = selection.all(* self.sel_names_all['gg0lInclNoTrg_Xto4bv2_SBplusSRWP40'])
+                sel_1 = selection.all(* self.sel_names_all['gg0lIncl_Xto4bv2_SBplusSRWP40'])
+                sel_trbsht = ((sel_0) & (~sel_1))
+
+                for i_, sel_i in enumerate([sel_0, sel_1, sel_trbsht]):
+                    print(f"{i_}")
+                    printVariable('sel_i', sel_i)
+                    printVariable('weights.weight()[sel_i]', weights.weight()[sel_i])
+                            
+            if printLevel >= 200 and storeIndividualEvtWgts:                
+                sWgts = list(weights._weights.keys())
+                print(f"\n{weights.variations = }")
+                print(f"\n weights[{sWgts}]:")
+                for sWgt in sWgts:
+                    print(f"{sWgt}", flush=True)
+                    wgt_list_ = [weights._weights[sWgt]]
+                    if sWgt+"Up" in list(weights._modifiers.keys()): 
+                        wgt_list_.extend([weights._modifiers[sWgt+"Up"]*weights._weights[sWgt], weights._modifiers[sWgt+"Down"]*weights._weights[sWgt]])
+                        printVariable('\n %s'%(sWgt), ak.zip(wgt_list_)[sel_trbsht])
+                    else:
+                        printVariable('\n %s'%(sWgt), wgt_list_[0][sel_trbsht])
+                printVariable('\n weights.weight(None)', weights.weight(None)[sel_trbsht])
+
+
+                    
             # For each selection, yields after every cut
             for iSelection in self.sel_names_all.keys():
                 for iCut in range(0, len(self.sel_names_all[iSelection])):
@@ -3826,11 +3866,13 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     sel_i = selection.all(* self.sel_names_all[iSelection][:(iCut+1)])
                     output['cutflow'][iName] += sel_i.sum()
                     output['cutflow'][sWeighted+iName] +=  weights.weight()[sel_i].sum()
+            
 
 
 
 
-            if printLevel >= 100 and storeIndividualEvtWgts:                
+
+            if printLevel >= 2 and storeIndividualEvtWgts:                
                 sWgts = list(weights._weights.keys())
                 print(f"\n{weights.variations = }")
                 print(f"\n weights[{sWgts}]:")
@@ -3909,7 +3951,7 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         #print(f"\n\n{ak.sum(weights.weight() / weights.partial_weight(include=['2018HEM1516IssueWgt'])) = }\n\n")
             # sel_SR_toUse = selection.all(* self.sel_names_all[sel_name])
 
-        if (printLevel >= 0) and (storeIndividualEvtWgts):
+        if (printLevel >= 100) and (storeIndividualEvtWgts):
             for sel_name in ["gg0lHi", "gg0lLo"]:
                 sel_SR_toUse = selection.all(* self.sel_names_all[sel_name])
                 nEvents_      = sel_SR_toUse.sum()
