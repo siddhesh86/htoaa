@@ -65,7 +65,7 @@ MCBkg_dict = {
 }
 MCBkg_dict = {
     'QCD': ["QCD_bEnr", "QCD_BGen", "QCD_Incl"],
-    r't$\bar{t}$+jets': ["TT0l", "TT1l", "TT2l"],
+    'ttbar+jets': ["TT0l", "TT1l", "TT2l"],
     #'Wlv': ["Wlv"],
     'V+jets': ["Zqq", "Zvv", "Zll", "Wqq", "Wlv", ],
     'Other': ["STop_t", "STbar_t", "ST_s_0l", "ST_s_1l", "STop_tW_Incl", "STbar_tW_Incl",
@@ -101,8 +101,8 @@ sLableSig = [
     #r'ggH signal $m_a=15$  GeV', #'ggHtoaato4b_mA_15',
     #r'ggH signal $m_a=30$  GeV',
     #r'ggH signal $m_a=55$  GeV',
-    r'WH signal $m_a=20$  GeV',
-    r'ZH signal $m_a=20$  GeV',
+    r'WH signal mA=20 GeV',
+    r'ZH signal mA=20 GeV',
     
 ]
 systematics_list = ['Nom'] #['central'] ['Nom'] 
@@ -116,10 +116,16 @@ scale_MCSig = 10 # 20 #50 #1000
 scale_MCSig_dict = {
     'VjjIncl': 40,
     'VjjIncl_Xto4bv2_SBplusSRWP60': 10,
+    'VjjIncl_Xto4bv2_SBWP60': 10,
+    'VjjIncl_Xto4bv2_SRWP60': 10,
     'VjjLo': 40,
     'VjjLo_Xto4bv2_SBplusSRWP60': 10,
+    'VjjLo_Xto4bv2_SBP60': 10,
+    'VjjLo_Xto4bv2_SRWP60': 10,
     'VjjHi': 40,
-    'VjjHi_Xto4bv2_SBplusSRWP60': 10,       
+    'VjjHi_Xto4bv2_SBplusSRWP60': 10,  
+    'VjjHi_Xto4bv2_SBWP60': 10,
+    'VjjHi_Xto4bv2_SRWP60': 10,
 }
 yRatioLimit = [0.5, 1.5] #[0., 2.] #[0.4, 1.6]
 ySignfLimit = [1e-1, 5e2]

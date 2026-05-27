@@ -9,7 +9,15 @@ import hist
 import matplotlib.pyplot as plt
 import mplhep as hep
 import json
-import copy
+
+#sys.path.insert(1, '../') # to import file from other directory (../ in this case)
+sys.path.append( os.path.abspath('../') )
+print(f"{os.path.abspath('../') = }")
+
+from htoaa_Settings import *
+from htoaa_CommonTools import (
+    rebinTH1, rebinTH2, variableRebinTH1,
+)
 
 #sAnaVersion = 'QCD_fullHT'
 
@@ -28,8 +36,7 @@ import copy
 #from HistogramListForPlotting_QCD import *
 #from HistogramListForPlotting_Run2Data import *
 #from HistogramListForPlotting_Run2Signal import *
-#from HistogramListForPlotting_ARCChecks1 import *
-from HistogramListForPlotting_ARCChecks2 import *
+from HistogramListForPlotting_unbldChk_stp3p1_B import *
 
 
 
@@ -45,9 +52,8 @@ if not os.path.exists(sOpDir):
 
 # %%
 #print(f"{json.dumps(histograms_dict, indent=4) = }")
+print("histograms_dict: ")
 print(json.dumps(histograms_dict, indent=4))
-
-#exit(0)
 
 # %%
 
@@ -60,14 +66,12 @@ sData = "" # "Data", ""
 #systematics_list = ['central']
 marker_color_list = ['r', 'b', 'darkviolet', 'c', 'orange', 'green', 'magenta', 'saddlebrown', 'grey', 'yellow']
 marker_style_list = ["o", "o", "o", '>', '^', 'v', 'x', 'x', 'x', "s", "+", '*',"X"]
-marker_size_list  = [2, 2, 2, 2, 2, 2, 2, 2, 2]
+marker_size_list  = [6, 6, 6, 6, 6, 6, 6, 6, 6]
 #marker_size_list  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
                 
 normalize_histogram = False #False
 normalize_histogram_manually =  False #False # True
 makeRatioPlot = True # True False
-printHistoYieldsInLabel = True # False # Add yields to Label panel
-normalize_histograms_toFirstYield = False #True
 
 yAxisScaleToUse = ['linearY'] #['linearY', 'logY']
 
@@ -75,19 +79,14 @@ printLevel = 3
 skip_plotNameNice = [
 ]
 
-rationPlotYRange = [0, 1.1] #[0, 2] #[0.5, 1.5]
-showRatioPlotYError = True # True
-
-
-if normalize_histograms_toFirstYield:
-    normalize_histogram = normalize_histogram_manually = False
+rationPlotYRange = [0, 2] #[0.5, 1.5]
+showRatioPlotYError = True #False # True
 
 for plotNameNice in histograms_dict.keys():
     if plotNameNice in skip_plotNameNice: continue
     
     if printLevel >= 0:
         print(f"\n\nplotNameNice: {plotNameNice}")
-        print
     
     xAxisLabel = histograms_dict[plotNameNice][sXLabel] if sXLabel in list(histograms_dict[plotNameNice].keys()) else None
     yAxisLabel = histograms_dict[plotNameNice][sYLabel] if sYLabel in list(histograms_dict[plotNameNice].keys()) else None
@@ -96,23 +95,17 @@ for plotNameNice in histograms_dict.keys():
     xAxisScale = histograms_dict[plotNameNice][sXScale] if sXScale in list(histograms_dict[plotNameNice].keys()) else ""
     kScale_dict = histograms_dict[plotNameNice][sScaleFactors] if sScaleFactors in list(histograms_dict[plotNameNice].keys()) else None 
     makeRatioPlot_i =  histograms_dict[plotNameNice][sMakeRatioPlot] if sMakeRatioPlot in list(histograms_dict[plotNameNice].keys()) else makeRatioPlot
-    
+
+        
     nRebins = histograms_dict[plotNameNice][sNRebin] if sNRebin in list(histograms_dict[plotNameNice].keys()) else 1
-
-    sOpDir_toUse = histograms_dict[plotNameNice][sOpDirSeperate] if sOpDirSeperate in list(histograms_dict[plotNameNice].keys()) else sOpDir
-
-    plotNameNice_toUseToSaveFig = os.path.basename(plotNameNice)
-    if '/' in plotNameNice:
-        # if '/' in plotNameNice means: subdirectory name in plotNameNice
-        # Create subdirectory
-        sOpDir_toUse = '%s/%s' % (sOpDir_toUse, os.path.dirname(plotNameNice))
-    if not os.path.exists(sOpDir_toUse):  os.makedirs(sOpDir_toUse)
+    #nRebinY    = histograms_dict[plotNameNice][sNRebinY] if sNRebinY in histograms_dict[histo_name].keys() else 1
+    
+    sSubDirName = histograms_dict[plotNameNice][sOpSubdir] if sOpSubdir in histograms_dict[plotNameNice] else ''
 
     #print(f"xAxisLabel: {xAxisLabel}, yAxisLabel: {yAxisLabel}, xAxisRange: {xAxisRange}, yAxisRange: {yAxisRange}, nRebins: {nRebins} ")
     
     histosToOverlay = OD()
     yAxisRange_auto = [1e20, -1e20]
-    nEvents_histosToOverlay = OD()
     #for iHistoToOverlay_name in range(len(histograms_dict[plotNameNice][sHistosToOverlay])):
     for iHistoToOverlay_name in histograms_dict[plotNameNice][sHistosToOverlay].keys():
         #print(f"iHistoToOverlay_name: {iHistoToOverlay_name}")
@@ -128,7 +121,7 @@ for plotNameNice in histograms_dict.keys():
             h_ = fIp_[sHistogramName_]
             h1_ = h_.to_hist()
             
-            
+            '''
             h1Rebin_ = None
             if   nRebins == 1:
                 h1Rebin_ = h1_
@@ -158,6 +151,10 @@ for plotNameNice in histograms_dict.keys():
             else:
                 print(f"nRebins={nRebins} is not yet implemented... Implement it \t\t **** ERROR ****")
                 break
+            '''
+            nHistoDimemsions = len(h1_.axes)
+            if nHistoDimemsions == 1:
+                h1Rebin_ = rebinTH1(h1_, nRebins)  #else rebinTH2(hData, nRebinX, nRebinY)
             
                 
             if   nRebins > 1:    
@@ -208,13 +205,13 @@ for plotNameNice in histograms_dict.keys():
             if printLevel >= 3:
                 print(f"{iHistoToOverlay_name} scaled by {kScale_}")
             
-        nEntries = np.sum( histosToOverlay[iHistoToOverlay_name].values() )
-        nEvents_histosToOverlay[iHistoToOverlay_name] = nEntries
-        if normalize_histogram_manually:            
-            scale_ = 1 / nEntries
+
+        if normalize_histogram_manually:
+            nEnries = np.sum( histosToOverlay[iHistoToOverlay_name].values() )
+            scale_ = 1 / nEnries
             histosToOverlay[iHistoToOverlay_name] = histosToOverlay[iHistoToOverlay_name] * scale_
             if printLevel >= 10:
-                print(f"{nEntries = },  {scale_ = }")            
+                print(f"{nEnries = },  {scale_ = }")            
             
         idxXAxisRangeMin = 0
         idxXAxisRangeMax = -1
@@ -251,30 +248,11 @@ for plotNameNice in histograms_dict.keys():
     #print(f"histosToOverlay.values() ({type(histosToOverlay.values())}): histosToOverlay.values()")
     #print(f"list(histosToOverlay.values()) ({type(list(histosToOverlay.values()))}): list(histosToOverlay.values())")
     #print(f"histosToOverlay[0].values() ({type(histosToOverlay[0].values())}): {histosToOverlay[0].values()}")
-
-    if normalize_histograms_toFirstYield:
-        # Normalized 'histosToOverlay' so as to have integral to that of the first histogramToOverlap histogram
-        histosToOverlay_0th_name = list(histosToOverlay.keys())[0]
-        nEvents_0th = nEvents_histosToOverlay[histosToOverlay_0th_name]
-        for iHistoToOverlay_name in histograms_dict[plotNameNice][sHistosToOverlay].keys():
-            if  iHistoToOverlay_name == histosToOverlay_0th_name: continue
-
-            nEvents_ = nEvents_histosToOverlay[iHistoToOverlay_name]
-            histosToOverlay[iHistoToOverlay_name] = histosToOverlay[iHistoToOverlay_name] * (nEvents_0th / nEvents_)
-
     
     histosToOverlay_values_list    = np.array( [ histosToOverlay[iHistoToOverlay].values() for iHistoToOverlay in histosToOverlay.keys() ] )
     histosToOverlay_error_list     = np.array( [ np.sqrt(histosToOverlay[iHistoToOverlay].variances()) for iHistoToOverlay in histosToOverlay.keys() ] )
     histosToOverlay_binEdges       = histosToOverlay[list(histosToOverlay.keys())[0]].axes[0].edges
     histosToOverlay_name_list      = list(histosToOverlay.keys())
-    histosToOverlay_name_list_forLabels = copy.copy(histosToOverlay_name_list)
-    if printHistoYieldsInLabel:
-        for i_ in range(len(histosToOverlay_name_list)):
-            histosToOverlay_name_0 = histosToOverlay_name_list[i_]
-            nEvents_               = nEvents_histosToOverlay[histosToOverlay_name_0]
-            histosToOverlay_name_list_forLabels[i_] = '%s (Yield: %d)' % (histosToOverlay_name_0, nEvents_)
-
-
     #print(f"histosToOverlay_binEdges ({type(histosToOverlay_binEdges)}) ({len(histosToOverlay_binEdges)}): {histosToOverlay_binEdges}")
     
     if printLevel >= 5:
@@ -305,7 +283,7 @@ for plotNameNice in histograms_dict.keys():
             )'''            
             hep.histplot(
                 histosToOverlay_values_list[iHistoToOverlay], bins=histosToOverlay_binEdges, yerr=histosToOverlay_error_list[iHistoToOverlay], 
-                label=histosToOverlay_name_list_forLabels[iHistoToOverlay], 
+                label=histosToOverlay_name_list[iHistoToOverlay], 
                 ax=ax_top, 
                 histtype='step', 
                 density=normalize_histogram,
@@ -367,11 +345,11 @@ for plotNameNice in histograms_dict.keys():
                         ratio_values, bins=histosToOverlay_binEdges, yerr=ratio_error, 
                         #label=histosToOverlay_name_list[iHistoToOverlay], 
                         ax=ax_bottom, 
-                        histtype='step', #'errorbar', 
+                        histtype='errorbar', 
                         #density=normalize_histogram,
                         color=color_, #'r',
-                        #markersize=markersize_, #3,
-                        #marker=marker_ #marker_style_list
+                        markersize=markersize_, #3,
+                        marker=marker_ #marker_style_list
                     )
                     
                 else:
@@ -383,13 +361,13 @@ for plotNameNice in histograms_dict.keys():
                         ratio_values, bins=histosToOverlay_binEdges, yerr=ratio_error, 
                         #label=histosToOverlay_name_list[iHistoToOverlay], 
                         ax=ax_bottom, 
-                        histtype='step', #'errorbar', 
+                        histtype='errorbar', 
                         #density=normalize_histogram,
                         color=color_, #'r',
-                        #markersize=markersize_, #3,
-                        #marker=marker_, #marker_style_list 
+                        markersize=markersize_, #3,
+                        marker=marker_, #marker_style_list 
                         alpha=0.5,
-                        linewidth=4
+                        elinewidth=4
                     )
                 
                 yLow_ = ratio_values # ratio_values - ratio_error
@@ -408,7 +386,7 @@ for plotNameNice in histograms_dict.keys():
             ax_bottom.set_ylim(yAxisRange_RatioPlot_auto[0] * 0.98, yAxisRange_RatioPlot_auto[1] * 1.02)
             #if yAxisRange_RatioPlot_auto[0] < 0.9 or yAxisRange_RatioPlot_auto[1] > 1.1:
             #    ax[1].set_ylim(0.9, 1.1)
-            #rationPlotYRange
+            rationPlotYRange
             if yAxisRange_RatioPlot_auto[0] < rationPlotYRange[0] or yAxisRange_RatioPlot_auto[1] > rationPlotYRange[1]:
                 ax_bottom.set_ylim(rationPlotYRange[0], rationPlotYRange[1])
             #ax[1].set_ylim(yAxisRange_RatioPlot_auto[0], yAxisRange_RatioPlot_auto[1])            
@@ -429,14 +407,17 @@ for plotNameNice in histograms_dict.keys():
         #hep.cms.label(ax=ax[0], data=True if sData else False, year=era, lumi=luminosity, label=cmsWorkStatus, fontsize=14)
         ax_top.set_title(sAnaVersion)
 
-        
+        sOpDir_toUse = '%s%s' % (sOpDir, sSubDirName)
+        if not os.path.exists(sOpDir_toUse):  os.makedirs(sOpDir_toUse)
         try:
-            fig.savefig('%s/%s_%s.png' % (sOpDir_toUse, plotNameNice_toUseToSaveFig, yAxisScale), transparent=False, dpi=200, bbox_inches="tight")
+            fig.savefig('%s/%s_%s.png' % (sOpDir_toUse, plotNameNice, yAxisScale), transparent=False, dpi=200, bbox_inches="tight")
         except:
-            print("%s/%s_%s.png could not save" % (sOpDir_toUse, plotNameNice_toUseToSaveFig, yAxisScale))
+            print("%s/%s_%s.png could not save" % (sOpDir_toUse, plotNameNice, yAxisScale))
 
         
         #plt.close(fig)
+
+print(f"\n\nOutput histograms wrote in {sOpDir}")
         
 
 

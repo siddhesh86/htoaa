@@ -45,7 +45,7 @@ def calculate_lumiScale(luminosity, crossSection, sumEvents):
     lumiScale = 1
     # as crosssection is in pb and luminosity in fb
     pb_to_fb_conversionFactor = 1000
-    
+
     if sumEvents != 0: lumiScale = luminosity * crossSection * pb_to_fb_conversionFactor / sumEvents
     return lumiScale
 

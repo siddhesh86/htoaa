@@ -10,8 +10,8 @@ SourceDir=$1
 DestinationDir=$2
 
 echo "copy from ${SourceDir} to ${DestinationDir}"
-Eras=("Run2" "2016preVFP" "2016postVFP" "2017" "2018" )
-Categories=("gg0l" "Vjj" "Zvv" "tt0l")
+Eras=("Run2") #("Run2" "2016preVFP" "2016postVFP" "2017" "2018" )
+Categories=("Vjj" "Zvv" "tt0l") #("gg0l" "Vjj" "Zvv" "tt0l")
 #Categories=("tt0l")
 
 PWD=`pwd`
@@ -19,7 +19,8 @@ for era in ${Eras[@]}; do
     echo "era ${era}"
     for Cat in ${Categories[@]}; do        
         #source="${SourceDir}/${era}/${Cat}/plots/*"
-        source="${SourceDir}/${era}/${Cat}/plots_proposal2/*"
+        #source="${SourceDir}/${era}/${Cat}/plots_proposal2_ext1/*"
+        source="${SourceDir}/${era}/${Cat}/plots_ARCCheck2/*"
         destination="${DestinationDir}/${Cat}/${era}"
 
         echo "mkdir -p ${destination}"

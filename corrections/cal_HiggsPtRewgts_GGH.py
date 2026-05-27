@@ -543,7 +543,7 @@ if __name__ == "__main__":
 
         histograms_dict_ = {
             r"NLO MC to EFT NNLO MC":                              hKfactor_Ratio_EFT_to_NLO,
-            r"Extrapolated fit function":                     fKfactor_Ratio_EFT_to_NLO,
+            r"Extrapolated fit function: 0.928 - 7.6e-5 #times pT":                     fKfactor_Ratio_EFT_to_NLO,
             
         }        
         cKfactorRatio = plotHistograms(histograms_dict_, 'c%s_kFactorNLOToEFTNNLO'%(sHistNameShort), xLable=xLable_toUse, yLable='k-factor', xRange=xRange_toUse)  
