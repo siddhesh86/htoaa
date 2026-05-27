@@ -91,7 +91,7 @@ print(f"{YearsToRun_dict = }, \n{Years = }")
 sIpFiles = {}
 for Era in Years:
     sIpFiles[Era] = '%s/%s/%s/analyze_htoaa_stage1.root' % (sAnaDir, Era, anaSuperCat) # 20250612_gg0lDataMC_1, 20250613_gg0lDataMC_1, 20250617_gg0lDataMC, 20250617_gg0lDataMC_1
-sOpDirNameShort = 'plots_proposal2_ext1' #'plots_UniversalColorScheme'
+sOpDirNameShort = 'plots_proposal2_ext2' #'plots_UniversalColorScheme'
 
 
 subCats = []
@@ -112,7 +112,8 @@ for subCat_ in subCats:
     sWP_ = '40' if 'gg0l' in CAT else '60'
     selectionTags.extend( [subCat_,] ) # '%sMsdLt50' % (CAT),'%sMsdGt50' % (CAT)]
     #selectionTags.extend([ '%s_Xto4bv2_SBplusSRWP%s' % (subCat_,sWP_), '%s_Xto4bv2_SRWP%s' % (subCat_,sWP_), '%s_Xto4bv2_SBWP%s' % (subCat_,sWP_), ] )
-    selectionTags.extend([ '%s_Xto4bv2_SRWP%s' % (subCat_,sWP_), ] )
+    #selectionTags.extend([ '%s_Xto4bv2_SRWP%s' % (subCat_,sWP_), ] )
+    selectionTags.extend([ '%s_Xto4bv2_SBplusSRWP%s' % (subCat_,sWP_), ] )
 if 'trigEffi' in CAT: 
     selectionTags = ['JetTrgEffiDenom', 'JetTrgEffiNume_Trg_Combo_AK4AK8Jet_HT_VBF']
 elif 'CR_QCD4b'      in CAT: 
@@ -134,6 +135,7 @@ significantThshForDataBlinding = 10 # for significance Z
 scaleMCBkgToData               = True # Scale MC backgrounds to match data integral
 useScaleMCSigAuto              = True
 useHToAATo4bColorScheme        = True
+saveHistogramsIntoROOTFile     = True
 
 PlotRatioPlot = True
 PlotSignificancePlot = False #True
@@ -366,6 +368,7 @@ colors_bkg_dict = {
     # 'key': ['color', <transperent>, '<fill pattern>'],
     'QCD': ["#94a4a2",    1,  ''],
     r't$\bar{t}$+jets': ["#a96b59",    1,  ''],
+    'ttbar+jets': ["#a96b59",    1,  ''],
     'V+jets': ["#3f90da",    1,  ''],
     'Other': ["#717581",    1,  ''],  
 }
@@ -398,6 +401,7 @@ colors_bkg_dict = {
     # 'key': ['color', <transperent>, '<fill pattern>'],
     'QCD': ["#b9ac70",    1,  ''], # [8] Tan (#b9ac70)
     r't$\bar{t}$+jets': ["#ffa90e",    1,  ''], # [2] Light orange (#ffa90e)
+    'ttbar+jets': ["#ffa90e",    1,  ''], # [2] Light orange (#ffa90e)
     'V+jets': ["#92dadd",    1,  ''], # [10] Light Blue (#92dadd)
     'Other': ["#717581",    1,  ''], # [9] Dark Gray (#717581)
 }
@@ -492,6 +496,7 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                     hBkgTot             = None
                     scale_MCBkg         = 1
                     significance_list   = [] #np.array([])
+                    histogramsToSave_dict = {}
 
                     sEventYieldTable = ''
 
@@ -528,6 +533,7 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                                     print(f"\t\t\t{Year_} {DataObs_DirName}: {h.values().sum()},    hData {hData.values().sum()}")                             
 
                         hData = rebinTH1(hData, nRebinX) if nHistoDimemsions == 1 else rebinTH2(hData, nRebinX, nRebinY)
+                        #histos_dict['Data'] = hData
                         nDataTotal = hData.values().sum()
                         if printLevel >= 6:
                             print(f"\t\thData {hData.values().sum()}\n")                             
@@ -585,7 +591,7 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                             sBkg_list.append(MCBkgNameShort)
                             hBkg_integral_list.append(nTot_)
 
-                            histos_dict[MCBkgNameShort] = h 
+                            #[MCBkgNameShort] = h 
                             if not isinstance(mask_DataBlindedBins, np.ndarray):
                                 mask_DataBlindedBins = np.full_like(h.values(), False, dtype=bool)
 
@@ -625,6 +631,7 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                             sMCBkgScale = ' x %g' % (scale_MCBkg)
                             for idx in range(len(hBkg_list)):
                                 hBkg_list[idx] = hBkg_list[idx] * scale_MCBkg
+                                histos_dict[ sBkg_list[idx] + sMCBkgScale ] = hBkg_list[idx]
                             #print(f"{scale_MCBkg = }, {(nDataTotal / sum(hBkg_integral_list)) = } {nDataTotal = }, {sum(hBkg_integral_list) = }, {hBkg_integral_list = }")
 
                         hStack_list = [ hBkg_list[idx] for idx in idx_hBkg_sortedByIntegral ]  
@@ -783,6 +790,8 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                                     label_MCSig = '%s x %d' % (label_MCSig, scale_MCSig_toUse)
                                 else:
                                     label_MCSig = '%s x %g' % (label_MCSig, scale_MCSig_toUse)
+
+                            histos_dict[label_MCSig] = h * scale_MCSig_toUse
                                 
                             if nHistoDimemsions == 1:
                                 mask_XRange = ((h.axes.centers[0] >= xAxisRange[0]) & (h.axes.centers[0] <= xAxisRange[1])) if xAxisRange else np.full_like(h.values(), True, dtype=bool)
@@ -1191,6 +1200,15 @@ for sDatasetName, YearsToRun_list in YearsToRun_dict.items():
                     #fig.savefig('%s/%s_%s_%s_%s.png' % (sOpDir_toUse,histo_name_toUse.replace('_%s'%selectionTag, ''),systematic,sData, yAxisScale), transparent=False, dpi=80, bbox_inches="tight")
                     fig.savefig('%s/%s_%s_%s.png' % (sOpDir,histo_name_toUse.replace('_%s'%selectionTag, ''),systematic, yAxisScale), transparent=False, dpi=80, bbox_inches="tight")
     
+                    # histogramsToSave_dict histos_dict
+                    if (saveHistogramsIntoROOTFile and (yAxisScale == YaxisScaleToRun[0]) ):
+                        sFOutROOT = '%s/%s_%s.root' % (sOpDir,histo_name_toUse.replace('_%s'%selectionTag, ''),systematic)
+                        with uproot.recreate(sFOutROOT) as fOutROOT:
+                            for sHistName_, hist_toSave in histos_dict.items():
+                                fOutROOT[sHistName_] = hist_toSave
+                        if printLevel >= 0: 
+                            print(f"Saved histograms into {sFOutROOT = }", flush=True)                        
+
 
                     if RunMode.lower() != 'test':
                         plt.close(fig)

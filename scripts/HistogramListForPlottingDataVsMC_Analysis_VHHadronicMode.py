@@ -65,7 +65,7 @@ MCBkg_dict = {
 }
 MCBkg_dict = {
     'QCD': ["QCD_bEnr", "QCD_BGen", "QCD_Incl"],
-    r't$\bar{t}$+jets': ["TT0l", "TT1l", "TT2l"],
+    'ttbar+jets': ["TT0l", "TT1l", "TT2l"],
     #'Wlv': ["Wlv"],
     'V+jets': ["Zqq", "Zvv", "Zll", "Wqq", "Wlv", ],
     'Other': ["STop_t", "STbar_t", "ST_s_0l", "ST_s_1l", "STop_tW_Incl", "STbar_tW_Incl",
@@ -101,8 +101,8 @@ sLableSig = [
     #r'ggH signal $m_a=15$  GeV', #'ggHtoaato4b_mA_15',
     #r'ggH signal $m_a=30$  GeV',
     #r'ggH signal $m_a=55$  GeV',
-    r'WH signal $m_a=20$  GeV',
-    r'ZH signal $m_a=20$  GeV',
+    r'WH signal mA=20 GeV',
+    r'ZH signal mA=20 GeV',
     
 ]
 systematics_list = ['Nom'] #['central'] ['Nom'] 

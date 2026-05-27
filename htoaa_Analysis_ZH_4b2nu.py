@@ -2799,6 +2799,14 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                 mask_Trgs
             )
 
+            ## For events not fired by any triggers from trigger soup, set luminosity to maximum luminosity for that year
+            luminosity_max_forEra_ = Luminosities_TotalPerYear[self.datasetInfo["era"]][sTrgSelection][0]
+            luminosity_firedTrgs = np.where(
+                ((~mask_Trgs) & (luminosity_firedTrgs < 1e-6)),
+                np.full_like(luminosity_firedTrgs, luminosity_max_forEra_),
+                luminosity_firedTrgs
+            )
+
 
 
         if "2018HEM1516Issue" in self.sel_conditions_all_list:

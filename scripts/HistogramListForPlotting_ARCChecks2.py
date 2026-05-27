@@ -23,11 +23,11 @@ sScaleFactors = 'sScaleFactors'
 sMakeRatioPlot = 'sMakeRatioPlot'
 sOpDirSeperate = 'sOpDirSeperate'
 
-sAnaDir = '/eos/cms/store/user/ssawant/htoaa/analysis/20260508_ARCMay6_MC'
+sAnaDir = '/eos/cms/store/user/ssawant/htoaa/analysis/20260514_ARCMay6_MC_1'
 Dataset = 'Run2'
-CAT = 'Vjj'
+CAT = 'tt0l' # 'gg0l'  'Vjj'  'Zvv'  'tt0l'
 sAnaVersion = ''
-
+sOpDir  = '%s/%s/%s/plots_ARCCheck2' % (sAnaDir,Dataset, CAT)
 
 
 subCats = []
@@ -124,7 +124,7 @@ sIpFiles = {}
 for Era in Years:
     sIpFiles[Era] = '%s/%s/%s/analyze_htoaa_stage1.root' % (sAnaDir, Era, CAT) # 20250612_gg0lDataMC_1, 20250613_gg0lDataMC_1, 20250617_gg0lDataMC, 20250617_gg0lDataMC_1
 
-sOpDir  = '%s/%s/%s/plots_ARCCheck2' % (sAnaDir,Dataset, CAT)
+
 
 
 histogramNames_dict = OD([
@@ -137,17 +137,18 @@ histogramNames_dict = OD([
     #("hLeadingFatJetPNet_X4b_v2ab_Haa4b_score", {sXLabel: r'$X\to 4b$ tagger score(Higgs candidate AK8 jet)', sYLabel: 'Events', sXRange: [0, 1], sNRebinX: 50 }),    
     #("hLeadingFatJetPNet_X4b_v2ab_Haa34b_score", {sXLabel: r'$X\to 3,4b$ tagger score(Higgs candidate AK8 jet)', sYLabel: 'Events', sXRange: [0, 1], sNRebinX: 50 }),
     
-    ("hLeadingFatJetMassH_v2b", {sXLabel: r'Mass$_{PNet\, X\to 4b}$(Higgs candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [0, 240], sNRebinX: 1}),
+    ("hLeadingFatJetMassH_v2b", {sXLabel: r'Mass$_{PNet\, X\to 4b}$(Higgs candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [20, 200], sNRebinX: 1}),
 
     ("hLeadingFatJetPNet_34massAa", {sXLabel: r'Mass$_{version\, a}$(a)  [GeV]', sYLabel: 'Events', sXRange: [5, 70], sNRebinX: 20}),
     #("hLeadingFatJetPNet_34massAd", {sXLabel: r'Mass$_{version\, d}$(a)  [GeV]', sYLabel: 'Events', sXRange: [5, 70], sNRebinX: 20}),
 
     #("", {sXLabel: '', sYLabel: 'Events'}),
 ])
+'''
 histogramNames_dict = OD([
     ("hLeadingFatJetPt", {sXLabel: r'$p_{T}$(Higgs candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [180, 1000], sNRebinX: 4 }),
 ])
-
+'''
 
 selectionTags_dict = {}
 for X4bTaggerRegion in ['SR', 'SB']:
@@ -157,10 +158,10 @@ for X4bTaggerRegion in ['SR', 'SB']:
 for sMHWidow in ['mHInclusive', 'mHHiggs']:
     selectionTags_dict[sMHWidow] = sMHWidow
 
-triggerSelections_dict = {
-    'wTrg': '',
-    'woTrg': 'NoTrg'
-}
+triggerSelections_dict = OD([
+    ('woTrg', 'NoTrg'),
+    ('wTrg', ''),    
+])
 
 
 
@@ -174,7 +175,7 @@ for subCat in subCats:
     for selectionTagNameShort, selectionTagName in selectionTags_dict.items():
         for histgramName0, histogramName_dict in histogramNames_dict.items():
             systematic = 'Nom'
-            histgramName = '%s/%s_%s_MCBkg' % (subCat, selectionTagNameShort,histgramName0)
+            histgramName = '%s/%s_%s_MCBkg' % (subCat, histgramName0,selectionTagNameShort)
             histograms_dict[histgramName] = {
                 sXLabel: histogramName_dict[sXLabel],
                 sYLabel: histogramName_dict[sYLabel],

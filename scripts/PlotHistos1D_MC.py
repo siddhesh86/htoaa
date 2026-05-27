@@ -28,7 +28,8 @@ import copy
 #from HistogramListForPlotting_QCD import *
 #from HistogramListForPlotting_Run2Data import *
 #from HistogramListForPlotting_Run2Signal import *
-from HistogramListForPlotting_ARCChecks1 import *
+#from HistogramListForPlotting_ARCChecks1 import *
+from HistogramListForPlotting_ARCChecks2 import *
 
 
 
@@ -64,9 +65,9 @@ marker_size_list  = [2, 2, 2, 2, 2, 2, 2, 2, 2]
                 
 normalize_histogram = False #False
 normalize_histogram_manually =  False #False # True
-makeRatioPlot = False # True False
+makeRatioPlot = True # True False
 printHistoYieldsInLabel = True # False # Add yields to Label panel
-normalize_histograms_toFirstYield = True
+normalize_histograms_toFirstYield = False #True
 
 yAxisScaleToUse = ['linearY'] #['linearY', 'logY']
 
@@ -74,7 +75,7 @@ printLevel = 3
 skip_plotNameNice = [
 ]
 
-rationPlotYRange = [0, 2] #[0.5, 1.5]
+rationPlotYRange = [0, 1.1] #[0, 2] #[0.5, 1.5]
 showRatioPlotYError = True # True
 
 
@@ -407,7 +408,7 @@ for plotNameNice in histograms_dict.keys():
             ax_bottom.set_ylim(yAxisRange_RatioPlot_auto[0] * 0.98, yAxisRange_RatioPlot_auto[1] * 1.02)
             #if yAxisRange_RatioPlot_auto[0] < 0.9 or yAxisRange_RatioPlot_auto[1] > 1.1:
             #    ax[1].set_ylim(0.9, 1.1)
-            rationPlotYRange
+            #rationPlotYRange
             if yAxisRange_RatioPlot_auto[0] < rationPlotYRange[0] or yAxisRange_RatioPlot_auto[1] > rationPlotYRange[1]:
                 ax_bottom.set_ylim(rationPlotYRange[0], rationPlotYRange[1])
             #ax[1].set_ylim(yAxisRange_RatioPlot_auto[0], yAxisRange_RatioPlot_auto[1])            
