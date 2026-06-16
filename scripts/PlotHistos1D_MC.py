@@ -29,7 +29,8 @@ import copy
 #from HistogramListForPlotting_Run2Data import *
 #from HistogramListForPlotting_Run2Signal import *
 #from HistogramListForPlotting_ARCChecks1 import *
-from HistogramListForPlotting_ARCChecks2 import *
+#from HistogramListForPlotting_ARCChecks2 import *
+from HistogramListForPlotting_ARCChecks3 import *
 
 
 
@@ -67,7 +68,7 @@ normalize_histogram = False #False
 normalize_histogram_manually =  False #False # True
 makeRatioPlot = True # True False
 printHistoYieldsInLabel = True # False # Add yields to Label panel
-normalize_histograms_toFirstYield = False #True
+normalize_histograms_toFirstYield = True #True
 
 yAxisScaleToUse = ['linearY'] #['linearY', 'logY']
 
@@ -75,7 +76,7 @@ printLevel = 3
 skip_plotNameNice = [
 ]
 
-rationPlotYRange = [0, 1.1] #[0, 2] #[0.5, 1.5]
+rationPlotYRange = [0, 2] #[0, 1.1] #[0, 2] #[0.5, 1.5]
 showRatioPlotYError = True # True
 
 

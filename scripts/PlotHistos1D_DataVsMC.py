@@ -91,12 +91,13 @@ print(f"{YearsToRun_dict = }, \n{Years = }")
 sIpFiles = {}
 for Era in Years:
     sIpFiles[Era] = '%s/%s/%s/analyze_htoaa_stage1.root' % (sAnaDir, Era, anaSuperCat) # 20250612_gg0lDataMC_1, 20250613_gg0lDataMC_1, 20250617_gg0lDataMC, 20250617_gg0lDataMC_1
-sOpDirNameShort = 'plots_proposal2_ext2' #'plots_UniversalColorScheme'
+sOpDirNameShort = 'plots_proposal2_ext4' #'plots_ARCCheck3_DataMC' #'plots_UniversalColorScheme'
 
 
 subCats = []
 if   'gg0l'     in CAT:
     subCats = ["gg0lIncl", "gg0lHi", "gg0lLo"]
+    #subCats = ["gg0lIncl_MsdLt20", "gg0lHi_MsdLt20", "gg0lLo_MsdLt20", "gg0lIncl_MsdGt20", "gg0lHi_MsdGt20", "gg0lLo_MsdGt20"]
 elif 'VBF'      in CAT:    
     subCats = ["VBFHi", "VBFLo"]
 elif 'Vjj'      in CAT:    
@@ -114,6 +115,7 @@ for subCat_ in subCats:
     #selectionTags.extend([ '%s_Xto4bv2_SBplusSRWP%s' % (subCat_,sWP_), '%s_Xto4bv2_SRWP%s' % (subCat_,sWP_), '%s_Xto4bv2_SBWP%s' % (subCat_,sWP_), ] )
     #selectionTags.extend([ '%s_Xto4bv2_SRWP%s' % (subCat_,sWP_), ] )
     selectionTags.extend([ '%s_Xto4bv2_SBplusSRWP%s' % (subCat_,sWP_), ] )
+    #selectionTags.extend([ '%s_Xto4bv2_SBplusSRWP%s_mHInclusive' % (subCat_,sWP_),  '%s_Xto4bv2_SBplusSRWP%s_mHHiggs' % (subCat_,sWP_), ] )
 if 'trigEffi' in CAT: 
     selectionTags = ['JetTrgEffiDenom', 'JetTrgEffiNume_Trg_Combo_AK4AK8Jet_HT_VBF']
 elif 'CR_QCD4b'      in CAT: 

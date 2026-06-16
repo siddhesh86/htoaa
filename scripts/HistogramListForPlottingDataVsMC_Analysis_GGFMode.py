@@ -142,7 +142,7 @@ histograms_dict = OD([
     #("hPV_npvs_SR", {sXLabel: 'No. of primary vertices in SR', sYLabel: 'Events', sXRange: [0, 100] }),
     #("hPV_npvsGood_SR", {sXLabel: 'No. of good primary vertices in SR', sYLabel: 'Events', sXRange: [0, 100] }),
 
-    ("hLeadingFatJetPt", {sXLabel: r'$p_{T}$(Higgs candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [180, 1000], sNRebinX: 4 }),
+    ("hLeadingFatJetPt", {sXLabel: r'$p_{T}$(Higgs candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [180, 1000], sNRebinX: 8 }),
     ("hLeadingFatJetEta", {sXLabel: r'$\eta$(Higgs candidate AK8 jet)', sYLabel: 'Events', sXRange: [-3.5, 3.5], sNRebinX: 2 }),
     ("hLeadingFatJetPhi", {sXLabel: r'$\phi$(Higgs candidate AK8 jet)', sYLabel: 'Events', sXRange: [-3.14, 3.14], sNRebinX: 2 }),
 
@@ -281,12 +281,14 @@ histograms_dict = OD([
 
 ])
 
-'''
+
 histograms_dict = OD([
-    ("hLeadingFatJetPt", {sXLabel: 'hLeadingFatJetPt', sYLabel: 'Events', sXRange: [180, 1000], sNRebinX: 4 }),
+    #("hLeadingFatJetPt", {sXLabel: 'hLeadingFatJetPt', sYLabel: 'Events', sXRange: [180, 1000], sNRebinX: 4 }),
     #("hLeadingFatJetPt", {sXLabel: 'hLeadingFatJetPt', sYLabel: 'Events', sXRange: [800, 900], sYRange: [100, 1000] }),
+    ("hLeadingFatJetPNet_X4b_v2ab_Haa4b_score", {sXLabel: r'$X\to 4b$ tagger score', sYLabel: 'Events', sXRange: [0.66, 1], sNRebinX: 10 }),
+    
 ])
-'''
+
 
 '''
 histograms_dict = OD([

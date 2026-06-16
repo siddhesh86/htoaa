@@ -87,8 +87,8 @@ MCSig_list = [
     #'ggHtoaato4b_mA_15',
     #'ggHtoaato4b_mA_30',
     #'ggHtoaato4b_mA_55',
-    'WHtoaato4b_mA_20p0',
-    'ZHtoaato4b_mA_20p0',     
+    'WHtoaato4b_mA_30p0',
+    'ZHtoaato4b_mA_30p0',     
 ]
 sLableSig = [
     #'HToAATo4B_M-15', 
@@ -101,8 +101,8 @@ sLableSig = [
     #r'ggH signal $m_a=15$  GeV', #'ggHtoaato4b_mA_15',
     #r'ggH signal $m_a=30$  GeV',
     #r'ggH signal $m_a=55$  GeV',
-    r'WH signal mA=20 GeV',
-    r'ZH signal mA=20 GeV',
+    r'WH signal mA=30 GeV',
+    r'ZH signal mA=30 GeV',
     
 ]
 systematics_list = ['Nom'] #['central'] ['Nom'] 
@@ -148,7 +148,7 @@ histograms_dict = OD([
     #("hPV_npvs_SR", {sXLabel: 'No. of primary vertices in SR', sYLabel: 'Events', sXRange: [0, 100] }),
     #("hPV_npvsGood_SR", {sXLabel: 'No. of good primary vertices in SR', sYLabel: 'Events', sXRange: [0, 100] }),
 
-    ("hLeadingFatJetPt", {sXLabel: r'$p_{T}$(Higgs candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [180, 1000], sNRebinX: 4 }),
+    ("hLeadingFatJetPt", {sXLabel: r'$p_{T}$(Higgs candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [180, 1000], sNRebinX: 8 }),
     ("hLeadingFatJetEta", {sXLabel: r'$\eta$(Higgs candidate AK8 jet)', sYLabel: 'Events', sXRange: [-3.5, 3.5], sNRebinX: 2 }),
     ("hLeadingFatJetPhi", {sXLabel: r'$\phi$(Higgs candidate AK8 jet)', sYLabel: 'Events', sXRange: [-3.14, 3.14], sNRebinX: 2 }),
 
@@ -253,7 +253,7 @@ histograms_dict = OD([
     ("hLeadingFatJetPNet_34massAd", {sXLabel: r'Mass$_{version\, d}$(a)  [GeV]', sYLabel: 'Events', sXRange: [5, 70], sNRebinX: 20}),
     
     
-    ("hLeadingNonHto4bFatJetPt", {sXLabel: r'$p_{T}$(W/Z candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [180, 1000], sNRebinX: 4 }),
+    ("hLeadingNonHto4bFatJetPt", {sXLabel: r'$p_{T}$(W/Z candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [180, 1000], sNRebinX: 8 }),
     ("hLeadingNonHto4bFatJetEta", {sXLabel: r'$\eta$(W/Z candidate AK8 jet)', sYLabel: 'Events', sXRange: [-3.5, 3.5], sNRebinX: 2 }),
     ("hLeadingNonHto4bFatJetPhi", {sXLabel: r'$\phi$(W/Z candidate AK8 jet)', sYLabel: 'Events', sXRange: [-3.14, 3.14], sNRebinX: 2 }),
     ("hLeadingNonHto4bFatJetMass", {sXLabel: r'Mass(W/Z candidate AK8 jet) [GeV]', sYLabel: 'Events', sXRange: [0, 240], sNRebinX: 1}),

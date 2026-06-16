@@ -177,7 +177,7 @@ class ObjectSelection:
         self.FatJetEtaThsh = 2.4
         self.FatJetJetID   = int(JetIDs.tightIDPassingLeptonVeto)
 
-        self.FatJetMSoftDropThshLow  = 20.0 # 50 # 20 # 90
+        self.FatJetMSoftDropThshLow  = 10.0 # 50 # 20 # 90 . 20 GeV for paper
         self.FatJetMSoftDropThshHigh = 9999.0 #200
 
         self.FatJetParticleNetMD_Xbb_Thsh       = 0.8
@@ -265,7 +265,7 @@ class ObjectSelection:
 
         ## ARC review 06/05/2026
         self.mHWindows = {
-            'mHInclusive': [70, 9999.],
+            'mHInclusive': [80, 9999.], # [70, 9999.],
             'mHHiggs':     [110, 140.],
         }
 
@@ -574,12 +574,24 @@ class HToAATo4bProcessor(processor.ProcessorABC):
         categories_dict["gg0lLo"]   = [ "leadingFatJetPt_gg0lLo"   if s_ == "leadingFatJetPt" else s_     for s_ in self.sel_names_all["Presel"] ]
         categories_dict["gg0lHi"]   = [ "leadingFatJetPt_gg0lHi"   if s_ == "leadingFatJetPt" else s_     for s_ in self.sel_names_all["Presel"] ]
         
+        '''
         ## NoTrg categories for ARC review 06/05/2026
         cat0_list_ = list(categories_dict.keys())
         for sCat_ in cat0_list_: #["gg0lIncl", "gg0lLo", "gg0lHi"]:
             sCatNoTrg_ = '%sNoTrg' % sCat_
             categories_dict[sCatNoTrg_] = [s_ for s_ in categories_dict[sCat_]  if s_ != sTrgSelection]
-        
+        '''
+
+        ## Msoftdrop > 20 GeV cut review for ARC review 06/05/2026
+        cat0_list_ = list(categories_dict.keys())
+        for sCat_ in cat0_list_: #["gg0lIncl", "gg0lLo", "gg0lHi"]:
+            sCatNew_ = '%s_MsdLt20' % sCat_
+            categories_dict[sCatNew_] = categories_dict[sCat_] + ["leadingFJMsdLt20"]
+
+            sCatNew_ = '%s_MsdGt20' % sCat_
+            categories_dict[sCatNew_] = categories_dict[sCat_] + ["leadingFJMsdGt20"]
+            
+
 
         for sCatName, catSels in categories_dict.items():
             if self.datasetInfo['histogramSaveLevel'] >= 1:
@@ -596,12 +608,28 @@ class HToAATo4bProcessor(processor.ProcessorABC):
                     "leadingFatJetPNet_Xto4bv2_Htoaa4b_SBplusSRWP%s" % (wp_)
                 ]
 
+                ## Msoftdrop > 20 GeV cut review for ARC review 06/05/2026
+                for sMHWindow_ in self.objectSelector.mHWindows:
+                    self.sel_names_all["%s_Xto4bv2_SRWP%s_%s" % (sCatName, wp_, sMHWindow_)] = catSels + [ # signal region
+                        "leadingFatJetPNet_Xto4bv2_Htoaa4b_SRWP%s" % (wp_),
+                        "leadingFatJetPNet_massH_%s" % (sMHWindow_)
+                    ]
+                    self.sel_names_all["%s_Xto4bv2_SBWP%s_%s" % (sCatName, wp_, sMHWindow_)] = catSels + [ # side band
+                        "leadingFatJetPNet_Xto4bv2_Htoaa4b_SBWP%s" % (wp_),
+                        "leadingFatJetPNet_massH_%s" % (sMHWindow_)
+                    ]                
+                    self.sel_names_all["%s_Xto4bv2_SBplusSRWP%s_%s" % (sCatName, wp_, sMHWindow_)] = catSels + [ # side band + signal region
+                        "leadingFatJetPNet_Xto4bv2_Htoaa4b_SBplusSRWP%s" % (wp_),
+                        "leadingFatJetPNet_massH_%s" % (sMHWindow_)
+                    ]                
 
+            '''
             ## ARC review 06/05/2026
             for sMHWindow_ in self.objectSelector.mHWindows:
                 self.sel_names_all["%s_%s" % (sCatName, sMHWindow_)] = catSels + [ 
                     "leadingFatJetPNet_massH_%s" % (sMHWindow_)
-                ]                
+                ]
+            '''                
             
 
 
@@ -2703,6 +2731,16 @@ class HToAATo4bProcessor(processor.ProcessorABC):
             selection.add(
                 "leadingFJMsdGt50",
                 (leadingFatJet.msoftdrop_toUse > 50)
+            )
+        if "leadingFJMsdLt20"  in self.sel_conditions_all_list:
+            selection.add(
+                "leadingFJMsdLt20",
+                (leadingFatJet.msoftdrop_toUse <= 20) 
+            )
+        if "leadingFJMsdGt20"  in self.sel_conditions_all_list:
+            selection.add(
+                "leadingFJMsdGt20",
+                (leadingFatJet.msoftdrop_toUse > 20)
             )
 
         if "leadingFatJetParticleNetMD_XbbvsQCD" in self.sel_conditions_all_list:
