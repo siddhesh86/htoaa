@@ -30,7 +30,8 @@ from htoaa_Samples import (
 )
 from htoaa_CommonTools import (
     executeBashCommand,
-    get_directory_size
+    get_directory_size,
+    get_condor_q_status,
 )
 
 
@@ -218,6 +219,10 @@ def writeCondorSumitFile(
         
         #f.write("+JobFlavour = \"longlunch\" \n")
         f.write("+JobFlavour = \"%s\" \n" % (jobFlavours[iJobFlavour]))
+
+        # periodic removal of HELD jobs https://batchdocs.web.cern.ch/tutorial/exercise7.html
+        # JobStatus == 5: held
+        f.write("periodic_release         = ((JobStatus == 5) && (time() - EnteredCurrentStatus) >  60) \n")
         f.write("queue \n")
 
 
@@ -853,6 +858,10 @@ if __name__ == '__main__':
                     
                 fJobSubLog.write('%s\n\n\n' % ('-'*10))
             
+
+            # Print summarize condor_q output
+            sLog = get_condor_q_status()
+            print(f"\n\n\n{sLog}")
             
             jobStatus_list = [ (jobStatus.value, len(jobStatus_dict[jobStatus])) for jobStatus in jobStatus_dict.keys() ]
             print('\n\n\n%s \t %s %s (out of %s) %s: iJobSubmission %d \t OpRootFiles_Exist %d out of %d. No. of jobs submitted in this resubmission: %d:  ' % (datetime.now().strftime("%Y/%m/%d %H:%M:%S"), anaVersion, era,eras, sAnaCat, iJobSubmission, len(OpRootFiles_Exist), len(OpRootFiles_Target), len(OpRootFiles_iJobSubmission)))

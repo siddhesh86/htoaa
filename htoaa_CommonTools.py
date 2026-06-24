@@ -21,6 +21,8 @@ from coffea import util
 from coffea.jetmet_tools import CorrectedJetsFactory, JECStack
 from coffea.lookup_tools import extractor
 
+import htcondor
+
 from htoaa_Settings import * 
 from htoaa_Samples import (
     kData, kQCD_bEnrich, kQCD_bGen, kQCDIncl, kZJets, kWJets
@@ -2655,3 +2657,46 @@ def get_directory_size(start_path = '.'):
                 total_size += os.path.getsize(fp)
 
     return total_size
+
+
+
+def get_condor_q_status():
+    schedd = htcondor.Schedd()
+
+    UserName     = os.getlogin()
+    JobStatus_dict = {
+        1: 'Idle',
+        2: 'Running',
+        3: 'Removing',
+        4: 'Completed',
+        5: 'Held',
+        6: 'Transferring Output',
+        7: 'Suspended'
+    }
+
+    sLog = ''
+
+    # Read the last 5 completed jobs matching a constraint
+    history_ads = schedd.history(
+        constraint="Owner == '%s'"%(UserName),
+        projection=["ClusterId", "ProcId", "JobStatus", "Owner", "Cmd", "ExitStatus"],
+        match=5
+    )
+
+    nJobs_perJobStatus_dict = {}
+    for ad in history_ads:
+        sLog += f"Job {ad.get('ClusterId')} completed with exit status {ad.get('ExitStatus')}"
+
+        JS_ = ad.get('JobStatus')
+        if JS_ in nJobs_perJobStatus_dict:  nJobs_perJobStatus_dict[JS_] += 1
+        else:                               nJobs_perJobStatus_dict[JS_] = 1
+
+    
+    sLog += f"get_condor_q_status()::No. of jobs with different JobStatus"
+    for JobStatus, nJobs in nJobs_perJobStatus_dict.items():
+        sLog += f"\t{JobStatus_dict[JobStatus]}: {nJobs}"
+
+    return sLog
+
+
+
