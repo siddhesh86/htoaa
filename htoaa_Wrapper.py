@@ -93,11 +93,21 @@ def writeCondorExecFile(
             #f.write("eval \n")
             #f.write("cd %s \n" % (pwd))
             f.write("\nsource %s/.bashrc \n" % (UserHomePath))
-            f.write("which conda \n")
-            f.write("time conda env list \n")
+            #f.write("which conda \n")
+            #f.write("time conda env list \n")
+            #myCondaEnv = 'myCondaEnv'
+            #if UserName.lower() == 'ssawant':
+            #    myCondaEnv = 'ana_htoaa'
+            #elif UserName.lower() == 'csutanta':
+            #    myCondaEnv = 'ana_SS'
+            #f.write("conda activate %s \n" % (myCondaEnv))
+            #f.write("time conda env list \n")
+
+            f.write("which mamba \n")
+            f.write("time mamba env list \n")
             myCondaEnv = 'myCondaEnv'
             if UserName.lower() == 'ssawant':
-                myCondaEnv = 'ana_htoaa'
+                myCondaEnv = 'ana_htoaa_2026'
             elif UserName.lower() == 'csutanta':
                 myCondaEnv = 'ana_SS'
             f.write("conda activate %s \n" % (myCondaEnv))
@@ -860,8 +870,8 @@ if __name__ == '__main__':
             
 
             # Print summarize condor_q output
-            sLog = get_condor_q_status()
-            print(f"\n\n\n{sLog}")
+            #sLog = get_condor_q_status()
+            #print(f"\n\n\n{sLog}")
             
             jobStatus_list = [ (jobStatus.value, len(jobStatus_dict[jobStatus])) for jobStatus in jobStatus_dict.keys() ]
             print('\n\n\n%s \t %s %s (out of %s) %s: iJobSubmission %d \t OpRootFiles_Exist %d out of %d. No. of jobs submitted in this resubmission: %d:  ' % (datetime.now().strftime("%Y/%m/%d %H:%M:%S"), anaVersion, era,eras, sAnaCat, iJobSubmission, len(OpRootFiles_Exist), len(OpRootFiles_Target), len(OpRootFiles_iJobSubmission)))

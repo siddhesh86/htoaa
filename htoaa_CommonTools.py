@@ -10,7 +10,8 @@ import math
 import random
 import awkward as ak
 import uproot as uproot
-from coffea import hist as coffea_hist
+#from coffea import hist as coffea_hist
+import hist as coffea_hist
 from coffea.nanoevents.methods import nanoaod, vector
 import hist as hist
 #import ROOT as R
@@ -18,10 +19,10 @@ from parse import *
 import logging
 import correctionlib
 from coffea import util
-from coffea.jetmet_tools import CorrectedJetsFactory, JECStack
+#from coffea.jetmet_tools import CorrectedJetsFactory, JECStack
 from coffea.lookup_tools import extractor
 
-import htcondor
+#import htcondor
 
 from htoaa_Settings import * 
 from htoaa_Samples import (
@@ -2089,119 +2090,6 @@ def getRunOnSelEventsList(sFileOrList):
 def ak_drop_none(arr):
     return arr[ ~ ak.is_none(arr) ]
 
-def fillCoffeaHist(
-        h = coffea_hist.Hist('tmp'),
-        dataset = '',
-        syst = None, 
-        xValue = None,
-        yValue = None,
-        zValue = None,        
-        wgt = None
-):
-    mask_ = ~ ak.is_none(xValue, axis=0) # do not fill 'None'
-    kwargs = {
-        'dataset'              : dataset,
-        'systematic'           : syst,
-        'weight'               : wgt[mask_],
-        h.dense_axes()[0].name : xValue[mask_]
-    } 
-    if yValue:
-        kwargs[h.dense_axes()[1].name] = yValue[mask_]
-    if zValue:
-        kwargs[h.dense_axes()[2].name] = zValue[mask_]
-    h.fill( **kwargs )
-
-def fillCoffeaHist_1(**kwargs):
-    ''' 
-    kwargs: arguments in the form of pyton dictionary
-        dataset = '',
-        syst    = None, 
-        xValue  = None,
-        yValue  = None,
-        zValue  = None,        
-        wgt     = None
-
-        Either of the following arguments to pass:
-        a) h = coffea_hist.Hist('tmp'),
-        b) accumulator = <>, hName = <histogram name string>.   -->  This will assign: h = accumulator[hName] 
-    '''
-
-    #print(f"fillCoffeaHist_1::kwargs ({type(kwargs)}) {kwargs }", flush=True)
-
-
-    if ('h' in kwargs):
-        h = kwargs['h']
-    elif (('accumulator' in kwargs) and ('hName' in kwargs)):
-        h = kwargs['accumulator'][ kwargs['hName'] ]
-    else:
-        logging.error(f'htoaa_CommonTools::fillCoffeaHist():: Function arguments should contains either (a) histogram or (b) accumulator (\'output\') and histogram name. **** ERROR ****')
-        exit(0)
-
-    dataset = '',
-    syst   = None, 
-    xValue = None,
-    yValue = None,
-    zValue = None,        
-    wgt    = None    
-
-    for s_ in ['dataset', 'syst', 'xValue', 'wgt']:
-        if s_ not in kwargs:
-            logging.error(f'htoaa_CommonTools::fillCoffeaHist():: Function arguments does not contain \'{s_}\'. **** ERROR ****')
-            exit(0)
-
-    '''
-    if 'dataset' in kwargs:
-        dataset = kwargs['dataset']
-    else:
-        logging.error(f'htoaa_CommonTools::fillCoffeaHist():: Function arguments does not contain \'dataset\'. **** ERROR ****')
-        exit(0)
-    
-    if 'syst' in kwargs:
-        syst = kwargs['syst']
-    else:
-        logging.error(f'htoaa_CommonTools::fillCoffeaHist():: Function arguments does not contain \'syst\'. **** ERROR ****')
-        exit(0)
-    
-    if 'xValue' in kwargs:
-        xValue = kwargs['xValue']
-    else:
-        logging.error(f'htoaa_CommonTools::fillCoffeaHist():: Function arguments does not contain \'xValue\'. **** ERROR ****')
-        exit(0)
-    
-    if 'yValue' in kwargs:
-        yValue = kwargs['yValue']
-    else:
-        logging.error(f'htoaa_CommonTools::fillCoffeaHist():: Function arguments does not contain \'yValue\'. **** ERROR ****')
-        exit(0)
-    
-    if 'zValue' in kwargs:
-        zValue = kwargs['zValue']
-    else:
-        logging.error(f'htoaa_CommonTools::fillCoffeaHist():: Function arguments does not contain \'zValue\'. **** ERROR ****')
-        exit(0)
-    
-    if 'wgt' in kwargs:
-        wgt = kwargs['wgt']
-    else:
-        logging.error(f'htoaa_CommonTools::fillCoffeaHist():: Function arguments does not contain \'wgt\'. **** ERROR ****')
-        exit(0)
-    '''
-    
-    
-    mask_ = ~ ak.is_none(kwargs['xValue'], axis=0) # do not fill 'None'
-    kwargs_histFill = {
-        'dataset'              : kwargs['dataset'],
-        'systematic'           : kwargs['syst'],
-        'weight'               : kwargs['wgt'][mask_],
-        h.dense_axes()[0].name : kwargs['xValue'][mask_]
-    } 
-    if 'yValue' in kwargs:
-        kwargs_histFill[h.dense_axes()[1].name] = kwargs['yValue'][mask_]
-    if 'zValue' in kwargs:
-        kwargs_histFill[h.dense_axes()[2].name] = kwargs['zValue'][mask_]
-        
-    h.fill( **kwargs_histFill )    
-
 
 
 
@@ -2508,12 +2396,13 @@ def variableRebinTH1(h1_, xNewEdges):
     print(f"h1Rebin_.values() ({type(h1Rebin_.values())}) ({len(h1Rebin_.values())}): {h1Rebin_.values()}")
     print(f"{h1Rebin_.variances() = }")
 
-
-
-
-
-
     return h1_
+
+
+def updateCutFlowDict(c_dict, cutName, nEvents):
+    if cutName in c_dict: c_dict[cutName] += nEvents
+    else:                 c_dict[cutName] =  nEvents
+
 
 def calculateAverageOfArrays(array_list):
     #printVariable('\n ')
@@ -2568,11 +2457,52 @@ def calculateMinOfArrays(array_list):
     return a_min
 
 def array_PutLowerBound(array_list, k):
-    a_new = ak.where(
-        (array_list > k),
+    '''
+    mask_ = (array_list > k)
+    null_ = ak.full_like(array_list, k)
+    print(f'array_PutLowerBound(): {k = }')
+    printVariable('array_list', array_list); sys.stdout.flush()
+    printVariable('(array_list > k)', (array_list > k)); sys.stdout.flush()
+    printVariable('ak.full_like(array_list, k)', ak.full_like(array_list, k)); sys.stdout.flush()
+    
+    printVariable('ak.zip(array_list, full_like, (array_list > k))', ak.zip([
         array_list,
-        ak.full_like(array_list, k)
+        ak.full_like(array_list, k),
+        (array_list > k)
+    ])); sys.stdout.flush()
+    printVariable('ak.count(array_list, axis=0)',ak.count(array_list, axis=0)); sys.stdout.flush()
+    printVariable('ak.count(null_, axis=0)',ak.count(null_, axis=0)); sys.stdout.flush()
+    printVariable('ak.count(mask_, axis=0)',ak.count(mask_, axis=0)); sys.stdout.flush()
+    printVariable('ak.count(array_list, axis=1)',ak.count(array_list, axis=1)); sys.stdout.flush()
+    printVariable('ak.count(null_, axis=1)',ak.count(null_, axis=1)); sys.stdout.flush()
+    printVariable('ak.count(mask_, axis=1)',ak.count(mask_, axis=1)); sys.stdout.flush()
+    
+    a = ak.Array(array_list)
+    mask = (a > k)
+    null_ = ak.full_like(a, k)
+    printVariable('a', a); sys.stdout.flush()
+    printVariable('mask', mask); sys.stdout.flush()
+    printVariable('null_', null_); sys.stdout.flush()
+    new_a = ak.where(
+        mask,
+        a,
+        null_
     )
+
+    printVariable('new_a', new_a); sys.stdout.flush()
+    '''
+
+    try:
+        a_new = ak.where(
+            (array_list > k),
+            array_list,
+            ak.full_like(array_list, k)
+        )
+    except Exception as e:
+        print(f"SS: ak.where() error with jagged array. Not sure how to resolve it.")
+        a_new = array_list
+    #printVariable('a_new', a_new); sys.stdout.flush()
+    
     return a_new
 
 def array_PutUpperBound(array_list, k):

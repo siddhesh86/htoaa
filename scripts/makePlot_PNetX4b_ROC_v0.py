@@ -102,8 +102,6 @@ def make_ROC(sROCName, hSig, hBkg, TaggerWPs):
 if __name__ == "__main__":
     print(f"makePlot_PNetX4b_ROC()")
 
-    Background = 'ttbar' # 'QCD' 'ttbar'
-
     Luminosity_dict = {
         'Run2': 138,
         '2018': 60,
@@ -137,27 +135,45 @@ if __name__ == "__main__":
         '/Users/siddhesh/Work/CMS/htoaa/analysis/20260701_PNetX4bROC/2017/gg0l/analyze_htoaa_stage1.root',
         '/Users/siddhesh/Work/CMS/htoaa/analysis/20260701_PNetX4bROC/2018/gg0l/analyze_htoaa_stage1.root',            
     ]
-   
     
-    MCProcesses_dict = {}
-    if Background == 'QCD':
-        MCProcesses_dict['QCD'] = [
+
+    MCProcesses_dict = {
+        'QCD': [
             'QCD_bEnr',
             'QCD_BGen'
-        ]
-    if Background == 'ttbar':
-        MCProcesses_dict['ttbar'] = [
+        ],
+        'ttbar':[
             'TT0l',
             'TT1l',
             'TT2l'
-        ]   
-    Signal_mAs = {
-        '15': '15p0',
-        '30': '30p0',
-        '45': '45p0',
+        ],
     }
-    for sMA_short, sMA in Signal_mAs.items():
-        MCProcesses_dict['Signal_mA_%s' % (sMA_short)] = [ 'ggHtoaato4b_mA_%s' % (sMA) ]
+    MAs = [
+        #'12p0', '15p0', '20p0', '25p0', '30p0', '35p0', '40p0', '45p0', '50p0', '55p0', '60p0',
+        #'11p0', '11p5', '12p5', '13p0', '13p5', '14p0', '16p0', '17p0', '18p5', '21p5', #'23p0', 
+        #'27p5', #'32p5', 
+        #'37p5', '42p5', '47p5', '52p5', #'57p5', 
+        #'62p5',
+        #
+        #'25p0', '30p0', '35p0',
+        #'12p0'
+        #'12p0', '15p0', '20p0'
+        #'50p0', '55p0', '60p0'
+        #'12p0', '15p0', '20p0', '25p0', '30p0', 
+        #'12p0', '15p0', '20p0', '25p0', '30p0',   '11p5', '12p5', '13p0',   '35p0', '40p0',
+        '15p0', '30p0', '45p0', 
+    ]
+    ProdModes = [
+        'ggHtoaato4b',
+        #'VBFHtoaato4b',
+        #'WHtoaato4b',
+        #'ZHtoaato4b',
+        #'ttHtoaato4b',        
+    ]
+    MCProcesses_dict['Signal'] = []
+    for ProdMode in ProdModes:
+        for MA in MAs:
+            MCProcesses_dict['Signal'].append( '%s_mA_%s' % (ProdMode, MA))
 
 
     HistogramName_short = 'hLeadingFatJetPNet_X4b_v2ab_Haa4b_score_gg0lIncl_Nom'
@@ -167,9 +183,9 @@ if __name__ == "__main__":
     }
     Luminosity = Luminosity_dict['Run2']
 
-    #opFileName = f'/Users/siddhesh/Work/CMS/htoaa/analysis/20260212_DataMC/Run2/ROC_PNet_X4b_v2ab_Haa4b_score_{Background}.root'
-    opFileName = f'/Users/siddhesh/Work/CMS/htoaa/analysis/20260701_PNetX4bROC/Run2/ROC_PNet_X4b_v2ab_Haa4b_score_{Background}.root'
-    opPlotName = f'/Users/siddhesh/Work/CMS/htoaa/analysis/20260701_PNetX4bROC/Run2/Fig_ROC_PNet_X4b_v2ab_Haa4b_score_{Background}.root'
+    #opFileName = '/Users/siddhesh/Work/CMS/htoaa/analysis/20260212_DataMC/Run2/ROC_PNet_X4b_v2ab_Haa4b_score.root'
+    opFileName = '/Users/siddhesh/Work/CMS/htoaa/analysis/20260701_PNetX4bROC/Run2/ROC_PNet_X4b_v2ab_Haa4b_score.root'
+    opPlotName = '/Users/siddhesh/Work/CMS/htoaa/analysis/20260701_PNetX4bROC/Run2/Fig_ROC_PNet_X4b_v2ab_Haa4b_score.root'
 
 
     Plot_xMin = 0.
@@ -177,16 +193,8 @@ if __name__ == "__main__":
     Plot_yMin = 1e-5
     Plot_yMax = 1
     Plot_xAxisLable = 'Signal efficiency'
-    Plot_yAxisLable = 'QCD efficiency' if Background == 'QCD' else r't\bar{t} efficiency'
-    if Background == 'QCD':
-        Plot_yMin = 1e-5
-        Plot_yMax = 1
-    else:
-        Plot_yMin = 1e-5
-        Plot_yMax = 1 
-
-    colors_list  = ['DarkRed', 'Purple', 'DarkBlue']
-    colors_list1 = ['LightOrange', 'Tan']
+    Plot_yAxisLable = 'Background efficiency'
+    
     
     print(f"\n\n {ipFileName_list = }")
     print(f"\n\n {MCProcesses_dict = } \n\n\n")
@@ -218,7 +226,7 @@ if __name__ == "__main__":
             for ipFileName in ipFileName_list:
                 ipFile = ipFiles_dict[ipFileName]
                 h_ = ipFile.Get(sHistoNameFull)
-                print(f"{sHistoNameFull = }, {ipFileName = }, {h_ = }")
+                #print(f"{sHistoNameFull = }, {ipFileName = }, {h_ = }")
 
                 if hTaggerScore_dict[MCProcessName] == None: hTaggerScore_dict[MCProcessName] = h_.Clone('%s_%s' % (HistogramName_short, MCProcessName))
                 else:                                        hTaggerScore_dict[MCProcessName].Add(h_)
@@ -231,22 +239,22 @@ if __name__ == "__main__":
         hEfficiency_dict[MCProcessName].Write()
 
 
-    gr_roc_dict = {}
-    ROC_Points_For_TaggerWPs_dict = {}
-    for Signal_mA in Signal_mAs:
-        sSignalName = 'Signal_mA_%s' % (Signal_mA)
-        sROC = 'ROC_%s_vs_%s'%(sSignalName, Background)
-        gr_roc_dict[sROC], ROC_Points_For_TaggerWPs_dict[sROC] = make_ROC(sROC, hEfficiency_dict[sSignalName], hEfficiency_dict[Background], TaggerWPs)
+    gr_roc_SVsQCD, ROC_Points_For_TaggerWPs_SVsQCD = make_ROC('ROC_Sig_vs_QCD', hEfficiency_dict['Signal'], hEfficiency_dict['QCD'], TaggerWPs)
 
-    gr_forWPs_dict = {}
-    for TaggerWP, TaggerWP_thrsh in TaggerWPs.items():
-        gr_forWPs_dict[TaggerWP] = ROOT.TGraph()
-        for Signal_mA in Signal_mAs:
-            sSignalName = 'Signal_mA_%s' % (Signal_mA)
-            sROC = 'ROC_%s_vs_%s'%(sSignalName, Background)
-            x_ = ROC_Points_For_TaggerWPs_dict[sROC][TaggerWP][0]
-            y_ = ROC_Points_For_TaggerWPs_dict[sROC][TaggerWP][1]
-            gr_forWPs_dict[TaggerWP].AddPoint(ROC_Points_For_TaggerWPs_dict[sROC][TaggerWP][0], ROC_Points_For_TaggerWPs_dict[sROC][TaggerWP][1])
+    gr_roc_SVsttbar, ROC_Points_For_TaggerWPs_SVsttbar = make_ROC('ROC_Sig_vs_ttbar', hEfficiency_dict['Signal'], hEfficiency_dict['ttbar'], TaggerWPs)
+
+
+    print(f"{ROC_Points_For_TaggerWPs_SVsQCD = }")
+    print(f"{ROC_Points_For_TaggerWPs_SVsttbar = }")
+
+    gr_WP40 = ROOT.TGraph()
+    gr_WP40.AddPoint(ROC_Points_For_TaggerWPs_SVsQCD['40'][0], ROC_Points_For_TaggerWPs_SVsQCD['40'][1])
+    gr_WP40.AddPoint(ROC_Points_For_TaggerWPs_SVsttbar['40'][0], ROC_Points_For_TaggerWPs_SVsttbar['40'][1])
+    
+    gr_WP60 = ROOT.TGraph()
+    gr_WP60.AddPoint(ROC_Points_For_TaggerWPs_SVsQCD['60'][0], ROC_Points_For_TaggerWPs_SVsQCD['60'][1])
+    gr_WP60.AddPoint(ROC_Points_For_TaggerWPs_SVsttbar['60'][0], ROC_Points_For_TaggerWPs_SVsttbar['60'][1])
+    
 
 
 
@@ -271,33 +279,35 @@ if __name__ == "__main__":
                            )
 
     # prepare a legend and fill it
-    plotlegend = cmsstyle.cmsLeg(0.15,0.66,0.92,0.9, textSize=0.04, columns=1)  # The legend!
-    for Signal_mA in Signal_mAs:
-        sSignalName = 'Signal_mA_%s' % (Signal_mA)
-        sROC = 'ROC_%s_vs_%s'%(sSignalName, Background)
-        sLegend_ = r'H\rightarrow a_{1}a_{1}\rightarrow 4b, m(a_{1})=%s GeV' % (Signal_mA)
-        cmsstyle.addToLegend(plotlegend, (gr_roc_dict[sROC], sLegend_, 'l'))
-    for TaggerWP, TaggerWP_thrsh in TaggerWPs.items():
-        sLegend_ = "ParticleNet X4b tagger WP%s" % (TaggerWP)
-        cmsstyle.addToLegend(plotlegend, (gr_forWPs_dict[TaggerWP], sLegend_, 'p'))
+    plotlegend = cmsstyle.cmsLeg(0.15,0.75,0.92,0.9, textSize=0.04, columns=2)  # The legend!
+    cmsstyle.addToLegend(plotlegend, (gr_roc_SVsQCD, 'QCD background', 'l'))
+    cmsstyle.addToLegend(plotlegend, (gr_roc_SVsttbar, r't\bar{t} background', 'l'))
+    cmsstyle.addToLegend(plotlegend, (gr_WP40, r'WP40', 'P'))
+    cmsstyle.addToLegend(plotlegend, (gr_WP60, r'WP60', 'P'))
+    
+    
+
 
     ROOT.gPad.SetLogy(1)
     
-    for i_, Signal_mA in enumerate(Signal_mAs):
-        sSignalName = 'Signal_mA_%s' % (Signal_mA)
-        sROC = 'ROC_%s_vs_%s'%(sSignalName, Background)
-        color_ = ROOT.TColor.GetColor(colors_CMS[ colors_list[i_] ])
-        drawOption = "l" if i_ == 0 else "L SAME"
-        cmsstyle.cmsObjectDraw(gr_roc_dict[sROC], drawOption, LineColor=color_, LineWidth=2)
-        print(f"{i_ = }, {sROC = }, {drawOption = }")
+    
+    color_ = ROOT.TColor.GetColor(colors_CMS['DarkRed'])
+    cmsstyle.cmsObjectDraw(gr_roc_SVsQCD,"L", LineColor=color_, LineWidth=2)
 
-    for i_, TaggerWP in enumerate(TaggerWPs):
-        color_ = ROOT.TColor.GetColor(colors_CMS[ colors_list1[i_] ])
-        drawOption = "P SAME"
-        cmsstyle.cmsObjectDraw(gr_forWPs_dict[TaggerWP],"P SAME", MarkerColor=color_, MarkerStyle=29, MarkerSize=3)
-        print(f"{i_ = }, {TaggerWP = }, {drawOption = }")
+    color_ = ROOT.TColor.GetColor(colors_CMS['Purple'])
+    cmsstyle.cmsObjectDraw(gr_roc_SVsttbar,"L SAME", LineColor=color_, LineWidth=2)
 
-        
+
+    color_ = ROOT.TColor.GetColor(colors_CMS['Brown'])
+    cmsstyle.cmsObjectDraw(gr_WP40,"P SAME", MarkerColor=color_, MarkerStyle=29, MarkerSize=3)
+
+    color_ = ROOT.TColor.GetColor(colors_CMS['Tan'])
+    cmsstyle.cmsObjectDraw(gr_WP60,"P SAME", MarkerColor=color_, MarkerStyle=29, MarkerSize=3)
+
+    
+
+    
+    
      #Saving the result!
     cmsstyle.UpdatePad(c)
 
@@ -333,10 +343,9 @@ if __name__ == "__main__":
 
 
 
-
     opFile.cd();
-    #gr_roc_SVsQCD.Write()
-    #gr_roc_SVsttbar.Write()
+    gr_roc_SVsQCD.Write()
+    gr_roc_SVsttbar.Write()
     c.Write()
 
     opFile.Close();
