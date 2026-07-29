@@ -1,2 +1,6 @@
-SUSY_GluGluH_01J_HToAATo4B, 150, 13.5, 0, RunIISummer20UL16, 500, 1, ssawant, miniAOD_files_1/miniAODs_SUSY_GluGluH_01J_HToAATo4B_Pt150_M-13.5_2016_1.txt
-SUSY_TTH_TTToAll_HToAATo4B, 150, 57.5, 0, RunIISummer20UL16, 500, 1, ssawant, miniAOD_files_1/miniAODs_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5_2016_1.txt
+SUSY_TTH_TTToAll_HToAATo4B, 150, 57.5, 0, RunIISummer20UL17, 500, 0, ssawant, miniAOD_files_1/miniAODs_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5_2017_0.txt
+SUSY_TTH_TTToAll_HToAATo4B, 150, 57.5, 0, RunIISummer20UL17, 500, 1, ssawant, miniAOD_files_1/miniAODs_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5_2017_1.txt
+SUSY_TTH_TTToAll_HToAATo4B, 150, 57.5, 0, RunIISummer20UL17, 500, 2, ssawant, miniAOD_files_1/miniAODs_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5_2017_2.txt
+SUSY_TTH_TTToAll_HToAATo4B, 150, 57.5, 0, RunIISummer20UL17, 500, 3, ssawant, miniAOD_files_1/miniAODs_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5_2017_3.txt
+SUSY_TTH_TTToAll_HToAATo4B, 150, 57.5, 0, RunIISummer20UL17, 500, 4, ssawant, miniAOD_files_1/miniAODs_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5_2017_4.txt
+SUSY_TTH_TTToAll_HToAATo4B, 150, 57.5, 0, RunIISummer20UL17, 500, 5, ssawant, miniAOD_files_1/miniAODs_SUSY_TTH_TTToAll_HToAATo4B_Pt150_M-57.5_2017_5.txt
