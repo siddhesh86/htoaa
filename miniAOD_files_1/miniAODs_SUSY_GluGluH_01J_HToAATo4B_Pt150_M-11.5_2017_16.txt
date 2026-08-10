@@ -1,4 +1,0 @@
-/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/2017/MC/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-11.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL17/0007/MiniAODv2_796_nEvents500.root
-/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/2017/MC/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-11.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL17/0007/MiniAODv2_797_nEvents500.root
-/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/2017/MC/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-11.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL17/0007/MiniAODv2_798_nEvents500.root
-/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/2017/MC/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-11.5_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL17/0007/MiniAODv2_799_nEvents500.root

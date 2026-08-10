@@ -14,3 +14,7 @@ condor_exec.exe
 localhost:1080
 miniAOD_files_1/miniAODs_SUSY_GluGluH_01J_HToAATo4B_Pt150_M-11.0_2017_0_test.txt
 cout_*.txt
+MCConfigs/Run3Summer22/1
+MCConfigs/Run3Summer22/2
+MCConfigs/Run3Summer22/3
+MCConfigs/Run3Summer22/cms_gen_venv_SUS-Run3Summer22wmLHEGS-00104
