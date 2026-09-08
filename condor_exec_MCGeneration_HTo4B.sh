@@ -139,13 +139,13 @@ ls -ltrh
 printf "\n\n ls -ltrh ${OpFile_local}  after a MC sample production steps: \n"
 ls -ltrh ${OpFile_local} 
 
-cp pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py ../ 
-cp pLHEGenSim_GluGluHJ_HTo4B_report.xml ../
+#cp pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py ../ 
+#cp pLHEGenSim_GluGluHJ_HTo4B_report.xml ../
 
-printf "xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py ${XRootDHostAndPort1}//eos/cms/store/user/ssawant/test/ \n"
-xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py ${XRootDHostAndPort1}//eos/cms/store/user/ssawant/test/
-printf "xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_report.xml ${XRootDHostAndPort1}//eos/cms/store/user/ssawant/test/ \n"
-xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_report.xml ${XRootDHostAndPort1}//eos/cms/store/user/ssawant/test/
+#printf "xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py ${XRootDHostAndPort1}//eos/cms/store/user/ssawant/test/ \n"
+#xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py ${XRootDHostAndPort1}//eos/cms/store/user/ssawant/test/
+#printf "xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_report.xml ${XRootDHostAndPort1}//eos/cms/store/user/ssawant/test/ \n"
+#xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_report.xml ${XRootDHostAndPort1}//eos/cms/store/user/ssawant/test/
 
 
 
