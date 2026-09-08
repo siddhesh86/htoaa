@@ -56,6 +56,7 @@ cat << EndOfTestFile > pLHEGenSim_${SampleName}_test.sh
 export SCRAM_ARCH=el8_amd64_gcc12
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
+echo "Running pLHEGenSim_${SampleName}_test.sh "
 echo \$HOSTNAME
 if [ -r CMSSW_14_0_21/src ] ; then
   echo release CMSSW_14_0_21 already exists
@@ -137,6 +138,10 @@ echo "Filter efficiency fraction: "\$(bc -l <<< "scale=10; (\$producedEvents) / 
 # End of pLHEGenSim_${SampleName}_test.sh file
 EndOfTestFile
 
+printf "\n\n cat pLHEGenSim_${SampleName}_test.sh  \n"
+cat pLHEGenSim_${SampleName}_test.sh 
+printf "\n\n"
+
 # Make file executable
 chmod +x pLHEGenSim_${SampleName}_test.sh
 
@@ -148,6 +153,15 @@ else
   echo "Could not find amd64 or x86_64 for el8"
   exit 1
 fi
+
+
 # Run in singularity container
 export SINGULARITY_CACHEDIR="/tmp/$(whoami)/singularity"
+
+printf "CONTAINER_NAME: ${CONTAINER_NAME} \n"
+echo "ls -ltrh /cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/$CONTAINER_NAME "
+ls -ltrh /cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/$CONTAINER_NAME
+printf "SINGULARITY_CACHEDIR: ${SINGULARITY_CACHEDIR} \n"
+
+
 singularity run --home $PWD:$PWD /cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/$CONTAINER_NAME $(echo $(pwd)/pLHEGenSim_${SampleName}_test.sh)
