@@ -19,6 +19,8 @@ OpFile=$10
 echo "condor_exec_MCGeneration_HToAATo4B_M-x.sh execution started"
 echo "hostname: "
 hostname
+echo "uname -a: "
+uname -a
 echo "date: "
 date
 echo "pwd : "
