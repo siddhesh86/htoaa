@@ -11,7 +11,17 @@ NEvents=$6
 iSample=$7
 XRootDRedirector=$8
 IpFile=$9
-OpFile=$10
+OpFile=${10}
+
+printf "prodmode: ${prodmode} \n"
+printf "HiggsPtMin: ${HiggsPtMin} \n"
+printf "ERA: ${ERA} \n"
+printf "MCStep: ${MCStep} \n"
+printf "NEvents: ${NEvents} \n"
+printf "iSample: ${iSample} \n"
+printf "XRootDRedirector: ${XRootDRedirector} \n"
+printf "IpFile: ${IpFile} \n"
+printf "OpFile: ${OpFile} \n"
 
 
 
