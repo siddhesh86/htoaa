@@ -27,7 +27,7 @@ HiggsPtMin=${8}
 #opFile=pLHEGenDim_${SampleName}_nEvt_${NEvents}.root                                                                                                                                                                                                               
 
 SampleName=${prodmode}                                                                                                                                                                                                                                    
-NEvents=nEvents                                                                                                                                                                                                                                                    
+NEvents=${nEvents}                                                                                                                                                                                                                                                    
 ipGenFragment=./GENFragment_${SampleName}.py                                                                                                       
 ipLHE=${inputFile}                                                                                                                                                           
 #opFile0=wmLHE_${SampleName}_0_nEvt_${NEvents}.root                                                                                                                                                                                                            
@@ -57,6 +57,10 @@ export SCRAM_ARCH=el8_amd64_gcc12
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 echo "Running pLHEGenSim_${SampleName}_test.sh "
+echo "pwd: "
+pwd
+echo "ls -ltrh: "
+ls -ltrh 
 echo \$HOSTNAME
 if [ -r CMSSW_14_0_21/src ] ; then
   echo release CMSSW_14_0_21 already exists
@@ -67,6 +71,11 @@ cd CMSSW_14_0_21/src
 eval \`scram runtime -sh\`
 
 mv ../../Configuration .
+echo "pwd: "
+pwd
+echo "ls -ltrh: "
+ls -ltrh 
+echo "scram b:"
 scram b
 cd ../..
 
@@ -85,10 +94,20 @@ cd ../..
 # Dynamically injected value from parent script
 EVENTS=${NEvents}
 
+echo "pwd: "
+pwd
+echo "ls -ltrh: "
+ls -ltrh 
+echo "cmsDriver.py Configuration/GenProduction/python/GENFragment_${SampleName}.py --era Run3_2024 --customise Configuration/DataProcessing/Utils.addMonitoring --beamspot DBrealistic --step GEN,SIM --geometry DB:Extended --conditions 140X_mcRun3_2024_realistic_v26 --customise_commands process.source.numberEventsInLuminosityBlock=\"cms.untracked.uint32(100)\" --datatier GEN-SIM,LHE --eventcontent RAWSIM,LHE --python_filename pLHEGenSim_${SampleName}_1_cfg.py --fileout file:${opFile} --filein file:${ipLHE} --number \${EVENTS} --number_out \${EVENTS} --no_exec --mc || exit \$? ;"
 
 # cmsDriver command
 cmsDriver.py Configuration/GenProduction/python/GENFragment_${SampleName}.py --era Run3_2024 --customise Configuration/DataProcessing/Utils.addMonitoring --beamspot DBrealistic --step GEN,SIM --geometry DB:Extended --conditions 140X_mcRun3_2024_realistic_v26 --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(100)" --datatier GEN-SIM,LHE --eventcontent RAWSIM,LHE --python_filename pLHEGenSim_${SampleName}_1_cfg.py --fileout file:${opFile} --filein file:${ipLHE} --number \${EVENTS} --number_out \${EVENTS} --no_exec --mc || exit \$? ;
 
+echo "pwd: "
+pwd
+echo "ls -ltrh: "
+ls -ltrh 
+printf "\n\ncmsRun: \n\n"
 # Run generated config
 REPORT_NAME=pLHEGenSim_${SampleName}_report.xml
 # Run the cmsRun
