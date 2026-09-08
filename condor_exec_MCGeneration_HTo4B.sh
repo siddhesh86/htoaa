@@ -69,6 +69,7 @@ RandomNumberSeed=$RANDOM                                # Ramdom seed for sample
 SampleProcessName="${prodmode}_Pt${HiggsPtMin}"
 jobID="${SampleProcessName}_${iSample}" 
 
+IpFileExtension="${IpFile##*.}"
 IpFile_local=${Dir_baseLocal}/ip_${SampleProcessName}_${iSample}_nEvents${NEvents}.root
 OpFile_local=${Dir_baseLocal}/op_${SampleProcessName}_${iSample}_nEvents${NEvents}.root
 
@@ -129,7 +130,11 @@ ls -ltrh ${OpFile_local}
 cp pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py ../ 
 cp pLHEGenSim_GluGluHJ_HTo4B_report.xml ../
 
-xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py ${XRootDHostAndPort1}/${OpFile}
+printf "xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py ${XRootDHostAndPort1}//eos/cms/store/user/ssawant/test/ \n"
+xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py ${XRootDHostAndPort1}//eos/cms/store/user/ssawant/test/
+printf "xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_report.xml ${XRootDHostAndPort1}//eos/cms/store/user/ssawant/test/ \n"
+xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_report.xml ${XRootDHostAndPort1}//eos/cms/store/user/ssawant/test/
+
 
 
 ### Copy output file to lxplus-eos area ---------------------------------
