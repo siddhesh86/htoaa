@@ -129,7 +129,7 @@ ls -ltrh ${OpFile_local}
 cp pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py ../ 
 cp pLHEGenSim_GluGluHJ_HTo4B_report.xml ../
 
-
+xrdcp -f -v pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py ${XRootDHostAndPort1}/${OpFile}
 
 
 ### Copy output file to lxplus-eos area ---------------------------------
@@ -221,6 +221,7 @@ echo "pwd: At the end"
 pwd
 echo "ls -ltrh: "
 ls -ltrh 
+
 
 
 echo "condor_exec_MCGeneration_HTo4B.sh done"

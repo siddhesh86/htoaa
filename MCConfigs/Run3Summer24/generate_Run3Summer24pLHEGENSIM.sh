@@ -98,7 +98,8 @@ echo "pwd: "
 pwd
 echo "ls -ltrh: "
 ls -ltrh 
-echo "cmsDriver.py Configuration/GenProduction/python/GENFragment_${SampleName}.py --era Run3_2024 --customise Configuration/DataProcessing/Utils.addMonitoring --beamspot DBrealistic --step GEN,SIM --geometry DB:Extended --conditions 140X_mcRun3_2024_realistic_v26 --customise_commands process.source.numberEventsInLuminosityBlock=\"cms.untracked.uint32(100)\" --datatier GEN-SIM,LHE --eventcontent RAWSIM,LHE --python_filename pLHEGenSim_${SampleName}_1_cfg.py --fileout file:${opFile} --filein file:${ipLHE} --number \${EVENTS} --number_out \${EVENTS} --no_exec --mc || exit \$? ;"
+#echo "cmsDriver.py Configuration/GenProduction/python/GENFragment_${SampleName}.py --era Run3_2024 --customise Configuration/DataProcessing/Utils.addMonitoring --beamspot DBrealistic --step GEN,SIM --geometry DB:Extended --conditions 140X_mcRun3_2024_realistic_v26 --customise_commands process.source.numberEventsInLuminosityBlock=\"cms.untracked.uint32(100)\" --datatier GEN-SIM,LHE --eventcontent RAWSIM,LHE --python_filename pLHEGenSim_${SampleName}_1_cfg.py --fileout file:${opFile} --filein file:${ipLHE} --number \${EVENTS} --number_out \${EVENTS} --no_exec --mc || exit \$? ;"
+echo "cmsDriver.py "
 
 # cmsDriver command
 cmsDriver.py Configuration/GenProduction/python/GENFragment_${SampleName}.py --era Run3_2024 --customise Configuration/DataProcessing/Utils.addMonitoring --beamspot DBrealistic --step GEN,SIM --geometry DB:Extended --conditions 140X_mcRun3_2024_realistic_v26 --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(100)" --datatier GEN-SIM,LHE --eventcontent RAWSIM,LHE --python_filename pLHEGenSim_${SampleName}_1_cfg.py --fileout file:${opFile} --filein file:${ipLHE} --number \${EVENTS} --number_out \${EVENTS} --no_exec --mc || exit \$? ;
@@ -112,6 +113,8 @@ printf "\n\ncmsRun: \n\n"
 REPORT_NAME=pLHEGenSim_${SampleName}_report.xml
 # Run the cmsRun
 cmsRun -e -j \$REPORT_NAME pLHEGenSim_${SampleName}_1_cfg.py || exit \$? ;
+
+printf "\n\ncmsRun: done \n\n"
 
 # Parse values from pLHEGenSim_${SampleName}_report.xml report
 processedEvents=\$(grep -Po "(?<=<Metric Name=\"NumberEvents\" Value=\")(.*)(?=\"/>)" \$REPORT_NAME | tail -n 1)
