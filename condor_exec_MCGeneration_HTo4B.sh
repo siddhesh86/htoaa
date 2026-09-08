@@ -126,6 +126,9 @@ ls -ltrh
 printf "\n\n ls -ltrh ${OpFile_local}  after a MC sample production steps: \n"
 ls -ltrh ${OpFile_local} 
 
+cp pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py ../ 
+cp pLHEGenSim_GluGluHJ_HTo4B_report.xml ../
+
 
 
 
@@ -214,7 +217,10 @@ ls -ltrh
 
 printf "\n cd .. : \n"
 cd ..
-
+echo "pwd: At the end"
+pwd
+echo "ls -ltrh: "
+ls -ltrh 
 
 
 echo "condor_exec_MCGeneration_HTo4B.sh done"

@@ -14,6 +14,7 @@ Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(DatasetERA) $(MCStep) 
 transfer_input_files = $(X509_USER_PROXY), $(ConfigGEN), $(ConfigMCStep)  
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
+transfer_output_files   = pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py, pLHEGenSim_GluGluHJ_HTo4B_report.xml
 
 Error = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_$(DatasetERA)_$(iSample)_$(MCStep)_nEvents$(nEvents).err
 Output = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_$(DatasetERA)_$(iSample)_$(MCStep)_nEvents$(nEvents).out 
