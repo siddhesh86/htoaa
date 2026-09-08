@@ -102,7 +102,8 @@ ls -ltrh
 echo "cmsDriver.py "
 
 # cmsDriver command
-cmsDriver.py Configuration/GenProduction/python/GENFragment_${SampleName}.py --era Run3_2024 --customise Configuration/DataProcessing/Utils.addMonitoring --beamspot DBrealistic --step GEN,SIM --geometry DB:Extended --conditions 140X_mcRun3_2024_realistic_v26 --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(100)" --datatier GEN-SIM,LHE --eventcontent RAWSIM,LHE --python_filename pLHEGenSim_${SampleName}_1_cfg.py --fileout file:${opFile} --filein file:${ipLHE} --number \${EVENTS} --number_out \${EVENTS} --no_exec --mc || exit \$? ;
+#cmsDriver.py Configuration/GenProduction/python/GENFragment_${SampleName}.py --era Run3_2024 --customise Configuration/DataProcessing/Utils.addMonitoring --beamspot DBrealistic --step GEN,SIM --geometry DB:Extended --conditions 140X_mcRun3_2024_realistic_v26 --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(100)" --datatier GEN-SIM,LHE --eventcontent RAWSIM,LHE --python_filename pLHEGenSim_${SampleName}_1_cfg.py --fileout file:${opFile} --filein file:${ipLHE} --number \${EVENTS} --number_out \${EVENTS} --no_exec --mc || exit \$? ;
+cmsDriver.py Configuration/GenProduction/python/GENFragment_${SampleName}.py --era Run3_2024 --customise Configuration/DataProcessing/Utils.addMonitoring --beamspot DBrealistic --step GEN,SIM --geometry DB:Extended --conditions 140X_mcRun3_2024_realistic_v26  --datatier GEN-SIM,LHE --eventcontent RAWSIM,LHE --python_filename pLHEGenSim_${SampleName}_1_cfg.py --fileout file:${opFile} --filein file:${ipLHE} --number \${EVENTS} --number_out \${EVENTS} --no_exec --mc || exit \$? ;
 
 echo "pwd: "
 pwd
