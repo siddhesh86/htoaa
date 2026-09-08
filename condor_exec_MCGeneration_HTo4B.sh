@@ -70,7 +70,7 @@ SampleProcessName="${prodmode}_Pt${HiggsPtMin}"
 jobID="${SampleProcessName}_${iSample}" 
 
 IpFileExtension="${IpFile##*.}"
-IpFile_local=${Dir_baseLocal}/ip_${SampleProcessName}_${iSample}_nEvents${NEvents}.root
+IpFile_local=${Dir_baseLocal}/ip_${SampleProcessName}_${iSample}_nEvents${NEvents}.${IpFileExtension}
 OpFile_local=${Dir_baseLocal}/op_${SampleProcessName}_${iSample}_nEvents${NEvents}.root
 
 xrdcpPort="1094"                                        # For e.g. xrdcp -f  tmp.txt root://xrootd-cms.infn.it:1094//eos/cms/store/user/ssawant/mc/tmp/tmp.txt
