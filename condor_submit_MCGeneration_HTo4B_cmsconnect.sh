@@ -41,4 +41,4 @@ RequestCpus = 8
 # 86400 # 24*60*60 
 #+MaxRuntime = 86400 
 
-Queue prodmode, HiggsPtMin, ECM, DatasetERA, MCStep, nEvents, iSample, XRootDRedirector, ipFile, opFile, UserName from params_MCGeneration_HToAATo4B_M-x.txt
+Queue prodmode, HiggsPtMin, ECM, DatasetERA, MCStep, nEvents, iSample, XRootDRedirector, ipFile, opFile, UserName from params_MCGeneration_HTo4B.txt

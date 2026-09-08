@@ -135,11 +135,10 @@ with open(sFParams, "a") as f:
                         else:
                             if iMCStep > 0:    MCStepLast = MCSteps[iMCStep - 1]
                             else:              MCStepLast = ""                            
-                            #sIpFile = f"root://{XRootDRedirector}//store/group/phys_susy/HToaaTo4b/{MCStepLast}/{ERA}/{prod}_Pt{HiggsPtMin}_{ECM}TeV/{MCStepLast}_{iSample}.root"
-                            sIpFile = f"/store/group/phys_susy/HToaaTo4b/{MCStepLast}/{EraYear}/{prod}_Pt{HiggsPtMin}_{ECM}TeV/{MCStepLast}_{iSample}.root"
+                            #sIpFile = f"/store/group/phys_susy/HToaaTo4b/{MCStepLast}/{EraYear}/{prod}_Pt{HiggsPtMin}_{ECM}TeV/{MCStepLast}_{iSample}.root"
+                            sIpFile = f"/eos/cms/store/user/ssawant/test/HToaaTo4b/{MCStepLast}/{EraYear}/{prod}_Pt{HiggsPtMin}_{ECM}TeV/{MCStepLast}_{iSample}.root"
                         
-                        #sOpFile = f"root://{XRootDRedirector}//store/group/phys_susy/HToaaTo4b/{MCStep}/{ERA}/{prod}_Pt{HiggsPtMin}_{ECM}TeV/{MCStep}_{iSample}.root"
-                        sOpFile = f"/store/group/phys_susy/HToaaTo4b/{MCStep}/{EraYear}/{prod}_Pt{HiggsPtMin}_{ECM}TeV/{MCStep}_{iSample}.root"
+                        sOpFile = f"/eos/cms/store/user/ssawant/test/HToaaTo4b/{MCStep}/{EraYear}/{prod}_Pt{HiggsPtMin}_{ECM}TeV/{MCStep}_{iSample}.root"
 
                         # Check if MCConfig file to execute exists
                         MCConfigToRun = f'MCConfigs/{ERA}/generate_{ERA}{MCStep}.sh'
