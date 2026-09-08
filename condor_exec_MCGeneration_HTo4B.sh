@@ -79,6 +79,7 @@ XRootDRedirector="xrootd-cms.infn.it"
 XRootDHostAndPort="root://${XRootDRedirector}:${xrdcpPort}"
 XRootDHostAndPort1="root://eosuser.cern.ch"
 
+IpFile_EOS_wRedirector="root://${XRootDRedirector}/${IpFile}"
 
 ### Execution partstarts ----------------------
 echo "argument prodmode: ${prodmode} "
@@ -100,8 +101,8 @@ echo "pwd: "
 pwd
 echo "ls -ltrh: xrdcp ipFile"
 ls -ltrh
-echo "time xrdcp \"root://${XRootDRedirector}/${IpFile}\" ${IpFile_local} "
-time xrdcp "root://${XRootDRedirector}/${IpFile}" ${IpFile_local}
+echo "time xrdcp ${IpFile_EOS_wRedirector} ${IpFile_local} "
+time xrdcp ${IpFile_EOS_wRedirector} ${IpFile_local}
 echo "ls -ltrh after: "
 ls -ltrh
 

@@ -8,7 +8,7 @@ ConfigMCStep=MCConfigs/$(DatasetERA)/generate_$(DatasetERA)$(MCStep).sh
 X509_USER_PROXY=/home/$(UserName)/$(Proxy_filename)
 
 Executable = condor_exec_MCGeneration_HTo4B.sh
-Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(DatasetERA) $(MCStep) $(nEvents) $(iSample) $(XRootDRedirector), $(ipFile), $(opFile)
+Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(DatasetERA) $(MCStep) $(nEvents) $(iSample) $(XRootDRedirector) $(ipFile) $(opFile)
 
 
 transfer_input_files = $(X509_USER_PROXY), $(ConfigGEN), $(ConfigMCStep)  
