@@ -30,7 +30,7 @@ MCStrepsToRun_perEra = {
     #],
     "Run3Summer24": [
         "pLHEGENSIM",
-    #    "DigiReco",
+        "DRPremix",
     #    "MiniAOD",
     #    "NanoAOD"
     ],
