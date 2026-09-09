@@ -180,9 +180,9 @@ inputFile=${pLHEGENSIMFile_local}
 outputFile=${DRPremixFile_local}
 NEvents_toUse=${NEvents}
 
-printf "\n\nRun source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} \n"
-time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} 
-printf "\n***Done source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}   \n"
+printf "\n\nRun source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} ${Dir_sourceCodes}   ${RandomNumberSeed}  ${prodmode}  ${HiggsPtMin}\n"
+time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} ${Dir_sourceCodes}   ${RandomNumberSeed}  ${prodmode}  ${HiggsPtMin}
+printf "\n***Done source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} ${Dir_sourceCodes}   ${RandomNumberSeed}  ${prodmode}  ${HiggsPtMin}  \n"
 printf "ls -ltrh after ${DatasetType} step: \n"; ls -ltrh
 printf "\nrm -rf CMSSW* \n"
 rm -rf CMSSW*
@@ -196,9 +196,9 @@ inputFile=${DRPremixFile_local}
 outputFile=${MiniAODFile_local}
 NEvents_toUse=${NEvents}
 
-printf "\n\nRun source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} \n"
-time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} 
-printf "\n***Done source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}   \n"
+printf "\n\nRun source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} ${Dir_sourceCodes}   ${RandomNumberSeed}  ${prodmode}  ${HiggsPtMin} \n"
+time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} ${Dir_sourceCodes}   ${RandomNumberSeed}  ${prodmode}  ${HiggsPtMin} 
+printf "\n***Done source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}  ${Dir_sourceCodes}   ${RandomNumberSeed}  ${prodmode}  ${HiggsPtMin} \n"
 printf "ls -ltrh after ${DatasetType} step: \n"; ls -ltrh
 printf "\nrm -rf CMSSW* \n"
 rm -rf CMSSW*
@@ -212,9 +212,9 @@ inputFile=${MiniAODFile_local}
 outputFile=${NanoAODFile_local}
 NEvents_toUse=${NEvents}
 
-printf "\n\nRun source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} \n"
-time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} 
-printf "\n***Done source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}   \n"
+printf "\n\nRun source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} ${Dir_sourceCodes}   ${RandomNumberSeed}  ${prodmode}  ${HiggsPtMin} \n"
+time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} ${Dir_sourceCodes}   ${RandomNumberSeed}  ${prodmode}  ${HiggsPtMin}
+printf "\n***Done source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} ${Dir_sourceCodes}   ${RandomNumberSeed}  ${prodmode}  ${HiggsPtMin}  \n"
 printf "ls -ltrh after ${DatasetType} step: \n"; ls -ltrh
 printf "\nrm -rf CMSSW* \n"
 rm -rf CMSSW*
