@@ -30,11 +30,11 @@ elif [[ ${ERA} == *"17"* ]]; then
     EraYear=2017
 elif [[ ${ERA} == *"18"* ]]; then
     EraYear=2018
-if   [[ ${ERA} == *"22"*  && ${ERA} == *"EE"* ]]; then 
+elif   [[ ${ERA} == *"22"*  && ${ERA} == *"EE"* ]]; then 
     EraYear="2022EE"
 elif [[ ${ERA} == *"22"* ]]; then 
     EraYear="2022"
-if   [[ ${ERA} == *"23"*  && ${ERA} == *"BPix"* ]]; then 
+elif   [[ ${ERA} == *"23"*  && ${ERA} == *"BPix"* ]]; then 
     EraYear="2023BPix"
 elif [[ ${ERA} == *"23"* ]]; then 
     EraYear="2023"
