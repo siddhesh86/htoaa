@@ -5,7 +5,7 @@ import subprocess
 ### USERS settings ------------------------------------------------------------------------------------
 
 prodmodes = [
-    "GluGluHJ_HTo4B",
+    #"GluGluHJ_HTo4B",
     "WH_HTo4B"
 ]
 
