@@ -3,8 +3,10 @@ Universe = vanilla
 Proxy_filename=x509Proxy
 
 ConfigGEN=MCConfigs/GENFragments_$(ECM)TeV/GENFragment_$(prodmode).py
-ConfigpLHEGEN=MCConfigs/$(DatasetERA)/generate_$(DatasetERA)pLHEGEN.sh
+ConfigpLHEGENSIM=MCConfigs/$(DatasetERA)/generate_$(DatasetERA)pLHEGENSIM.sh
 ConfigDRPremix=MCConfigs/$(DatasetERA)/generate_$(DatasetERA)DRPremix.sh
+ConfigMiniAOD=MCConfigs/$(DatasetERA)/generate_$(DatasetERA)MiniAOD.sh
+ConfigNanoAOD=MCConfigs/$(DatasetERA)/generate_$(DatasetERA)NanoAOD.sh
 
 X509_USER_PROXY=/home/$(UserName)/$(Proxy_filename)
 
@@ -12,7 +14,7 @@ Executable = condor_exec_MCGeneration_HTo4B.sh
 Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(DatasetERA) $(nEvents) $(iSample) $(ipFile)
 
 
-transfer_input_files = $(X509_USER_PROXY), $(ConfigGEN), $(ConfigpLHEGEN), $(ConfigDRPremix)  
+transfer_input_files = $(X509_USER_PROXY), $(ConfigGEN), $(ConfigpLHEGENSIM), $(ConfigDRPremix), $(ConfigMiniAOD), $(ConfigNanoAOD)  
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 #transfer_output_files   = pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py, pLHEGenSim_GluGluHJ_HTo4B_report.xml

@@ -187,8 +187,40 @@ printf "ls -ltrh after ${DatasetType} step: \n"; ls -ltrh
 printf "\nrm -rf CMSSW* \n"
 rm -rf CMSSW*
 
+printf "rm -rf ${LHEFile_local} \n"
+rm -rf ${LHEFile_local}
 
+# MiniAOD -------------------------------------------------------------------------
+DatasetType='MiniAOD'
+inputFile=${DRPremixFile_local}
+outputFile=${MiniAODFile_local}
+NEvents_toUse=${NEvents}
 
+printf "\n\nRun source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} \n"
+time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} 
+printf "\n***Done source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}   \n"
+printf "ls -ltrh after ${DatasetType} step: \n"; ls -ltrh
+printf "\nrm -rf CMSSW* \n"
+rm -rf CMSSW*
+
+printf "rm -rf ${pLHEGENSIMFile_local} \n"
+rm -rf ${pLHEGENSIMFile_local}
+
+# NanoAOD -------------------------------------------------------------------------
+DatasetType='NanoAOD'
+inputFile=${MiniAODFile_local}
+outputFile=${NanoAODFile_local}
+NEvents_toUse=${NEvents}
+
+printf "\n\nRun source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} \n"
+time . generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID} 
+printf "\n***Done source generate_${ERA}${DatasetType}.sh  ${inputFile}  ${outputFile}  ${NEvents_toUse}  ${jobID}   \n"
+printf "ls -ltrh after ${DatasetType} step: \n"; ls -ltrh
+printf "\nrm -rf CMSSW* \n"
+rm -rf CMSSW*
+
+printf "rm -rf ${DRPremixFile_local} \n"
+rm -rf ${DRPremixFile_local}
 
 printf "\n\n***Done running a MC sample production step. \n"
 printf "ls -ltrh after a MC sample production step: \n"
