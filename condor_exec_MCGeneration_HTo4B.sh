@@ -114,13 +114,13 @@ XRootDHostAndPort1="root://eosuser.cern.ch"
 
 OpSubdirNum=$(printf "%04d" $((${iSample} / 100)) )
 # /eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/2018/MC/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-10.0_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18/0017/MiniAODv2_1701_nEvents500.root
-#MiniAODFile_EOS=/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/${ERA}/2026_09_01/${OpSubdirNum}/MiniAODv6_${iSample}_nEvents${NEvents}.root
-MiniAODFile_EOS=/eos/cms/store/user/ssawant/test/HToaaTo4b/MiniAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/${ERA}/2026_09_01/${OpSubdirNum}/MiniAODv6_${iSample}_nEvents${NEvents}.root
+MiniAODFile_EOS=/eos/cms/store/group/phys_susy/HToaaTo4b/MiniAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/${ERA}/2026_09_01/${OpSubdirNum}/MiniAODv6_${iSample}_nEvents${NEvents}.root
+#MiniAODFile_EOS=/eos/cms/store/user/ssawant/test/HToaaTo4b/MiniAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/${ERA}/2026_09_01/${OpSubdirNum}/MiniAODv6_${iSample}_nEvents${NEvents}.root
 # customNanoAOD /eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/2018/MC/PNet_v1_2023_10_06/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-10.0_TuneCP5_13TeV_madgraph_pythia8/r1/20240202_000000/0002/NanoAODv9Custom_203_nEvents500.root
 #NanoAODFile_EOS=/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/${EraYear}/MC/PNet_v1_2023_10_06/${SampleProcessName}_${SampleGeneratorDetails}/r1/20240202_000000/${OpSubdirNum}/NanoAODv9Custom_${iSample}_nEvents${NEvents}.root
 # Central NanoAOD /eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/2018/MC/SUSY_GluGluH_01J_HToAATo4B_Pt150_M-12_TuneCP5_13TeV_madgraph_pythia8/RunIISummer20UL18NanoAODv9/08905042-1C08-314E-8753-61FFF45D1F2A.root
-#NanoAODFile_EOS=/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/${ERA}NanoAODv15/2026_09_01/${OpSubdirNum}/NanoAODv15_${iSample}_nEvents${NEvents}.root
-NanoAODFile_EOS=/eos/cms/store/user/ssawant/test/HToaaTo4b/NanoAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/${ERA}NanoAODv15/2026_09_01/${OpSubdirNum}/NanoAODv15_${iSample}_nEvents${NEvents}.root
+NanoAODFile_EOS=/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/${ERA}NanoAODv15/2026_09_01/${OpSubdirNum}/NanoAODv15_${iSample}_nEvents${NEvents}.root
+#NanoAODFile_EOS=/eos/cms/store/user/ssawant/test/HToaaTo4b/NanoAOD/${EraYear}/MC/${SampleProcessName}_${SampleGeneratorDetails}/${ERA}NanoAODv15/2026_09_01/${OpSubdirNum}/NanoAODv15_${iSample}_nEvents${NEvents}.root
 
 
 IpFile_EOS_wRedirector="root://${XRootDRedirector}/${IpFile}"

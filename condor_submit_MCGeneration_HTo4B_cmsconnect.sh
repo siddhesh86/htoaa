@@ -39,10 +39,10 @@ RequestMemory = 15600
 RequestCpus = 8
 
 # 7200 # 2*60*60
-+MaxRuntime = 7200
+#+MaxRuntime = 7200
 # 8*60*60 = 28800
 #+MaxRuntime = 28800
 # 86400 # 24*60*60 
-#+MaxRuntime = 86400 
++MaxRuntime = 86400 
 
 Queue prodmode, HiggsPtMin, ECM, DatasetERA, nEvents, iSample, ipFile, UserName from params_MCGeneration_HTo4B.txt

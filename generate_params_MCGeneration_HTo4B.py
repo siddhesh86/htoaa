@@ -5,8 +5,8 @@ import subprocess
 ### USERS settings ------------------------------------------------------------------------------------
 
 prodmodes = [
-    "GluGluHJ_HTo4B"
-    # "WH_HTo4B"
+    "GluGluHJ_HTo4B",
+    "WH_HTo4B"
 ]
 
 # HiggsPtMinList = [150, 250, 350, 450]
@@ -24,9 +24,9 @@ Eras = [
 
 
 SampleNumber_First = 0 # 0 to 99
-SampleNumber_Last  = 0  # 0 to 99
+SampleNumber_Last  = 99  # 0 to 99
 
-NEvents = 10 # 1000 maximum
+NEvents = 1000 # 1000 maximum
 ### USERS settings ENDS --------------------------------------------------------------------------------
 
 
