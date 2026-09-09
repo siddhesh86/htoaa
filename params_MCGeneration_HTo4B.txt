@@ -1,2 +1,1 @@
-GluGluHJ_HTo4B, 150, 13p6, Run3Summer24, pLHEGENSIM, 100, 0, xrootd-cms.infn.it, /store/group/phys_susy/HToaaTo4b/LHE/SM_HTo4b_LO_13p6/2026_09_01/pp-ggH-4b-single.lhe, /eos/cms/store/user/ssawant/test/HToaaTo4b/pLHEGENSIM/2024/GluGluHJ_HTo4B_Pt150_13p6TeV/pLHEGENSIM_0.root ssawant
-GluGluHJ_HTo4B, 150, 13p6, Run3Summer24, DRPremix, 100, 0, xrootd-cms.infn.it, /eos/cms/store/user/ssawant/test/HToaaTo4b/pLHEGENSIM/2024/GluGluHJ_HTo4B_Pt150_13p6TeV/pLHEGENSIM_0.root, /eos/cms/store/user/ssawant/test/HToaaTo4b/DRPremix/2024/GluGluHJ_HTo4B_Pt150_13p6TeV/DRPremix_0.root ssawant
+GluGluHJ_HTo4B, 150, 13p6, Run3Summer24, 10, 0, /eos/cms/store/group/phys_susy/HToaaTo4b/LHE/SM_HTo4b_LO_13p6/2026_09_01/vSplit/pp-ggH-4b/pp-ggH-4b-single_0.lhe, ssawant

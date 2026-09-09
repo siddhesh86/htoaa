@@ -12,36 +12,21 @@ prodmodes = [
 # HiggsPtMinList = [150, 250, 350, 450]
 HiggsPtMinList = [150]
 
-# Eras = [
+# Uncomment MCSteps and Eras you want to run
+Eras = [
 #     "RunIISummer20UL18",
 #     "RunIISummer20UL17",
 #     "RunIISummer20UL16",
 #     "RunIISummer20UL16APV",
-#     "Run3Summer22"
-# ]
+#     "Run3Summer22",
+    "Run3Summer24"
+]
 
-# Uncomment MCSteps and Eras you want to run
-MCStrepsToRun_perEra = {
-    #"Run3Summer22": [
-    #    "LHEGenSim",
-    #    "DigiReco",
-    #    "MiniAOD",
-    #    "NanoAOD"
-    #],
-    "Run3Summer24": [
-        "pLHEGENSIM",
-        "DRPremix",
-    #    "MiniAOD",
-    #    "NanoAOD"
-    ],
-    
 
-}
+SampleNumber_First = 0 # 0 to 99
+SampleNumber_Last  = 0  # 0 to 99
 
-SampleNumber_First = 0
-SampleNumber_Last = 0
-
-NEvents = 100 # 100000
+NEvents = 10 # 1000 maximum
 ### USERS settings ENDS --------------------------------------------------------------------------------
 
 
@@ -80,7 +65,8 @@ if os.path.exists(sFParams):
 # Open file in append mode to match the behavior of '>>'
 with open(sFParams, "a") as f:
     ## Data taking years and corresponding MCSteps to run
-    for ERA, MCSteps in MCStrepsToRun_perEra.items():    
+    #for ERA, MCSteps in MCStrepsToRun_perEra.items():  
+    for ERA in Eras:
         
         if "Run3" in ERA:
             ECM = "13p6"  # 13p6 TeV
@@ -103,7 +89,7 @@ with open(sFParams, "a") as f:
         elif "22" in ERA:
             EraYear = "2022"
         elif "23" in ERA and "BPix" in ERA:
-            EraYear = "2023Bix"
+            EraYear = "2023BPix"
         elif "23" in ERA:
             EraYear = "2023"
         elif "24" in ERA:
@@ -119,38 +105,26 @@ with open(sFParams, "a") as f:
             ## Loop over HiggsPtMinList
             for HiggsPtMin in HiggsPtMinList:
                 
-                ## Loop over all MCSteps to run
-                for iMCStep, MCStep in enumerate(MCSteps):
 
-                    # Python's range is exclusive of the end index, so add 1 to match '<=' loop
-                    for iSample in range(SampleNumber_First, SampleNumber_Last + 1):
-                        sIpFile = ""
-                        
-                        ## iSample=0: Generate MC events from .lhe file
-                        if iSample == 0 and HiggsPtMin == 150 and "pLHE" in MCStep:
-                            if "GluGluH" in prod:
-                                sIpFile = f"/store/group/phys_susy/HToaaTo4b/LHE/SM_HTo4b_LO_13p6/2026_09_01/pp-ggH-4b-single.lhe"
-                            elif "WH" in prod:
-                                sIpFile = f"/store/group/phys_susy/HToaaTo4b/LHE/SM_HTo4b_LO_13p6/2026_09_01/pp-WH-W4b-single.lhe"
-                        else:
-                            if iMCStep > 0:    MCStepLast = MCSteps[iMCStep - 1]
-                            else:              MCStepLast = ""                            
-                            #sIpFile = f"/store/group/phys_susy/HToaaTo4b/{MCStepLast}/{EraYear}/{prod}_Pt{HiggsPtMin}_{ECM}TeV/{MCStepLast}_{iSample}.root"
-                            sIpFile = f"/eos/cms/store/user/ssawant/test/HToaaTo4b/{MCStepLast}/{EraYear}/{prod}_Pt{HiggsPtMin}_{ECM}TeV/{MCStepLast}_{iSample}.root"
-                        
-                        sOpFile = f"/eos/cms/store/user/ssawant/test/HToaaTo4b/{MCStep}/{EraYear}/{prod}_Pt{HiggsPtMin}_{ECM}TeV/{MCStep}_{iSample}.root"
 
-                        # Check if MCConfig file to execute exists
-                        MCConfigToRun = f'MCConfigs/{ERA}/generate_{ERA}{MCStep}.sh'
-                        if not os.path.isfile(MCConfigToRun):
-                            print(f"MC config {MCConfigToRun} does not exists! Skipping this job... \t\t\t **** ERROR ****")
+                # Python's range is exclusive of the end index, so add 1 to match '<=' loop
+                for iSample in range(SampleNumber_First, SampleNumber_Last + 1):
+                    sIpFile = ""
+                    
+                    ## iSample=0: Generate MC events from .lhe file
+                    if HiggsPtMin == 150:
+                        if "GluGluH" in prod:
+                            #sIpFile = f"/store/group/phys_susy/HToaaTo4b/LHE/SM_HTo4b_LO_13p6/2026_09_01/pp-ggH-4b-single.lhe"
+                            sIpFile = f"/eos/cms/store/group/phys_susy/HToaaTo4b/LHE/SM_HTo4b_LO_13p6/2026_09_01/vSplit/pp-ggH-4b/pp-ggH-4b-single_{iSample}.lhe"
+                        elif "WH" in prod:
+                            #sIpFile = f"/store/group/phys_susy/HToaaTo4b/LHE/SM_HTo4b_LO_13p6/2026_09_01/pp-WH-W4b-single.lhe"
+                            sIpFile = f"/eos/cms/store/group/phys_susy/HToaaTo4b/LHE/SM_HTo4b_LO_13p6/2026_09_01/vSplit/pp-WH-W4b/pp-WH-W4b-single_{iSample}.lhe"
+
+                    # Check if input file exists
+                    if sIpFile:
+                        if not xrootd_file_exists_cli(XRootDRedirector, sIpFile):
+                            print(f"{XRootDRedirector}: {sIpFile} file does not exists! Skipping this job... \t\t\t **** ERROR ****")
                             continue
 
-                        # Check if input file exists
-                        if sIpFile:
-                            if not xrootd_file_exists_cli(XRootDRedirector, sIpFile):
-                                print(f"{XRootDRedirector}: {sIpFile} file does not exists! Skipping this job... \t\t\t **** ERROR ****")
-                                continue
-
-                        # Write formatted string to the file
-                        f.write(f"{prod}, {HiggsPtMin}, {ECM}, {ERA}, {MCStep}, {NEvents}, {iSample}, {XRootDRedirector}, {sIpFile}, {sOpFile} {UserName}\n")
+                    # Write formatted string to the file
+                    f.write(f"{prod}, {HiggsPtMin}, {ECM}, {ERA}, {NEvents}, {iSample}, {sIpFile}, {UserName}\n")

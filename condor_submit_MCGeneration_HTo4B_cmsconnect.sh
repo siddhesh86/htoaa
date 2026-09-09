@@ -3,22 +3,23 @@ Universe = vanilla
 Proxy_filename=x509Proxy
 
 ConfigGEN=MCConfigs/GENFragments_$(ECM)TeV/GENFragment_$(prodmode).py
-ConfigMCStep=MCConfigs/$(DatasetERA)/generate_$(DatasetERA)$(MCStep).sh
+ConfigpLHEGEN=MCConfigs/$(DatasetERA)/generate_$(DatasetERA)pLHEGEN.sh
+ConfigDRPremix=MCConfigs/$(DatasetERA)/generate_$(DatasetERA)DRPremix.sh
 
 X509_USER_PROXY=/home/$(UserName)/$(Proxy_filename)
 
 Executable = condor_exec_MCGeneration_HTo4B.sh
-Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(DatasetERA) $(MCStep) $(nEvents) $(iSample) $(XRootDRedirector) $(ipFile) $(opFile)
+Arguments = $(Proxy_filename) $(prodmode) $(HiggsPtMin) $(DatasetERA) $(nEvents) $(iSample) $(ipFile)
 
 
-transfer_input_files = $(X509_USER_PROXY), $(ConfigGEN), $(ConfigMCStep)  
+transfer_input_files = $(X509_USER_PROXY), $(ConfigGEN), $(ConfigpLHEGEN), $(ConfigDRPremix)  
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 #transfer_output_files   = pLHEGenSim_GluGluHJ_HTo4B_1_cfg.py, pLHEGenSim_GluGluHJ_HTo4B_report.xml
 
-Error = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_$(DatasetERA)_$(iSample)_$(MCStep)_nEvents$(nEvents).err
-Output = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_$(DatasetERA)_$(iSample)_$(MCStep)_nEvents$(nEvents).out 
-Log = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_$(DatasetERA)_$(iSample)_$(MCStep)_nEvents$(nEvents).log 
+Error = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_$(DatasetERA)_$(iSample)_nEvents$(nEvents).err
+Output = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_$(DatasetERA)_$(iSample)_nEvents$(nEvents).out 
+Log = log/condor_MCGeneration_$(prodmode)_Pt$(HiggsPtMin)_$(DatasetERA)_$(iSample)_nEvents$(nEvents).log 
 
 
 # +ProjectName is the name of the project reported to the OSG accounting system 
@@ -42,4 +43,4 @@ RequestCpus = 8
 # 86400 # 24*60*60 
 #+MaxRuntime = 86400 
 
-Queue prodmode, HiggsPtMin, ECM, DatasetERA, MCStep, nEvents, iSample, XRootDRedirector, ipFile, opFile, UserName from params_MCGeneration_HTo4B.txt
+Queue prodmode, HiggsPtMin, ECM, DatasetERA, nEvents, iSample, ipFile, UserName from params_MCGeneration_HTo4B.txt
