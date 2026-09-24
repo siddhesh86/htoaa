@@ -5,7 +5,7 @@ import subprocess
 ### USERS settings ------------------------------------------------------------------------------------
 
 prodmodes = [
-    #"GluGluHJ_HTo4B",
+    "GluGluHJ_HTo4B",
     "WH_HTo4B"
 ]
 
@@ -110,21 +110,31 @@ with open(sFParams, "a") as f:
                 # Python's range is exclusive of the end index, so add 1 to match '<=' loop
                 for iSample in range(SampleNumber_First, SampleNumber_Last + 1):
                     sIpFile = ""
+                    sOpFileNanoAOD = ""
                     
                     ## iSample=0: Generate MC events from .lhe file
                     if HiggsPtMin == 150:
                         if "GluGluH" in prod:
                             #sIpFile = f"/store/group/phys_susy/HToaaTo4b/LHE/SM_HTo4b_LO_13p6/2026_09_01/pp-ggH-4b-single.lhe"
                             sIpFile = f"/eos/cms/store/group/phys_susy/HToaaTo4b/LHE/SM_HTo4b_LO_13p6/2026_09_01/vSplit/pp-ggH-4b/pp-ggH-4b-single_{iSample}.lhe"
+                            # /eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/2024/MC/GluGluHJ_HTo4B_Pt150_TuneCP5_13TeV_CalcHEP_pythia8/Run3Summer24NanoAODv15/2026_09_01/0000/NanoAODv15_99_nEvents1000.root
+                            sOpFileNanoAOD = f"/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/{EraYear}/MC/GluGluHJ_HTo4B_Pt150_TuneCP5_13TeV_CalcHEP_pythia8/{ERA}NanoAODv15/2026_09_01/0000/NanoAODv15_{iSample}_nEvents{NEvents}.root"
                         elif "WH" in prod:
                             #sIpFile = f"/store/group/phys_susy/HToaaTo4b/LHE/SM_HTo4b_LO_13p6/2026_09_01/pp-WH-W4b-single.lhe"
                             sIpFile = f"/eos/cms/store/group/phys_susy/HToaaTo4b/LHE/SM_HTo4b_LO_13p6/2026_09_01/vSplit/pp-WH-W4b/pp-WH-W4b-single_{iSample}.lhe"
+                            sOpFileNanoAOD = f"/eos/cms/store/group/phys_susy/HToaaTo4b/NanoAOD/{EraYear}/MC/WH_HTo4B_Pt150_TuneCP5_13TeV_CalcHEP_pythia8/{ERA}NanoAODv15/2026_09_01/0000/NanoAODv15_{iSample}_nEvents{NEvents}.root"
 
                     # Check if input file exists
                     if sIpFile:
                         if not xrootd_file_exists_cli(XRootDRedirector, sIpFile):
                             print(f"{XRootDRedirector}: {sIpFile} file does not exists! Skipping this job... \t\t\t **** ERROR ****")
                             continue
+
+                    # Skip if output NanoAOD file exists
+                    if sOpFileNanoAOD:
+                        if xrootd_file_exists_cli(XRootDRedirector, sOpFileNanoAOD):                            
+                            continue                    
+                        print(f"{XRootDRedirector}: {sOpFileNanoAOD}  output NanoAOD file does not exists! Submitting this job... ")
 
                     # Write formatted string to the file
                     f.write(f"{prod}, {HiggsPtMin}, {ECM}, {ERA}, {NEvents}, {iSample}, {sIpFile}, {UserName}\n")
